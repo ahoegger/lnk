@@ -49,13 +49,13 @@
 
 <div class="container">
     <div class="header">
-        <div class="row">
-            <div class="col-xs-1">L</div>
+        <div class="row nav-tabs">
+            <div class="col-xs-1" id="logo">L</div>
             <div class="col-xs-10">
-                <ul class="nav nav-tabs nav-justified">
-                    <li class="active"><a data-toggle="tab" href="#favorites">Favorites</a></li>
-                    <li><a data-toggle="tab" href="#search">Search</a></li>
-                    <li><a data-toggle="tab" href="#add">Add</a></li>
+                <ul class="nav nav-tabs row" id="main-navigation">
+                    <li class="active col-xs-4 no-padding text-center"><a data-toggle="tab" href="#favorites">Favorites</a></li>
+                    <li class="col-xs-4 no-padding text-center passive"><a data-toggle="tab" href="#search">Search</a></li>
+                    <li class="col-xs-4 no-padding text-center"><a data-toggle="tab" href="#add">Add</a></li>
                 </ul>
             </div>
             <div class="col-xs-1">
@@ -72,7 +72,7 @@
             </div>
         </div>
         <div class="row">
-            <div id="myTabContent" class="tab-content">
+            <div class="tab-content">
                 <div id="favorites" class="tab-pane active in fade">
                     Favorites
                 </div>
@@ -130,7 +130,6 @@
         </div>
     </div>
 
-    <div class="clearfix visible-md"></div>
 </div>
 
 
