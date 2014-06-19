@@ -81,55 +81,92 @@
                         <div class="col-md-3 visible-md visible-lg"></div>
                         <div class="col-md-5">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search…">
-      <span class="input-group-btn">
-        <button class="btn btn-default fa fa-search" type="button"></button>
-      </span>
+                                <input type="text" class="form-control">
+                                  <span class="input-group-btn">
+                                    <button class="btn btn-default fa fa-search" type="button"></button>
+                                  </span>
                             </div>
                             <!-- /input-group -->
                         </div>
                     </div>
                 </div>
+                <!-- Add .lnk -->
                 <div id="add" class="tab-pane fade">
-                    <!-- Add Form Development section -->
                     <div class="row">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <label for="url" class="col-sm-2 control-label">.lnk URL</label>
+                        <div class="col-xs-12">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label for="url" class="col-sm-2 control-label">.lnk URL</label>
 
-                                <div class="col-sm-10">
-                                    <input id="url" type="url" class="form-control" placeholder="URL">
+                                    <div class="col-sm-10">
+                                        <input id="url" type="url" class="form-control" placeholder="URL">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="description" class="col-sm-2 control-label">Description</label>
+                                <div class="form-group">
+                                    <label for="description" class="col-sm-2 control-label">Description</label>
 
-                                <div class="col-sm-10">
-                                    <textarea id="description" class="form-control" rows="3"
-                                              placeholder="Describe your .link here"></textarea>
+                                    <div class="col-sm-10">
+                                        <textarea id="description" class="form-control" rows="3"
+                                                  placeholder="Describe your .link here"></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="tags" class="col-sm-2 control-label">Tags</label>
+                                <div class="form-group">
+                                    <label for="tags" class="col-sm-2 control-label">Tags</label>
 
-                                <div class="col-sm-10">
-                                    <input id="tags" class="form-control" placeholder="Add comma separated tags">
+                                    <div class="col-sm-10">
+                                        <input id="tags" class="form-control" placeholder="Add comma separated tags">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-2 pull-right">
-                                    <button type="submit" class="btn btn-primary">.lnk it</button>
+                                <div class="form-group">
+                                    <div class="col-sm-2 pull-right">
+                                        <button type="submit" class="btn btn-primary">.lnk it</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                    <!-- End add Form Development section -->
                 </div>
+                <!-- End add .lnk -->
 
             </div>
         </div>
     </div>
-
+    <div class="clearfix visible-md"></div>
+    <!-- results section -->
+    <section role="main">
+        <!-- header with tabs -->
+        <div>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#top-results">Top</a></li>
+                <li><a data-toggle="tab" href="#newest-results">Newest</a></li>
+            </ul>
+        </div>
+        <div id="myTabContent" class="tab-content">
+            <div id="top-results" class="tab-pane active in">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <div class="article-voting">
+                            <a class="vote icon-passive icon-activatable position-top" style="display: block" href="#"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>
+                            <div class="vote position-center">count</div>
+                            <a class="vote icon-passive icon-activatable position-bottom" href="#"><i class="fa fa-arrow-circle-o-down fa-2x"></i></a>
+                        </div>
+                        <div class="clearfix visible-md"></div>
+                        <div class="article-image pull-left">
+                            Image
+                        </div>
+                    </div>
+                    <div class="col-xs-9">
+                        description, tags, meta + comments
+                    </div>
+                </div>
+            </div>
+            <div id="newest-results" class="tab-pane">
+                <p>Soon to come: Result order by novelty</p>
+            </div>
+        </div>
+        <!-- shared .lnk -->
+    </section>
+    <!-- End results section -->
 </div>
 
 
