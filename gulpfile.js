@@ -10,13 +10,13 @@ gulp.task('styles', function () {
     return gulp.src('app/styles/main.less')
         .pipe($.less())
         .pipe($.autoprefixer('last 1 version'))
-    // …
-});
-gulp.task('styles', function () {
-    return gulp.src('app/styles/main.less')
-        .pipe($.less())
-        .pipe($.autoprefixer('last 1 version'))
         .pipe(gulp.dest('.tmp/styles'))
+        .pipe($.size());
+});
+
+gulp.task('copy-fonts', function () {
+    return gulp.src('app/bower_components/font-awesome/fonts/*')
+        .pipe(gulp.dest('.tmp/fonts'))
         .pipe($.size());
 });
 
@@ -27,7 +27,7 @@ gulp.task('scripts', function () {
         .pipe($.size());
 });
 
-gulp.task('html', ['styles', 'scripts'], function () {
+gulp.task('html', ['styles','copy-fonts', 'scripts'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
 
@@ -114,17 +114,16 @@ gulp.task('watch', ['connect', 'serve'], function () {
 
     // watch for changes
 
-    'app/images/**/*'
     gulp.watch([
         'app/*.html',
         '.tmp/styles/**/*.css',
         'app/scripts/**/*.js',
+        'app/images/**/*'
     ]).on('change', function (file) {
         server.changed(file.path);
     });
 
     gulp.watch('app/styles/**/*.less', ['styles']);
-//    gulp.watch('app/styles/**/*.css', ['styles']);
     gulp.watch('app/scripts/**/*.js', ['scripts']);
     gulp.watch('app/images/**/*', ['images']);
     gulp.watch('bower.json', ['wiredep']);
