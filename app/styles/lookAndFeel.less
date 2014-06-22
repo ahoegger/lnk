@@ -2,7 +2,9 @@
 @import "../bower_components/bootstrap/less/variables.less";
 @color-separators: #eeeeee;
 
-@font-family-sans-serif:  'Roboto', Helvetica, Arial, sans-serif;
+@font-family-sans-serif:  'Fjalla+One', Helvetica, Arial, sans-serif;
+@headings-font-family:    @font-family-sans-serif;
+@font-family-body:        'Droid Serif', serif;
 
 // navigation
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{
@@ -15,7 +17,16 @@
 //}
 
 html {
-  font: 12pt 'Roboto', sans-serif;
+  font-size: 12pt;
+  font-family: @font-family-body;
+}
+
+body {
+  font-family: @font-family-body;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: @font-family-sans-serif;
 }
 
 #main-navigation{
