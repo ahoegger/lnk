@@ -69,8 +69,8 @@ lnk.entities = (function() {
     };
 
     return {
-        Article: function(id, title, url, description, submittedBy, submittedOn, votes) {
-            return new constructors.Article(id, title, url, description, submittedBy, submittedOn, votes);
+        Article: function(id, title, url, description, submittedBy, submittedOn, votes, tagsString, numberOfComments) {
+            return new constructors.Article(id, title, url, description, submittedBy, submittedOn, votes, tagsString.split(/\s*,\s*/), numberOfComments);
         },
         Comment: function(id, articleId, text, submittedBy, submittedOn) {
             return new constructors.Comment(id, articleId, text, submittedBy, submittedOn);

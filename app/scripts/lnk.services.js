@@ -20,18 +20,18 @@ lnk.services = (function() {
             submittedBy: 'hhe',
             submittedOn: new Date('06/14/2014'),
             votes: 45,
-            tags: ['tag1', 'tag2', 'tag3'],
+            tags: ['Java', 'REST', 'JAX-RS'],
             numberOfComments: 2
         },
         {
             id: 2,
-            title: 'Title 2',
-            description: 'Description 2',
-            url: 'URL1',
+            title: 'FasterXML/jackson',
+            description: 'Jackson is a suite of data-processing tools for Java (and JVM platform), including the flagship JSON parsing and generation library, as well as additional modules to process data encoded in Avro, CBOR, CSV, Smile, XML or YAML (and list of supported format is still growing!)',
+            url: 'https://github.com/FasterXML/jackson',
             submittedBy: 'aho',
             submittedOn: new Date(),
             votes: 46,
-            tags: ['tag1', 'tag5', 'tag6'],
+            tags: ['Java', 'JSON'],
             numberOfComments: 4
         }
     ];
