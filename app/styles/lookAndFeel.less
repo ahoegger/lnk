@@ -1,5 +1,8 @@
 @color-highlight-background:  #f9f9f9;
 @import "../bower_components/bootstrap/less/variables.less";
+@color-separators: #eeeeee;
+
+@font-family-sans-serif:  'Roboto', Helvetica, Arial, sans-serif;
 
 // navigation
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{
@@ -11,7 +14,9 @@
 //  background-color: none;
 //}
 
-
+html {
+  font: 12pt 'Roboto', sans-serif;
+}
 
 #main-navigation{
   border: none;
@@ -24,3 +29,84 @@
   background-color: @color-highlight-background;
 }
 
+article {
+  border-top: 1px solid @color-separators;
+  width: auto;
+  margin: 0 15px;
+  padding: 10px;  // TODO: Fix abolute value
+}
+
+.results > div > article:first-of-type {
+  border-top-width: 0;
+}
+
+.article-voting {
+  text-align: center;
+  margin: 0px;
+}
+
+.article-image {
+  background-color: rgb(180, 180, 120);
+  width: auto;
+  height: auto;
+}
+
+.article-content {
+  display: block;
+  width: auto;
+  min-height: 100px;
+  position: relative;
+  margin-top: 0px;
+  margin-bottom: 3px;
+}
+
+.article-content h3.article-heading {
+  margin-top: 0px;
+  margin-bottom: 3px;
+  font-size: 1.5em;
+  font-weight: 900;
+}
+
+.article-meta {
+  bottom: 0;
+  display: block;
+  width: auto;
+}
+
+.vote {
+  .center-block();
+}
+
+.icon-spacer {
+  margin-left: 7px;
+  margin-right: 20px;
+}
+
+.comments {
+}
+
+.comments-ul {
+  display: block;
+}
+
+.article-meta, .comment-meta {
+  font-size: 0.75em;
+}
+
+.comments-ul li .comment-meta {
+  display: block;
+  overflow: hidden;
+  height: auto;
+}
+
+.comments-ul li {
+  margin-bottom: 10px;
+}
+
+.icon-passive {
+  color: #AAAAAA;
+}
+
+.icon-activatable:hover {
+  color: #666666;
+}

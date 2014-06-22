@@ -22,16 +22,14 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <!-- Add Form Development section -->
-    <div class="row">
 
-    </div>
-    <!-- End add Form Development section -->
-
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,900' rel='stylesheet' type='text/css'>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/knockoutjs/dist/knockout.debug.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -103,6 +101,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Title</label>
+
+                                    <div class="col-sm-10">
+                                        <input id="title" type="url" class="form-control" placeholder="Title">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="description" class="col-sm-2 control-label">Description</label>
 
                                     <div class="col-sm-10">
@@ -142,25 +147,77 @@
             </ul>
         </div>
         <div id="myTabContent" class="tab-content">
-            <div id="top-results" class="tab-pane active in">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <div class="article-voting">
-                            <a class="vote icon-passive icon-activatable position-top" style="display: block" href="#"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>
+            <div id="top-results" class="tab-pane results active in">
+                <div class="row article-separator">
+                    <article>
+                    <div class="col-xs-1 article-voting no-padding">
+                            <a class="vote icon-passive icon-activatable" style="display: block" href="#"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>
                             <div class="vote position-center">count</div>
-                            <a class="vote icon-passive icon-activatable position-bottom" href="#"><i class="fa fa-arrow-circle-o-down fa-2x"></i></a>
-                        </div>
+                            <a class="vote icon-passive icon-activatable" href="#"><i class="fa fa-arrow-circle-o-down fa-2x"></i></a>
+                    </div>
+                    <div class="col-xs-2 article-image">
                         <div class="clearfix visible-md"></div>
                         <div class="article-image pull-left">
                             Image
                         </div>
                     </div>
                     <div class="col-xs-9">
-                        description, tags, meta + comments
+                        <div class="article-content">
+                            <div class="article-main">
+                                <h3 class="article-heading">Article heading <a href="#" class="icon-spacer fa fa-external-link" title="Go to .lnk'ed page"></a></h3>
+                                <p class="article-description">esque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget</p>
+                            </div>
+                            <div class="article-meta">
+                                <i class="fa fa-tags icon-passive"></i><span class="article-tags icon-spacer">tag 1 / tag 2 / tag 3</span>
+                                <i class="fa fa-calendar icon-passive"></i><span class="article-date icon-spacer">submission date</span>
+                                <i class="fa fa-user icon-passive"></i><span class="article-user icon-spacer">user submission</span>
+                                <span data-casfee-onclick="toggleVisible(1234)"><i class="fa fa-comments-o icon-passive"></i><span class="article-comments icon-spacer">number of comments + show/hide</span></span>
+                                <span data-casfee-onclick="toggleVisible(1234)"><i class="fa fa-comment icon-passive"></i><span class="article-comments icon-spacer">add comment</span></span>
+                            </div>
+                            <div class="comments">
+                                <div class="row">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group>">
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" rows="2" placeholder="Comment"></textarea>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button type="submit" class="btn btn-primary btn-sm">submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <div class="column grid-12">
+                                        <ul class="fa-ul comments-ul">
+                                            <!-- existing comments -->
+                                            <li><i class="fa-li fa fa-comment-o icon-passive"></i>
+                                                et, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus
+                                                <div class="comment-meta">
+                                                    <i class="fa fa-calendar icon-passive"><span class="article-date icon-spacer">submission date</span></i>
+                                                    <i class="fa fa-user icon-passive"><span class="article-user icon-spacer">user submission</span></i>
+                                                    <i class="fa icon-passive fa-edit"><span class="article-user icon-spacer">Edit own comment</span></i>
+                                                    <i class="fa icon-passive fa-ban"><span class="article-user icon-spacer">Delete own comment</span></i>
+                                                </div>
+                                            </li>
+                                            <li><i class="fa-li fa fa-comment-o icon-passive"></i>I think, this sucks
+                                                <div class="comment-meta">
+                                                    <i class="fa fa-calendar icon-passive"><span class="article-date icon-spacer">submission date</span></i>
+                                                    <i class="fa fa-user icon-passive"><span class="article-user icon-spacer">user submission</span></i>
+                                                    <i class="fa icon-passive fa-edit"><span class="article-user icon-spacer">Edit own comment</span></i>
+                                                    <i class="fa icon-passive fa-ban"><span class="article-user icon-spacer">Delete own comment</span></i>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    </article>
                 </div>
             </div>
-            <div id="newest-results" class="tab-pane">
+            <div id="newest-results" class="tab-pane results">
                 <p>Soon to come: Result order by novelty</p>
             </div>
         </div>
@@ -173,6 +230,7 @@
 </div>
 
 <!-- build:js scripts/plugins.js -->
+<script src="bower_components/bootstrap/js/affix.js"></script>
 <script src="bower_components/bootstrap/js/affix.js"></script>
 <script src="bower_components/bootstrap/js/alert.js"></script>
 <script src="bower_components/bootstrap/js/dropdown.js"></script>
