@@ -35,6 +35,9 @@ lnk.behaviour = (function() {
             lnk.helper.logDebug(formElement.url);
             lnk.services.addArticle(newArticle);    // push it to the service
             lnk.globals.articleViews.push(lnk.entities.ArticleViewModel(newArticle));   // Add add it to the observed result set
+        },
+        vote: function(item, upOrDown) {
+            // TODO HHE Implement
         }
     }
 })();

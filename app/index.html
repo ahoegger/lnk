@@ -151,9 +151,9 @@
                 <div data-bind="foreach: articles" class="row article-separator">
                     <article>
                     <div class="col-xs-1 article-voting no-padding">
-                            <a class="vote icon-passive icon-activatable" href="#"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>
+                            <a data-bind="click: voteUp, clickBubble: false" class="vote icon-passive icon-activatable"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>
                             <div class="vote position-center" data-bind="text:votes"></div>
-                            <a class="vote icon-passive icon-activatable" href="#"><i class="fa fa-arrow-circle-o-down fa-2x"></i></a>
+                            <a data-bind="click: voteDown, clickBubble: false" class="vote icon-passive icon-activatable" href="#"><i class="fa fa-arrow-circle-o-down fa-2x"></i></a>
                     </div>
                     <div class="col-xs-2 article-image">
                         <div class="clearfix visible-md"></div>

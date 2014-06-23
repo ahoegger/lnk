@@ -55,6 +55,14 @@ lnk.entities = (function() {
             _.extend(this, article);
             this.comments = [];
             this.comments = ko.observableArray(this.comments);
+            // Override votes property with behaviours
+            this.votes = ko.observable(article.votes);
+            this.voteUp = function() {
+                this.votes(this.votes() + 1);
+            };
+            this.voteDown = function() {
+                this.votes(this.votes() - 1);
+            };
             this.tags = ko.observableArray(this.tags);
             this.setTags = function(tags) {
                 this.tags = tags;
