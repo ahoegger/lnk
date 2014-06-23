@@ -51,10 +51,30 @@ lnk.entities = (function() {
             this.submittedOn = submittedOn;
         },
         ArticleViewModel: function ArticleViewModel(article) {
+            var tempItem;
             this.article = article;
             _.extend(this, article);
+            // comments
             this.comments = [];
             this.comments = ko.observableArray(this.comments);
+
+            this.displayComments = ko.observable(false);
+            this.displayAddComment = ko.observable(false);
+
+            this.toggleShowComments = function() {
+                this.displayComments(!this.displayComments());
+                this.displayAddComment(this.displayComments());
+                if (this.comments.length == 0) {
+                    // Comments are not loaded
+                    // Load them and poluplate the observed comments
+                    tempItem = lnk.services.getComments(this.id);
+                    _.each(tempItem, function(element, index, list) { this.comments.push(element);}, this);
+                }
+            };
+            this.toggleShowAddComment = function() {
+                this.displayAddComment(!this.displayAddComment());
+            };
+
             // Override votes property with behaviours
             this.votes = ko.observable(article.votes);
             this.voteUp = function() {

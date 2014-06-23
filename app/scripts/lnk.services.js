@@ -21,7 +21,7 @@ lnk.services = (function() {
             submittedOn: new Date('06/14/2014'),
             votes: 45,
             tags: ['Java', 'REST', 'JAX-RS'],
-            numberOfComments: 2
+            numberOfComments: 0
         },
         {
             id: 2,

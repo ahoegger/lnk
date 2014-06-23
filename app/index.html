@@ -171,11 +171,11 @@
                                 <i class="fa fa-tags icon-passive"></i><span class="article-tags icon-spacer" data-bind="foreach: tags"><a data-bind="text: $data, attr: { href: './tags/' + $data, title: $data}"></a>&nbsp;</span>
                                 <i class="fa fa-calendar icon-passive"></i><span class="article-date icon-spacer" data-bind="text: 'Submitted ' + moment(submittedOn).fromNow()"></span>
                                 <i class="fa fa-user icon-passive"></i><a class="article-user icon-spacer" data-bind="text: 'By user ' + submittedBy, attr: {href: './users/' + submittedBy}"></a>
-                                <span data-casfee-onclick="toggleVisible(1234)"><i class="fa fa-comments-o icon-passive"></i><span class="article-comments icon-spacer" data-bind="text: 'Show ' + numberOfComments + ' comments'"></span></span>
-                                <span data-casfee-onclick="toggleVisible(1234)"><i class="fa fa-comment icon-passive"></i><span class="article-comments icon-spacer">add comment</span></span>
+                                <span data-bind="visible: numberOfComments > 0" ><i class="fa fa-comments-o icon-passive"></i><a class="article-comments icon-spacer" data-bind="click: toggleShowComments, text: 'Show ' + numberOfComments + ' comments'"></a></span>
+                                <span data-bind="visible: numberOfComments == 0" ><i class="fa fa-comment icon-passive"></i><a class="article-comments icon-spacer" data-bind="click: toggleShowAddComment">add comment</a></span>
                             </div>
                             <div class="comments">
-                                <div class="row">
+                                <div data-bind="visible: displayAddComment" class="row">
                                     <form class="form-horizontal" role="form">
                                         <div class="form-group>">
                                             <div class="col-sm-10">
@@ -187,7 +187,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="row">
+                                <div data-bind="visible: displayComments" class="row">
                                     <div class="column grid-12">
                                         <ul class="fa-ul comments-ul">
                                             <!-- existing comments -->
