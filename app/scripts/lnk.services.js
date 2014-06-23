@@ -9,8 +9,6 @@ lnk.namespace('lnk.services');
  */
 lnk.services = (function() {
 
-    var self = this;
-
     var cachedArticles = [
         {
             id: 1,
@@ -147,8 +145,7 @@ lnk.services = (function() {
 
     serviceFunctions.addArticle = function addArticle(article) {
         // Do possibly some validation...
-        var newId = helperFunctions.getNewId(cachedArticles, 'id');
-        article.id = newId;
+        article.id = helperFunctions.getNewId(cachedArticles, 'id');
         cachedArticles.push(article);
     };
 
@@ -189,8 +186,7 @@ lnk.services = (function() {
 
     serviceFunctions.addComment = function addComment(newComment) {
         // Do possibly some validation...
-        var newId = helperFunctions.getNewId(cachedComments, 'id');
-        newComment.id = newId;
+        newComment.id = helperFunctions.getNewId(cachedComments, 'id');
         cachedComments.push(newComment);
     };
 
