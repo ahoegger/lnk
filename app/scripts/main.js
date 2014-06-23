@@ -31,10 +31,22 @@ lnk.behaviour = (function() {
                 0,
                 formElement.tags.value,
                 0);
-            lnk.helper.logDir(formElement);
-            lnk.helper.logDebug(formElement.url);
+            lnk.helper.logDir(newArticle);
             lnk.services.addArticle(newArticle);    // push it to the service
-            lnk.globals.articleViews.push(lnk.entities.ArticleViewModel(newArticle));   // Add add it to the observed result set
+            lnk.globals.articleViews.push(lnk.entities.ArticleViewModel(newArticle));   // Add it to the observed result set
+        },
+        addComment: function(formElement, thingy) {
+            // function (id, articleId, text, submittedBy, submittedOn)
+            var newComment = lnk.entities.Comment(
+                null,
+                ko.dataFor(formElement).id,
+                formElement.comment.value,
+                'newCommenter',
+                new Date()
+            );
+            lnk.helper.logDir(newComment);
+            lnk.services.addComment(newComment);
+            ko.dataFor(formElement).addComment(newComment);
         }
     }
 })();

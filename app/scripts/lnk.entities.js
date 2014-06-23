@@ -54,9 +54,11 @@ lnk.entities = (function() {
             var tempItem;
             this.article = article;
             _.extend(this, article);
+            // Override numberOfComments
+            this.numberOfComments = ko.observable(article.numberOfComments);
+
             // comments
-            this.comments = [];
-            this.comments = ko.observableArray(this.comments);
+            this.comments = ko.observableArray([]);
 
             this.displayComments = ko.observable(false);
             this.displayAddComment = ko.observable(false);
@@ -64,11 +66,12 @@ lnk.entities = (function() {
             this.toggleShowComments = function() {
                 this.displayComments(!this.displayComments());
                 this.displayAddComment(this.displayComments());
-                if (this.comments.length == 0) {
+                if (this.comments().length == 0) {
                     // Comments are not loaded
                     // Load them and poluplate the observed comments
                     tempItem = lnk.services.getComments(this.id);
                     _.each(tempItem, function(element, index, list) { this.comments.push(element);}, this);
+                    lnk.helper.logDebug('Length of comments: ' + this.comments.length);
                 }
             };
             this.toggleShowAddComment = function() {
@@ -90,8 +93,9 @@ lnk.entities = (function() {
             this.setComments = function (comments) {
                 this.comments = comments;
             }.bind(this);
-            this.addComment = function () {
-                this.comments.push("New comment");
+            this.addComment = function (newComment) {
+                this.comments.push(newComment);
+                this.numberOfComments(this.comments().length);
             }.bind(this);
         }
     };

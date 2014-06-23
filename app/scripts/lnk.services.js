@@ -41,25 +41,30 @@ lnk.services = (function() {
             id: 1,
             articleId: 1,
             text: 'Comment 1 for article 1',
-            commentedBy: 'aho'
+            submittedOn: new Date(),
+            submittedBy: 'aho'
+
         },
         {
             id: 2,
             articleId: 1,
             text: 'Comment 2 for article 1',
-            commentedBy: 'hhe'
+            submittedOn: new Date(),
+            submittedBy: 'hhe'
         },
         {
             id: 3,
             articleId: 2,
-            text: 'Comment 2 for article 2',
-            commentedBy: 'hhe'
+            text: 'Comment 1 for article 2',
+            submittedOn: new Date(),
+            submittedBy: 'hhe'
         },
         {
             id: 4,
             articleId: 2,
             text: 'Comment 2 for article 2',
-            commentedBy: 'aho'
+            submittedOn: new Date(),
+            submittedBy: 'aho'
         }
     ];
 
