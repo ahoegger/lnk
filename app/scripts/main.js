@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 lnk.namespace('lnk.globals');
 
 lnk.globals.articleViews = ko.observableArray();
@@ -61,9 +61,9 @@ lnk.behaviour = (function() {
                     areaHeight = $textAreaElement.height();
                     $textAreaElement.height(areaHeight - 5);
                 }
-                while (scrollHeight && (scrollHeight != $textAreaElement.prop('scrollHeight')));
+                while (scrollHeight && (scrollHeight !== $textAreaElement.prop('scrollHeight')));
             }
             $textAreaElement.height($textAreaElement.prop('scrollHeight') + 10);
         }
-    }
+    };
 })();

@@ -1,4 +1,5 @@
 @import "../bower_components/bootstrap/less/variables.less";
+@import "../bower_components/bootstrap/less/mixins.less";
 
 .input-group-btn > button {
   height: @input-height-base;
@@ -7,4 +8,10 @@
 
 .no-padding {
   padding: 0px;
+}
+
+.hidden-xxs {
+  @media (max-width: 430px) {
+    .responsive-invisibility();
+  }
 }
