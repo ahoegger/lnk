@@ -194,33 +194,39 @@
                            class="vote icon-passive icon-activatable" href="#"><i
                                 class="fa fa-arrow-circle-o-down fa-2x"></i></a>
                     </div>
-                    <div class="col-xs-11 col-sm-5 col-md-5">
+                    <div class="col-xs-11 col-sm-6 col-md-5">
                         <div class="article-image">
                             Image
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-1">
+                    <div class="col-xs-12 col-sm-5 col-md-1">
                         <div class="article-content">
-                            <div class="article-meta">
-                                <i class="fa fa-tags icon-passive"></i>
-                                <span class="icon-spacer">Tags</span>
-                                <ul class="article-tags" data-bind="foreach: tags">
-                                    <li>
-                                        <a data-bind="text: $data, attr: { href: './tags/' + $data, title: $data}"></a>
-                                    </li>
-                                </ul>
-                                <i class="fa fa-calendar icon-passive"></i><span class="article-date icon-spacer"
-                                                                                 data-bind="text: 'Submitted ' + moment(submittedOn).fromNow()"></span>
-                                <i class="fa fa-user icon-passive"></i><a class="article-user icon-spacer"
-                                                                          data-bind="text: 'By user ' + submittedBy, attr: {href: './users/' + submittedBy}"></a>
-                                    <span data-bind="visible: numberOfComments() > 0"><i
-                                            class="fa fa-comments-o icon-passive"></i><a
-                                            class="article-comments icon-spacer"
-                                            data-bind="click: toggleShowComments, text: 'Show ' + numberOfComments() + ' comments'"></a></span>
-                                    <span data-bind="visible: numberOfComments() == 0"><i
-                                            class="fa fa-comment icon-passive"></i><a
-                                            class="article-comments icon-spacer"
-                                            data-bind="click: toggleShowAddComment">add comment</a></span>
+                            <div class="article-meta panel panel-default" data-bind="attr: {id: 'meta-' + id}">
+                                <div class="panel-heading"><a data-toggle="collapse" data-bind="attr: {'data-parent': 'meta-' + id, href: '#collapse-' + id}" href="#collapseOne">Meta-Information</a></div>
+                                <div class="panel-collapse collapse" data-bind="attr: {id: 'collapse-' + id}">
+                                    <table class="table">
+                                        <tr>
+                                            <td width="35%">
+                                                <i class="fa fa-tags icon-passive"></i><span class="icon-spacer">Tags</span>
+                                            </td>
+                                            <td>
+                                                <span class="article-tags list-group" data-bind="foreach: tags">
+                                                    <a data-bind="text: $data, attr: { href: './tags/' + $data, title: $data}"></a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="35%">
+                                                <i class="fa fa-calendar icon-passive"></i><span class="article-date icon-spacer">Submitted</span>
+                                            </td>
+                                            <td data-bind="text: moment(submittedOn).fromNow()"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="35%"><i class="fa fa-user icon-passive"></i><span class="article-date icon-spacer">User</span></td>
+                                            <td><a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a></td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
