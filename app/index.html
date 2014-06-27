@@ -165,25 +165,16 @@
     </div>
     <div id="myTabContent" class="tab-content">
         <div id="top-results" class="tab-pane results active in">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8">Article body</div>
+                <div class="col-xs-4 col-sm-4 col-md-1">Article voting</div>
+                <div class="col-xs-8 col-sm-4 col-md-1">Article image</div>
+                <div class="col-xs-12 col-sm-4 col-md-2">Article meta</div>
+            </div>
             <!-- loop over articles -->
-            <div data-bind="foreach: articles" class="row article-separator">
-                <article>
-                    <div class="col-xs-1 article-voting no-padding">
-                        <a data-bind="click: voteUp, clickBubble: false" class="vote icon-passive icon-activatable"><i
-                                class="fa fa-arrow-circle-o-up fa-2x"></i></a>
-
-                        <div class="vote position-center" data-bind="text:votes"></div>
-                        <a data-bind="click: voteDown, clickBubble: false"
-                           class="vote icon-passive icon-activatable" href="#"><i
-                                class="fa fa-arrow-circle-o-down fa-2x"></i></a>
-                    </div>
-                    <div class="col-xs-2 article-image">
-                        <div class="clearfix visible-md"></div>
-                        <div class="article-image pull-left">
-                            Image
-                        </div>
-                    </div>
-                    <div class="col-xs-9">
+            <div data-bind="foreach: articles">
+                <article class="row article-separator">
+                    <div class="col-xs-12 col-sm-12 col-md-8">
                         <div class="article-content">
                             <div class="article-main">
                                 <h3 class="article-heading"><span data-bind="text: title"></span><a
@@ -192,10 +183,32 @@
 
                                 <p class="article-description" data-bind="text: description"></p>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-md-1 article-voting no-padding">
+                        <a data-bind="click: voteUp, clickBubble: false" class="vote icon-passive icon-activatable"><i
+                                class="fa fa-arrow-circle-o-up fa-2x"></i></a>
+
+                        <div class="vote position-center" data-bind="text:votes"></div>
+                        <a data-bind="click: voteDown, clickBubble: false"
+                           class="vote icon-passive icon-activatable" href="#"><i
+                                class="fa fa-arrow-circle-o-down fa-2x"></i></a>
+                    </div>
+                    <div class="col-xs-11 col-sm-5 col-md-5">
+                        <div class="article-image">
+                            Image
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-1">
+                        <div class="article-content">
                             <div class="article-meta">
-                                <i class="fa fa-tags icon-passive"></i><span class="article-tags icon-spacer"
-                                                                             data-bind="foreach: tags"><a
-                                    data-bind="text: $data, attr: { href: './tags/' + $data, title: $data}"></a>&nbsp;</span>
+                                <i class="fa fa-tags icon-passive"></i>
+                                <span class="icon-spacer">Tags</span>
+                                <ul class="article-tags" data-bind="foreach: tags">
+                                    <li>
+                                        <a data-bind="text: $data, attr: { href: './tags/' + $data, title: $data}"></a>
+                                    </li>
+                                </ul>
                                 <i class="fa fa-calendar icon-passive"></i><span class="article-date icon-spacer"
                                                                                  data-bind="text: 'Submitted ' + moment(submittedOn).fromNow()"></span>
                                 <i class="fa fa-user icon-passive"></i><a class="article-user icon-spacer"
@@ -209,6 +222,10 @@
                                             class="article-comments icon-spacer"
                                             data-bind="click: toggleShowAddComment">add comment</a></span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
                             <div class="comments">
                                 <div data-bind="visible: displayAddComment" class="row">
                                     <form class="form-horizontal" role="form"
@@ -264,9 +281,9 @@
 <!-- End results section -->
 </div>
 
-<!-- build:js scripts/plugins.js -->
 <script src="bower_components/bootstrap/js/affix.js"></script>
 <script src="bower_components/bootstrap/js/alert.js"></script>
+<script src="bower_components/bootstrap/js/dropdown.js"></script>
 <script src="bower_components/bootstrap/js/tooltip.js"></script>
 <script src="bower_components/bootstrap/js/modal.js"></script>
 <script src="bower_components/bootstrap/js/transition.js"></script>
