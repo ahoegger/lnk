@@ -225,6 +225,15 @@
                                             <td width="35%"><i class="fa fa-user icon-passive"></i><span class="article-date icon-spacer">User</span></td>
                                             <td><a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a></td>
                                         </tr>
+                                        <tr>
+                                            <td width="35%"><i class="fa fa-comments-o icon-passive"></i><span class="article-date icon-spacer">Comments</span></td>
+                                            <td data-bind="visible: numberOfComments() > 0">
+                                                <a class="article-comments" data-bind="click: toggleShowComments, text: 'Show ' + numberOfComments() + ' comments'"></a>
+                                            </td>
+                                            <td data-bind="visible: numberOfComments() <= 0">
+                                                <a class="article-comments" data-bind="click: toggleShowAddComment">add comment</a>
+                                            </td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
