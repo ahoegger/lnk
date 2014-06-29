@@ -1,6 +1,12 @@
 'use strict';
 lnk.namespace('lnk.globals');
 
+ko.observableArray.fn.logSomething = function() {
+    return function() {
+        console.log('bldfkjhfdkjsh');
+    };
+};
+
 lnk.globals.articleViews = ko.observableArray();
 
 jQuery(document).ready( function(){
@@ -8,22 +14,31 @@ jQuery(document).ready( function(){
     var articles = lnk.services.getArticles(),
         articleViews = lnk.globals.articleViews,
         articleView,
-        max = articles.length;
+        max = articles.length,
+        sortedArticles;
+    /*
+     * Build the view models for each article coming from the service
+     */
     for (var i = 0; i < max; i += 1) {
         articleView = lnk.entities.ArticleViewModel(articles[i]);
         // Custom event handling if sorting changed...
         articleView.votes.subscribe(function(newValue) {
             lnk.helper.logDebug('Got event from changed votes value...');
-           articleViews.sort();
+           articleViews.sortByProperty('votes', true);
         });
         articleViews.push(lnk.entities.ArticleViewModel(articles[i]));
     }
-    // TODO HHE Check sorting if votes are same
-    articleViews.sort(function(left, right) {
-        return left.votes === right.votes ? 0 : (left.votes < right.votes ? -1 : 1)
+    /*
+     * Build sorted articles as knockout computed object to reorder the view models
+     * based an the observable votes() property. The computed objecvt must be applied to the bindings
+     */
+    sortedArticles = ko.computed(function() {
+        return articleViews().sort(function (left, right) {
+            return left.votes() == right.votes() ? 0 : (left.votes() > right.votes() ? -1 : 1);
+        });
     });
     lnk.globals.articleViews = articleViews;
-    ko.applyBindings({ articles: articleViews }, document.getElementById('top-results'));
+    ko.applyBindings({ articles: sortedArticles }, document.getElementById('top-results'));
     ko.applyBindings({  }, document.getElementById('add'));
 });
 
@@ -31,6 +46,10 @@ lnk.namespace('lnk.behaviour');
 
 lnk.behaviour = (function() {
     return {
+        /**
+         * This function receives a form element and builds the article entity as well as the observable view model
+         * @param formElement {Form} The form with the article
+         */
         addArticle: function(formElement) {
             var newArticle = lnk.entities.Article (
                 null,
@@ -47,7 +66,6 @@ lnk.behaviour = (function() {
             lnk.globals.articleViews.push(lnk.entities.ArticleViewModel(newArticle));   // Add it to the observed result set
         },
         addComment: function(formElement, thingy) {
-            // function (id, articleId, text, submittedBy, submittedOn)
             var newComment = lnk.entities.Comment(
                 null,
                 ko.dataFor(formElement).id,

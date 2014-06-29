@@ -58,22 +58,23 @@ lnk.entities = (function() {
             this.numberOfComments = ko.observable(article.numberOfComments);
 
             // comments
-            this.comments = ko.observableArray([]);
-
-            this.displayComments = ko.observable(false);
-            this.displayAddComment = ko.observable(false);
-
+            this.comments = ko.observableArray([]);             // Comments are observable
+            this.displayComments = ko.observable(false);        // by default comments are not visible
+            this.displayAddComment = ko.observable(false);      // and adding comments isn't visible either
+            // toggling displaying of comments
             this.toggleShowComments = function() {
                 this.displayComments(!this.displayComments());
                 this.displayAddComment(this.displayComments());
                 if (this.comments().length == 0) {
                     // Comments are not loaded
-                    // Load them and poluplate the observed comments
+                    // Load them and populate the observed comments
                     tempItem = lnk.services.getComments(this.id);
                     _.each(tempItem, function(element, index, list) { this.comments.push(element);}, this);
                     lnk.helper.logDebug('Length of comments: ' + this.comments.length);
                 }
             };
+
+            // toggling displaying of add comment
             this.toggleShowAddComment = function() {
                 this.displayAddComment(!this.displayAddComment());
             };
