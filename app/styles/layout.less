@@ -1,6 +1,9 @@
 @import "../bower_components/bootstrap/less/variables.less";
 @import "../bower_components/bootstrap/less/mixins.less";
 
+@voting-width: 40px;
+@image-width: 100px;
+
 .input-group-btn > button {
   height: @input-height-base;
 //  padding: 6px 0px;
@@ -13,5 +16,41 @@
 .hidden-xxs {
   @media (max-width: 430px) {
     .responsive-invisibility();
+  }
+}
+
+.article-voting {
+  text-align: center;
+  display: block;
+  float: left;
+  width: @voting-width
+}
+
+.article-content h3.article-heading {
+  padding-left: @voting-width;
+  padding-right: @image-width;
+  margin-top: 0px;
+  margin-bottom: 3px;
+}
+
+.article-description {
+  padding-left: @voting-width;
+  padding-right: @image-width;
+}
+
+.article-image {
+  width: @image-width;
+  height: auto;
+  float: right;
+  display: inline-block;
+}
+
+@media (max-width: @screen-xs-min) {
+  .article-image {
+    clear: both;
+    float: none;
+  }
+  .article-description {
+    padding-right: 0px;
   }
 }

@@ -7,10 +7,21 @@ jQuery(document).ready( function(){
     // initialize the articles and stuff
     var articles = lnk.services.getArticles(),
         articleViews = lnk.globals.articleViews,
+        articleView,
         max = articles.length;
     for (var i = 0; i < max; i += 1) {
+        articleView = lnk.entities.ArticleViewModel(articles[i]);
+        // Custom event handling if sorting changed...
+        articleView.votes.subscribe(function(newValue) {
+            lnk.helper.logDebug('Got event from changed votes value...');
+           articleViews.sort();
+        });
         articleViews.push(lnk.entities.ArticleViewModel(articles[i]));
     }
+    // TODO HHE Check sorting if votes are same
+    articleViews.sort(function(left, right) {
+        return left.votes === right.votes ? 0 : (left.votes < right.votes ? -1 : 1)
+    });
     lnk.globals.articleViews = articleViews;
     ko.applyBindings({ articles: articleViews }, document.getElementById('top-results'));
     ko.applyBindings({  }, document.getElementById('add'));

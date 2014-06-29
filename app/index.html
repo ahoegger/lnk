@@ -9,7 +9,8 @@
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -111,7 +112,6 @@
                     <form class="form-horizontal" role="form" data-bind="submit: lnk.behaviour.addArticle">
                         <div class="form-group">
                             <label for="url" class="col-sm-2 control-label">.lnk URL</label>
-
                             <div class="col-sm-10">
                                 <input id="url" type="url" class="form-control" placeholder="URL">
                             </div>
@@ -153,7 +153,7 @@
     </div>
 <!--</div>-->
 
-<div class="clearfix visible-md"></div>
+<!-- div class="clearfix visible-md"></div -->
 <!-- results section -->
 <section role="main">
     <!-- header with tabs -->
@@ -165,40 +165,40 @@
     </div>
     <div id="myTabContent" class="tab-content">
         <div id="top-results" class="tab-pane results active in">
+            <!-- TODO HHE Remove completely when finished with responsive layouts
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-8">Article body</div>
                 <div class="col-xs-4 col-sm-4 col-md-1">Article voting</div>
                 <div class="col-xs-8 col-sm-4 col-md-1">Article image</div>
                 <div class="col-xs-12 col-sm-4 col-md-2">Article meta</div>
             </div>
+            -->
             <!-- loop over articles -->
             <div data-bind="foreach: articles">
                 <article class="row article-separator">
-                    <div class="col-xs-12 col-sm-12 col-md-8">
+                    <!-- Article begin -->
+                    <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="article-content">
-                            <div class="article-main">
-                                <h3 class="article-heading"><span data-bind="text: title"></span><a
-                                        data-bind="attr: { href: url, title: title }"
-                                        class="icon-spacer fa fa-external-link"></a></h3>
-
+                            <div class="article-main row">
+                                <h3 class="article-heading"><span data-bind="text: title"></span>
+                                    <a data-bind="attr: { href: url, title: title }" class="icon-spacer fa fa-external-link"></a>
+                                </h3>
+                                <div class="article-image">
+                                    Image
+                                </div>
+                                <!-- Voting begin -->
+                                <div class="article-voting">
+                                    <a data-bind="click: voteUp, clickBubble: false" class="vote icon-passive icon-activatable"  href="#"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>
+                                    <div class="vote position-center" data-bind="text:votes"></div>
+                                    <a data-bind="click: voteDown, clickBubble: false" class="vote icon-passive icon-activatable" href="#"><i class="fa fa-arrow-circle-o-down fa-2x"></i></a>
+                                </div>
+                                <!-- Voting end -->
                                 <p class="article-description" data-bind="text: description"></p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-1 col-sm-1 col-md-1 article-voting no-padding">
-                        <a data-bind="click: voteUp, clickBubble: false" class="vote icon-passive icon-activatable"><i
-                                class="fa fa-arrow-circle-o-up fa-2x"></i></a>
-
-                        <div class="vote position-center" data-bind="text:votes"></div>
-                        <a data-bind="click: voteDown, clickBubble: false"
-                           class="vote icon-passive icon-activatable" href="#"><i
-                                class="fa fa-arrow-circle-o-down fa-2x"></i></a>
-                    </div>
-                    <div class="col-xs-11 col-sm-6 col-md-5">
-                        <div class="article-image">
-                            Image
-                        </div>
-                    </div>
+                    <!-- Article end -->
+                    <!-- Meta Information begin -->
                     <div class="col-xs-12 col-sm-5 col-md-1">
                         <div class="article-content">
                             <div class="article-meta panel panel-default" data-bind="attr: {id: 'meta-' + id}">
@@ -230,6 +230,8 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Meta Information end -->
+                    <!-- Comment row begin -->
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="comments">
@@ -275,6 +277,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Comment row end -->
                 </article>
             </div>
         </div>
