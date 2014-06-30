@@ -1,44 +1,10 @@
 'use strict';
 lnk.namespace('lnk.globals');
 
-ko.observableArray.fn.logSomething = function() {
-    return function() {
-        console.log('bldfkjhfdkjsh');
-    };
-};
-
 lnk.globals.articleViews = ko.observableArray();
 
 jQuery(document).ready( function(){
-    // initialize the articles and stuff
-    var articles = lnk.services.getArticles(),
-        articleViews = lnk.globals.articleViews,
-        articleView,
-        max = articles.length,
-        sortedArticles;
-    /*
-     * Build the view models for each article coming from the service
-     */
-    for (var i = 0; i < max; i += 1) {
-        articleView = lnk.entities.ArticleViewModel(articles[i]);
-        // Custom event handling if sorting changed...
-        articleView.votes.subscribe(function(newValue) {
-            lnk.helper.logDebug('Got event from changed votes value...');
-           articleViews.sortByProperty('votes', true);
-        });
-        articleViews.push(lnk.entities.ArticleViewModel(articles[i]));
-    }
-    /*
-     * Build sorted articles as knockout computed object to reorder the view models
-     * based an the observable votes() property. The computed objecvt must be applied to the bindings
-     */
-    sortedArticles = ko.computed(function() {
-        return articleViews().sort(function (left, right) {
-            return left.votes() == right.votes() ? 0 : (left.votes() > right.votes() ? -1 : 1);
-        });
-    });
-    lnk.globals.articleViews = articleViews;
-    ko.applyBindings({ articles: sortedArticles }, document.getElementById('top-results'));
+    ko.applyBindings({ articles: lnk.viewmodels.getSortedArticleViewModel(lnk.services.getArticles()) }, document.getElementById('top-results'));
     ko.applyBindings({  }, document.getElementById('add'));
 });
 
@@ -77,6 +43,11 @@ lnk.behaviour = (function() {
             lnk.services.addComment(newComment);
             ko.dataFor(formElement).addComment(newComment);
         },
+        /**
+         * This function can be boun d the textarea form elements to automatically resize these element with the text growing.
+         * @param data
+         * @param event
+         */
         autoResize: function(data, event) {
             // Resizing event handler for dynamic sized textarea elements
             // See http://stackoverflow.com/questions/19170083/automatically-resize-text-area-based-on-content (answer from Thaylon)
@@ -93,6 +64,23 @@ lnk.behaviour = (function() {
                 while (scrollHeight && (scrollHeight !== $textAreaElement.prop('scrollHeight')));
             }
             $textAreaElement.height($textAreaElement.prop('scrollHeight') + 10);
+        },
+        formCheckUrlMimetype: function(data, event) {
+            var target = $(event.target),
+                xhr = new XMLHttpRequest(),
+                $img = $('#add-form-image');
+            lnk.helper.logDir(data);
+            lnk.helper.logDir(event);
+            $img.load = (function(){
+                // TODO HHE Implement hiding alternate image URL
+                console.log('Error loading image');
+            });
+            $img.error(function() {
+                // TODO HHE Implement showing alternate image URL
+                console.log('Error loading image');
+            });
+            $img.attr('src', 'http://i.imgur.comddd/Bj3TxB7.jpgc');
+            $img.attr('src', 'http://google.com');
         }
     };
 })();
