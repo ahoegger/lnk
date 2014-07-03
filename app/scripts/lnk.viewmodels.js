@@ -4,7 +4,25 @@
  */
 lnk.namespace('lnk.viewmodels');
 
-lnk.viewmodels = (function() {
+lnk.viewmodels = (function($) {
+    /**
+     * This function converts a string with tags (separated by commas) into an array of (trimmed) strings
+     * @param tagString {String} A string with comma separated tags
+     * @param separator {String} The separator character
+     * @return {String[]}
+     */
+    function tagStringToArray(tagString, separator) {
+        var plainTags = [],
+            trimmedTags = [];
+        if (tagString && $.trim(tagString).length > 0) {
+            plainTags = tagString.split(separator);
+            _.each(plainTags, function(element, index, list) {
+                trimmedTags.push($.trim(element));
+            });
+            return trimmedTags;
+        }
+    }
+
     function getArticleViewmodelFromData(articleData) {
         var articleData,
             singleArticleView,
@@ -40,11 +58,37 @@ lnk.viewmodels = (function() {
      */
     function AddLinkFormViewModel() {
         var self = this;
-        self.url = ko.observable('URL');
-        self.title = ko.observable('Title');
-        self.description = ko.observable('Description');
-        self.alternateImageUrl = ko.observable('Image URL');
-        self.tags = ko.observable('Tags');
+        self.url = ko.observable();
+        self.title = ko.observable();
+        self.description = ko.observable();
+        self.alternateImageUrl = ko.observable();
+        self.imageUrl = ko.computed(function() {
+            lnk.helper.logDebug('Computing Image URL again');
+            return (self.alternateImageUrl() && $.trim(self.alternateImageUrl()).length > 0) ?
+                self.alternateImageUrl() : self.url();
+        });
+        self.tags = ko.observable();
+        self.tagsArray = function() {
+            return tagStringToArray(self.tags, ',');
+        };
+        self.submitArticle = function() {
+            lnk.helper.logDebug('Submitting this object:');
+            lnk.helper.logDir(self);
+            // TODO HHE Implement converting observable to plain Article object and submitting it to the service
+        };
+        self.checkImageUrl = function() {
+            lnk.helper.logDebug('Checking image URL');
+            // TODO HHE Implement checking, which URL will be the effective image URL
+        };
+        self.displayAlternateImageUrl = function() {
+            lnk.helper.logDebug('displayAlternateImageUrl()');
+            // TODO HHE Implement logic to check, if alternate image URL must be displayed
+        };
+        self.setImageUrl = function() {
+            lnk.helper.logDebug('imageUrl()');
+            // TODO HHE Implement setter for effective image URL
+        };
+
         // TODO HHE Implement functionality to split Tags, check image URL, alternate image URL and stuff
         return self;
     }
@@ -66,4 +110,4 @@ lnk.viewmodels = (function() {
             return new AddLinkFormViewModel();
         }
     }
-})();
+})(jQuery);

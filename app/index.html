@@ -40,7 +40,6 @@
     <script src="scripts/lnk.services.js"></script>
     <script src="scripts/lnk.viewmodels.js"></script>
     <!-- endbuild -->
-    <!-- endbuild -->
 </head>
 <body>
 <!--[if lt IE 10]>
@@ -110,40 +109,41 @@
         <div id="add" class="tab-pane fade">
             <div class="row">
                 <div class="col-xs-12">
-                    <form class="form-horizontal" role="form" data-bind="submit: lnk.behaviour.addArticle">
+                    <form class="form-horizontal" role="form" data-bind="submit: submitArticle">
                         <div class="form-group">
                             <label for="url" class="col-sm-2 control-label">.lnk URL</label>
                             <div class="col-sm-10">
-                                <input id="url" type="url" class="form-control" placeholder="URL" required="required" data-bind="event: {blur: lnk.behaviour.formCheckUrlMimetype }">
+                                <input id="url" type="url" class="form-control" placeholder="URL" required="required" data-bind="value: url, event: {blur: checkImageUrl }">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="title" class="col-sm-2 control-label">Title</label>
 
                             <div class="col-sm-10">
-                                <input id="title" type="text" class="form-control" placeholder="Title" required="required" maxlength="100">
+                                <input id="title" type="text" class="form-control" data-bind="value: title" placeholder="Title" required="required" maxlength="100">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="description" class="col-sm-2 control-label">Description</label>
 
                             <div class="col-sm-10">
-                                <textarea id="description" class="form-control" rows="1"
+                                <textarea id="description" class="form-control"
+                                          rows="1"
                                           placeholder="Describe your .link here"
-                                          data-bind="event: { keyup: lnk.behaviour.autoResize }"  required="required"  maxlength="100"></textarea>
+                                          data-bind="value: description, event: { keyup: lnk.behaviour.autoResize }"  required="required"  maxlength="100"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="add-form-image" class="col-sm-2 control-label">Image</label>
-                            <img id="add-form-image" class="article-preview-image col-sm-2">
+                            <img id="add-form-image" class="article-preview-image col-sm-2" data-bind="attr: { src: imageUrl }, event: ">
                             <div class="col-sm-8">
-                                <input id="alternate-img-url" type="url" class="form-control pull-right" placeholder="Alternate image URL">
+                                <input id="alternate-img-url" data-bind="value: alternateImageUrl" type="url" class="form-control pull-right" placeholder="Alternate image URL">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tags" class="col-sm-2 control-label">Tags</label>
                             <div class="col-sm-10">
-                                <input id="tags" class="form-control" placeholder="Add comma separated tags"  required="required" maxlength="100">
+                                <input id="tags" class="form-control" data-bind="value: tags" placeholder="Add comma separated tags"  required="required" maxlength="100">
                             </div>
                         </div>
                         <div class="form-group">
@@ -314,4 +314,4 @@
 <!-- endbuild -->
 </body>
 
-</html>
+</html>                       

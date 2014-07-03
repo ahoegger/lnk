@@ -5,7 +5,7 @@ lnk.globals.articleViews = ko.observableArray();
 
 jQuery(document).ready( function(){
     ko.applyBindings({ articles: lnk.viewmodels.getSortedArticleViewModel(lnk.services.getArticles()) }, document.getElementById('top-results'));
-    ko.applyBindings({  }, document.getElementById('add'));
+    ko.applyBindings( lnk.viewmodels.getAddFormViewModel(), document.getElementById('add'));
 });
 
 lnk.namespace('lnk.behaviour');
