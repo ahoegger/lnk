@@ -9,8 +9,8 @@
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -47,7 +47,7 @@
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<div class="container">
+<div class="container-fluid">
 <div class="header">
     <div class="row">
         <div class="col-xs-1" id="logo">.lnk</div>
@@ -70,7 +70,7 @@
     </div>
 </div>
 <!--<div class="row nav-tabs">-->
-<ul class="nav nav-tabs row" id="main-navigation">
+<ul class="nav nav-tabs " id="main-navigation">
     <li class="active col-xs-4 no-padding text-center"><a data-toggle="tab"
                                                           href="#favorites">Favorites</a></li>
     <li class="col-xs-4 no-padding text-center passive"><a data-toggle="tab" href="#search">Search</a>
@@ -79,97 +79,108 @@
 </ul>
 <!--</div>-->
 <!--<div class="row">-->
-    <div class="tab-content tab-first-row">
-        <div id="favorites" class="tab-pane active in fade">
-            <ul class="pagination">
-                <li class="disabled"><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-            </ul>
-        </div>
-        <div id="search" class="tab-pane fade">
-            <div class="row">
-                <div class="col-md-3 visible-md visible-lg"></div>
-                <div class="col-md-5">
-                    <div class="input-group">
-                        <input type="text" class="form-control">
+<div class="tab-content tab-first-row">
+    <div id="favorites" class="tab-pane active in fade">
+        <ul class="pagination">
+            <li class="disabled"><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+    </div>
+    <div id="search" class="tab-pane fade">
+        <div class="row">
+            <div class="col-md-3 visible-md visible-lg"></div>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <input type="text" class="form-control">
                         <span class="input-group-btn">
                             <button class="btn btn-default fa fa-search" type="button"></button>
                         </span>
-                    </div>
-                    <!-- /input-group -->
                 </div>
+                <!-- /input-group -->
             </div>
         </div>
-        <!-- Add .lnk -->
-        <div id="add" class="tab-pane fade">
-            <div class="row">
-                <div class="col-xs-12">
-                    <form class="form-horizontal" role="form" data-bind="submit: submitArticle">
-                        <div class="form-group">
-                            <label for="url" class="col-sm-2 control-label">.lnk URL</label>
-                            <div class="col-sm-10">
-                                <input id="url" type="url" class="form-control" placeholder="URL" required="required" data-bind="value: url, event: {blur: checkImageUrl }">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">Title</label>
-
-                            <div class="col-sm-10">
-                                <input id="title" type="text" class="form-control" data-bind="value: title" placeholder="Title" required="required" maxlength="100">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">Description</label>
-
-                            <div class="col-sm-10">
-                                <textarea id="description" class="form-control"
-                                          rows="1"
-                                          placeholder="Describe your .link here"
-                                          data-bind="value: description, event: { keyup: lnk.behaviour.autoResize }"  required="required"  maxlength="100"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="add-form-image" class="col-sm-2 control-label">Image</label>
-                            <img id="add-form-image" class="article-preview-image col-sm-2" data-bind="attr: { src: imageUrl }, event: ">
-                            <div class="col-sm-8">
-                                <input id="alternate-img-url" data-bind="value: alternateImageUrl" type="url" class="form-control pull-right" placeholder="Alternate image URL">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="tags" class="col-sm-2 control-label">Tags</label>
-                            <div class="col-sm-10">
-                                <input id="tags" class="form-control" data-bind="value: tags" placeholder="Add comma separated tags"  required="required" maxlength="100">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-2 pull-right">
-                                <button type="submit" class="btn btn-primary pull-right">.lnk it</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- End add .lnk -->
-
     </div>
+    <!-- Add .lnk -->
+    <div id="add" class="tab-pane fade">
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" role="form" data-bind="submit: submitArticle">
+                    <div class="form-group">
+                        <label for="url" class="col-sm-2 control-label">.lnk URL</label>
+
+                        <div class="col-sm-10">
+                            <input id="url" type="url" class="form-control" placeholder="URL" required="required"
+                                   data-bind="value: url, event: {blur: checkImageUrl }">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">Title</label>
+
+                        <div class="col-sm-10">
+                            <input id="title" type="text" class="form-control" data-bind="value: title"
+                                   placeholder="Title" required="required" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label">Description</label>
+
+                        <div class="col-sm-10">
+                            <textarea id="description" class="form-control"
+                                      rows="1"
+                                      placeholder="Describe your .link here"
+                                      data-bind="value: description, event: { keyup: lnk.behaviour.autoResize }"
+                                      required="required" maxlength="100"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-form-image" class="col-sm-2 control-label">Image</label>
+                        <img id="add-form-image" class="article-preview-image col-sm-2"
+                             data-bind="attr: { src: imageUrl }, event: ">
+
+                        <div class="col-sm-8">
+                            <input id="alternate-img-url" data-bind="value: alternateImageUrl" type="url"
+                                   class="form-control pull-right" placeholder="Alternate image URL">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tags" class="col-sm-2 control-label">Tags</label>
+
+                        <div class="col-sm-10">
+                            <input id="tags" class="form-control" data-bind="value: tags"
+                                   placeholder="Add comma separated tags" required="required" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2 pull-right">
+                            <button type="submit" class="btn btn-primary pull-right">.lnk it</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End add .lnk -->
+
+</div>
 <!--</div>-->
 
 <!-- div class="clearfix visible-md"></div -->
 <!-- results section -->
-<section role="main">
+<section class="tab-last-row" role="main">
     <!-- header with tabs -->
-    <div>
+    <div
+    <div class="pull-right">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#top-results">Top</a></li>
             <li><a data-toggle="tab" href="#newest-results">Newest</a></li>
         </ul>
     </div>
+
     <div id="myTabContent" class="tab-content">
         <div id="top-results" class="tab-pane results active in">
             <!-- loop over articles -->
@@ -180,16 +191,23 @@
                         <div class="article-content">
                             <div class="article-main row">
                                 <h3 class="article-heading"><span data-bind="text: title"></span>
-                                    <a data-bind="attr: { href: url, title: title }" class="icon-spacer fa fa-external-link"></a>
+                                    <a data-bind="attr: { href: url, title: title }"
+                                       class="icon-spacer fa fa-external-link"></a>
                                 </h3>
+
                                 <div class="article-image">
                                     Image
                                 </div>
                                 <!-- Voting begin -->
                                 <div class="article-voting">
-                                    <a data-bind="click: voteUp, clickBubble: false" class="vote icon-passive icon-activatable"  href="#"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>
+                                    <a data-bind="click: voteUp, clickBubble: false"
+                                       class="vote icon-passive icon-activatable" href="#"><i
+                                            class="fa fa-arrow-circle-o-up fa-2x"></i></a>
+
                                     <div class="vote position-center" data-bind="text:votes"></div>
-                                    <a data-bind="click: voteDown, clickBubble: false" class="vote icon-passive icon-activatable" href="#"><i class="fa fa-arrow-circle-o-down fa-2x"></i></a>
+                                    <a data-bind="click: voteDown, clickBubble: false"
+                                       class="vote icon-passive icon-activatable" href="#"><i
+                                            class="fa fa-arrow-circle-o-down fa-2x"></i></a>
                                 </div>
                                 <!-- Voting end -->
                                 <p class="article-description" data-bind="text: description"></p>
@@ -201,12 +219,15 @@
                     <div class="col-xs-12 col-sm-5 col-md-1">
                         <div class="article-content">
                             <div class="article-meta panel panel-default" data-bind="attr: {id: 'meta-' + id}">
-                                <div class="panel-heading"><a data-toggle="collapse" data-bind="attr: {'data-parent': 'meta-' + id, href: '#collapse-' + id}" href="#collapseOne">Meta-Information</a></div>
+                                <div class="panel-heading"><a data-toggle="collapse"
+                                                              data-bind="attr: {'data-parent': 'meta-' + id, href: '#collapse-' + id}"
+                                                              href="#collapseOne">Meta-Information</a></div>
                                 <div class="panel-collapse collapse" data-bind="attr: {id: 'collapse-' + id}">
                                     <table class="table">
                                         <tr>
                                             <td width="35%">
-                                                <i class="fa fa-tags icon-passive"></i><span class="icon-spacer">Tags</span>
+                                                <i class="fa fa-tags icon-passive"></i><span
+                                                    class="icon-spacer">Tags</span>
                                             </td>
                                             <td>
                                                 <span class="article-tags list-group" data-bind="foreach: tags">
@@ -216,21 +237,28 @@
                                         </tr>
                                         <tr>
                                             <td width="35%">
-                                                <i class="fa fa-calendar icon-passive"></i><span class="article-date icon-spacer">Submitted</span>
+                                                <i class="fa fa-calendar icon-passive"></i><span
+                                                    class="article-date icon-spacer">Submitted</span>
                                             </td>
                                             <td data-bind="text: moment(submittedOn).fromNow()"></td>
                                         </tr>
                                         <tr>
-                                            <td width="35%"><i class="fa fa-user icon-passive"></i><span class="article-date icon-spacer">User</span></td>
-                                            <td><a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a></td>
+                                            <td width="35%"><i class="fa fa-user icon-passive"></i><span
+                                                    class="article-date icon-spacer">User</span></td>
+                                            <td>
+                                                <a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td width="35%"><i class="fa fa-comments-o icon-passive"></i><span class="article-date icon-spacer">Comments</span></td>
+                                            <td width="35%"><i class="fa fa-comments-o icon-passive"></i><span
+                                                    class="article-date icon-spacer">Comments</span></td>
                                             <td data-bind="visible: numberOfComments() > 0">
-                                                <a class="article-comments" data-bind="click: toggleShowComments, text: 'Show ' + numberOfComments() + ' comments'"></a>
+                                                <a class="article-comments"
+                                                   data-bind="click: toggleShowComments, text: 'Show ' + numberOfComments() + ' comments'"></a>
                                             </td>
                                             <td data-bind="visible: numberOfComments() <= 0">
-                                                <a class="article-comments" data-bind="click: toggleShowAddComment">add comment</a>
+                                                <a class="article-comments" data-bind="click: toggleShowAddComment">add
+                                                    comment</a>
                                             </td>
                                         </tr>
                                     </table>

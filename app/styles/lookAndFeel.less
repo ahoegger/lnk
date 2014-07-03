@@ -1,5 +1,6 @@
 @color-highlight-background:  #f9f9f9;
 @import "../bower_components/bootstrap/less/variables.less";
+@import "../bower_components/bootstrap/less/mixins";
 @color-separators: #eeeeee;
 
 @font-family-sans-serif:  'Fjalla+One', Helvetica, Arial, sans-serif;
@@ -20,7 +21,6 @@
 //.nav-tabs > li.passive > a, .nav-tabs > li.passive > a:focus{
 //  background-color: none;
 //}
-
 html {
   font-size: 12pt;
   font-family: @font-family-body;
@@ -36,6 +36,20 @@ h1, h2, h3, h4, h5 {
 
 #main-navigation{
   border: none;
+}
+
+.container {
+  .container-fixed();
+
+  @media (min-width: @screen-sm-min) {
+    width: @container-sm;
+  }
+  @media (min-width: @screen-md-min) {
+    width: @container-md;
+  }
+  @media (min-width: @screen-lg-min) {
+    width: @container-lg;
+  }
 }
 
 .tab-first-row{
@@ -57,10 +71,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .tab-content{
-  margin-top: -1px;
-  // no idea why this correction of 2 px is needed
-  margin-right: 3px;
-  padding: @padding-small-vertical @padding-small-horizontal;
+//  padding: @padding-small-vertical @padding-small-horizontal;
   background-color: @color-highlight-background;
 }
 
