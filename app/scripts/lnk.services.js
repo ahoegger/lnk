@@ -44,7 +44,7 @@ lnk.services = (function() {
             submittedOn: new Date(),
             votes: 2,
             tags: ['Scout', 'Eclipse Scout', 'Eclipse'],
-            numberOfComments: 2
+            numberOfComments: 3
         }
     ];
 
