@@ -4,8 +4,9 @@ lnk.namespace('lnk.globals');
 lnk.globals.articleViews = ko.observableArray();
 
 jQuery(document).ready( function(){
-    ko.applyBindings({ articles: lnk.viewmodels.getSortedArticleViewModel(lnk.services.getArticles()) }, document.getElementById('top-results'));
-    ko.applyBindings( lnk.viewmodels.getAddFormViewModel(), document.getElementById('add'));
+    var observableData = lnk.viewmodels.buildObservableArticleViews(lnk.services.getArticles());
+    ko.applyBindings({ articles: lnk.viewmodels.getSortedArticleViewModel(observableData) }, document.getElementById('top-results'));
+    ko.applyBindings( lnk.viewmodels.getAddFormViewModel(observableData), document.getElementById('add'));
 });
 
 lnk.namespace('lnk.behaviour');
