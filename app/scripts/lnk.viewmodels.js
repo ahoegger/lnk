@@ -82,6 +82,17 @@ lnk.viewmodels = (function($) {
             return (self.alternateImageUrl() && $.trim(self.alternateImageUrl()).length > 0) ?
                 self.alternateImageUrl() : self.url();
         });
+        self.imageLoadedHandler = function() {
+            lnk.helper.logDebug('image loaded handler called');
+            if (self.imageUrl() == self.url()) {
+                self.alternateImageUrl(null);
+                self.displayAlternateImageUrl(false);
+            }
+        };
+        self.imageLoadedErrorHandler = function() {
+            lnk.helper.logDebug('Image error loading');
+            self.displayAlternateImageUrl(true)
+        };
         self.tags = ko.observable();
         self.tagsArray = function() {
             return tagStringToArray(self.tags(), ',');
@@ -95,6 +106,7 @@ lnk.viewmodels = (function($) {
                 null,
                 self.title(),
                 self.url(),
+                self.imageUrl(),
                 self.description(),
                 'newSubmitter',
                 new Date(),
@@ -109,10 +121,7 @@ lnk.viewmodels = (function($) {
             lnk.helper.logDebug('Checking image URL');
             // TODO HHE Implement checking, which URL will be the effective image URL
         };
-        self.displayAlternateImageUrl = function() {
-            lnk.helper.logDebug('displayAlternateImageUrl()');
-            // TODO HHE Implement logic to check, if alternate image URL must be displayed
-        };
+        self.displayAlternateImageUrl = ko.observable(false);
         self.setImageUrl = function() {
             lnk.helper.logDebug('imageUrl()');
             // TODO HHE Implement setter for effective image URL

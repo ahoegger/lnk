@@ -15,9 +15,10 @@ lnk.services = (function() {
             title: 'Jersey - RESTful Web Services in Java',
             description: 'Developing RESTful Web services that seamlessly support exposing your data in a variety of representation media types and abstract away the low-level details of the client-server communication is not an easy task without a good toolkit. In order to simplify development of RESTful Web services and their clients in Java, a standard and portable JAX-RS API has been designed. Jersey RESTful Web Services framework is open source, production quality, framework for developing RESTful Web Services in Java that provides support for JAX-RS APIs and serves as a JAX-RS (JSR 311 & JSR 339) Reference Implementation.',
             url: 'https://jersey.java.net/',
+            imageUrl: 'https://jersey.java.net/images/jersey_logo.png',
             submittedBy: 'hhe',
             submittedOn: new Date('06/14/2014'),
-            votes: 45,
+            votes: 0,
             tags: ['Java', 'REST', 'JAX-RS'],
             numberOfComments: 2
         },
@@ -26,10 +27,23 @@ lnk.services = (function() {
             title: 'FasterXML/jackson',
             description: 'Jackson is a suite of data-processing tools for Java (and JVM platform), including the flagship JSON parsing and generation library, as well as additional modules to process data encoded in Avro, CBOR, CSV, Smile, XML or YAML (and list of supported format is still growing!)',
             url: 'https://github.com/FasterXML/jackson',
+            imageUrl: 'http://fasterxml.com/images/fxml_logo.png',
             submittedBy: 'aho',
             submittedOn: new Date(),
-            votes: 46,
+            votes: 0,
             tags: ['Java', 'JSON'],
+            numberOfComments: 2
+        },
+        {
+            id: 3,
+            title: 'Eclipse Scout',
+            description: 'Eclipse Scout is a mature and open framework for modern, service oriented business applications. It substantially boosts developer productivity and is simple to learn.',
+            url: 'https://www.eclipse.org/scout/',
+            imageUrl: 'http://www.bsiag.com/scout/wp-content/themes/bsi_new/images/header1.png',
+            submittedBy: 'aho',
+            submittedOn: new Date(),
+            votes: 2,
+            tags: ['Scout', 'Eclipse Scout', 'Eclipse'],
             numberOfComments: 2
         }
     ];
@@ -63,6 +77,27 @@ lnk.services = (function() {
             text: 'Comment 2 for article 2',
             submittedOn: new Date(),
             submittedBy: 'aho'
+        },
+        {
+            id: 5,
+            articleId: 3,
+            text: 'Simple: Looking for an an application framework where you really get what you see? Then you might really like to have a look at the Eclipse Scout Screencasts',
+            submittedOn: new Date(),
+            submittedBy: 'hhe'
+        },
+        {
+            id: 6,
+            articleId: 3,
+            text: 'Simple: Looking for an an application framework where you really get what you see? Then you might really like to have a look at the Eclipse Scout Screencasts.',
+            submittedOn: new Date(),
+            submittedBy: 'hhe'
+        },
+        {
+            id: 7,
+            articleId: 3,
+            text: 'Flexible: Dreaming of an application framework that combines easy learning with powerful adapting? Why don\'t you check out our Eclipse Scout tutorial',
+            submittedOn: new Date(),
+            submittedBy: 'hhe'
         }
     ];
 

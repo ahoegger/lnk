@@ -15,6 +15,7 @@ lnk.entities = (function() {
          * @param id {Number}
          * @param title {String}
          * @param url {String}
+         * @param imageUrl {String}
          * @param description {String}
          * @param submittedBy {String}
          * @param submittedOn {Date}
@@ -23,10 +24,11 @@ lnk.entities = (function() {
          * @param numberOfComments {Number} Number od comments
          * @constructor
          */
-        Article: function Article(id, title, url, description, submittedBy, submittedOn, votes, tags, numberOfComments) {
+        Article: function Article(id, title, url, imageUrl, description, submittedBy, submittedOn, votes, tags, numberOfComments) {
             this.id = id;
             this.title = title;
             this.url = url;
+            this.imageUrl = imageUrl;
             this.description = description;
             this.submittedBy = submittedBy;
             this.submittedOn = submittedOn;
@@ -102,8 +104,8 @@ lnk.entities = (function() {
     };
 
     return {
-        Article: function(id, title, url, description, submittedBy, submittedOn, votes, tagsArray, numberOfComments) {
-            return new constructors.Article(id, title, url, description, submittedBy, submittedOn, votes, tagsArray, numberOfComments);
+        Article: function(id, title, url, imageUrl, description, submittedBy, submittedOn, votes, tagsArray, numberOfComments) {
+            return new constructors.Article(id, title, url, imageUrl, description, submittedBy, submittedOn, votes, tagsArray, numberOfComments);
         },
         Comment: function(id, articleId, text, submittedBy, submittedOn) {
             return new constructors.Comment(id, articleId, text, submittedBy, submittedOn);
