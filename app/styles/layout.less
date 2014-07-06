@@ -83,9 +83,8 @@ article {
   display: block;
 }
 
-.article-meta {
+.article-meta, .comment-meta {
   display: block;
-  padding-left: @voting-width;
   width: @meta-base-width;
 
   ul {
@@ -107,10 +106,16 @@ article {
   }
 }
 
+.article-meta {
+  padding-left: @voting-width;
+}
+
 @media (min-width: @screen-sm-min) {
   .article-meta {
-    width: auto;
     padding-left: @voting-width;
+  }
+  .article-meta, .comment-meta {
+    width: 100%;
     ul {
       display: inline;
 

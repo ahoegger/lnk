@@ -222,6 +222,8 @@
                                         </li>
                                         <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer" data-bind="text: 'Submitted ' + moment(submittedOn).fromNow()"></span></li>
                                         <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a></span></li>
+                                        <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
+                                        <li><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></li>
                                     </ul>
                                 </div>
                                 <!-- Metadata end -->
@@ -260,20 +262,14 @@
                                         <ul class="fa-ul comments-ul" data-bind="foreach: comments">
                                             <!-- existing comments -->
                                             <li><i class="fa-li fa fa-comment-o icon-passive"></i>
-
                                                 <p data-bind="text: text"></p>
-
                                                 <div class="comment-meta">
-                                                    <i class="fa fa-calendar icon-passive"></i><span
-                                                        class="article-date icon-spacer"
-                                                        data-bind="text: 'Submitted ' + moment(submittedOn).fromNow()"></span>
-                                                    <i class="fa fa-user icon-passive"></i><a
-                                                        class="article-user icon-spacer"
-                                                        data-bind="text: 'By user ' + submittedBy, attr: {href: './users/' + submittedBy}"></a>
-                                                    <i class="fa icon-passive fa-edit"><span
-                                                            class="article-user icon-spacer">Edit own comment</span></i>
-                                                    <i class="fa icon-passive fa-ban"><span
-                                                            class="article-user icon-spacer">Delete own comment</span></i>
+                                                    <ul>
+                                                        <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer" data-bind="text: 'Submitted ' + moment(submittedOn).fromNow()"></span></li>
+                                                        <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a></span></li>
+                                                        <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
+                                                        <li><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></li>
+                                                    </ul>
                                                 </div>
                                             </li>
                                         </ul>
