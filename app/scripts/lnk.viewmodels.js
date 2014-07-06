@@ -117,17 +117,7 @@ lnk.viewmodels = (function($) {
             lnk.services.addArticle(newArticle);    // push it to the service
             self.targetDataSource.push(lnk.entities.ArticleViewModel(newArticle));  // push it to the observable array
         };
-        self.checkImageUrl = function() {
-            lnk.helper.logDebug('Checking image URL');
-            // TODO HHE Implement checking, which URL will be the effective image URL
-        };
         self.displayAlternateImageUrl = ko.observable(false);
-        self.setImageUrl = function() {
-            lnk.helper.logDebug('imageUrl()');
-            // TODO HHE Implement setter for effective image URL
-        };
-
-        // TODO HHE Implement functionality to split Tags, check image URL, alternate image URL and stuff
         return self;
     }
 

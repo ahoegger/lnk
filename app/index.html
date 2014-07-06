@@ -208,31 +208,36 @@
                                 </div>
                                 <!-- Voting end -->
                                 <!-- Article description begin -->
-                                    <div class="article-description">
-                                            <p data-bind="text: description"></p>
-                                    </div>
-                                        <!-- Metadata begin -->
-                                        <div class="article-meta">
-                                            <ul>
-                                                <li><i class="fa fa-tags icon-passive"></i><span class="icon-spacer">Tags
-                                                    <ul class="article-tags" data-bind="foreach: tags">
-                                                        <li><a data-bind="text: $data, attr: { href: './tags/' + $data, title: $data}"></a></li>
-                                                    </ul>
-                                                    </span>
-                                                </li>
-                                                <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer" data-bind="text: 'Submitted ' + moment(submittedOn).fromNow()"></span></li>
-                                                <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a></span></li>
+                                <div class="article-description">
+                                    <p data-bind="text: description"></p>
+                                </div>
+                                <!-- Metadata begin -->
+                                <div class="article-meta">
+                                    <ul>
+                                        <li><i class="fa fa-tags icon-passive"></i><span class="icon-spacer">Tags
+                                            <ul class="article-tags" data-bind="foreach: tags">
+                                                <li><a data-bind="text: $data, attr: { href: './tags/' + $data, title: $data}"></a></li>
                                             </ul>
-                                        </div>
-                                        <!-- Metadata end -->
-
+                                            </span>
+                                        </li>
+                                        <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer" data-bind="text: 'Submitted ' + moment(submittedOn).fromNow()"></span></li>
+                                        <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a></span></li>
+                                    </ul>
+                                </div>
+                                <!-- Metadata end -->
                                 <!-- Article description end -->
+                                <!-- toggle show comment begin -->
+                                <div class="show-comments-divider-group">
+                                    <a class="article-comments" data-bind="click: toggleShowComments, text: 'Show comments', visible: !displayComments()"></a>
+                                    <a class="article-comments" data-bind="click: toggleShowComments, text: 'Hide comments', visible: displayComments()"></a>
+                                </div>
+                                <!-- toggle show comment end -->
                             </div>
                         </div>
                     </div>
                     <!-- Article end -->
                     <!-- Comment row begin -->
-                    <div class="row">
+                    <div class="row" style="padding-left: 40px;">
                         <div class="col-xs-12">
                             <div class="comments">
                                 <div data-bind="visible: displayAddComment" class="row">

@@ -1,7 +1,10 @@
-@color-highlight-background:  #f9f9f9;
+
 @import "../bower_components/bootstrap/less/variables.less";
 @import "../bower_components/bootstrap/less/mixins";
-@color-separators: #eeeeee;
+@import "./variables.less";
+
+@color-highlight-background:  #f9f9f9;
+@color-separators: #cccccc;
 
 @font-family-sans-serif:  'Fjalla+One', Helvetica, Arial, sans-serif;
 @headings-font-family:    @font-family-sans-serif;
@@ -14,8 +17,6 @@
 }
 // navigation
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{
-    background-color: @color-highlight-background;
-
     background-color: @color-highlight-background;
  }
 //.nav-tabs > li.passive > a, .nav-tabs > li.passive > a:focus{
@@ -76,10 +77,12 @@ h1, h2, h3, h4, h5 {
 }
 
 article {
-  border-top: 1px solid @color-separators;
-  width: auto;
-  margin: 0 15px;
-  padding: 10px;  // TODO: Fix abolute value
+  border-bottom-width:1px;
+  -webkit-box-shadow: 0 8px 6px -6px rgba(150, 150, 150, 0.75);
+  -moz-box-shadow:    0 8px 6px -6px rgba(150, 150, 150, 0.75);
+  box-shadow:         0 8px 6px -6px rgba(150, 150, 150, 0.75);
+  padding-bottom:     @nice-margin;
+  margin-bottom:      @nice-margin;
 }
 
 .results > div > article:first-of-type {
@@ -92,7 +95,7 @@ article {
 }
 
 .article-content h3.article-heading {
-  font-size: 1.5em;
+  font-size: @font-size-large;
   font-weight: 900;
 }
 
@@ -105,7 +108,34 @@ article {
   margin-right: 20px;
 }
 
-.comments {
+.show-comments-divider-group {
+  overflow: hidden;
+  text-align: left;
+  text-indent: 20px;
+  display: block;
+  margin: @nice-margin 0 0 @voting-width;
+  font-size: @font-size-small;
+
+  :before, :after {
+    background-color: @color-separators;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 100%;
+  }
+
+  :before {
+    right: 0.5em;
+    margin-left: -40px;
+    width: 40px;
+  }
+
+  :after {
+    left: 0.5em;
+    margin-right: -50%;
+  }
 }
 
 .comments-ul {
@@ -113,7 +143,7 @@ article {
 }
 
 .article-meta, .comment-meta {
-  font-size: 0.75em;
+  font-size: @font-size-small;
 }
 
 .comments-ul li .comment-meta {
