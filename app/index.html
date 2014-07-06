@@ -134,7 +134,7 @@
                                       rows="1"
                                       placeholder="Describe your .link here"
                                       data-bind="value: description, event: { keyup: lnk.behaviour.autoResize }"
-                                      required="required" maxlength="100"></textarea>
+                                      required="required" maxlength="400"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -193,7 +193,6 @@
                                     <a data-bind="attr: { href: url, title: title }"
                                        class="icon-spacer fa fa-external-link"></a>
                                 </h3>
-
                                 <div class="article-image">
                                     <img data-bind="attr: { src: imageUrl }">
                                 </div>
@@ -209,63 +208,30 @@
                                             class="fa fa-arrow-circle-o-down fa-2x"></i></a>
                                 </div>
                                 <!-- Voting end -->
-                                <p class="article-description" data-bind="text: description"></p>
+                                <!-- Article description begin -->
+                                    <div class="article-description">
+                                            <p data-bind="text: description"></p>
+                                    </div>
+                                        <!-- Metadata begin -->
+                                        <div class="article-meta">
+                                            <ul>
+                                                <li><i class="fa fa-tags icon-passive"></i><span class="icon-spacer">Tags
+                                                    <ul class="article-tags" data-bind="foreach: tags">
+                                                        <li><a data-bind="text: $data, attr: { href: './tags/' + $data, title: $data}"></a></li>
+                                                    </ul>
+                                                    </span>
+                                                </li>
+                                                <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer" data-bind="text: 'Submitted ' + moment(submittedOn).fromNow()"></span></li>
+                                                <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a></span></li>
+                                            </ul>
+                                        </div>
+                                        <!-- Metadata end -->
+
+                                <!-- Article description end -->
                             </div>
                         </div>
                     </div>
                     <!-- Article end -->
-                    <!-- Meta Information begin -->
-                    <div class="col-xs-12 col-sm-5 col-md-1">
-                        <div class="article-content">
-                            <div class="article-meta panel panel-default" data-bind="attr: {id: 'meta-' + id}">
-                                <div class="panel-heading"><a data-toggle="collapse"
-                                                              data-bind="attr: {'data-parent': 'meta-' + id, href: '#collapse-' + id}"
-                                                              href="#collapseOne">Meta-Information</a></div>
-                                <div class="panel-collapse collapse" data-bind="attr: {id: 'collapse-' + id}">
-                                    <table class="table">
-                                        <tr>
-                                            <td width="35%">
-                                                <i class="fa fa-tags icon-passive"></i><span
-                                                    class="icon-spacer">Tags</span>
-                                            </td>
-                                            <td>
-                                                <span class="article-tags list-group" data-bind="foreach: tags">
-                                                    <a data-bind="text: $data, attr: { href: './tags/' + $data, title: $data}"></a>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="35%">
-                                                <i class="fa fa-calendar icon-passive"></i><span
-                                                    class="article-date icon-spacer">Submitted</span>
-                                            </td>
-                                            <td data-bind="text: moment(submittedOn).fromNow()"></td>
-                                        </tr>
-                                        <tr>
-                                            <td width="35%"><i class="fa fa-user icon-passive"></i><span
-                                                    class="article-date icon-spacer">User</span></td>
-                                            <td>
-                                                <a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="35%"><i class="fa fa-comments-o icon-passive"></i><span
-                                                    class="article-date icon-spacer">Comments</span></td>
-                                            <td data-bind="visible: numberOfComments() > 0">
-                                                <a class="article-comments"
-                                                   data-bind="click: toggleShowComments, text: 'Show ' + numberOfComments() + ' comments'"></a>
-                                            </td>
-                                            <td data-bind="visible: numberOfComments() <= 0">
-                                                <a class="article-comments" data-bind="click: toggleShowAddComment">add
-                                                    comment</a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Meta Information end -->
                     <!-- Comment row begin -->
                     <div class="row">
                         <div class="col-xs-12">

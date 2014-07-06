@@ -3,6 +3,8 @@
 
 @voting-width: 40px;
 @image-width: 150px;
+@meta-base-width: 200px;
+@meta-padding: 10px;
 
 .input-group-btn > button {
   height: @input-height-base;
@@ -45,6 +47,15 @@
   width: @voting-width
 }
 
+.article-content {
+  display: block;
+  width: auto;
+  min-height: 100px;
+  position: relative;
+  margin-top: 0px;
+  margin-bottom: 3px;
+}
+
 .article-content h3.article-heading {
   padding-left: @voting-width;
   padding-right: @image-width;
@@ -54,7 +65,8 @@
 
 .article-description {
   padding-left: @voting-width;
-  padding-right: @image-width;
+  margin-right: @image-width;
+  display: block;
 }
 
 .article-preview-image {
@@ -65,13 +77,60 @@
   width: @image-width;
   height: auto;
   float: right;
-  display: inline-block;
+  display: block;
+}
+
+.article-meta {
+  display: block;
+  padding-left: @voting-width;
+  width: @meta-base-width;
+
+  ul {
+    width: @meta-base-width;
+    padding-left: 0;
+  }
+
+  li {
+    list-style-type: none;
+    display: block;
+
+    ul {
+      padding-left: 20px;
+
+      li {
+        display: block;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .article-meta {
+    width: auto;
+    padding-left: @voting-width;
+    ul {
+      display: inline;
+
+      li {
+        display: inline;
+        ul {
+          display: inline;
+          padding: 0;
+
+          li {
+            display: inline;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: @screen-xs-min) {
   .article-image {
     clear: both;
     float: none;
+    padding-left: @voting-width;
   }
   .article-description {
     padding-right: 0px;
