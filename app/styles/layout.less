@@ -13,6 +13,13 @@
   padding: 0px;
 }
 
+.no-padding-sm {
+  @media (max-width: @screen-sm) {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
 .hidden-xxs {
   @media (max-width: 430px) {
     .responsive-invisibility();
@@ -22,25 +29,40 @@
 .tab-content{
   margin-top: -1px;
   margin-right: 0px;
-  padding: 20px 15px;
+  padding: @grid-gutter-width/2 @grid-gutter-width/2;
   @media (max-width: @screen-xs) {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: @grid-gutter-width/4;
+    padding-right: @grid-gutter-width/4;
   }
 }
-
-.form-control {
+.full-width-xs{
   @media (max-width: @screen-xs) {
+//    margin-left: -@grid-gutter-width/4;
+//    margin-right: -@grid-gutter-width/4;
     border-radius: 0px;
     border-right-width: 0px;
     border-left-width: 0px;
   }
 }
 
+.form-control {
+ max-width: @form-control-max-width;
+}
+
+.cell-spacing-vertical-sm{
+  @media (max-width: @screen-sm) {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
 article {
   width: auto;
-  margin: 0 @article-side-margin;
-  padding: @article-complete-padding;
+//  margin: 0 @article-side-margin;
+  padding: @article-complete-padding 0px;
+
 }
 
 .article-voting {
@@ -134,11 +156,13 @@ article {
   }
 }
 
-@media (max-width: @screen-xs-min) {
+@media (max-width: @screen-sm-min) {
   .article-image {
     clear: both;
     float: none;
     padding-left: @voting-width;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
   .article-description {
     padding-right: 0px;
