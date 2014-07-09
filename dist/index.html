@@ -1,0 +1,286 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>lnk</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="styles/vendor.css"/>
+
+    <link rel="stylesheet" href="styles/main.css"/>
+
+    <script src="scripts/vendor/modernizr.js"></script>
+    
+
+
+    <script src="scripts/main.js"></script>
+</head>
+<body>
+<!--[if lt IE 10]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="container-fluid">
+<div class="header">
+    <div class="row">
+        <div class="col-xs-1" id="logo">.lnk</div>
+        <h5 class="col-xs-10 text-center hidden-xxs" id="headline">Love
+            the things you find - share the things you love <3.
+        </h5>
+
+        <div class="col-xs-1 pull-right">
+            <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span
+                        class="fa fa-navicon"></span></button>
+                <ul class="dropdown-menu pull-right">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="row nav-tabs">-->
+<ul class="nav nav-tabs " id="main-navigation">
+    <li class="active col-xs-4 no-padding text-center"><a data-toggle="tab"
+                                                          href="#favorites">Favorites</a></li>
+    <li class="col-xs-4 no-padding text-center passive"><a data-toggle="tab" href="#search">Search</a>
+    </li>
+    <li class="col-xs-4 no-padding text-center"><a data-toggle="tab" href="#add">Add</a></li>
+</ul>
+<!--</div>-->
+<!--<div class="row">-->
+<div class="tab-content tab-first-row">
+    <div id="favorites" class="tab-pane active in fade">
+        <ul class="pagination">
+            <li class="disabled"><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+    </div>
+    <div id="search" class="tab-pane fade">
+        <div class="row">
+            <div class="col-md-3 visible-md visible-lg"></div>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default fa fa-search" type="button"></button>
+                        </span>
+                </div>
+                <!-- /input-group -->
+            </div>
+        </div>
+    </div>
+    <!-- Add .lnk -->
+    <div id="add" class="tab-pane fade">
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-horizontal" role="form" data-bind="submit: submitArticle">
+                    <div class="form-group">
+                        <label for="url" class="col-sm-2 control-label">.lnk URL</label>
+
+                        <div class="col-sm-10">
+                            <input id="url" type="url" class="form-control full-width-xs" placeholder="URL" required="required"
+                                   data-bind="value: url">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">Title</label>
+
+                        <div class="col-sm-10">
+                            <input id="title" type="text" class="form-control full-width-xs" data-bind="value: title"
+                                   placeholder="Title" required="required" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label">Description</label>
+
+                        <div class="col-sm-10">
+                            <textarea id="description" class="form-control full-width-xs"
+                                      rows="1"
+                                      placeholder="Describe your .link here"
+                                      data-bind="value: description, event: { keyup: lnk.behaviour.autoResize }"
+                                      required="required" maxlength="400"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-form-image" class="col-sm-2 control-label">Image</label>
+                        <img id="add-form-image" class="article-preview-image col-sm-2"
+                             data-bind="attr: { src: imageUrl }, event: {load: imageLoadedHandler, error: imageLoadedErrorHandler}">
+                        <div class="col-sm-8">
+                            <input id="alternate-img-url" data-bind="value: alternateImageUrl, visible: displayAlternateImageUrl" type="url"
+                                   class="form-control pull-right" placeholder="Alternate image URL">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tags" class="col-sm-2 control-label">Tags</label>
+
+                        <div class="col-sm-10">
+                            <input id="tags" class="form-control full-width-xs" data-bind="value: tags"
+                                   placeholder="Add comma separated tags" required="required" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2 pull-right">
+                            <button type="submit" class="btn btn-primary pull-right">.lnk it</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End add .lnk -->
+
+</div>
+<!--</div>-->
+
+<!-- div class="clearfix visible-md"></div -->
+<!-- results section -->
+<section class="tab-last-row" role="main">
+    <!-- header with tabs -->
+    <div class="pull-right hidden">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#top-results">Top</a></li>
+            <li><a data-toggle="tab" href="#newest-results">Newest</a></li>
+        </ul>
+    </div>
+
+    <div id="myTabContent" class="tab-content">
+        <div id="top-results" class="tab-pane results active in">
+            <!-- loop over articles -->
+            <div data-bind="foreach: articles">
+                <article class="row article-separator">
+                    <!-- Article begin -->
+                    <div class="col-xs-12 full-width-xs">
+                        <div class="article-content">
+                            <div class="article-main ">
+                                <h3 class="article-heading"><span data-bind="text: title"></span>
+                                    <a data-bind="attr: { href: url, title: title }"
+                                       class="icon-spacer fa fa-external-link"></a>
+                                </h3>
+                                <div class="article-image">
+                                    <img data-bind="attr: { src: imageUrl }">
+                                </div>
+                                <!-- Voting begin -->
+                                <div class="article-voting">
+                                    <a data-bind="click: voteUp, clickBubble: false"
+                                       class="vote icon-passive icon-activatable" href="#"><i
+                                            class="fa fa-arrow-circle-o-up fa-2x"></i></a>
+
+                                    <div class="vote position-center" data-bind="text:votes"></div>
+                                    <a data-bind="click: voteDown, clickBubble: false"
+                                       class="vote icon-passive icon-activatable" href="#"><i
+                                            class="fa fa-arrow-circle-o-down fa-2x"></i></a>
+                                </div>
+                                <!-- Voting end -->
+                                <!-- Article description begin -->
+                                <div class="article-description">
+                                    <p data-bind="text: description"></p>
+                                </div>
+                                <!-- Metadata begin -->
+                                <div class="article-meta">
+                                    <ul>
+                                        <li><i class="fa fa-tags icon-passive"></i><span class="icon-spacer">Tags
+                                            <ul class="article-tags" data-bind="foreach: tags">
+                                                <li><a data-bind="text: $data, attr: { href: './tags/' + $data, title: $data}"></a></li>
+                                            </ul>
+                                            </span>
+                                        </li>
+                                        <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer" data-bind="text: 'Submitted ' + moment(submittedOn).fromNow()"></span></li>
+                                        <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a></span></li>
+                                        <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
+                                        <li><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></li>
+                                    </ul>
+                                </div>
+                                <!-- Metadata end -->
+                                <!-- Article description end -->
+                                <!-- toggle show comment begin -->
+                                <div class="show-comments-divider-group">
+                                    <a class="article-comments" data-bind="click: toggleShowComments, text: 'Show comments', visible: !displayComments()"></a>
+                                    <a class="article-comments" data-bind="click: toggleShowComments, text: 'Hide comments', visible: displayComments()"></a>
+                                </div>
+                                <!-- toggle show comment end -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Article end -->
+                    <!-- Comment row begin -->
+                    <div class="no-padding" style="padding-left: 40px;">
+                        <div class="col-xs-12">
+                            <div class="comments">
+                                <div data-bind="visible: displayAddComment" class="row">
+                                    <form class="form-horizontal" role="form"
+                                          data-bind="submit: lnk.behaviour.addComment">
+                                        <div class="form-group>">
+                                            <div class="col-sm-10 cell-spacing-vertical-sm">
+                                                <textarea id="comment" class="form-control" rows="1"
+                                                          placeholder="Comment"
+                                                          data-bind="event: { keyup: lnk.behaviour.autoResize }"></textarea>
+                                            </div>
+                                            <div class="col-sm-2 cell-spacing-vertical-sm">
+                                                <button type="submit" class="btn btn-primary btn-sm">submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div data-bind="visible: displayComments" class="row">
+                                    <div class="column grid-12">
+                                        <ul class="fa-ul comments-ul" data-bind="foreach: comments">
+                                            <!-- existing comments -->
+                                            <li><i class="fa-li fa fa-comment-o icon-passive"></i>
+                                                <p data-bind="text: text"></p>
+                                                <div class="comment-meta">
+                                                    <ul>
+                                                        <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer" data-bind="text: 'Submitted ' + moment(submittedOn).fromNow()"></span></li>
+                                                        <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a></span></li>
+                                                        <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
+                                                        <li><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Comment row end -->
+                </article>
+            </div>
+        </div>
+        <div id="newest-results" class="tab-pane results">
+            <p>Soon to come: Result order by novelty</p>
+        </div>
+    </div>
+    <!-- shared .lnk -->
+</section>
+<!-- End results section -->
+</div>
+
+<script src="bower_components/bootstrap/js/affix.js"></script>
+<script src="bower_components/bootstrap/js/alert.js"></script>
+<script src="bower_components/bootstrap/js/dropdown.js"></script>
+<script src="bower_components/bootstrap/js/tooltip.js"></script>
+<script src="bower_components/bootstrap/js/modal.js"></script>
+<script src="bower_components/bootstrap/js/transition.js"></script>
+<script src="bower_components/bootstrap/js/button.js"></script>
+<script src="bower_components/bootstrap/js/popover.js"></script>
+<script src="bower_components/bootstrap/js/carousel.js"></script>
+<script src="bower_components/bootstrap/js/scrollspy.js"></script>
+<script src="bower_components/bootstrap/js/collapse.js"></script>
+<script src="bower_components/moment/moment.js"></script>
+
+<!-- endbuild -->
+</body>
+
+</html>                       
