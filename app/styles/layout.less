@@ -2,6 +2,10 @@
 @import "../bower_components/bootstrap/less/mixins.less";
 @import "./variables.less";
 
+
+.header{
+
+}
 .input-group-btn > button {
   height: @input-height-base;
 //  padding: 6px 0px;
@@ -19,6 +23,11 @@
     padding-right: 0px;
   }
 }
+.pull-right-sm{
+  @media (max-width: @screen-sm) {
+    float: right;
+  }
+}
 
 .hidden-xxs {
   @media (max-width: 430px) {
@@ -26,8 +35,12 @@
   }
 }
 
-.tab-content{
+.tab-first-row{
   margin-top: -1px;
+
+}
+
+.tab-content{
   margin-right: 0px;
   padding: @grid-gutter-width/2 @grid-gutter-width/2;
   @media (max-width: @screen-xs) {
@@ -45,6 +58,16 @@
   }
 }
 
+.full-width-sm{
+  @media (max-width: @screen-sm) {
+    //    margin-left: -@grid-gutter-width/4;
+    //    margin-right: -@grid-gutter-width/4;
+    border-radius: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+  }
+}
+
 .form-control {
  max-width: @form-control-max-width;
 }
@@ -53,8 +76,8 @@
   @media (max-width: @screen-sm) {
     padding-left: 0px;
     padding-right: 0px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: @grid-gutter-width/4;
+    padding-bottom: @grid-gutter-width/4;
   }
 }
 
