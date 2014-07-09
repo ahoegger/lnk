@@ -1,17 +1,17 @@
 /**
  * Created by holger on 12.06.2014.
  */
-"use strict";
+'use strict';
 lnk.namespace('ki.helper');
 
 /**
  * The helper module provides various helper functions
  */
 lnk.helper = (function() {
-    var default_level = 'INFO';
+    var defaultLevel = 'INFO';
 
     function _log(msg, level) {
-        var loglevel = level || default_level;
+        var loglevel = level || defaultLevel;
         if (window.console && window.console.log) {
             window.console.log('[' + loglevel.toUpperCase() + ']' + ' ' + msg);
         }
