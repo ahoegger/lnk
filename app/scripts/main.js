@@ -1,19 +1,43 @@
 'use strict';
 lnk.namespace('lnk.globals');
+lnk.namespace('lnk.behaviour');
 
 lnk.globals.articleViews = ko.observableArray();
 
 jQuery(document).ready( function(){
-    var observableData = lnk.viewmodels.buildObservableArticleViews(lnk.services.getArticles());
+    var observableData = ko.observableArray() // lnk.viewmodels.buildObservableArticleViews(lnk.services.getArticles());
+    lnk.behaviour.setObservableDataSource(observableData);
     ko.applyBindings({ articles: lnk.viewmodels.getSortedArticleViewModel(observableData) }, document.getElementById('top-results'));
     ko.applyBindings( lnk.viewmodels.getAddFormViewModel(observableData), document.getElementById('add'));
+    // ko.applyBindings( lnk.viewmodels.getAddFormViewModel(observableData), document.getElementById('search'));
+    ko.applyBindings( observableData, document.getElementById('search'));
 });
 
-lnk.namespace('lnk.behaviour');
-
 lnk.behaviour = (function() {
+    var observableDataReference;
+    console.log('ObservableDataReference:' + observableDataReference);
     return {
+        setObservableDataSource: function(observableData) {
+            observableDataReference = observableData;
+        },
         /**
+         * This function executes the search on the service with the given search string
+         * @param formElement
+         */
+        search: function(formElement) {
+            var serviceDataViewModels;
+            lnk.helper.logDebug(formElement);
+            lnk.helper.logDir(observableDataReference());
+            // observableDataReference = lnk.viewmodels.buildObservableArticleViews(lnk.services.getArticles());
+            observableDataReference.removeAll();
+            serviceDataViewModels = lnk.viewmodels.buildObservableArticleViews(lnk.services.getArticles());
+            _.each(serviceDataViewModels(), function(element) {
+                observableDataReference.push(element);
+            });
+            // observableDataReference.valueHasMutated();
+            lnk.helper.logDir(observableDataReference);
+        },
+         /**
          * This function receives a form element and builds the article entity as well as the observable view model
          * @param formElement {Form} The form with the article
          */
@@ -32,7 +56,7 @@ lnk.behaviour = (function() {
             lnk.services.addArticle(newArticle);    // push it to the service
             lnk.globals.articleViews.push(lnk.entities.ArticleViewModel(newArticle));   // Add it to the observed result set
         },
-        addComment: function(formElement, thingy) {
+        addComment: function(formElement) {
             var newComment = lnk.entities.Comment(
                 null,
                 ko.dataFor(formElement).id,
@@ -45,7 +69,7 @@ lnk.behaviour = (function() {
             ko.dataFor(formElement).addComment(newComment);
         },
         /**
-         * This function can be boun d the textarea form elements to automatically resize these element with the text growing.
+         * This function can be bound to the textarea form elements to automatically resize these element with the text growing.
          * @param data
          * @param event
          */
@@ -65,23 +89,6 @@ lnk.behaviour = (function() {
                 while (scrollHeight && (scrollHeight !== $textAreaElement.prop('scrollHeight')));
             }
             $textAreaElement.height($textAreaElement.prop('scrollHeight') + 10);
-        },
-        formCheckUrlMimetype: function(data, event) {
-            var target = $(event.target),
-                xhr = new XMLHttpRequest(),
-                $img = $('#add-form-image');
-            lnk.helper.logDir(data);
-            lnk.helper.logDir(event);
-            $img.load = (function(){
-                // TODO HHE Implement hiding alternate image URL
-                console.log('Error loading image');
-            });
-            $img.error(function() {
-                // TODO HHE Implement showing alternate image URL
-                console.log('Error loading image');
-            });
-            $img.attr('src', 'http://i.imgur.comddd/Bj3TxB7.jpgc');
-            $img.attr('src', 'http://google.com');
         }
     };
 })();
