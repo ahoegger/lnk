@@ -16,7 +16,7 @@ lnk.viewmodels = (function($) {
             trimmedTags = [];
         if (tagString && $.trim(tagString).length > 0) {
             plainTags = tagString.split(separator);
-            _.each(plainTags, function(element, index, list) {
+            _.each(plainTags, function(element) {
                 trimmedTags.push($.trim(element));
             });
             return trimmedTags;
@@ -115,7 +115,7 @@ lnk.viewmodels = (function($) {
                 0);
             lnk.helper.logDir(newArticle);
             lnk.services.addArticle(newArticle);    // push it to the service
-            self.targetDataSource.push(lnk.entities.ArticleViewModel(newArticle));  // push it to the observable array
+            // self.targetDataSource.push(lnk.entities.ArticleViewModel(newArticle));  // push it to the observable array
         };
         self.displayAlternateImageUrl = ko.observable(false);
         return self;

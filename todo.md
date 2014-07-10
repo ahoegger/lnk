@@ -5,7 +5,7 @@
 * [aho] Kurzbeschreibung unserer App (z.B. in readme.md aufnehmen) vorerst erst Installationsanleitung
 * Testen ganz generell und bug fixing (nicht, dass wir jemals irgendwelche bugs implementiert hätten)
 * [aho] Favoriten-Tab allenfalls ausblenden (der ist ja nicht grad selbsterklärend im Moment)
-* [hhe] Suche: Entweder den Service aufrufen oder mit dummy text ausblenden
+* OK Suche wird ausgeführt [hhe] Suche: Entweder den Service aufrufen oder mit dummy text ausblenden
 * OK [aho] Tabs in Resultaten: Entfernen
 * [aho] Menü mit dem Burger: Entscheid, was damit (bessere "dummy-menüs" oder ausblenden?) und umsetzen
 * ...

@@ -96,10 +96,12 @@
             <div class="col-md-3 visible-md visible-lg"></div>
             <div class="col-md-5">
                 <div class="input-group">
-                    <input type="text" class="form-control">
+                    <form role="form" data-bind="submit: lnk.behaviour.search">
                         <span class="input-group-btn">
-                            <button class="btn btn-default fa fa-search" type="button"></button>
+                            <input id="submit-search" type="text" class="form-control">
+                            <button class="btn btn-default fa fa-search" type="submit"></button>
                         </span>
+                    </form>
                 </div>
                 <!-- /input-group -->
             </div>
@@ -139,7 +141,7 @@
                     </div>
                     <div class="form-group">
                         <label for="add-form-image" class="col-sm-2 control-label">Image</label>
-                        <img id="add-form-image" class="article-preview-image col-sm-2"
+                        <img src="" id="add-form-image" class="article-preview-image col-sm-2"
                              data-bind="attr: { src: imageUrl }, event: {load: imageLoadedHandler, error: imageLoadedErrorHandler}">
                         <div class="col-sm-8">
                             <input id="alternate-img-url" data-bind="value: alternateImageUrl, visible: displayAlternateImageUrl" type="url"
@@ -181,6 +183,14 @@
 
     <div id="myTabContent" class="tab-content">
         <div id="top-results" class="tab-pane results active in">
+            <div data-bind="visible: articles().length === 0">
+                <div class="alert alert-info">
+                    <h4>No results</h4>
+                    <p>To see .lnk entries, use the search tab</p>
+                    <p>To add your own .lnk, use the add tab. To verify your adding, search again.</p>
+                </div>
+            </div>
+            <div data-bind="visible: articles()">
             <!-- loop over articles -->
             <div data-bind="foreach: articles">
                 <article class="row article-separator">
@@ -193,7 +203,7 @@
                                        class="icon-spacer fa fa-external-link"></a>
                                 </h3>
                                 <div class="article-image">
-                                    <img data-bind="attr: { src: imageUrl }">
+                                    <img src="" data-bind="attr: { src: imageUrl }">
                                 </div>
                                 <!-- Voting begin -->
                                 <div class="article-voting">
@@ -214,11 +224,11 @@
                                 <!-- Metadata begin -->
                                 <div class="article-meta">
                                     <ul>
-                                        <li><i class="fa fa-tags icon-passive"></i><span class="icon-spacer">Tags
-                                            <ul class="article-tags" data-bind="foreach: tags">
-                                                <li><a data-bind="text: $data, attr: { href: './tags/' + $data, title: $data}"></a></li>
-                                            </ul>
-                                            </span>
+                                        <li><i class="fa fa-tags icon-passive"></i><div class="icon-spacer make-inline">Tags
+                                                <ul class="article-tags" data-bind="foreach: tags">
+                                                    <li><a data-bind="text: $data, attr: { href: './tags/' + $data, title: $data}"></a></li>
+                                                </ul>
+                                            </div>
                                         </li>
                                         <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer" data-bind="text: 'Submitted ' + moment(submittedOn).fromNow()"></span></li>
                                         <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a></span></li>
@@ -280,6 +290,7 @@
                     </div>
                     <!-- Comment row end -->
                 </article>
+            </div>
             </div>
         </div>
         <div id="newest-results" class="tab-pane results">
