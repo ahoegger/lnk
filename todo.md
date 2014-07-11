@@ -17,6 +17,7 @@
 * Favoriten machen ein getTags auf dem service und füllen die "pagination" mit den Tags aus
 * Entfernen nicht benötigter importe aus index.html
 * Suche initial ausführen.
+* [hhe] forms resetten
 
 
 ## KANN (Prio 3) ##
