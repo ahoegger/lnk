@@ -1,6 +1,8 @@
 #lnk CAS FEE#
 Holger Heymanns, Andreas Hoegger
 
+The latest released version is available under http://ahoegger.github.io/lnk/dist/.
+
 ## Installation ##
 ### Prerequisits ###
 - Node.js (http://nodejs.org/) and node package manager (npm)
