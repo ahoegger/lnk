@@ -3,7 +3,7 @@ Holger Heymanns, Andreas Hoegger
 
 ## Installation ##
 ### Prerequisits ###
-- Node.js (http://nodejs.org/)
+- Node.js (http://nodejs.org/) and node package manager (npm)
 
 ### Checkout from GIT ###
  - `git clone https://github.com/ahoegger/lnk.git`
@@ -20,3 +20,6 @@ Holger Heymanns, Andreas Hoegger
 **Love the things you find - share the things you love <3.**
 .lnk is the primary sharing platform for links. Registered users are able to post links and make them discoverable for others by tagging them smartly. To beatify your shares add an image to it.
 Every share can be commented of any user. Vote up the share you love to bring them on a higher ranking for other users.
+
+## Known limitations ##
+- The links to the tags and users below the articles do not yet lead to other resources, as the backend is not yet available
