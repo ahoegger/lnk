@@ -5,16 +5,15 @@ lnk.namespace('lnk.behaviour');
 lnk.globals.articleViews = ko.observableArray();
 
 jQuery(document).ready( function(){
-    var observableData = ko.observableArray() // lnk.viewmodels.buildObservableArticleViews(lnk.services.getArticles());
+    var observableData = ko.observableArray();
     lnk.behaviour.setObservableDataSource(observableData);
     ko.applyBindings({ articles: lnk.viewmodels.getSortedArticleViewModel(observableData) }, document.getElementById('top-results'));
     ko.applyBindings( lnk.viewmodels.getAddFormViewModel(observableData), document.getElementById('add'));
-    // ko.applyBindings( lnk.viewmodels.getAddFormViewModel(observableData), document.getElementById('search'));
     ko.applyBindings( observableData, document.getElementById('search'));
 });
 
 lnk.behaviour = (function() {
-    var observableDataReference;
+    var observableDataReference = null;
     console.log('ObservableDataReference:' + observableDataReference);
     return {
         setObservableDataSource: function(observableData) {
@@ -42,7 +41,8 @@ lnk.behaviour = (function() {
          * @param formElement {Form} The form with the article
          */
         addArticle: function(formElement) {
-            var newArticle = lnk.entities.Article (
+            //noinspection JSUnresolvedVariable
+             var newArticle = lnk.entities.Article (
                 null,
                 formElement.title.value,
                 formElement.url.value,

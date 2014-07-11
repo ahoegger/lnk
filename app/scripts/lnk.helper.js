@@ -2,7 +2,7 @@
  * Created by holger on 12.06.2014.
  */
 'use strict';
-lnk.namespace('ki.helper');
+lnk.namespace('lnk.helper');
 
 /**
  * The helper module provides various helper functions
@@ -71,7 +71,7 @@ lnk.helper = (function() {
         },
         /**
          * This method tries a console.dir with the given object
-         * @param msg {String}
+         * @param object {Object}
          */
         logDir: function(object) {
             _dir(object);

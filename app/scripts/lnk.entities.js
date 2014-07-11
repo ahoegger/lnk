@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 /**
  * Created by holger on 16.06.2014.
  */
@@ -71,7 +71,7 @@ lnk.entities = (function() {
                     // Comments are not loaded
                     // Load them and populate the observed comments
                     tempItem = lnk.services.getComments(this.id);
-                    _.each(tempItem, function(element, index, list) { this.comments.push(element);}, this);
+                    _.each(tempItem, function(element) { this.comments.push(element);}, this);
                     lnk.helper.logDebug('Length of comments: ' + this.comments.length);
                 }
             };
