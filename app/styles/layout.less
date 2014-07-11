@@ -5,7 +5,9 @@
 .header{
 
 }
-
+.full-width{
+  width: 100%;
+}
 .input-group-btn > button {
   height: @input-height-base;
 //  padding: 6px 0px;
@@ -45,14 +47,12 @@
   margin-right: 0px;
   padding: @grid-gutter-width/2 @grid-gutter-width/2;
   @media (max-width: @screen-xs) {
-    padding-left: @grid-gutter-width/4;
-    padding-right: @grid-gutter-width/4;
+    padding-left: @grid-gutter-width/2;
+    padding-right: @grid-gutter-width/2;
   }
 }
 .full-width-xs{
   @media (max-width: @screen-xs) {
-//    margin-left: -@grid-gutter-width/4;
-//    margin-right: -@grid-gutter-width/4;
     border-radius: 0px;
     border-right-width: 0px;
     border-left-width: 0px;
