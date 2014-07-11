@@ -1,8 +1,8 @@
 ## MUSS (Prio 1) ##
-* [aho] Update google doc mit link auf neues repo und info an michael
-* [aho] Tag setzen (oder branch machen) und mail an michael
-* [hhe] Testen, ob / dass Projekt funktioniert auch auf "nicht-entwicklungs-rechnern"; evtl. installationsanleitung machen (gulp build,...) oder "dist" einchecken?
-* [aho] Kurzbeschreibung unserer App (z.B. in readme.md aufnehmen) vorerst erst Installationsanleitung
+* OK [aho] Update google doc mit link auf neues repo und info an michael
+* [aho] Sonntag abend: Tag setzen (oder branch machen) und mail an michael
+* OK [hhe] Testen, ob / dass Projekt funktioniert auch auf "nicht-entwicklungs-rechnern"; evtl. installationsanleitung machen (gulp build,...) oder "dist" einchecken?
+* OK [aho] Kurzbeschreibung unserer App (z.B. in readme.md aufnehmen) vorerst erst Installationsanleitung
 * Testen ganz generell und bug fixing (nicht, dass wir jemals irgendwelche bugs implementiert hätten)
 * [aho] Favoriten-Tab allenfalls ausblenden (der ist ja nicht grad selbsterklärend im Moment)
 * OK Suche wird ausgeführt [hhe] Suche: Entweder den Service aufrufen oder mit dummy text ausblenden
@@ -26,4 +26,4 @@
 * Sortierte Kommentare
 * "add comment" schöner machen
 * Bessere responsive breakpoints
-* ...
+* "Manual"
