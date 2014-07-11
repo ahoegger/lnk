@@ -9,6 +9,8 @@ Holger Heymanns, Andreas Hoegger
  - `git clone https://github.com/ahoegger/lnk.git`
  - move into the lnk directory `cd ./lnk`
  - `git checkout [branchName]` where branchname is milestone01 or master
+
+### Install and run .lnk ###
  - `npm install`
  - `bower install`
  - `gulp`
