@@ -25,10 +25,9 @@ Every share can be commented of any user. Vote up the share you love to bring th
 
 ## Known limitations ##
 - The links to the tags and users below the articles do not yet lead to other resources, as the backend is not yet available
-- New articles are "persisted" in the in memory database and availble for search. vote up / vote down is not persisted
+- New articles are "persisted" in the in memory database and availble for search. They are reset with each reload of the page
 
 ## Used tools and frameworks ##
 - **boostrap** for layout and parts of grid functionality
 - **jQuery** for dom manipulation
-- **underscore.js** for convenience functions
 - **knockout.js** as MVVM data binding library
