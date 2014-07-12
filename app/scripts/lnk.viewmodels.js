@@ -5,7 +5,7 @@
 var lnk = lnk || {};
 lnk.namespace('lnk.viewmodels');
 
-lnk.viewmodels = (function($, SERVICE, HELPER ) {
+lnk.viewmodels = (function($, ko, SERVICE, HELPER ) {
     /**
      * This function converts a string with tags (separated by commas) into an array of (trimmed) strings
      * @param tagString {String} A string with comma separated tags
@@ -57,7 +57,7 @@ lnk.viewmodels = (function($, SERVICE, HELPER ) {
          */
         sortedArticles = ko.computed(function () {
             return backedViews().sort(function (left, right) {
-                return left.votes() == right.votes() ? 0 : (left.votes() > right.votes() ? -1 : 1);
+                return left.votes() === right.votes() ? 0 : (left.votes() > right.votes() ? -1 : 1);
             });
         });
         return sortedArticles;
@@ -92,7 +92,7 @@ lnk.viewmodels = (function($, SERVICE, HELPER ) {
          */
         self.imageLoadedHandler = function() {
             HELPER.logDebug('image loaded handler called');
-            if (self.imageUrl() == self.url()) {
+            if (self.imageUrl() === self.url()) {
                 self.alternateImageUrl(null);
                 self.displayAlternateImageUrl(false);
             }
@@ -102,7 +102,7 @@ lnk.viewmodels = (function($, SERVICE, HELPER ) {
          */
         self.imageLoadedErrorHandler = function() {
             HELPER.logInfo('Image error loading');
-            self.displayAlternateImageUrl(true)
+            self.displayAlternateImageUrl(true);
         };
         /**
          * This function converts the string with the tags into the tags array
@@ -150,7 +150,7 @@ lnk.viewmodels = (function($, SERVICE, HELPER ) {
             var tempItem;
             this.displayComments(!this.displayComments());
             this.displayAddComment(this.displayComments());
-            if (this.comments().length == 0) {
+            if (this.comments().length === 0) {
                 // Comments are not loaded
                 // Load them and populate the observed comments
                 tempItem = SERVICE.getComments(this.id);
@@ -216,5 +216,5 @@ lnk.viewmodels = (function($, SERVICE, HELPER ) {
         buildArticleViewModel: function(article) {
             return new ArticleViewModel(article);
         }
-    }
-})(jQuery, lnk.services, lnk.helper);
+    };
+})(jQuery, ko, lnk.services, lnk.helper);

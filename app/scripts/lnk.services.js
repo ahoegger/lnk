@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * Created by holger on 22.06.2014.
  */
@@ -8,7 +8,7 @@ lnk.namespace('lnk.services');
 /**
  * The factories module provides factories or mixin functions
  */
-lnk.services = (function() {
+lnk.services = (function(HELPER) {
 
     var cachedArticles = [
         {
@@ -106,7 +106,7 @@ lnk.services = (function() {
         serviceFunctions = {};
     helperFunctions.checkLoopProperties = function checkLoopProperties(dataArray, idProperty) {
         if(dataArray === undefined || idProperty === undefined) {
-            lnk.helper.logWarn('Searching new ID with incomplete data, dataArray=' + dataArray + ", idProperty=" + idProperty);
+            HELPER.logWarn('Searching new ID with incomplete data, dataArray=' + dataArray + ', idProperty=' + idProperty);
             return false;
         }
         return true;
@@ -125,7 +125,7 @@ lnk.services = (function() {
                 maxValue = (dataArray[i][idProperty] && dataArray[i][idProperty]) > maxValue ? dataArray[i][idProperty] : maxValue;
             }
             maxValue += 1;
-            lnk.helper.logDebug('New max value ' + maxValue);
+            HELPER.logDebug('New max value ' + maxValue);
         }
         return maxValue;
     };
@@ -143,11 +143,11 @@ lnk.services = (function() {
         }
         for (var i = 0, len = dataArray.length; i < len; i += 1) {
             if(dataArray[i][idProperty] && dataArray[i][idProperty] === idValue) {
-                lnk.helper.logDebug('Found item with id ' + idValue + ' at position ' + i);
+                HELPER.logDebug('Found item with id ' + idValue + ' at position ' + i);
                 return i;
             }
         }
-        lnk.helper.logInfo('Found no item with id ' + idValue);
+        HELPER.logInfo('Found no item with id ' + idValue);
     };
 
     /**
@@ -157,7 +157,6 @@ lnk.services = (function() {
      * @param idProperty {String} Name of the property to be matched}
      * @param idValue {*} Value of the property to be exactly matched
      * @return {Array} The matching elements of the original array
-     * @private
      */
     helperFunctions.filterCommentsForArticle = function filterCommentsForArticle(dataArray, idProperty, idValue) {
         var resultSet = [];
@@ -167,7 +166,7 @@ lnk.services = (function() {
 
         for (var i = 0, len = dataArray.length; i < len; i += 1) {
             if(dataArray[i][idProperty] && dataArray[i][idProperty] === idValue) {
-                lnk.helper.logDebug('Found item with id ' + idValue + ' at position ' + i);
+                HELPER.logDebug('Found item with id ' + idValue + ' at position ' + i);
                 resultSet.push(dataArray[i]);
             }
         }
@@ -175,7 +174,7 @@ lnk.services = (function() {
     };
 
     serviceFunctions.getArticles = function getArticles() {
-        lnk.helper.logDebug('Returning articles ' + cachedArticles);
+        HELPER.logDebug('Returning articles ' + cachedArticles);
         return cachedArticles;
     };
 
@@ -192,7 +191,7 @@ lnk.services = (function() {
         if (position !== undefined) {
             cachedArticles[position] = newArticle;
         } else {
-            lnk.helper.logWarn('Article not found in cached articles. Article was ' + newArticle);
+            HELPER.logWarn('Article not found in cached articles. Article was ' + newArticle);
         }
     };
 
@@ -202,7 +201,7 @@ lnk.services = (function() {
         if (position !== undefined) {
             cachedArticles.splice([position],1);
         } else {
-            lnk.helper.logWarn('Article id ' + id + ' not found in cached articles.');
+            HELPER.logWarn('Article id ' + id + ' not found in cached articles.');
         }
     };
 
@@ -211,12 +210,12 @@ lnk.services = (function() {
         if (position !== undefined) {
             cachedArticles[position].votes = cachedArticles[position].votes + value;
         } else {
-            lnk.helper.logWarn('Article not found in cached articles. ArticleId was ' + id);
+            HELPER.logWarn('Article not found in cached articles. ArticleId was ' + id);
         }
     };
 
     serviceFunctions.getComments = function getComments(articleId) {
-        lnk.helper.logDebug('Returning comments for article ' + articleId);
+        HELPER.logDebug('Returning comments for article ' + articleId);
         return helperFunctions.filterCommentsForArticle(cachedComments, 'articleId', articleId);
     };
 
@@ -226,7 +225,7 @@ lnk.services = (function() {
         if (position !== undefined) {
             cachedComments[position] = newComment;
         } else {
-            lnk.helper.logWarn('Comment not found in cached articles. Comment was ' + newComment);
+            HELPER.logWarn('Comment not found in cached articles. Comment was ' + newComment);
         }
     };
 
@@ -242,7 +241,7 @@ lnk.services = (function() {
         if (position !== undefined) {
             cachedComments.splice([position],1);
         } else {
-            lnk.helper.logWarn('Comment id ' + id + ' not found in cached comments.');
+            HELPER.logWarn('Comment id ' + id + ' not found in cached comments.');
         }
     };
 
@@ -278,14 +277,14 @@ lnk.services = (function() {
          * @param id {number} ID of the article
          */
         articleVoteUp: function(id) {
-            serviceFunctions.vote(id, 1)
+            serviceFunctions.vote(id, 1);
         },
         /**
          * This function removes one vote to an article
          * @param id {number} ID of the article
          */
         articleVoteDown: function(id) {
-            serviceFunctions.vote(id, -1)
+            serviceFunctions.vote(id, -1);
         },
         /**
          * This function returns the comments for a given articleId
@@ -296,13 +295,13 @@ lnk.services = (function() {
             return serviceFunctions.getComments(articleId);
         },
         updateComment: function(updatedComment) {
-            serviceFunctions.updateComment(updatedComment)
+            serviceFunctions.updateComment(updatedComment);
         },
         addComment: function(newComment) {
-            serviceFunctions.addComment(newComment)
+            serviceFunctions.addComment(newComment);
         },
         deleteComment: function(id) {
             serviceFunctions.deleteComment(id);
         }
     };
-})();
+})(lnk.helper);

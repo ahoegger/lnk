@@ -61,5 +61,5 @@ lnk.entities = (function() {
         Comment: function(id, articleId, text, submittedBy, submittedOn) {
             return new constructors.Comment(id, articleId, text, submittedBy, submittedOn);
         }
-    }
+    };
 })();

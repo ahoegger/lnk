@@ -1,10 +1,10 @@
 'use strict';
-lnk.namespace('lnk.globals');
+var lnk = lnk || {};
 lnk.namespace('lnk.behaviour');
-
+lnk.namespace('lnk.globals');
 lnk.globals.articleViews = ko.observableArray();
 
-jQuery(document).ready( function(){
+jQuery(document).ready( function() {
     var observableData = ko.observableArray();
     lnk.behaviour.setObservableDataSource(observableData);
     ko.applyBindings({ articles: lnk.viewmodels.getSortedArticleViewModel(observableData) }, document.getElementById('top-results'));
@@ -12,7 +12,7 @@ jQuery(document).ready( function(){
     ko.applyBindings( observableData, document.getElementById('search'));
 });
 
-lnk.behaviour = (function() {
+lnk.behaviour = (function($, ko, SERVICE, HELPER) {
     var observableDataReference = null;
     console.log('ObservableDataReference:' + observableDataReference);
     return {
@@ -25,16 +25,16 @@ lnk.behaviour = (function() {
          */
         search: function(formElement) {
             var serviceDataViewModels;
-            lnk.helper.logDebug(formElement);
-            lnk.helper.logDir(observableDataReference());
-            // observableDataReference = lnk.viewmodels.buildObservableArticleViews(lnk.services.getArticles());
+            HELPER.logDebug(formElement);
+            HELPER.logDir(observableDataReference());
+            // observableDataReference = lnk.viewmodels.buildObservableArticleViews(SERVICE.getArticles());
             observableDataReference.removeAll();
-            serviceDataViewModels = lnk.viewmodels.buildObservableArticleViews(lnk.services.getArticles());
-            _.each(serviceDataViewModels(), function(element) {
-                observableDataReference.push(element);
+            serviceDataViewModels = lnk.viewmodels.buildObservableArticleViews(SERVICE.getArticles());
+            $.each(serviceDataViewModels(), function(index, value) {
+                observableDataReference.push(value);
             });
             // observableDataReference.valueHasMutated();
-            lnk.helper.logDir(observableDataReference);
+            HELPER.logDir(observableDataReference);
         },
          /**
          * This function receives a form element and builds the article entity as well as the observable view model
@@ -52,8 +52,8 @@ lnk.behaviour = (function() {
                 0,
                 formElement.tags.value,
                 0);
-            lnk.helper.logDir(newArticle);
-            lnk.services.addArticle(newArticle);    // push it to the service
+            HELPER.logDir(newArticle);
+            SERVICE.addArticle(newArticle);    // push it to the service
             lnk.globals.articleViews.push(lnk.entities.ArticleViewModel(newArticle));   // Add it to the observed result set
         },
         addComment: function(formElement) {
@@ -64,8 +64,8 @@ lnk.behaviour = (function() {
                 'newCommenter',
                 new Date()
             );
-            lnk.helper.logDir(newComment);
-            lnk.services.addComment(newComment);
+            HELPER.logDir(newComment);
+            SERVICE.addComment(newComment);
             ko.dataFor(formElement).addComment(newComment);
         },
         /**
@@ -91,4 +91,4 @@ lnk.behaviour = (function() {
             $textAreaElement.height($textAreaElement.prop('scrollHeight') + 10);
         }
     };
-})();
+})(jQuery, ko, lnk.services, lnk.helper);

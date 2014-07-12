@@ -32,10 +32,9 @@
                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span
                         class="fa fa-navicon"></span></button>
                 <ul class="dropdown-menu pull-right">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
+                    <li><a href="#" onClick="alert('TODO: Account Settings!')">Account Settings</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#" onClick="alert('TODO: Logout!')">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -43,30 +42,22 @@
 </div>
 <!--<div class="row nav-tabs">-->
 <ul class="nav nav-tabs " id="main-navigation">
-    <li class="active col-xs-4 no-padding text-center"><a data-toggle="tab"
+    <li class="passive col-xs-4 no-padding text-center"><a data-toggle="tab"
                                                           href="#favorites">Favorites</a></li>
-    <li class="col-xs-4 no-padding text-center passive"><a data-toggle="tab" href="#search">Search</a>
+    <li class="active col-xs-4 no-padding text-center"><a data-toggle="tab" href="#search">Search</a>
     </li>
-    <li class="col-xs-4 no-padding text-center"><a data-toggle="tab" href="#add">Add</a></li>
+    <li class="passive col-xs-4 no-padding text-center"><a data-toggle="tab" href="#add">Add</a></li>
 </ul>
 <!--</div>-->
 <!--<div class="row">-->
 <div class="tab-content tab-first-row">
-    <div id="favorites" class="tab-pane active in fade">
-        <ul class="pagination">
-            <li class="disabled"><a href="#">&laquo;</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
-        </ul>
+    <div id="favorites" class="tab-pane fade">
+        <p>TODO Favorites</p>
     </div>
-    <div id="search" class="tab-pane fade">
+    <div id="search" class="tab-pane fade active in">
         <div class="row">
-            <div class="col-md-3 visible-md visible-lg"></div>
-            <div class="col-md-5">
+            <div class="col-sm-3 hidden-xxs"></div>
+            <div class="col-sm-6">
                 <div class="input-group">
                     <form role="form" data-bind="submit: lnk.behaviour.search">
                         <span class="input-group-btn">
@@ -77,11 +68,12 @@
                 </div>
                 <!-- /input-group -->
             </div>
+            <div class="col-sm-3 hidden-xxs"></div>
         </div>
     </div>
     <!-- Add .lnk -->
     <div id="add" class="tab-pane fade">
-        <div class="row">
+        <div class="row no-padding">
             <div class="col-xs-12">
                 <form class="form-horizontal" role="form" data-bind="submit: submitArticle">
                     <div class="form-group">
