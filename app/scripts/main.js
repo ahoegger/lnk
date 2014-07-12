@@ -8,7 +8,7 @@ jQuery(document).ready( function(){
     var observableData = ko.observableArray();
     lnk.behaviour.setObservableDataSource(observableData);
     ko.applyBindings({ articles: lnk.viewmodels.getSortedArticleViewModel(observableData) }, document.getElementById('top-results'));
-    ko.applyBindings( lnk.viewmodels.getAddFormViewModel(observableData), document.getElementById('add'));
+    ko.applyBindings( lnk.viewmodels.buildAddFormViewModel(observableData), document.getElementById('add'));
     ko.applyBindings( observableData, document.getElementById('search'));
 });
 

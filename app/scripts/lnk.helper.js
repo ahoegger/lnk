@@ -2,6 +2,7 @@
  * Created by holger on 12.06.2014.
  */
 'use strict';
+var lnk = lnk || {};
 lnk.namespace('lnk.helper');
 
 /**

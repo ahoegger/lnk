@@ -2,6 +2,7 @@
 /**
  * Created by holger on 22.06.2014.
  */
+var lnk = lnk || {};
 lnk.namespace('lnk.services');
 
 /**
@@ -182,6 +183,7 @@ lnk.services = (function() {
         // Do possibly some validation...
         article.id = helperFunctions.getNewId(cachedArticles, 'id');
         cachedArticles.push(article);
+        return article;
     };
 
     serviceFunctions.updateArticle = function updateArticle(newArticle) {
@@ -201,6 +203,15 @@ lnk.services = (function() {
             cachedArticles.splice([position],1);
         } else {
             lnk.helper.logWarn('Article id ' + id + ' not found in cached articles.');
+        }
+    };
+
+    serviceFunctions.vote = function vote(id, value) {
+        var position = helperFunctions.findPositionById(cachedArticles, 'id', id);
+        if (position !== undefined) {
+            cachedArticles[position].votes = cachedArticles[position].votes + value;
+        } else {
+            lnk.helper.logWarn('Article not found in cached articles. ArticleId was ' + id);
         }
     };
 
@@ -253,13 +264,28 @@ lnk.services = (function() {
         /**
          * This method add a new article to the list of articles
          * and assigns it a new id
-         * @param {article} newArticle
+         * @param newArticle {Article} The article to be added
+         * @return {Article} the effective article after being added (i.e. with the new id property)
          */
         addArticle: function(newArticle) {
             serviceFunctions.addArticle(newArticle);
         },
         deleteArticle: function(id) {
             serviceFunctions.deleteArticle(id);
+        },
+        /**
+         * This function add one vote to an article
+         * @param id {number} ID of the article
+         */
+        articleVoteUp: function(id) {
+            serviceFunctions.vote(id, 1)
+        },
+        /**
+         * This function removes one vote to an article
+         * @param id {number} ID of the article
+         */
+        articleVoteDown: function(id) {
+            serviceFunctions.vote(id, -1)
         },
         /**
          * This function returns the comments for a given articleId

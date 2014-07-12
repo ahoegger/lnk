@@ -2,7 +2,7 @@
 /**
  * Created by holger on 16.06.2014.
  */
-
+var lnk = lnk || {};
 lnk.namespace('lnk.entities');
 
 /**
@@ -37,7 +37,7 @@ lnk.entities = (function() {
             this.numberOfComments = numberOfComments;
         },
         /**
-         * Construcotr function of Comment bean
+         * Constructor function of Comment bean
          * @param id {Number}
          * @param articleId {Number}
          * @param text {String}
@@ -51,55 +51,6 @@ lnk.entities = (function() {
             this.text = text;
             this.submittedBy = submittedBy;
             this.submittedOn = submittedOn;
-        },
-        ArticleViewModel: function ArticleViewModel(article) {
-            var tempItem;
-            this.article = article;
-            _.extend(this, article);
-            // Override numberOfComments
-            this.numberOfComments = ko.observable(article.numberOfComments);
-
-            // comments
-            this.comments = ko.observableArray([]);             // Comments are observable
-            this.displayComments = ko.observable(false);        // by default comments are not visible
-            this.displayAddComment = ko.observable(false);      // and adding comments isn't visible either
-            // toggling displaying of comments
-            this.toggleShowComments = function() {
-                this.displayComments(!this.displayComments());
-                this.displayAddComment(this.displayComments());
-                if (this.comments().length == 0) {
-                    // Comments are not loaded
-                    // Load them and populate the observed comments
-                    tempItem = lnk.services.getComments(this.id);
-                    _.each(tempItem, function(element) { this.comments.push(element);}, this);
-                    lnk.helper.logDebug('Length of comments: ' + this.comments.length);
-                }
-            };
-
-            // toggling displaying of add comment
-            this.toggleShowAddComment = function() {
-                this.displayAddComment(!this.displayAddComment());
-            };
-
-            // Override votes property with behaviours
-            this.votes = ko.observable(article.votes);
-            this.voteUp = function() {
-                this.votes(this.votes() + 1);
-            };
-            this.voteDown = function() {
-                this.votes(this.votes() - 1);
-            };
-            this.tags = ko.observableArray(this.tags);
-            this.setTags = function(tags) {
-                this.tags = tags;
-            }.bind(this);
-            this.setComments = function (comments) {
-                this.comments = comments;
-            }.bind(this);
-            this.addComment = function (newComment) {
-                this.comments.push(newComment);
-                this.numberOfComments(this.comments().length);
-            }.bind(this);
         }
     };
 
@@ -109,9 +60,6 @@ lnk.entities = (function() {
         },
         Comment: function(id, articleId, text, submittedBy, submittedOn) {
             return new constructors.Comment(id, articleId, text, submittedBy, submittedOn);
-        },
-        ArticleViewModel: function(article) {
-            return new constructors.ArticleViewModel(article);
         }
     }
 })();

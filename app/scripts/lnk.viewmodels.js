@@ -2,9 +2,10 @@
 /**
  * Created by holger on 30.06.2014.
  */
+var lnk = lnk || {};
 lnk.namespace('lnk.viewmodels');
 
-lnk.viewmodels = (function($) {
+lnk.viewmodels = (function($, SERVICE, HELPER ) {
     /**
      * This function converts a string with tags (separated by commas) into an array of (trimmed) strings
      * @param tagString {String} A string with comma separated tags
@@ -16,7 +17,7 @@ lnk.viewmodels = (function($) {
             trimmedTags = [];
         if (tagString && $.trim(tagString).length > 0) {
             plainTags = tagString.split(separator);
-            _.each(plainTags, function(element) {
+            $.each(plainTags, function(indexInArray, element) {
                 trimmedTags.push($.trim(element));
             });
             return trimmedTags;
@@ -30,15 +31,12 @@ lnk.viewmodels = (function($) {
      * @return {ko.observableArray}
      */
     function buildObservableArticleViewsArray(articleData) {
-        var  singleArticleView
-            ,counter
-            ,max = articleData.length;
+        var counter;
+        var max = articleData.length;
         var articleViews = ko.observableArray();
-
         // Build the view models for each article coming from the service
         for (counter = 0; counter < max; counter += 1) {
-            singleArticleView = lnk.entities.ArticleViewModel(articleData[counter]);
-            articleViews.push(lnk.entities.ArticleViewModel(articleData[counter]));
+            articleViews.push(new ArticleViewModel(articleData[counter]));
         }
         return articleViews;
     }
@@ -50,8 +48,8 @@ lnk.viewmodels = (function($) {
      * @return {ko.computed}
      */
     function getArticleViewmodelFromData(articleViews) {
-        var backedViews = articleViews,
-            sortedArticles;
+        var backedViews = articleViews;
+        var sortedArticles;
 
         /*
          * Build sorted articles as knockout computed object to reorder the view models
@@ -72,36 +70,53 @@ lnk.viewmodels = (function($) {
      */
     function AddLinkFormViewModel(targetDataSource) {
         var self = this;
+        // properties & observables
         self.targetDataSource = targetDataSource;
         self.url = ko.observable();
         self.title = ko.observable();
         self.description = ko.observable();
         self.alternateImageUrl = ko.observable();
+        self.displayAlternateImageUrl = ko.observable(false);
+        self.tags = ko.observable();
+
+        // computed observables
         self.imageUrl = ko.computed(function() {
-            lnk.helper.logDebug('Computing Image URL again');
+            HELPER.logDebug('Computing Image URL again');
             return (self.alternateImageUrl() && $.trim(self.alternateImageUrl()).length > 0) ?
                 self.alternateImageUrl() : self.url();
         });
+
+        // methods
+        /**
+         * This function is called, when the image has been loaded successfully
+         */
         self.imageLoadedHandler = function() {
-            lnk.helper.logDebug('image loaded handler called');
+            HELPER.logDebug('image loaded handler called');
             if (self.imageUrl() == self.url()) {
                 self.alternateImageUrl(null);
                 self.displayAlternateImageUrl(false);
             }
         };
+        /**
+         * This function is called, when the image has not been loaded successfully
+         */
         self.imageLoadedErrorHandler = function() {
-            lnk.helper.logDebug('Image error loading');
+            HELPER.logInfo('Image error loading');
             self.displayAlternateImageUrl(true)
         };
-        self.tags = ko.observable();
+        /**
+         * This function converts the string with the tags into the tags array
+         */
         self.tagsArray = function() {
             return tagStringToArray(self.tags(), ',');
         };
+        /**
+         * This function creates a new Article based on properties and submits it to the service
+         */
         self.submitArticle = function() {
             var newArticle;
-            lnk.helper.logDebug('Submitting this object:');
-            lnk.helper.logDir(self);
-
+            HELPER.logDebug('Submitting a new article.');
+            HELPER.logDir(self);
             newArticle = lnk.entities.Article (
                 null,
                 self.title(),
@@ -113,12 +128,65 @@ lnk.viewmodels = (function($) {
                 0,
                 self.tagsArray(),
                 0);
-            lnk.helper.logDir(newArticle);
-            lnk.services.addArticle(newArticle);    // push it to the service
-            // self.targetDataSource.push(lnk.entities.ArticleViewModel(newArticle));  // push it to the observable array
+            HELPER.logDir(newArticle);
+            SERVICE.addArticle(newArticle);    // push it to the service
         };
-        self.displayAlternateImageUrl = ko.observable(false);
         return self;
+    }
+
+    function ArticleViewModel(article) {
+        var self = this;
+        this.article = article;
+        $.extend(this, article);
+        // Override numberOfComments
+        this.numberOfComments = ko.observable(article.numberOfComments);
+
+        // comments
+        this.comments = ko.observableArray([]);             // Comments are observable
+        this.displayComments = ko.observable(false);        // by default comments are not visible
+        this.displayAddComment = ko.observable(false);      // and adding comments isn't visible either
+        // toggling displaying of comments
+        this.toggleShowComments = function() {
+            var tempItem;
+            this.displayComments(!this.displayComments());
+            this.displayAddComment(this.displayComments());
+            if (this.comments().length == 0) {
+                // Comments are not loaded
+                // Load them and populate the observed comments
+                tempItem = SERVICE.getComments(this.id);
+                $.each(tempItem, function(index, value) {
+                    self.comments.push(value);
+                });
+                HELPER.logDebug('Length of comments: ' + this.comments.length);
+            }
+        };
+
+        // toggling displaying of add comment
+        this.toggleShowAddComment = function() {
+            this.displayAddComment(!this.displayAddComment());
+        };
+
+        // Override votes property with behaviours
+        this.votes = ko.observable(article.votes);
+        this.voteUp = function() {
+            this.votes(this.votes() + 1);
+            SERVICE.articleVoteUp(this.id);
+        };
+        this.voteDown = function() {
+            this.votes(this.votes() - 1);
+            SERVICE.articleVoteDown(this.id);
+        };
+        this.tags = ko.observableArray(this.tags);
+        this.setTags = function(tags) {
+            this.tags = tags;
+        }.bind(this);
+        this.setComments = function (comments) {
+            this.comments = comments;
+        }.bind(this);
+        this.addComment = function (newComment) {
+            this.comments.push(newComment);
+            this.numberOfComments(this.comments().length);
+        }.bind(this);
     }
 
     return {
@@ -142,8 +210,11 @@ lnk.viewmodels = (function($) {
          * This function returns a view model for the add link form
          * @param targetDataSource {*} datasource to which the new article shall be added
          */
-        getAddFormViewModel: function(targetDataSource) {
+        buildAddFormViewModel: function(targetDataSource) {
             return new AddLinkFormViewModel(targetDataSource);
+        },
+        buildArticleViewModel: function(article) {
+            return new ArticleViewModel(article);
         }
     }
-})(jQuery);
+})(jQuery, lnk.services, lnk.helper);
