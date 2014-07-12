@@ -130,6 +130,16 @@ lnk.viewmodels = (function($, ko, SERVICE, HELPER ) {
                 0);
             HELPER.logDir(newArticle);
             SERVICE.addArticle(newArticle);    // push it to the service
+            self.reset();
+        };
+
+        self.reset = function() {
+            self.url('');
+            self.title('');
+            self.description('');
+            self.alternateImageUrl('');
+            self.displayAlternateImageUrl('');
+            self.tags('');
         };
         return self;
     }

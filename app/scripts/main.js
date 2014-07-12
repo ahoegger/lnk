@@ -65,8 +65,9 @@ lnk.behaviour = (function($, ko, SERVICE, HELPER) {
                 new Date()
             );
             HELPER.logDir(newComment);
-            SERVICE.addComment(newComment);
+            SERVICE.addComment(newComment);     // push comment to the service
             ko.dataFor(formElement).addComment(newComment);
+            formElement.comment.value = '';     // reset for after submitting comment
         },
         /**
          * This function can be bound to the textarea form elements to automatically resize these element with the text growing.
