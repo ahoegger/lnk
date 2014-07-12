@@ -8,7 +8,7 @@ jQuery(document).ready( function() {
     var observableData = ko.observableArray();
     lnk.behaviour.setObservableDataSource(observableData);
     ko.applyBindings({ articles: lnk.viewmodels.getSortedArticleViewModel(observableData) }, document.getElementById('top-results'));
-    ko.applyBindings( lnk.viewmodels.buildAddFormViewModel(observableData), document.getElementById('add'));
+    ko.applyBindings( lnk.viewmodels.buildAddFormViewModel(observableData, $('#lnk-submit')), document.getElementById('add'));
     ko.applyBindings( observableData, document.getElementById('search'));
 });
 
@@ -36,38 +36,34 @@ lnk.behaviour = (function($, ko, SERVICE, HELPER) {
             // observableDataReference.valueHasMutated();
             HELPER.logDir(observableDataReference);
         },
-         /**
-         * This function receives a form element and builds the article entity as well as the observable view model
-         * @param formElement {Form} The form with the article
-         */
-        addArticle: function(formElement) {
-            //noinspection JSUnresolvedVariable
-             var newArticle = lnk.entities.Article (
-                null,
-                formElement.title.value,
-                formElement.url.value,
-                formElement.description.value,
-                'newSubmitter',
-                new Date(),
-                0,
-                formElement.tags.value,
-                0);
-            HELPER.logDir(newArticle);
-            SERVICE.addArticle(newArticle);    // push it to the service
-            lnk.globals.articleViews.push(lnk.entities.ArticleViewModel(newArticle));   // Add it to the observed result set
-        },
         addComment: function(formElement) {
-            var newComment = lnk.entities.Comment(
-                null,
-                ko.dataFor(formElement).id,
-                formElement.comment.value,
-                'newCommenter',
-                new Date()
-            );
-            HELPER.logDir(newComment);
-            SERVICE.addComment(newComment);     // push comment to the service
-            ko.dataFor(formElement).addComment(newComment);
-            formElement.comment.value = '';     // reset for after submitting comment
+            var newComment;
+            if (formElement.comment.value != '') {
+                newComment = lnk.entities.Comment(
+                    null,
+                    ko.dataFor(formElement).id,
+                    formElement.comment.value,
+                    'newCommenter',
+                    new Date()
+                );
+
+                HELPER.logDir(newComment);
+                SERVICE.addComment(newComment);     // push comment to the service
+                ko.dataFor(formElement).addComment(newComment);
+                formElement.comment.value = '';     // reset for after submitting comment
+                $.notify.defaults({
+                    style: 'bootstrap',
+                    className: 'success',
+                    showAnimation: 'fadeIn',
+                    hideAnimation: 'fadeOut'
+                });
+                $(formElement).notify(
+                    'Successfully added comment',
+                    {
+                        position: 'bottom right'
+                    }
+                );
+            }
         },
         /**
          * This function can be bound to the textarea form elements to automatically resize these element with the text growing.

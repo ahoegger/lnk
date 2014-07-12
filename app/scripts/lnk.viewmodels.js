@@ -68,7 +68,7 @@ lnk.viewmodels = (function($, ko, SERVICE, HELPER ) {
      * @return {AddLinkFormViewModel}
      * @constructor
      */
-    function AddLinkFormViewModel(targetDataSource) {
+    function AddLinkFormViewModel(targetDataSource, $messageNode) {
         var self = this;
         // properties & observables
         self.targetDataSource = targetDataSource;
@@ -131,6 +131,22 @@ lnk.viewmodels = (function($, ko, SERVICE, HELPER ) {
             HELPER.logDir(newArticle);
             SERVICE.addArticle(newArticle);    // push it to the service
             self.reset();
+            self.showConfirmation();
+        };
+
+        self.showConfirmation = function() {
+            $.notify.defaults( {
+                style:    'bootstrap',
+                className: 'success',
+                showAnimation: 'fadeIn',
+                hideAnimation: 'fadeOut'
+            });
+            $messageNode.notify(
+                'Successfully added .lnk. You can find it using search.',
+                {
+                    position: 'bottom right'
+                }
+            );
         };
 
         self.reset = function() {
@@ -220,8 +236,8 @@ lnk.viewmodels = (function($, ko, SERVICE, HELPER ) {
          * This function returns a view model for the add link form
          * @param targetDataSource {*} datasource to which the new article shall be added
          */
-        buildAddFormViewModel: function(targetDataSource) {
-            return new AddLinkFormViewModel(targetDataSource);
+        buildAddFormViewModel: function(targetDataSource, $messageNode) {
+            return new AddLinkFormViewModel(targetDataSource, $messageNode);
         },
         buildArticleViewModel: function(article) {
             return new ArticleViewModel(article);
