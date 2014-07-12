@@ -12,15 +12,15 @@
 
 
 ## SOLL (Prio 2) ##
-* Forms leeren nach submit
 * bootstrap alert, wenn submit erfolgt ist
-* voteUp / voteDown persistieren aus lnk.services
-* Code aufräumen (siehe auch meine Tasks beim commit kommentar)
+* OK [hhe] voteUp / voteDown persistieren aus lnk.services
+* [hhe] Code aufräumen (siehe auch meine Tasks beim commit kommentar)
 * Suche mit Filter auf den bereits hinterlegten Resultaten aufrufen
 * Favoriten machen ein getTags auf dem service und füllen die "pagination" mit den Tags aus
 * Entfernen nicht benötigter importe aus index.html
 * Suche initial ausführen.
 * [hhe] forms resetten
+* OK [hhe] underscore.js entfernen / ersetzen mit jQuery
 
 
 ## KANN (Prio 3) ##
