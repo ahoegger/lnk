@@ -12,6 +12,9 @@
 
 
 ## SOLL (Prio 2) ##
+* Forms leeren nach submit
+* bootstrap alert, wenn submit erfolgt ist
+* voteUp / voteDown persistieren aus lnk.services
 * Code aufräumen (siehe auch meine Tasks beim commit kommentar)
 * Suche mit Filter auf den bereits hinterlegten Resultaten aufrufen
 * Favoriten machen ein getTags auf dem service und füllen die "pagination" mit den Tags aus
