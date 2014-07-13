@@ -3,11 +3,11 @@
 * [aho] Sonntag abend: Tag setzen (oder branch machen) und mail an michael
 * OK [hhe] Testen, ob / dass Projekt funktioniert auch auf "nicht-entwicklungs-rechnern"; evtl. installationsanleitung machen (gulp build,...) oder "dist" einchecken?
 * OK [aho] Kurzbeschreibung unserer App (z.B. in readme.md aufnehmen) vorerst erst Installationsanleitung
-* [aho] Testen ganz generell und bug fixing (nicht, dass wir jemals irgendwelche bugs implementiert hätten)
+* OK [aho] Testen ganz generell und bug fixing (nicht, dass wir jemals irgendwelche bugs implementiert hätten)
 * OK [aho] Favoriten-Tab allenfalls ausblenden (der ist ja nicht grad selbsterklärend im Moment)
 * OK Suche wird ausgeführt [hhe] Suche: Entweder den Service aufrufen oder mit dummy text ausblenden
 * OK [aho] Tabs in Resultaten: Entfernen
-* [aho] Menü mit dem Burger: Plausible Menus -> alert
+* OK [aho] Menü mit dem Burger: Plausible Menus -> alert
 * ...
 
 
@@ -24,8 +24,8 @@
 
 
 ## KANN (Prio 3) ##
-* Fixed header
-* Vielleicht etwas farbiger werden?
+* OK [aho] Fixed header
+* OK [aho] Vielleicht etwas farbiger werden?
 * Voten auf Kommentaren
 * Sortierte Kommentare
 * "add comment" schöner machen
