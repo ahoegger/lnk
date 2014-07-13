@@ -1,16 +1,29 @@
-@import "../bower_components/bootstrap/less/variables.less";
-@import "../bower_components/bootstrap/less/mixins.less";
 @import "./variables.less";
+@import "./mixins.less";
 
 .header{
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 5em;
+  z-index: 10;
+  padding-top: @grid-gutter-width/2;
+  padding-bottom: @grid-gutter-width/2;
+  margin-bottom: @grid-gutter-width/2;
+  * #logo, * .h5{
+    margin-top: 5px;
+  }
 
+}
+
+.content{
+  margin-top: 6em;
 }
 .full-width{
   width: 100%;
 }
 .input-group-btn > button {
   height: @input-height-base;
-//  padding: 6px 0px;
 }
 .container-fluid{
   max-width: 1200px;
@@ -65,8 +78,6 @@
 
 .full-width-sm{
   @media (max-width: @screen-sm) {
-    //    margin-left: -@grid-gutter-width/4;
-    //    margin-right: -@grid-gutter-width/4;
     border-radius: 0px;
     border-right-width: 0px;
     border-left-width: 0px;
@@ -76,6 +87,7 @@
 .form-control {
  max-width: @form-control-max-width;
 }
+
 
 .cell-spacing-vertical-sm{
   @media (max-width: @screen-sm) {
@@ -88,10 +100,10 @@
 
 article {
   width: auto;
-//  margin: 0 @article-side-margin;
   padding: @article-complete-padding 0px;
-
 }
+
+
 
 .article-voting {
   text-align: center;
@@ -135,10 +147,8 @@ article {
 
 .article-meta, .comment-meta {
   display: block;
-//  width: @meta-base-width;
 
   ul {
-//    width: @meta-base-width;
     padding-left: 0;
   }
 
@@ -205,4 +215,12 @@ article {
     padding-right: 0px;
   }
 
+}
+
+.dropdown-menu {
+  padding: 0px;
+  li > a{
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 }

@@ -1,42 +1,47 @@
-
-@import "../bower_components/bootstrap/less/variables.less";
-@import "../bower_components/bootstrap/less/mixins";
 @import "./variables.less";
+@import "./mixins";
 
 @color-highlight-background:  #f9f9f9;
 @color-separators: #cccccc;
 
-@font-family-sans-serif:  'Fjalla+One', Helvetica, Arial, sans-serif;
-@headings-font-family:    @font-family-sans-serif;
-@font-family-body:        'Droid Serif', serif;
 
 #logo{
   font-size: @font-size-large;
-  height: 100%;
-  margin: 10px 0px;
 }
+
 // navigation
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{
     background-color: @color-highlight-background;
  }
-//.nav-tabs > li.passive > a, .nav-tabs > li.passive > a:focus{
-//  background-color: none;
-//}
-html {
-  font-size: 12pt;
-  font-family: @font-family-body;
+
+
+.header{
+  background-color: @header-background-color;
+  border-bottom: solid @app-blue 1px;
 }
 
-body {
-  font-family: @font-family-body;
+.header *{
+  color: @header-foreground-color;
+  vertical-align: middle;
+  * button{
+    border-color: @app-orange;
+  }
 }
-
-h1, h2, h3, h4, h5 {
-  font-family: @font-family-sans-serif;
+.header * button, .header * button *{
+  background-color: @header-foreground-color;
+  color: @header-background-color;
 }
-
 #main-navigation{
   border: none;
+}
+#search {
+  * .form-control {
+    border-color: @app-blue;
+    box-shadow: none;
+  }
+  * button{
+    border-color: @app-blue;
+  }
 }
 
 .container {
@@ -73,6 +78,9 @@ h1, h2, h3, h4, h5 {
   background-color: @color-highlight-background;
 }
 
+.input-group-btn > button  {
+  height: @input-height-base;
+}
 article {
   border-bottom-width:1px;
   -webkit-box-shadow: 0 8px 6px -6px rgba(150, 150, 150, 0.75);
@@ -134,6 +142,10 @@ article {
     margin-right: -50%;
   }
 }
+ .comments > div{
+   padding-top: @grid-gutter-width/2;
+   padding-bottom: @grid-gutter-width/2;
+ }
 
 .comments-ul {
   display: block;

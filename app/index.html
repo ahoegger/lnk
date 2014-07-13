@@ -41,8 +41,9 @@
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<div class="container-fluid">
-<div class="header">
+
+<div class="header ">
+    <div class="container-fluid">
     <div class="row">
         <div class="col-xs-2" id="logo">.lnk</div>
         <h5 class="col-xs-8 text-center hidden-xxs" id="headline">Love
@@ -51,18 +52,21 @@
 
         <div class="col-xs-2 pull-right">
             <div class="btn-group pull-right">
-                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span
+                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle header-control-inverse"><span
                         class="fa fa-navicon"></span></button>
                 <ul class="dropdown-menu pull-right">
                     <li><a href="#" onClick="alert('TODO: Account Settings!')">Account Settings</a></li>
-                    <li class="divider"></li>
+
                     <li><a href="#" onClick="alert('TODO: Logout!')">Logout</a></li>
                 </ul>
             </div>
         </div>
     </div>
+    </div>
 </div>
+
 <!--<div class="row nav-tabs">-->
+<div class="container-fluid content">
 <ul class="nav nav-tabs " id="main-navigation">
     <li class="passive col-xs-4 no-padding text-center"><a data-toggle="tab"
                                                           href="#favorites">Favorites</a></li>
@@ -240,7 +244,7 @@
                     <div class="no-padding" style="padding-left: 40px;">
                         <div class="col-xs-12">
                             <div class="comments">
-                                <div data-bind="visible: displayAddComment" class="clearfix">
+                                <div data-bind="visible: displayAddComment" class="clearfix row">
                                     <form class="form-horizontal" role="form"
                                           data-bind="submit: lnk.behaviour.addComment">
                                         <div class="form-group>">
