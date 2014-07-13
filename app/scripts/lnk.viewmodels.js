@@ -102,7 +102,11 @@ lnk.viewmodels = (function($, ko, SERVICE, HELPER ) {
          */
         self.imageLoadedErrorHandler = function() {
             HELPER.logInfo('Image error loading');
-            self.displayAlternateImageUrl(true);
+            if (self.url().length && self.url().length != 0) {
+                self.displayAlternateImageUrl(true);
+            } else {
+                self.displayAlternateImageUrl(false);
+            }
         };
         /**
          * This function converts the string with the tags into the tags array
