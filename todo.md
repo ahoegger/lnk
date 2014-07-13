@@ -30,5 +30,5 @@
 * Sortierte Kommentare
 * "add comment" schöner machen
 * Bessere responsive breakpoints
-* "Manual"
+* OK [hhe] "Manual"
 * Tabgroup Suche/Favoriten/New besser gestalten.
