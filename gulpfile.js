@@ -8,6 +8,7 @@ var $ = require('gulp-load-plugins')();
 
 /* starting express server
 *  see http://rhumaric.com/2014/01/livereload-magic-gulp-style/
+*  TODO: Continue with tutorial
 */
 function startExpress() {
     var express = require('express');

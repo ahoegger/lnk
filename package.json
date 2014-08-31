@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "express": "4.x",
+    "less-middleware": "^1.0.4",
     "morgan": "^1.2.3",
     "serve-favicon": "^2.1.1",
     "static-favicon": "^2.0.0-alpha"
