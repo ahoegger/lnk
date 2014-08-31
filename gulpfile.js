@@ -6,6 +6,16 @@ var gulp = require('gulp');
 // load plugins
 var $ = require('gulp-load-plugins')();
 
+/* starting express server
+*  see http://rhumaric.com/2014/01/livereload-magic-gulp-style/
+*/
+function startExpress() {
+    var express = require('express');
+    var app = express();
+    app.use(express.static(__dirname));
+    app.listen(4000);
+}
+
 gulp.task('styles', function () {
     return gulp.src('app/styles/main.less')
         .pipe($.less())
@@ -113,7 +123,6 @@ gulp.task('watch', ['connect', 'serve'], function () {
     var server = $.livereload();
 
     // watch for changes
-
     gulp.watch([
         'app/*.html',
         '.tmp/styles/**/*.css',
