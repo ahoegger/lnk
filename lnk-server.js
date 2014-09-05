@@ -12,6 +12,7 @@ var favicon = require('serve-favicon');    // fav-icon handling
 var lessMiddleware = require('less-middleware');  // less middleware, compiles the .less files into .css on the fly; gulp had done this before
 // var fs = require('fs');
 
+var articlesRouter = require('./app/routes/articles');
 // constants and basic variables
 var express_server_port = 3000;
 var app_root_path = path.join(__dirname, 'app');
@@ -30,7 +31,7 @@ app.use(lessMiddleware(public_root_path, {compress: true}));
 app.use(express.static(public_root_path));                                    // serve static files
 app.use('/bower_components',  express.static(bower_root_path));             // bower components are not inside public
 app.use('/fonts',  express.static(fonts_root_path));     // needed because of font-awesome.css, gulp had done this before
-
+app.use('/api', articlesRouter);
 // start der server
 http.createServer(app).listen(express_server_port);
 
