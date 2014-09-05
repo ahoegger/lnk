@@ -54,3 +54,25 @@
     
 ## API ##
 
+* GET /articles: Returns a list of articles
+    * Query-Parameter "tags=": Articles with at least one of the given tags
+    * Query-Parameter "user=": Artciles for the given users
+    * Query-Parameter "dateFrom=": Artciles newer than the given date
+    * Query-Parameter "dateTo=": Artciles older than the given date
+    * Query-Parameter "orderBy=": Property, by which the artciles shall be ordered
+    * Query-Parameter "orderDirection=": Ascending oder descending order
+    * TODO: Paging...
+* POST /articles: Posts a new article
+* GET /articles/13: Returns article with the id 13
+* PUT /articles/13: Updates an article with a new entity
+* DELETE /articles/13: Deletes the article
+* GET /articles/13/tags: Returns the list of tags for the article
+* GET /articles/13/comments: Returns the comments for the articles
+    * Query-Parameter: user, dateFrom, dateTo, orderBy, oderDirection like from articles
+* GET /articles/13/comments/432: Returns a single comment
+* POST /artciles/13/comments: Adds a new comment to the article
+* PUT /artciles/13/comments/432: Updates a given single comment
+* GET /articles/13/user: Returns the user that submitted the article
+* POST /articles/13/votes/user/534: Adds a new vote to the article for the given user
+* GET /artciles/13/votes/user/534: Returns the vote of the given user
+* PUT /artciles/13/votes/user/534: Updates the vote of the given user
