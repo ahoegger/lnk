@@ -2,11 +2,16 @@
  * Created by holger on 05.09.2014.
  */
 var express = require('express');
+var articleModule = require('../data/article');
 var datastore = require('../infrastructure/datastore');
 var router = express.Router();
 var path = require('path');     // node.js module für pfadhandling
 // current path of node.js root = process.cwd()  //cwd() = current working directory
 var rootPath = path.resolve(process.cwd());
+
+function parseBodyToArticle(json) {
+    return articleModule.fromJson(json);
+}
 
 // This is a controller!
 /* GET product data */
@@ -28,7 +33,16 @@ router
     })
     .post('/article', function(req, res, next) {
         console.log(req.body);
-        // TODO Implement logic
+        console.dir(parseBodyToArticle(req.body));
+        datastore.articles.insert((parseBodyToArticle(req.body)),
+            function(err, newDoc) {
+               if(err) {
+                   console.log('Error' + err);
+                   res.status(503).send('Unable to store data')
+                   next();
+               }
+               res.status(201).send(JSON.stringify(newDoc));
+            });
         next();
     });
 

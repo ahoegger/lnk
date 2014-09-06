@@ -21,7 +21,6 @@ var public_root_path = path.join(app_root_path, 'public');
 var bower_root_path = path.join(app_root_path, 'bower_components');
 var fonts_root_path = path.join(app_root_path, 'bower_components/font-awesome/fonts');
 
-
 // The express server
 var app = express();
 
@@ -32,14 +31,15 @@ app.use(lessMiddleware(public_root_path, {compress: true}));       // transpiles
 
 // serving static content
 app.use(express.static(public_root_path));                         // serve static files
-app.use('/bower_components',  express.static(bower_root_path));             // bower components are not inside public
-app.use('/fonts',  express.static(fonts_root_path));     // needed because of font-awesome.css, gulp had done this before
+app.use('/bower_components',  express.static(bower_root_path));    // bower components are not inside public
+app.use('/fonts',  express.static(fonts_root_path));               // needed because of font-awesome.css, gulp had done this before
 
 // handling api requests
 // TODO Check, if it is correct to inject the body parser middleware between all the other stuff
 app.use(bodyParser.json())
 app.use('/api', articlesRouter);
+
+
 // start der server
 http.createServer(app).listen(express_server_port);
-
 console.log('Server started on localhost:' + express_server_port + '; press Ctrl-C to terminate....');
