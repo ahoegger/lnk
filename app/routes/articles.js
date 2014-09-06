@@ -2,7 +2,7 @@
  * Created by holger on 05.09.2014.
  */
 var express = require('express');
-var articleModule = require('../data/article');
+var articleModule = require('../data/article333');
 var datastore = require('../infrastructure/datastore');
 var router = express.Router();
 var path = require('path');     // node.js module für pfadhandling
@@ -38,7 +38,7 @@ router
             function(err, newDoc) {
                if(err) {
                    console.log('Error' + err);
-                   res.status(503).send('Unable to store data')
+                   res.status(503).send('Unable to store data');
                    next();
                }
                res.status(201).send(JSON.stringify(newDoc));
