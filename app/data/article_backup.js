@@ -33,13 +33,13 @@ var Article = function Article(id, title, url, imageUrl, description, submittedB
  */
 var articleFromJson = function(jsonObject) {
     return new Article(
-        jsonObject.id || null,
+            jsonObject.id || null,
         jsonObject.title,
         jsonObject.url,
         jsonObject.imageUrl,
         jsonObject.description,
         jsonObject.submittedBy,
-        jsonObject.submittedOn || new Date()
+            jsonObject.submittedOn || new Date()
     )
 };
 

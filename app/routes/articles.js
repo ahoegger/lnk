@@ -2,7 +2,7 @@
  * Created by holger on 05.09.2014.
  */
 var express = require('express');
-var articleModule = require('../data/article333');
+var articleModule = require('../data/article_backup');
 var datastore = require('../infrastructure/datastore');
 var router = express.Router();
 var path = require('path');     // node.js module für pfadhandling
