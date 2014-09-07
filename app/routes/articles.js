@@ -17,33 +17,42 @@ function parseBodyToArticle(json) {
 /* GET product data */
 router
     .get('/articles', function(req, res, next) {
-        // json daten kann man verschieden direkt schicken:
-        // res.send('respond with a basic data resource');      // literaler string, z.B. auch ein json String
-        // res.json({foo: 'bar'});  // javascript object wird direkt convertiert
-        var dataPath = path.join(rootPath, './app/data', 'articles.json');
-        var doc = {name: 'holger',
-                   roles: ['admin', 'user']};
-        datastore.users.insert(doc, function(err, newDoc) {
-            console.log('Error: ' + err);
-            console.log('NewDoc:');
-            console.dir(newDoc);
-        });
-        // TODO Implement database logic
-        res.sendFile(dataPath);   // filereferenz
+        // TODO Implement proper query sting from HTTP quiery string
+        var query = {
+            'title': {$gte: 'Jersey' }
+        };
+        datastore.dao.articles.select(
+            query,
+            function(err) {
+                console.log('Error querying');
+                console.dir(err);
+                res.status(503).send('Unable to query data');
+                next();
+            }  ,
+            function(docs) {
+                console.log('Success querying');
+                console.dir(docs);
+                res.status(200).send(JSON.stringify(docs));
+                next();
+            }
+        );
     })
     .post('/article', function(req, res, next) {
         console.log(req.body);
         console.dir(parseBodyToArticle(req.body));
-        datastore.articles.insert((parseBodyToArticle(req.body)),
-            function(err, newDoc) {
-               if(err) {
-                   console.log('Error' + err);
-                   res.status(503).send('Unable to store data');
-                   next();
-               }
-               res.status(201).send(JSON.stringify(newDoc));
-            });
-        next();
+        datastore.dao.articles.insert(
+            parseBodyToArticle(req.body),
+            function(err) {
+                console.log('Handling error ' + err);
+                res.status(503).send('Unable to store data');
+                next();
+            },
+            function(newDoc) {
+                console.log('Success inserting new document ' + newDoc)
+                res.status(201).send(JSON.stringify(newDoc));
+                next();
+            }
+        );
     });
 
 module.exports = router;
