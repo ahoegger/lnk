@@ -2,8 +2,8 @@
   "name": "lnk",
   "version": "0.1.0",
   "repository": {
-     "type": "git",
-     "url": "https://github.com/ahoegger/lnk.git"
+    "type": "git",
+    "url": "https://github.com/ahoegger/lnk.git"
   },
   "scripts": {
     "start": "node --harmony_collections lnk-server.js"
@@ -12,6 +12,7 @@
     "body-parser": "^1.8.0",
     "bower": "^1.3.9",
     "express": "4.x",
+    "halson": "^2.2.0",
     "less-middleware": "^1.0.4",
     "morgan": "^1.2.3",
     "nedb": "^0.11.1",

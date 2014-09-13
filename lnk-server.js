@@ -13,14 +13,16 @@ var lessMiddleware = require('less-middleware');  // less middleware, compiles t
 var bodyParser = require('body-parser');    // middleware for body-parsing
 // var fs = require('fs');
 
-var articlesRouter = require('./app/routes/articles');
-var tagsRouter = require('./app/routes/tags');
+var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
+
+var articlesRouter = require(app_constants.packagedModule('routes', 'articles'));
+var tagsRouter = require(app_constants.packagedModule('routes', 'tags'));
 // constants and basic variables
 var express_server_port = 3000;
-var app_root_path = path.join(__dirname, 'app');
-var public_root_path = path.join(app_root_path, 'public');
-var bower_root_path = path.join(app_root_path, 'bower_components');
-var fonts_root_path = path.join(app_root_path, 'bower_components/font-awesome/fonts');
+
+var public_root_path = path.join(app_constants.appPath, 'public');
+var bower_root_path = path.join(app_constants.appPath, 'bower_components');
+var fonts_root_path = path.join(app_constants.appPath, 'bower_components/font-awesome/fonts');
 
 // The express server
 var app = express();
@@ -37,7 +39,7 @@ app.use('/fonts',  express.static(fonts_root_path));               // needed bec
 
 // handling api requests
 // TODO Check, if it is correct to inject the body parser middleware between all the other stuff
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use('/api', articlesRouter);
 app.use('/api', tagsRouter);
 

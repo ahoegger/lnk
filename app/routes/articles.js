@@ -2,10 +2,12 @@
  * Created by holger on 05.09.2014.
  */
 var express = require('express');
-var articleModule = require('../data/article_entity');
-var datastore = require('../infrastructure/datastore');
+var path = require('path');
+var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
+
+var datastore = require(app_constants.packagedModule('infrastructure', 'datastore'));
+var articleModule = require(app_constants.packagedModule('data', 'article_entity'));
 var router = express.Router();
-var path = require('path');     // node.js module für pfadhandling
 // current path of node.js root = process.cwd()  //cwd() = current working directory
 var rootPath = path.resolve(process.cwd());
 
