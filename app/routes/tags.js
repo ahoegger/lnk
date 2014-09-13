@@ -8,11 +8,19 @@ var articleModule = require(app_constants.packagedModule('data', 'article_entity
 var datastore = require(app_constants.packagedModule('infrastructure', 'datastore'));
 
 var router = express.Router();
-// current path of node.js root = process.cwd()  //cwd() = current working directory
-var rootPath = path.resolve(process.cwd());
 
-function parseBodyToArticle(json) {
-    return articleModule.fromJson(json);
+/**
+ * This function parses the properties of the given object and transform them into a JSON string
+ * @param {Object} setObject The object, whos properties shall be transformed into an JSON array
+ * @return {String} JSON String of the properties of the object
+ */
+// TODO This together with the logic in the datastore for the tags should be a "set mocking class"
+function parseSetToJson(setObject) {
+    var tags = [];
+    for (var key in setObject) {
+        tags.push(key);
+    }
+    return JSON.stringify(tags);
 }
 
 // This is a controller!
@@ -31,7 +39,8 @@ router
             },
             function(tags) {
                 console.log('Received tags:');
-                console.dir(tags);
+                console.dir(parseSetToJson(tags));
+                res.status(200).send(parseSetToJson(tags));
             }
         );
     });

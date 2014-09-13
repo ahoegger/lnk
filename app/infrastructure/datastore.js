@@ -60,11 +60,11 @@ var DAO = function(datastore) {
     };
 
     var _deleteId = function(id) {
-
+        // TODO implement
     };
 
     var _deleteQuery = function(query) {
-
+        // TODO implement
     };
 
     return {
@@ -91,7 +91,7 @@ var TagsDAO = function(dao) {
                 errorCallback(err);
             },
             function (docs) {
-                var tagSet = new Set();
+                var tagSet = Object.create(null);  // object without prototype and hence no "ownProperty" is needed
                 var tempTags;
                 var docsLength = docs.length;
                 var tagsLength;
@@ -103,7 +103,7 @@ var TagsDAO = function(dao) {
                         tempTags = docs[i].tags;
                         tagsLength = tempTags.length;
                         for (j = 0; j < tagsLength; j++) {
-                            tagSet.add(tempTags[j]);
+                            tagSet[tempTags[j]] = null;
                         }
                     }
                 }
