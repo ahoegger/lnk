@@ -7,16 +7,17 @@ var articleFunctions = {};
 
 /**
  * This function constructs a new Article
- * @param id
- * @param title
- * @param url
- * @param imageUrl
- * @param description
- * @param submittedBy
- * @param submittedOn
+ * @param {String} id
+ * @param {String} title
+ * @param {URL} url
+ * @param {URL} imageUrl
+ * @param {String} description
+ * @param {String} submittedBy
+ * @param {Date} submittedOn
+ * @param {String[]} tags
  * @constructor
  */
-var Article = function Article(id, title, url, imageUrl, description, submittedBy, submittedOn) {
+var Article = function Article(id, title, url, imageUrl, description, submittedBy, submittedOn, tags) {
     this.id = id;
     this.title = title;
     this.url = url;
@@ -24,6 +25,7 @@ var Article = function Article(id, title, url, imageUrl, description, submittedB
     this.description = description;
     this.submittedBy = submittedBy;
     this.submittedOn = submittedOn;
+    this.tags = tags;
 };
 
 /**
@@ -33,13 +35,14 @@ var Article = function Article(id, title, url, imageUrl, description, submittedB
  */
 var articleFromJson = function(jsonObject) {
     return new Article(
-            jsonObject.id || null,
+        jsonObject.id || null,
         jsonObject.title,
         jsonObject.url,
         jsonObject.imageUrl,
         jsonObject.description,
         jsonObject.submittedBy,
-            jsonObject.submittedOn || new Date()
+        jsonObject.submittedOn || new Date(),
+        jsonObject.tags || []
     )
 };
 

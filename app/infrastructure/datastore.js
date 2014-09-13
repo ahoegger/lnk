@@ -75,6 +75,50 @@ var DAO = function(datastore) {
     }
 };
 
+// TODO JavaDoc
+var TagsDAO = function(dao) {
+    var self = this;
+    self.dao = dao;
+
+    var _selectArticleTags = function (filterFunction, errorCallback, successCallback) {
+        self.dao.select(
+            {
+                // no query is the limit
+            },
+            function (err) {
+                console.log('This is an error:');
+                console.dir(err);
+                errorCallback(err);
+            },
+            function (docs) {
+                var tagSet = new Set();
+                var tempTags;
+                var docsLength = docs.length;
+                var tagsLength;
+                var i = 0;
+                var j = 0;
+                // TODO implement filter function
+                for (; i < docsLength; i++) {
+                    if (docs[i].tags) {
+                        tempTags = docs[i].tags;
+                        tagsLength = tempTags.length;
+                        for (j = 0; j < tagsLength; j++) {
+                            tagSet.add(tempTags[j]);
+                        }
+                    }
+                }
+                console.log('This is the set with the tags:');
+                console.dir(tagSet);
+                successCallback(tagSet);
+            }
+        );
+    };
+
+    return {
+        selectTags: _selectArticleTags
+    }
+};
+
 // Create and load the databases
 db.articles = new Datastore(path.join(dbRootPath, 'articles'));
 db.users = new Datastore(path.join(dbRootPath, 'users'));
@@ -83,6 +127,7 @@ db.users.loadDatabase();
 
 db.dao = {
     articles: new DAO(db.articles),
+    tags: new TagsDAO(new DAO(db.articles)),    // TODO actually, do not create a second article DAO
     users: new DAO(db.users)
 };
 module.exports = db;

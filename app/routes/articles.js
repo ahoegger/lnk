@@ -14,10 +14,10 @@ function parseBodyToArticle(json) {
 }
 
 // This is a controller!
-/* GET product data */
+/* GET article data */
 router
     .get('/articles', function(req, res, next) {
-        // TODO Implement proper query sting from HTTP quiery string
+        // TODO Implement proper query string from HTTP query string
         var query = {
             'title': {$gte: 'Jersey' }
         };

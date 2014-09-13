@@ -14,6 +14,7 @@ var bodyParser = require('body-parser');    // middleware for body-parsing
 // var fs = require('fs');
 
 var articlesRouter = require('./app/routes/articles');
+var tagsRouter = require('./app/routes/tags');
 // constants and basic variables
 var express_server_port = 3000;
 var app_root_path = path.join(__dirname, 'app');
@@ -38,6 +39,7 @@ app.use('/fonts',  express.static(fonts_root_path));               // needed bec
 // TODO Check, if it is correct to inject the body parser middleware between all the other stuff
 app.use(bodyParser.json())
 app.use('/api', articlesRouter);
+app.use('/api', tagsRouter);
 
 
 // start der server
