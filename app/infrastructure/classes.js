@@ -6,26 +6,29 @@
 
 var classes = {};
 
-var LnkError = function(number, message) {
+var lnkErrorConstructor = function LnkError(number, message) {
     this.number = number;
     this.message = message;
+    this.stack = Error().stack;
 
-    this.prototype.getNumber = function() {
+    LnkError.prototype.getNumber = function() {
         return this.number;
     };
 
-    this.prototype.getMessage = function() {
+    LnkError.prototype.getMessage = function() {
         return this.message;
     };
 
+    LnkError.prototype = Object.create(Error.prototype);
+    LnkError.prototype.name = "LnkError";
 };
+
 
 /**
  * Creates an object to mimic a "string set"
  * @constructor
  */
 var setConstructor = function StringSet() {
-    // var self = {};
     this.holder = Object.create(null);
 
     var elementIsOk = function(element) {
@@ -33,7 +36,8 @@ var setConstructor = function StringSet() {
     };
 
     var handleElementNok = function() {
-        throw new LnkError(0, 'Missing required element name');
+        // throw new Error('Missing required element name');
+        throw new lnkErrorConstructor(0, 'Missing required element name');
     };
 
     // public and prototype functions
@@ -94,5 +98,6 @@ var setConstructor = function StringSet() {
 };
 
 classes.StringSet = setConstructor;
+classes.LnkError = lnkErrorConstructor;
 
 module.exports = classes;

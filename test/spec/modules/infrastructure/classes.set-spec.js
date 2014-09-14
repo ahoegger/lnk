@@ -47,5 +47,8 @@ describe('Test the StringSet class', function() {
         expect(myStringSet1.contains(propertyName)).toBe(true);
         expect(myStringSet2.contains(propertyName)).toBe(false);
     });
-
+    it('does not accept non string elements', function() {
+        var myStringSet = new classesModule.StringSet();
+        expect(function() {myStringSet.add(123);} ).toThrow(new classesModule.LnkError(0, 'Missing required element name'));
+    });
 });
