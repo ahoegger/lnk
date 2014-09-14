@@ -6,7 +6,8 @@
     "url": "https://github.com/ahoegger/lnk.git"
   },
   "scripts": {
-    "start": "node --harmony_collections lnk-server.js"
+    "start": "node --harmony_collections lnk-server.js",
+    "tests": "jasmine-node test/spec"
   },
   "dependencies": {
     "body-parser": "^1.8.0",
@@ -39,6 +40,7 @@
     "gulp-size": "^0.3.0",
     "gulp-uglify": "^0.2.1",
     "gulp-useref": "^0.4.2",
+    "jasmine-node": "^1.14.5",
     "jshint-stylish": "^0.2.0",
     "opn": "^0.1.1",
     "wiredep": "^1.4.3"
