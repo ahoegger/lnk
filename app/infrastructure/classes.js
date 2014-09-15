@@ -90,10 +90,11 @@ var setConstructor = function StringSet() {
      * Transforms the Set into a "simple" array
      */
     StringSet.prototype.toArray = function() {
-        var tags = [];
+        var elementArray = [];
         for (var key in this.holder) {
-            tags.push(key);
+            elementArray.push(key);
         }
+        return elementArray;
     }
 };
 

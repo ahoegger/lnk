@@ -3,6 +3,8 @@
  */
 var Datastore = require('nedb');
 var path = require('path');     // node.js module for handling paths
+var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
+var classesModule = require(app_constants.packagedModule('infrastructure', 'classes'));
 var db = {};   // object with all DBs
 var dbRootPath = path.resolve(process.cwd(), './data');
 
@@ -91,7 +93,7 @@ var TagsDAO = function(dao) {
                 errorCallback(err);
             },
             function (docs) {
-                var tagSet = Object.create(null);  // object without prototype and hence no "ownProperty" is needed
+                var tagSet = new classesModule.StringSet();
                 var tempTags;
                 var docsLength = docs.length;
                 var tagsLength;
@@ -103,13 +105,11 @@ var TagsDAO = function(dao) {
                         tempTags = docs[i].tags;
                         tagsLength = tempTags.length;
                         for (j = 0; j < tagsLength; j++) {
-                            tagSet[tempTags[j]] = null;
+                            tagSet.add(tempTags[j]);
                         }
                     }
                 }
-                console.log('This is the set with the tags:');
-                console.dir(tagSet);
-                successCallback(tagSet);
+                successCallback(tagSet.toArray());
             }
         );
     };
