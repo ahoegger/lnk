@@ -34,7 +34,7 @@ app.use(lessMiddleware(public_root_path, {compress: true}));       // transpiles
 
 // serving static content
 //app.use(express.static(public_root_path));                         // serve static files
-app.use(express.static( path.join(app_root_path, 'client')));                         // serve static files
+app.use(express.static( path.join(app_constants.appPath, 'client')));                         // serve static files
 app.use('/bower_components',  express.static(bower_root_path));    // bower components are not inside public
 app.use('/fonts',  express.static(fonts_root_path));               // needed because of font-awesome.css, gulp had done this before
 
