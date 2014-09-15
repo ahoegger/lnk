@@ -10,7 +10,8 @@
     "underscore": "1.6.0",
     "moment": "~2.7.0",
     "angular": "~1.2.24",
-    "angular-route": "~1.2.24"
+    "angular-route": "~1.2.24",
+    "angular-momentjs": "~0.1.8"
   },
   "devDependencies": {}
 }

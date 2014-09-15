@@ -10,10 +10,7 @@
 var lnkApp = angular.module('lnkApp', [
     'ngRoute'
     , 'articlesController'
-//    , 'phonecatAnimations'
-//    ,    'phonecatControllers'
-//    ,    'phonecatFilters'
-//    ,    'phonecatServices'
+    ,'angular-momentjs'
 ]);
 
 lnkApp.config(['$routeProvider',

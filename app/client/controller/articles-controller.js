@@ -1,28 +1,42 @@
 /**
  * Created by aho on 12.09.2014.
  */
-var articlesController = angular.module('articlesController', []);
+    var articlesController = angular.module('articlesController', ['articleServices']);
 
-articlesController.controller('articleListController', ['$scope', '$http',
-    function ($scope, $http) {
-        $http.get('phones/phones.json').success(function(data) {
-            $scope.phones = data;
-        });
-        $scope.sloagan='a Sloagan';
-        $scope.orderProp = 'age';
-//        $scope.getTags = function(article){
-//          services.getTags(article.tagUrd)
-//        };
-    }]);
+    articlesController.controller('articleListController', ['$scope', 'articleServices',
+        function ($scope,  articleServices) {
+            articleServices.getArticles().success(function(data, status, headers, config) {
+//                // preprocess
+//                for(var i = 0, l = data.lenght; i < l; ++i) {
+//                    data[i].abc = $moment(article.submittedOn).fromNow();
+//                }
+                $scope.articles = data;
+                console.log('success with get articles!');
+            });
+            $scope.sloagan='a Sloagan';
+            $scope.orderProp = 'age';
+            $scope.voteUp = function($event, articleId){
+                $event.preventDefault();
+                articleServices.voteUp(articleId);
+            }
+            $scope.voteDown = function($event, articleId){
+                $event.preventDefault();
+                articleServices.voteDown(articleId);
+            }
+        }]);
+
+/**
+ * a filter to format the submitted date into a relative date from now like 'few seconds ago'
+ */
+articlesController.filter('dateFromNow', function() {
+    return function(input, $moment) {
+        return moment(input).fromNow();
+    };
+});
+
 
 articlesController.controller('navigationController', ['$scope',
     function ($scope) {
 
         $scope.sloagan2='navigation Sloagan';
-    }]);
-
-
-phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams',
-    function($scope, $routeParams) {
-        $scope.phoneId = $routeParams.phoneId;
     }]);
