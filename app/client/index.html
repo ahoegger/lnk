@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--stylesheet-->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" href="styles/main.css">
 
     <!--scripts-->
@@ -20,7 +22,7 @@
     <script src="controller/articles-controller.js"></script>
     <script src="controller/navigation-controller.js"></script>
     <script src="controller/addArticle-controller.js"></script>
-    <script src="services/article-services.js"></script>
+    <script src="services/article-service.js"></script>
 </head>
 <body>
 
@@ -28,14 +30,30 @@
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-
-
+<!--include header-->
 <div ng-include='"views/navigation.html"' ng-controller="navigationController"></div>
+
+<div class="container-fluid content">
+    <ul class="nav nav-tabs " id="main-navigation">
+        <li class="passive col-xs-4 no-padding text-center"><a data-toggle="tab"
+                                                               href="#favorites">Favorites</a></li>
+        <li class="active col-xs-4 no-padding text-center"><a data-toggle="tab" href="#search">Search</a>
+        </li>
+        <li class="passive col-xs-4 no-padding text-center"><a data-toggle="tab" href="#add">Add</a></li>
+    </ul>
+    <!--</div>-->
+    <!--<div class="row">-->
+    <div class="tab-content tab-first-row">
+        <div ng-view></div>
+        </div>
+    </div>
+
+
 
 
 <!--<div class="row nav-tabs">-->
 
-<div ng-view></div>
+
 
 <!-- build:js scripts/vendor/pageend.js -->
 <script src="../bower_components/bootstrap/js/affix.js"></script>

@@ -3,10 +3,10 @@
  */
 
 
-var addArticleController = angular.module('addArticleController', ['articleServices']);
+var addArticleController = angular.module('addArticleController', ['service.article']);
 
-addArticleController.controller('addArticle', ['$scope','$location', 'articleServices',
-    function ($scope,   $location,articleServices) {
+addArticleController.controller('addArticle', ['$scope','$location', 'article',
+    function ($scope,   $location, article) {
         $scope.postArticle = function($event){
             $event.preventDefault();
             console.dir($scope.newArticle);

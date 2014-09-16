@@ -1,21 +1,21 @@
 /**
  * Created by aho on 12.09.2014.
  */
-    var articlesController = angular.module('articlesController', ['articleServices']);
+    var articlesController = angular.module('articlesController', ['service.article']);
 
-    articlesController.controller('articleListController', ['$scope', 'articleServices',
-        function ($scope,  articleServices) {
-            articleServices.getArticles().success(function(data, status, headers, config) {
+    articlesController.controller('articleListController', ['$scope', 'article',
+        function ($scope,  article) {
+            article.getArticles().success(function(data, status, headers, config) {
                 $scope.articles = data;
                 console.log('success with get articles!');
             });
             $scope.voteUp = function($event, articleId){
                 $event.preventDefault();
-                articleServices.voteUp(articleId);
+                article.voteUp(articleId);
             }
             $scope.voteDown = function($event, articleId){
                 $event.preventDefault();
-                articleServices.voteDown(articleId);
+                article.voteDown(articleId);
             }
         }]);
 
