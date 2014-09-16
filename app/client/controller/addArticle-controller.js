@@ -5,8 +5,14 @@
 
 var addArticleController = angular.module('addArticleController', ['articleServices']);
 
-addArticleController.controller('addArticle', ['$scope', 'articleServices',
-    function ($scope,  articleServices) {
+addArticleController.controller('addArticle', ['$scope','$location', 'articleServices',
+    function ($scope,   $location,articleServices) {
+        $scope.postArticle = function($event){
+            $event.preventDefault();
+            console.dir($scope.newArticle);
+            console.dir($location);
+            $location.path('/articles');
+        };
 //        articleServices.getArticles().success(function(data, status, headers, config) {
 //            $scope.articles = data;
 //            console.log('success with get articles!');
@@ -21,3 +27,10 @@ addArticleController.controller('addArticle', ['$scope', 'articleServices',
 //        }
     }
 ]);
+
+var addArticleControllerFun = function($scope, articleServices){
+    $scope.postArticle = function($event){
+        $event.preventDefault();
+        console.dir($scope.newArticle);
+    }
+}

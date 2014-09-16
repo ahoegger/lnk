@@ -3,7 +3,7 @@
 
 var gulp = require('gulp');
 
-var static_files_root = 'app/public';
+var static_files_root = 'app/client';
 var static_bower_root = 'app/bower_components';
 var static_bower_fontawsome_root = 'app/bower_components/font-awesome/fonts';
 
