@@ -3,16 +3,19 @@
  */
 
 
-var addArticleController = angular.module('addArticleController', ['service.article']);
+var addArticleController = angular.module('addArticleController', ['service.article', 'service.behaviour']);
 
-addArticleController.controller('addArticle', ['$scope','$location', 'article',
-    function ($scope,   $location, article) {
-        $scope.postArticle = function($event){
+addArticleController.controller('addArticle', ['$scope', '$location', 'article','behaviour',
+    function ($scope, $location, article, behaviour) {
+        $scope.postArticle = function ($event, $form) {
             $event.preventDefault();
-            console.dir($scope.newArticle);
-            console.dir($location);
-            $location.path('/articles');
+            if ($form.$valid) {
+                console.dir($scope.newArticle);
+                $location.path('/articles');
+            }
         };
+
+        $scope.autoResizeTextarea = behaviour.autoResizeTextarea;
 //        articleServices.getArticles().success(function(data, status, headers, config) {
 //            $scope.articles = data;
 //            console.log('success with get articles!');
@@ -28,9 +31,3 @@ addArticleController.controller('addArticle', ['$scope','$location', 'article',
     }
 ]);
 
-var addArticleControllerFun = function($scope, articleServices){
-    $scope.postArticle = function($event){
-        $event.preventDefault();
-        console.dir($scope.newArticle);
-    }
-}
