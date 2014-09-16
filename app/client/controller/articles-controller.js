@@ -6,15 +6,9 @@
     articlesController.controller('articleListController', ['$scope', 'articleServices',
         function ($scope,  articleServices) {
             articleServices.getArticles().success(function(data, status, headers, config) {
-//                // preprocess
-//                for(var i = 0, l = data.lenght; i < l; ++i) {
-//                    data[i].abc = $moment(article.submittedOn).fromNow();
-//                }
                 $scope.articles = data;
                 console.log('success with get articles!');
             });
-            $scope.sloagan='a Sloagan';
-            $scope.orderProp = 'age';
             $scope.voteUp = function($event, articleId){
                 $event.preventDefault();
                 articleServices.voteUp(articleId);
@@ -35,8 +29,8 @@ articlesController.filter('dateFromNow', function() {
 });
 
 
-articlesController.controller('navigationController', ['$scope',
-    function ($scope) {
-
-        $scope.sloagan2='navigation Sloagan';
-    }]);
+//articlesController.controller('navigationController', ['$scope',
+//    function ($scope) {
+//
+//        $scope.sloagan2='navigation Sloagan';
+//    }]);

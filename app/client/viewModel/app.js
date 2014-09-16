@@ -10,6 +10,7 @@
 var lnkApp = angular.module('lnkApp', [
     'ngRoute'
     , 'articlesController'
+    , 'addArticleController'
     ,'angular-momentjs'
 ]);
 
@@ -20,6 +21,10 @@ lnkApp.config(['$routeProvider',
                 templateUrl: 'views/article-list.html',
                 controller: 'articleListController'
             }).
+            when('/add',{
+                templateUrl: 'views/addArticle.html',
+                controller: 'addArticle'
+            }).
             when('/article/:articleId', {
                 templateUrl: 'partials/phone-detail.html',
                 controller: 'PhoneDetailCtrl'
@@ -27,4 +32,16 @@ lnkApp.config(['$routeProvider',
             otherwise({
                 redirectTo: '/articles'
             });
-    }]);
+    }])
+    .run(function($rootScope, $location) {
+    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+//            console.log('route changed');
+//        if ($rootScope.loggedInUser == null) {
+//            // no logged user, redirect to /login
+//            if ( next.templateUrl === "partials/login.html") {
+//            } else {
+//                $location.path("/login");
+//            }
+//        }
+    })});
+
