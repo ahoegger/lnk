@@ -32,13 +32,12 @@
                 </div>
                 <div class="form-group">
                     <label for="add-form-image" class="col-sm-2 control-label">Image</label>
-                    <img src="{{submitArticle.url}}" id="add-form-image" class="article-preview-image col-sm-2" my-image
+                    <img src="{{computeImageUrl()}}" id="add-form-image" class="article-preview-image col-sm-2" my-image
                          >
                     <!--<img src="{{submitArticle.url}}" id="add-form-image" class="article-preview-image col-sm-2"-->
                          <!--data-bind="attr: { src: imageUrl }, event: {load: imageLoadedHandler, error: imageLoadedErrorHandler}">-->
-                    <div class="col-sm-7" ng-if="!urlIsImage">
-                        <input id="alternate-img-url"
-                               data-bind="value: alternateImageUrl, visible: displayAlternateImageUrl" type="url"
+                    <div class="col-sm-7" ng-if="isAternateUrlVisible()">
+                        <input id="alternate-img-url"  ng-model="submitArticle.alternateImageUrl"  type="url"
                                class="form-control pull-right" placeholder="Alternate image URL">
                     </div>
                 </div>

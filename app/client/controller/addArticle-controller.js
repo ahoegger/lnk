@@ -8,7 +8,6 @@ var addArticleController = angular.module('addArticleController', ['service.arti
 addArticleController.directive('myImage', [ '$timeout',
     function ( $timeout) {
         return function (scope, elm, attrs) {
-            scope.$parent.ImgWidth = elm[0].offsetWidth;
             elm.on('error', function () {
                 scope.$apply(function(){
                     scope.urlIsImage = false;
@@ -20,9 +19,6 @@ addArticleController.directive('myImage', [ '$timeout',
                    scope.urlIsImage = true;
                 });
                 console.log('img loaded '+scope.submitArticle.url);
-//                scope.$apply(function () {
-//                    scope.ImgWidth = elm[0].offsetWidth;
-//                });
             });
         };
     }]);
@@ -34,7 +30,7 @@ addArticleController.controller('addArticle', ['$scope', '$location', 'article',
         $scope.postArticle = function ($event, $form) {
             $event.preventDefault();
             if ($form.$valid) {
-                console.dir($scope.newArticle);
+                console.dir($scope.submitArticle);
                 $location.path('/articles');
             }
         };
@@ -50,6 +46,23 @@ addArticleController.controller('addArticle', ['$scope', '$location', 'article',
         $scope.autoResizeTextarea = behaviour.autoResizeTextarea;
 
 
+        $scope.computeImageUrl = function(){
+            if($scope.submitArticle.alternateImageUrl != null){
+                console.log('use alternate url');
+                return $scope.submitArticle.alternateImageUrl;
+            }else{
+                console.log('use default url');
+                return $scope.submitArticle.url;
+            }
+        };
+
+        $scope.isAternateUrlVisible = function(){
+            if($scope.urlIsImage && !$scope.submitArticle.alternateImageUrl){
+                return false;
+            }else{
+                return true;
+            }
+        };
 //        articleServices.getArticles().success(function(data, status, headers, config) {
 //            $scope.articles = data;
 //            console.log('success with get articles!');
