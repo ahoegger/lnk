@@ -5,12 +5,12 @@
 
 var navigationController = angular.module('navigationController', []);
 
-articlesController.controller('navigationController', ['$scope','$rootScope',
-    function ($scope, $rootScope) {
-        $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-            console.log('route changed to '+next.originalPath);
-            $scope.currentPath = next.originalPath;
-        });
+articlesController.controller('navigationController', ['$scope','$rootScope','$location',
+    function ($scope, $rootScope, $location) {
+        $scope.isActiveRoute = function(routeName){
+            var regex = new RegExp('/?'+routeName.toLowerCase()+'/?');
+            return regex.test($location.path().toLowerCase());
+        }
     }
 ]);
 
