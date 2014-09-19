@@ -3,13 +3,13 @@
  */
 var express = require('express');
 var path = require('path');
+var log4js = require('log4js');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 
 var datastore = require(app_constants.packagedModule('infrastructure', 'datastore'));
 var articleModule = require(app_constants.packagedModule('data', 'article_entity'));
 var router = express.Router();
-// current path of node.js root = process.cwd()  //cwd() = current working directory
-var rootPath = path.resolve(process.cwd());
+var logger = log4js.getLogger('routers.articles');
 
 function parseBodyToArticle(json) {
     return articleModule.fromJson(json);
@@ -26,14 +26,12 @@ router
         datastore.dao.articles.select(
             query,
             function(err) {
-                console.log('Error querying');
-                console.dir(err);
+                logger.error('Error querying', err);
                 res.status(503).send('Unable to query data');
                 next();
             }  ,
             function(docs) {
-                console.log('Success querying');
-                console.dir(docs);
+                logger.debug('Success querying these docs: ', docs);
                 res.status(200).send(JSON.stringify(docs));
                 next();
             }
@@ -45,12 +43,12 @@ router
         datastore.dao.articles.insert(
             parseBodyToArticle(req.body),
             function(err) {
-                console.log('Handling error ' + err);
+                logger.error('Error posting article ', err);
                 res.status(503).send('Unable to store data');
                 next();
             },
             function(newDoc) {
-                console.log('Success inserting new document ' + newDoc)
+                logger.info('Success inserting new document ', newDoc);
                 res.status(201).send(JSON.stringify(newDoc));
                 next();
             }
