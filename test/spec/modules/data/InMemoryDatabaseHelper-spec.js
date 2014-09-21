@@ -52,7 +52,7 @@ describe('Test InMemoryDatabaseHelper', function() {
         var caseLength = cases.length;
         var testCase;
         function assertPosition(testCase) {
-            it('finds wrong position for id ' + testCase.id + ' to be ' + testCase.expected, function() {
+            it('Finds wrong position for id ' + testCase.id + ' to be ' + testCase.expected, function() {
                 expect(dbHelper.findPositionById(dataArray, 'id', testCase.id)).toBe(testCase.expected);
             });
         }

@@ -50,9 +50,14 @@ var articleFromJsonString = function(jsonData) {
     return articleFromJson(JSON.parse(jsonData))
 };
 
+var cloneArticle = function(article) {
+    return articleFromJsonString(JSON.stringify(article));
+}
+
 // map the relevant public functions to the returned object
 articleFunctions.new = Article;
 articleFunctions.fromJson = articleFromJson;
 articleFunctions.fromJsonString = articleFromJsonString;
+articleFunctions.clone = cloneArticle;
 
 module.exports= articleFunctions;
