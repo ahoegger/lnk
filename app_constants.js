@@ -16,6 +16,7 @@ var resolve_any_app_module = function(module_name) {
 var predefined_infrastructure = resolve_any_app_module('infrastructure');
 var predefined_routes = resolve_any_app_module('routes');
 var predefined_data = resolve_any_app_module('data');
+var predefined_entities = resolve_any_app_module('entities');
 
 // This object defines the known modules and their path
 var module_packages = {
@@ -27,6 +28,9 @@ var module_packages = {
     },
     infrastructure: {
         path: predefined_infrastructure
+    },
+    entities: {
+        path: predefined_entities
     }
 };
 

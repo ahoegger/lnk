@@ -1,6 +1,7 @@
 var path = require('path');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 var dbHelper = require(app_constants.packagedModule('data', 'InMemoryDatabaseHelper'));
+var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
 
 describe('Test InMemoryDatabaseHelper', function() {
     var dataArray;
@@ -45,7 +46,7 @@ describe('Test InMemoryDatabaseHelper', function() {
         for(counter = 0; counter < cases.length; counter++) {
             assertPosition(cases[counter]);
         }
-    })
+    });
     describe('Test findPositionById with wrong properties', function() {
         var cases = [{id: null, expected: undefined}, {id: undefined, expected: undefined}];
         var counter;
@@ -59,5 +60,20 @@ describe('Test InMemoryDatabaseHelper', function() {
         for(counter = 0; counter < cases.length; counter++) {
             assertPosition(cases[counter]);
         }
-    })
+    });
+    describe('Test checkInstance', function(){
+        var tag = new TagClass.Tag(55, 'Hello tag');
+        function DummyConstructor(thingy) {
+            this.aaa = thingy;
+        }
+        var wrongObject = new DummyConstructor();
+        it('Should run without error', function() {
+            expect(function() {dbHelper.checkInstance(tag, TagClass.Tag);}).not.toThrow();
+        });
+        it('Should throw error', function() {
+            expect(function () {
+                dbHelper.checkInstance(wrongObject, TagClass.Tag);
+            }).toThrow(new Error('Illegal argument error'));
+        });
+    });
 });

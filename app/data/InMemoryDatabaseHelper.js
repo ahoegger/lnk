@@ -59,5 +59,17 @@ module.exports = {
         }
         logger.info('Found no item with id ' + idValue);
         return undefined;
+    },
+    /**
+     * This function checks, if the given object is an isntanceof the given custructor.
+     * If this is not the case, an error will be thrown
+     * @param object
+     * @param constructor
+     */
+    checkInstance: function(object, constructor) {
+        if (!(object instanceof constructor)) {
+            // logger.error('Object ' + object + ' not of type ', contructor);
+            throw new Error('Illegal argument error');
+        }
     }
 }

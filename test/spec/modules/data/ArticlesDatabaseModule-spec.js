@@ -3,14 +3,14 @@
  */
 var path = require('path');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
-var articleModule = require(app_constants.packagedModule('data', 'article_entity'));
+var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
 var moduleUnderTest = require(app_constants.packagedModule('data', 'ArticlesDatabaseModule'));
 
 describe('Test ArticlesDatabaseModule', function() {
     var article;
 
     beforeEach(function () {
-        article = new articleModule.new(
+        article = new ArticleClass.Article(
             null,
             'Article title',
             'http://thingy.com',

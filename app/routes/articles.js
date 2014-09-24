@@ -7,12 +7,26 @@ var log4js = require('log4js');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 
 var datastore = require(app_constants.packagedModule('infrastructure', 'datastore'));
-var articleModule = require(app_constants.packagedModule('data', 'article_entity'));
+var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
+var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
+var articleDB = require(app_constants.packagedModule('data', 'ArticlesDatabaseModule'));
 var router = express.Router();
 var logger = log4js.getLogger('routers.articles');
 
-function parseBodyToArticle(json) {
-    return articleModule.fromJson(json);
+/**
+ * This function returns an array of Tag objects from the given JSON object as array
+ * @param jsonObject JSON object, that contains a "tag" property
+ * @return {Tag[]}
+ */
+function createTagsFromJsonBody(jsonObject) {
+    var tagsSourceArray = jsonObject.tags;
+    var tags = [];
+    if (jsonObject.tags) {
+        for (var i = 0, len = tagsSourceArray.length; i < len; i++) {
+            tags.push(new TagClass.Tag(null, tagsSourceArray[i]));
+        }
+    }
+    return tags;
 }
 
 // This is a controller!
@@ -38,21 +52,14 @@ router
         );
     })
     .post('/article', function(req, res, next) {
-        console.log(req.body);
-        console.dir(parseBodyToArticle(req.body));
-        datastore.dao.articles.insert(
-            parseBodyToArticle(req.body),
-            function(err) {
-                logger.error('Error posting article ', err);
-                res.status(503).send('Unable to store data');
-                next();
-            },
-            function(newDoc) {
-                logger.info('Success inserting new document ', newDoc);
-                res.status(201).send(JSON.stringify(newDoc));
-                next();
-            }
-        );
+        var articleObject = new ArticleClass.Article();
+        articleObject.updateFromJsonObject(req.body);
+        var tagsArray = createTagsFromJsonBody(req.body);
+        logger.debug('Request body:', req.body);
+        logger.debug('Created article object from request', articleObject);
+        logger.debug('Created tags object from request', tagsArray);
+//        articleDB.insert(articleObject);
+
     });
 
 module.exports = router;
