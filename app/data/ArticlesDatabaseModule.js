@@ -28,7 +28,7 @@ function _insertArticle(article) {
     }
     newId = dbHelper.getNewId(articles, 'id');
     if (newId === undefined) {
-        logger.warn('Unabled to retrieve new ID from in memory datastore.');
+        logger.warn('Unable to retrieve new ID from in memory datastore.');
         throw new Error('Generic insert error');
     }
     clonedArticle = article.clone();

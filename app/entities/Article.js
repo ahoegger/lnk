@@ -48,7 +48,7 @@ Article.prototype.updateFromJsonString = function(jsonString) {
 
 Article.prototype.clone = function() {
     return new Article(this.id, this.title, this.url, this.imageUrl, this.description, this.submittedBy, this.date, this.tags);
-}
+};
 
 module.exports = {
     Article: Article

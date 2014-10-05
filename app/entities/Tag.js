@@ -12,6 +12,10 @@
 function Tag(id, tag) {
     this.id = id;
     this.tag = tag;
+}
+
+Tag.prototype.clone = function() {
+    return new Tag(this.id, this.tag);
 };
 
 Tag.prototype.updateFromJsonObject = function(jsonObject) {
