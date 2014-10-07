@@ -24,7 +24,7 @@ function Article(id, title, url, imageUrl, description, submittedBy, submittedOn
     this.submittedBy = submittedBy;
     this.submittedOn = submittedOn;
     this.tags = tags;
-};
+}
 
 /**
  * This function updates the properties of the article object with the given properties from the json object. If the property

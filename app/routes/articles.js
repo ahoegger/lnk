@@ -11,7 +11,8 @@ var halson = require('halson');
 var datastore = require(app_constants.packagedModule('infrastructure', 'datastore'));
 var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
 var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
-var inMemoryDatabase = require(app_constants.packagedModule('infrastructure', 'InMemoryDatastore.js'));
+var inMemoryDatabase = require(app_constants.packagedModule('infrastructure', 'InMemorydataStore.js'));
+var halsonFactory = require(app_constants.packagedModule('data', 'HalsonFactory.js'));
 var router = express.Router();
 var logger = log4js.getLogger('routers.articles');
 
@@ -48,12 +49,7 @@ router
             return true;
         };
         resultSet = inMemoryDatabase.selectArticles(query);
-        for (var i = 0, len = resultSet.length; i< len; i++) {
-            halsonSingleArticle = new halson(resultSet[i]);
-            halsonSingleArticle.addLink('self', articleUrl + '/' + resultSet[i].id);
-            halsonSingleArticle.addLink('tags', articleUrl + '/' + resultSet[i].id + '/tags');
-            halsonResultSet.push(halsonSingleArticle);
-        }
+        halsonResultSet = halsonFactory.halsonifyArray('Article', resultSet);
         res.status(200).send(JSON.stringify(halsonResultSet));
         next();
     })
@@ -62,8 +58,8 @@ router
         var resultSet;
         var halsonResultSet = [];
         resultSet = inMemoryDatabase.selectTagsForArticle(parseInt(req.params.articleId));
-        // TODO Implement halsonification
-        res.status(200).send(JSON.stringify(resultSet));
+        halsonResultSet = halsonFactory.halsonifyArray('Tag', resultSet);
+        res.status(200).send(JSON.stringify(halsonResultSet));
         next();
     })
     .post('/article', function(req, res, next) {
@@ -85,11 +81,7 @@ router
         inMemoryDatabase.insertArticleTags(articleObject, tagsArray);   // insert it's tags
 
         // build halson resources
-        articleUrl = getArticleBaseLink(req, articleObject);
-        halsonSingleArticle = new halson(articleObject);
-        halsonSingleArticle.addLink('self', articleUrl);
-        halsonSingleArticle.addLink('tags', articleUrl + '/tags');
-        halsonSingleArticle.addLink('comments', articleUrl + '/comments');
+        halsonSingleArticle = halsonFactory.halsonify('Article', articleObject);
 
         // return created article
         res.status(201).send(JSON.stringify(halsonSingleArticle));
