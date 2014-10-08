@@ -9,6 +9,7 @@ var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constant
 var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
 var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
 var ArticleTagClass = require(app_constants.packagedModule('entities', 'ArticleTag.js'));
+var ArticleUserVoteClass = require(app_constants.packagedModule('entities', 'ArticleUserVote.js'));
 
 // the table database factory
 var CrudDatabaseFactory = require(app_constants.packagedModule('data', 'CrudDatabaseFactory'));
@@ -17,8 +18,8 @@ var CrudDatabaseFactory = require(app_constants.packagedModule('data', 'CrudData
 // The  supported tables
 var articlesTable = CrudDatabaseFactory.factory(ArticleClass.Article, 'id');
 var tagsTable = CrudDatabaseFactory.factory(TagClass.Tag, 'id');
-var articleTagTable = CrudDatabaseFactory.factory(ArticleTagClass.ArticleTag, 'id');
-
+var articleTagTable = CrudDatabaseFactory.factory(ArticleTagClass.ArticleTag, 'id', ['articleId']);
+var articleUserVoteTable = CrudDatabaseFactory.factory(ArticleUserVoteClass.ArticleUserVote, 'id', ['articleId', 'userId', 'vote']);
 
 module.exports = {
     insertArticle: function(article) {
@@ -49,7 +50,7 @@ module.exports = {
     },
     /**
      * This function selects the articles table based on the query function
-     * @param queryFunction
+     * @param {Function} queryFunction The function to query the articles
      * @return {*}
      */
     selectArticles: function(queryFunction) {
@@ -74,5 +75,20 @@ module.exports = {
             resultingTags.push(tagsTable.selectById(map[i].tagId));
         }
         return resultingTags;
+    },
+    /**
+     * This function inserts a new user vote for an article
+     * @param articleId
+     * @param userId
+     * @param value
+     */
+    insertVote: function(articleUserVote) {
+        return articleUserVoteTable.insert(articleUserVote);
+    },
+    selectVotes: function(queryFunction) {
+        return articleUserVoteTable.select(queryFunction);
+    },
+    updateVote: function(articleUserVote) {
+        return articleUserVoteTable.update(articleUserVote);
     }
 };

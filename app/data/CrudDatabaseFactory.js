@@ -7,8 +7,10 @@ var logger = log4js.getLogger('data.CrudDatabaseFactory');
 
 
 CrudDatabase = function(entityConstructor,
-                        idProperty) {
+                        idProperty,
+                        notNullProperties) {
     var dataArray = [];
+    this.notNullProperties = notNullProperties;
     this.entityConstructor = entityConstructor;
     this.idProperty = idProperty;
     this.getData = function() {
@@ -17,9 +19,30 @@ CrudDatabase = function(entityConstructor,
 };
 
 // PRIVATE FUNCTIONS for CrudDatabase prototype
+/**
+ * This function validates an entity if it has the required not null properties
+ * @private
+ */
+CrudDatabase.prototype._checkNotNullProperties = function(entity) {
+    var i;
+    var len;
+    var singleProperty;
+    if(this.notNullProperties == undefined || this.notNullProperties == null || this.notNullProperties.length == 0) {
+        return;
+    }
+    if(entity == undefined || entity == null) {
+        throw new Error('Illegal argument error: Missing entity ' + entity);
+    }
+    for(i = 0, len = this.notNullProperties.length; i < len; i++) {
+        singleProperty = entity[this.notNullProperties[i]];
+        if(singleProperty == undefined || singleProperty == null) {
+            throw new Error('Illegal argument error: Missing required property ' + this.notNullProperties[i] + " on entity " + entity);
+        }
+    }
+};
 
 /**
- * THis function clones the entity, if it suports the function,
+ * This function clones the entity, if it suports the function,
  * otherwise, the same entity will simply returned;
  * @param entity
  * @return {*}
@@ -92,6 +115,7 @@ CrudDatabase.prototype._getNewId = function() {
 // PUBLIC FUNCTIONS for CrudDatabase
 CrudDatabase.prototype.insert = function(entity) {
     this._checkInstance(entity);
+    this._checkNotNullProperties(entity);
     if(this._findPositionById(entity[this.idProperty])) {
         throw new Error('Unique key constraint violated');
     }
@@ -135,11 +159,18 @@ CrudDatabase.prototype.select = function(filterFunction) {
     return result;
 };
 
+/**
+ * This function updates (replaces) a given entity with a new one. The entity must be present in the data array
+ * and the idProperty of the entity must be available
+ * @param entity
+ * @return {*}
+ */
 CrudDatabase.prototype.update = function(entity) {
     var pos;
     this._checkInstance(entity);
-    pos = this._findPositionById(id);
-    if (pos) {
+    this._checkNotNullProperties(entity);
+    pos = this._findPositionById(entity[this.idProperty]);
+    if (pos != undefined) {
         this.getData()[pos] = entity;
     } else {
         throw new Error('Entity not found');
@@ -151,14 +182,14 @@ CrudDatabase.prototype.delete = function(entity) {
     var pos;
     this._checkInstance(entity);
     pos = this._findPositionById(entity[this.idProperty]);
-    if (pos) {
+    if (pos != undefined) {
         this.getData().splice(pos, 1);
     }
 };
 
 
 module.exports = {
-    factory: function(entityConstructor, idProperty) {
-        return new CrudDatabase(entityConstructor, idProperty);
+    factory: function(entityConstructor, idProperty, notNullProperties) {
+        return new CrudDatabase(entityConstructor, idProperty, notNullProperties);
     }
 };

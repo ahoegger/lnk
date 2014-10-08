@@ -47,9 +47,18 @@ _register('Article', function articleHalsonify(entity) {
     return resource;
 });
 
-// Function to transform a tag into a halson tag
+// Register function to transform a tag into a halson tag
 _register('Tag', function articleHalsonify(entity) {
     var baseString = '/api/tag/' + entity.id;
+    var resource = new halson(entity);
+    resource.addLink('self', baseString);
+    resource.addLink('articles', baseString + '/articles');
+    return resource;
+});
+
+// Register function to transform a user into a halson user
+_register('User', function articleHalsonify(entity) {
+    var baseString = '/api/user/' + entity.id;
     var resource = new halson(entity);
     resource.addLink('self', baseString);
     resource.addLink('articles', baseString + '/articles');
