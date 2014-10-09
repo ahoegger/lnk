@@ -72,6 +72,27 @@ function handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, upda
     }
 }
 
+router.param(':articleId', function(req, res, next, articleId) {
+    var articleResultSet;
+    var queryFunction = function(entity) {
+        return entity.id === articleId;
+    };
+    articleResultSet = inMemoryDatabase.selectArticles(queryFunction);
+    if(!articleResultSet || articleResultSet.length === 0) {
+        // not found
+        res.status(404);
+        return next();
+    }
+    if(articleResultSet.length > 1) {
+        res.status(500);
+        return next();
+    }
+    req.article = articleResultSet[0];
+    logger.debug('Added following article to request: ' +  req.article);
+    next();
+});
+
+
 // This is a controller!
 /* GET article data */
 router
@@ -79,7 +100,8 @@ router
         // TODO Implement proper query string from HTTP query string
         var resultSet;
         var halsonResultSet;
-        var query = function(element) {
+        var query = function() {
+            // Add element parameter after implementing dummy logic
             return true;
         };
         // TODO Check the votes for the user to provide (or not provide) the voteUp / voteDown links
@@ -88,11 +110,19 @@ router
         res.status(200).send(JSON.stringify(halsonResultSet));
         next();
     })
+    // Get a single article
+    .get('/article/:articleId', function(req, res, next) {
+        var halsonResult;
+        halsonResult = halsonFactory .halsonify('Article', req.article);
+        res.status(200).send(JSON.stringify(halsonResult));
+        next();
+    })
     // return the tags for the given article
     .get('/article/:articleId/tags', function(req, res, next) {
         var resultSet;
         var halsonResultSet;
-        resultSet = inMemoryDatabase.selectTagsForArticle(parseInt(req.params.articleId));
+        // first check article
+        resultSet = inMemoryDatabase.selectTagsForArticle(req.article.id);
         halsonResultSet = halsonFactory.halsonifyArray('Tag', resultSet);
         res.status(200).send(JSON.stringify(halsonResultSet));
         next();
