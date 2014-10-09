@@ -91,7 +91,7 @@ CrudDatabase.prototype._findPositionById = function (idValue) {
  */
 CrudDatabase.prototype._checkInstance = function(object) {
     if (!(object instanceof this.entityConstructor)) {
-        // logger.error('Object ' + object + ' not of type ', constructor);
+        // requestLogger.error('Object ' + object + ' not of type ', constructor);
         throw new Error('Illegal argument error');
     }
 };

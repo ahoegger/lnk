@@ -5,13 +5,14 @@
 'use strict';
 // the requirements
 var express = require('express');
-var logger = require('morgan');     // a logger
+var requestLogger = require('morgan');     // a requestLogger
 var http = require('http');
 var path = require('path');         // path utilities
 var favicon = require('serve-favicon');    // fav-icon handling
 var lessMiddleware = require('less-middleware');  // less middleware, compiles the .less files into .css on the fly; gulp had done this before
 var bodyParser = require('body-parser');    // middleware for body-parsing
-// var fs = require('fs');
+var log4js = require('log4js');
+var logger = log4js.getLogger('lnk-server');
 
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 
@@ -29,7 +30,7 @@ var app = express();
 
 // Generic handling of request
 app.use(favicon(path.join(public_root_path, 'favicon.ico')));      // handle favicon requests in a special way
-app.use(logger('combined'));                                       // use morgan logger function
+app.use(requestLogger('combined'));                                       // use morgan requestLogger function
 app.use(lessMiddleware(public_root_path, {compress: true}));       // transpiles a requested css from a less file, if the css is missing
 
 // serving static content
@@ -43,6 +44,16 @@ app.use('/fonts',  express.static(fonts_root_path));               // needed bec
 app.use(bodyParser.json());
 app.use('/api', articlesRouter);
 app.use('/api', tagsRouter);
+
+// error handler
+app.use('/api', function(err, req, res, next){
+    logger.warn(err.stack);
+    res.status(500).send('Internal server error on the API level');
+});
+app.use(function(err, req, res, next){
+    logger.warn(err.stack);
+    res.status(500).send('Internal server error');
+});
 
 
 // start der server
