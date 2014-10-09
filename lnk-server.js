@@ -48,7 +48,7 @@ app.use('/api', tagsRouter);
 // error handler
 app.use('/api', function(err, req, res, next){
     logger.warn(err.stack);
-    res.status(500).send('Internal server error on the API level');
+    res.send(err.message);
 });
 app.use(function(err, req, res, next){
     logger.warn(err.stack);

@@ -81,11 +81,11 @@ router.param(':articleId', function(req, res, next, articleId) {
     if(!articleResultSet || articleResultSet.length === 0) {
         // not found
         res.status(404);
-        return next();
+        return next(new Error('Article not found'));
     }
     if(articleResultSet.length > 1) {
         res.status(500);
-        return next();
+        return next(new Error('Internal server error'));
     }
     req.article = articleResultSet[0];
     logger.debug('Added following article to request: ' +  req.article);
