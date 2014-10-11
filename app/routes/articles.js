@@ -7,13 +7,14 @@ var log4js = require('log4js');
 var url = require('url');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 
-var datastore = require(app_constants.packagedModule('infrastructure', 'datastore'));
 var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
 var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
 var UserClass = require(app_constants.packagedModule('entities', 'User.js'));
 var ArticleUserVoteClass = require(app_constants.packagedModule('entities', 'ArticleUserVote.js'));
+
 var inMemoryDatabase = require(app_constants.packagedModule('infrastructure', 'InMemorydataStore.js'));
 var halsonFactory = require(app_constants.packagedModule('data', 'HalsonFactory.js'));
+
 var router = express.Router();
 var logger = log4js.getLogger('routers.articles');
 
