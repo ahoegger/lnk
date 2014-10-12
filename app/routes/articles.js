@@ -76,7 +76,7 @@ function handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, upda
 router.param(':articleId', function(req, res, next, articleId) {
     var articleResultSet;
     var queryFunction = function(entity) {
-        return entity.id === articleId;
+        return entity.id === parseInt(articleId);
     };
     articleResultSet = inMemoryDatabase.selectArticles(queryFunction);
     if(!articleResultSet || articleResultSet.length === 0) {
@@ -136,10 +136,6 @@ router
         // prepare objects from request
         articleObject.updateFromJsonObject(req.body);
         tagsArray = createTagsFromJsonBody(req.body);
-
-        logger.debug('Request body:', req.body);
-        logger.debug('Created article object from request', articleObject);
-        logger.debug('Created tags object from request', tagsArray);
 
         // insert objects
         articleObject = inMemoryDatabase.insertArticle(articleObject);  // insert the article

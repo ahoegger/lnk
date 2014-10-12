@@ -16,6 +16,9 @@ var logger = log4js.getLogger('lnk-server');
 
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 
+var inMemoryDatabase = require(app_constants.packagedModule('infrastructure', 'InMemorydataStore.js'));
+var initialLoader = require(app_constants.packagedModule('data', 'InitialLoad.js'))(inMemoryDatabase);
+
 var articlesRouter = require(app_constants.packagedModule('routes', 'articles'));
 var tagsRouter = require(app_constants.packagedModule('routes', 'tags'));
 // constants and basic variables
@@ -40,7 +43,6 @@ app.use('/bower_components',  express.static(bower_root_path));    // bower comp
 app.use('/fonts',  express.static(fonts_root_path));               // needed because of font-awesome.css, gulp had done this before
 
 // handling api requests
-// TODO Check, if it is correct to inject the body parser middleware between all the other stuff
 app.use(bodyParser.json());
 app.use('/api', articlesRouter);
 app.use('/api', tagsRouter);
@@ -55,6 +57,8 @@ app.use(function(err, req, res, next){
     res.status(500).send('Internal server error');
 });
 
+// Initialload data
+initialLoader.loadArticles(app_constants.packagedModule('data', 'articles.json'));
 
 // start der server
 http.createServer(app).listen(express_server_port);
