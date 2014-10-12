@@ -16,10 +16,10 @@ var logger = log4js.getLogger('lnk-server');
 
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 
-var inMemoryDatabase = require(app_constants.packagedModule('infrastructure', 'InMemorydataStore.js'));
-var initialLoader = require(app_constants.packagedModule('data', 'InitialLoad.js'))(inMemoryDatabase);
+var dataStore = require(app_constants.packagedModule('infrastructure', 'InMemorydataStore.js'));
+var initialLoader = require(app_constants.packagedModule('data', 'InitialLoad.js'))(dataStore);
 
-var articlesRouter = require(app_constants.packagedModule('routes', 'articles'));
+var articlesRouter = require(app_constants.packagedModule('routes', 'ArticleRouter.js'));
 var tagsRouter = require(app_constants.packagedModule('routes', 'tags'));
 // constants and basic variables
 var express_server_port = 3000;
