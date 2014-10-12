@@ -11,6 +11,7 @@ var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'
 var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
 var UserClass = require(app_constants.packagedModule('entities', 'User.js'));
 var ArticleUserVoteClass = require(app_constants.packagedModule('entities', 'ArticleUserVote.js'));
+var CommentClass = require(app_constants.packagedModule('entities', 'Comment.js'));
 
 var inMemoryDatabase = require(app_constants.packagedModule('infrastructure', 'InMemorydataStore.js'));
 var halsonFactory = require(app_constants.packagedModule('data', 'HalsonFactory.js'));
@@ -93,6 +94,27 @@ router.param(':articleId', function(req, res, next, articleId) {
     next();
 });
 
+router.param(':commentId', function(req, res, next, commentId) {
+    var commentResultSet;
+    var queryFunction = function(entity) {
+        return entity.id === parseInt(commentId);
+    };
+    commentResultSet = inMemoryDatabase.selectComments(queryFunction);
+    if(!commentResultSet || commentResultSet.length === 0) {
+        // not found
+        res.status(404);
+        return next(new Error('Comment not found'));
+    }
+    if(commentResultSet.length > 1) {
+        res.status(500);
+        return next(new Error('Internal server error'));
+    }
+    req.comment = commentResultSet[0];
+    logger.debug('Added following comment to request: ' +  req.comment);
+    next();
+});
+
+
 
 // This is a controller!
 /* GET article data */
@@ -125,6 +147,18 @@ router
         // first check article
         resultSet = inMemoryDatabase.selectTagsForArticle(req.article.id);
         halsonResultSet = halsonFactory.halsonifyArray('Tag', resultSet);
+        res.status(200).send(JSON.stringify(halsonResultSet));
+        next();
+    })
+    .get('/article/:articleId/comments', function(req, res, next) {
+        var resultSet;
+        var halsonResultSet;
+        var query = function(entity) {
+            return entity.articleId === req.article.id;
+        };
+        // first check article
+        resultSet = inMemoryDatabase.selectComments(query);
+        halsonResultSet = halsonFactory.halsonifyArray('Comment', resultSet);
         res.status(200).send(JSON.stringify(halsonResultSet));
         next();
     })
@@ -169,6 +203,24 @@ router
             },
             -1
         );
+    })
+    .post('/article/:articleId/comments', function(req, res, next) {
+        var commentObject = new CommentClass.Comment();
+        var halsonSingleComment;
+
+        // prepare objects from request
+        commentObject.updateFromJsonObject(req.body);
+        // Add articleId from article
+        commentObject.articleId = req.article.id;
+        // insert objects
+        commentObject = inMemoryDatabase.insertComment(commentObject);  // insert the comment
+
+        // build halson resources
+        halsonSingleComment = halsonFactory.halsonify('Comment', commentObject);
+
+        // return created article
+        res.status(201).send(JSON.stringify(halsonSingleComment));
+        next();
     });
 
 module.exports = router;

@@ -10,6 +10,7 @@ var logger = log4js.getLogger('data.IntialLoad');
 
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
+var CommentClass = require(app_constants.packagedModule('entities', 'Comment.js'));
 var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
 
 module.exports = function(datastore) {
@@ -48,6 +49,15 @@ module.exports = function(datastore) {
             datastore.insertArticleTags(articleObject, tagsArray);
         }
     }
+
+    function _insertComments(comments) {
+        var commentObject;
+        for (var i = 0, len = comments.length; i < len; i++) {
+            commentObject = new CommentClass.Comment();
+            commentObject.updateFromJsonObject(comments[i]);
+            datastore.insertComment(commentObject);
+        }
+    }
     return {
         /**
          * Load articles into the datastore
@@ -55,6 +65,9 @@ module.exports = function(datastore) {
          */
         loadArticles: function(jsonFileReference) {
             var articleObjects = _loadJsonFile(jsonFileReference, _insertArticles);
+        },
+        loadComments: function(jsonFileReference) {
+            var commentObjects = _loadJsonFile(jsonFileReference, _insertComments);
         },
         loadUsers: function(jsonFileReference) {
             // TODO Implement

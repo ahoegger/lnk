@@ -8,6 +8,7 @@ var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constant
 // support these entities
 var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
 var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
+var CommentClass = require(app_constants.packagedModule('entities', 'Comment.js'));
 var ArticleTagClass = require(app_constants.packagedModule('entities', 'ArticleTag.js'));
 var ArticleUserVoteClass = require(app_constants.packagedModule('entities', 'ArticleUserVote.js'));
 
@@ -18,6 +19,7 @@ var CrudDatabaseFactory = require(app_constants.packagedModule('data', 'CrudData
 // The  supported tables
 var articlesTable = CrudDatabaseFactory.factory(ArticleClass.Article, 'id');
 var tagsTable = CrudDatabaseFactory.factory(TagClass.Tag, 'id');
+var commentsTable = CrudDatabaseFactory.factory(CommentClass.Comment, 'id', ['articleId']);
 var articleTagTable = CrudDatabaseFactory.factory(ArticleTagClass.ArticleTag, 'id', ['articleId']);
 var articleUserVoteTable = CrudDatabaseFactory.factory(ArticleUserVoteClass.ArticleUserVote, 'id', ['articleId', 'userId', 'vote']);
 
@@ -47,6 +49,12 @@ module.exports = {
             // insert the mapping
             articleTagTable.insert(new ArticleTagClass.ArticleTag(undefined, article.id, storedTag.id))
         }
+    },
+    insertComment: function(comment) {
+        return commentsTable.insert(comment);
+    },
+    selectComments: function(queryFunction) {
+        return commentsTable.select(queryFunction);
     },
     /**
      * This function selects the articles table based on the query function

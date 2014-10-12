@@ -59,6 +59,7 @@ app.use(function(err, req, res, next){
 
 // Initialload data
 initialLoader.loadArticles(app_constants.packagedModule('data', 'articles.json'));
+initialLoader.loadComments(app_constants.packagedModule('data', 'comments.json'));
 
 // start der server
 http.createServer(app).listen(express_server_port);

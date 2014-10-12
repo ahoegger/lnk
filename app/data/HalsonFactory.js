@@ -48,7 +48,7 @@ _register('Article', function articleHalsonify(entity) {
 });
 
 // Register function to transform a tag into a halson tag
-_register('Tag', function articleHalsonify(entity) {
+_register('Tag', function tagHalsonify(entity) {
     var baseString = '/api/tag/' + entity.id;
     var resource = new halson(entity);
     resource.addLink('self', baseString);
@@ -57,11 +57,20 @@ _register('Tag', function articleHalsonify(entity) {
 });
 
 // Register function to transform a user into a halson user
-_register('User', function articleHalsonify(entity) {
+_register('User', function userHalsonify(entity) {
     var baseString = '/api/user/' + entity.id;
     var resource = new halson(entity);
     resource.addLink('self', baseString);
     resource.addLink('articles', baseString + '/articles');
+    return resource;
+});
+
+// Register function to transform a comment into a halson comment
+_register('Comment', function commentHalsonify(entity) {
+    var baseString = '/api/comment/' + entity.id;
+    var resource = new halson(entity);
+    resource.addLink('self', baseString);
+    resource.addLink('user', baseString + '/user/' + entity.submittedBy);
     return resource;
 });
 
