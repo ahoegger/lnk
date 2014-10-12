@@ -62,15 +62,15 @@ Hint: Watch out singular and plural
     * Query-Parameter "orderBy=": Property, by which the articles shall be ordered
     * Query-Parameter "orderDirection=": Ascending oder descending order
     * TODO: Paging...
-* POST /article: Posts a new article
-* GET /article/13: Returns article with the id 13
+* [HHE OK] POST /article: Posts a new article
+* [HHE OK] GET /article/13: Returns article with the id 13
 * PUT /article/13: Updates an article with a new entity
 * DELETE /article/13: Deletes the article
-* GET /article/13/tags: Returns the list of tags for the article
-* GET /article/13/comments: Returns the comments for the articles
-    * Query-Parameter: user, dateFrom, dateTo, orderBy, oderDirection like from articles
-* GET /article/13/comment/432: Returns a single comment
-* POST /article/13/comment: Adds a new comment to the article
+* [HHE OK] GET /article/13/tags: Returns the list of tags for the article
+* [HHE OK] GET /article/13/comments: Returns the comments for the articles
+    [NOT YET] * Query-Parameter: user, dateFrom, dateTo, orderBy, oderDirection like from articles
+* [HHE OK] GET /article/13/comment/432: Returns a single comment
+* [HHE OK] POST /article/13/comment: Adds a new comment to the article
 * PUT /article/13/comment/432: Updates a given single comment
 * GET /article/13/user: Returns the user that submitted the article
 * POST /article/13/votes/user/534: Adds a new vote to the article for the given user
