@@ -7,10 +7,10 @@
 var express = require('express');
 var requestLogger = require('morgan');     // a requestLogger
 var http = require('http');
-var path = require('path');         // path utilities
-var favicon = require('serve-favicon');    // fav-icon handling
+var path = require('path');                       // path utilities
+var favicon = require('serve-favicon');           // fav-icon handling
 var lessMiddleware = require('less-middleware');  // less middleware, compiles the .less files into .css on the fly; gulp had done this before
-var bodyParser = require('body-parser');    // middleware for body-parsing
+var bodyParser = require('body-parser');          // middleware for body-parsing
 var log4js = require('log4js');
 var logger = log4js.getLogger('lnk-server');
 

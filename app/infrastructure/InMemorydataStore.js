@@ -23,6 +23,27 @@ var commentsTable = CrudDatabaseFactory.factory(CommentClass.Comment, 'id', ['ar
 var articleTagTable = CrudDatabaseFactory.factory(ArticleTagClass.ArticleTag, 'id', ['articleId']);
 var articleUserVoteTable = CrudDatabaseFactory.factory(ArticleUserVoteClass.ArticleUserVote, 'id', ['articleId', 'userId', 'vote']);
 
+/**
+ * This function finds a tag by ist tag name
+ * @param tag
+ * @return {*}
+ * @private
+ */
+function _findTag(tag) {
+    var queryFunction = function(entity) {
+        return entity.tag === tag.tag;
+    };
+    var resultSet;
+    resultSet = tagsTable.select(queryFunction);
+    if (!resultSet || resultSet.length === 0) {
+        return undefined;
+    }
+    if (resultSet.length > 1) {
+        throw new Error('Internal server error');
+    }
+    return resultSet[0];
+}
+
 module.exports = {
     insertArticle: function(article) {
         return articlesTable.insert(article);
@@ -41,7 +62,7 @@ module.exports = {
         var storedTag;
         for (var i = 0, len = tags.length; i < len; i++) {
             singleTag = tags[i];
-            storedTag = tagsTable.selectById(singleTag.id);
+            storedTag = _findTag(singleTag);
             if(!storedTag) {
                 // first, create the article
                 storedTag = tagsTable.insert(singleTag);
