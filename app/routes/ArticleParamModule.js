@@ -8,13 +8,6 @@ var log4js = require('log4js');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 
 var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
-/*
- var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
- var UserClass = require(app_constants.packagedModule('entities', 'User.js'));
- var ArticleUserVoteClass = require(app_constants.packagedModule('entities', 'ArticleUserVote.js'));
- var CommentClass = require(app_constants.packagedModule('entities', 'Comment.js'));
- */
-// var inMemoryDatabase = require(app_constants.packagedModule('infrastructure', 'InMemorydataStore.js'));
 
 var logger = log4js.getLogger('routes.ArticleParamModule');
 
