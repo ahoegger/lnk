@@ -64,10 +64,10 @@ module.exports = function(datastore) {
          * @param jsonFileReference Path to a JSON file with article data
          */
         loadArticles: function(jsonFileReference) {
-            var articleObjects = _loadJsonFile(jsonFileReference, _insertArticles);
+            _loadJsonFile(jsonFileReference, _insertArticles);
         },
         loadComments: function(jsonFileReference) {
-            var commentObjects = _loadJsonFile(jsonFileReference, _insertComments);
+            _loadJsonFile(jsonFileReference, _insertComments);
         },
         loadUsers: function(jsonFileReference) {
             // TODO Implement

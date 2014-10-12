@@ -69,7 +69,7 @@ module.exports = {
     },
     /**
      * This function selects and returns the tags for a given article
-     * @param queryFunction
+     * @param {number} articleId The ID of the article
      */
     selectTagsForArticle: function(articleId) {
         var map;
@@ -86,9 +86,7 @@ module.exports = {
     },
     /**
      * This function inserts a new user vote for an article
-     * @param articleId
-     * @param userId
-     * @param value
+     * @param {ArticleUserVote} articleUserVote The article suer vaote to be inserted
      */
     insertVote: function(articleUserVote) {
         return articleUserVoteTable.insert(articleUserVote);

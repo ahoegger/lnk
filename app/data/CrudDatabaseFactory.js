@@ -178,7 +178,7 @@ CrudDatabase.prototype.update = function(entity) {
     return this._cloneEntity(entity);
 };
 
-CrudDatabase.prototype.delete = function(entity) {
+CrudDatabase.prototype.remove = function(entity) {
     var pos;
     this._checkInstance(entity);
     pos = this._findPositionById(entity[this.idProperty]);

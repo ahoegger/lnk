@@ -45,13 +45,13 @@ var app_constants = {
     appPath: appPath,
     /**
      * Returns the module for a given package
-     * @param {String} package Name of the package
+     * @param {String} packageName Name of the package
      * @param {String} module Name of the module
      * @returns {String} fully qualified path to the module
      */
-    packagedModule: function(package, module) {
-        if (module_packages[package] && module) {
-            return path.join(module_packages[package].path, module);
+    packagedModule: function(packageName, module) {
+        if (module_packages[packageName] && module) {
+            return path.join(module_packages[packageName].path, module);
         }
         throw "undefined package or module";
     }

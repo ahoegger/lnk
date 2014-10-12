@@ -48,11 +48,11 @@ app.use('/api', articlesRouter);
 app.use('/api', tagsRouter);
 
 // error handler
-app.use('/api', function(err, req, res, next){
+app.use('/api', function(err, req, res){
     logger.warn(err.stack);
     res.send(err.message);
 });
-app.use(function(err, req, res, next){
+app.use(function(err, req, res){
     logger.warn(err.stack);
     res.status(500).send('Internal server error');
 });
