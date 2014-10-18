@@ -1,6 +1,7 @@
 /**
  * Created by Holger on 24.09.2014.
  */
+var expect = require('chai').expect;
 
 var path = require('path');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
@@ -34,25 +35,25 @@ describe('Test Article Class', function() {
 
     describe('Test the constructor function', function(){
         it('constructs new article instance', function() {
-            expect(article instanceof ArticleClass.Article).toBe(true);
-            expect(article instanceof Date).toBe(false);
+            expect(article instanceof ArticleClass.Article).to.equal(true);
+            expect(article instanceof Date).to.equal(false);
         });
         it('constructs independent classes', function() {
             var article1 = new ArticleClass.Article(originalId, originalTitle);
             var article2 = new ArticleClass.Article(updatedId, updatedTitle);
-            expect(article1.id).not.toBe(article2.id);
-            expect(article1.title).not.toBe(article2.title);
+            expect(article1.id).not.to.equal(article2.id);
+            expect(article1.title).not.to.equal(article2.title);
         });
         it('updates all properties from a JSON string', function() {
             article.updateFromJsonString(completeJsonString);
-            expect(article.id).toBe(completeJsonObject.id);
-            expect(article.title).toBe(completeJsonObject.title);
-            expect(article.url).toBe(completeJsonObject.url);
-            expect(article.imageUrl).toBe(completeJsonObject.imageUrl);
-            expect(article.description).toBe(completeJsonObject.description);
-            expect(article.submittedBy).toBe(completeJsonObject.submittedBy);
-            expect(article.submittedOn.value).toBe(completeJsonObject.submittedOn.value);
-            expect(article.tags).toEqual(completeJsonObject.tags);
+            expect(article.id).to.equal(completeJsonObject.id);
+            expect(article.title).to.equal(completeJsonObject.title);
+            expect(article.url).to.equal(completeJsonObject.url);
+            expect(article.imageUrl).to.equal(completeJsonObject.imageUrl);
+            expect(article.description).to.equal(completeJsonObject.description);
+            expect(article.submittedBy).to.equal(completeJsonObject.submittedBy);
+            expect(article.submittedOn.value).to.equal(completeJsonObject.submittedOn.value);
+            expect(article.tags).to.eql(completeJsonObject.tags);
         })
     });
 });

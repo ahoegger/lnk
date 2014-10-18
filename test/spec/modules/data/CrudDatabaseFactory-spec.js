@@ -1,6 +1,8 @@
 /**
  * Created by Holger on 05.10.2014.
  */
+var expect = require('chai').expect;
+
 var path = require('path');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 var crudDbFactory = require(app_constants.packagedModule('data', 'CrudDatabaseFactory.js'));
@@ -18,7 +20,7 @@ describe('Test CrudDatabaseFactory', function() {
     describe('Test insert', function () {
         it('inserts a new entity', function () {
             singleTag = tagsDatabase.insert(singleTag);
-            expect(singleTag.id).toBe(0);
+            expect(singleTag.id).to.equal(0);
         });
     });
     describe('Test filter function', function() {
@@ -32,21 +34,21 @@ describe('Test CrudDatabaseFactory', function() {
            var allData = globalTagsDatabase.select(function(element){
                return true;
            });
-           expect(allData.length).toBe(storedTags.length);
-           expect(allData).toEqual(storedTags);
+           expect(allData.length).to.equal(storedTags.length);
+           expect(allData).to.eql(storedTags);
         });
-        it('Applies the filter properly', function() {
+        it('Applies the filter properly at beginning', function() {
             var actual = globalTagsDatabase.select(function(element){
                 return element.tag === 'one';
             });
-            expect(actual[0]).toEqual(storedTags[0]);
+            expect(actual[0]).to.eql(storedTags[0]);
         });
-        it('Applies the filter properly', function() {
+        it('Applies the filter properly in between', function() {
             var actual = globalTagsDatabase.select(function(element){
                 return element.tag === 'two' || element.tag === 'three';
             });
-            expect(actual[0]).toEqual(storedTags[1]);
-            expect(actual[1]).toEqual(storedTags[2]);
+            expect(actual[0]).to.eql(storedTags[1]);
+            expect(actual[1]).to.eql(storedTags[2]);
         });
 
     });
