@@ -76,6 +76,7 @@ module.exports = function(datastore) {
             // TODO Check the votes for the user to provide (or not provide) the voteUp / voteDown links
             resultSet = datastore.selectArticles(query);
             halsonResultSet = halsonFactory.halsonifyArray('Article', resultSet);
+            // TODO Check, if tags shall be embedded
             logger.debug('Returning articles', halsonResultSet);
             res.status(200).send(JSON.stringify(halsonResultSet));
         },

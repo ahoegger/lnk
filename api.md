@@ -72,7 +72,8 @@ Hint: Watch out singular and plural
 * [HHE OK] GET /article/13/comment/432: Returns a single comment
 * [HHE OK] POST /article/13/comment: Adds a new comment to the article
 * PUT /article/13/comment/432: Updates a given single comment
+* DELETE /article/13/comment/432: Updates a given single comment
 * GET /article/13/user: Returns the user that submitted the article
 * POST /article/13/votes/user/534: Adds a new vote to the article for the given user
 * GET /article/13/votes/user/534: Returns the vote of the given user
-* PUT /article/13/votes/user/534: Updates the vote of the given user
+* [HHE OK] PUT /article/13/votes/user/534: Updates the vote of the given user

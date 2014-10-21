@@ -25,9 +25,18 @@ router
     .get('/article/:articleId/tags', articleRouterModule.getSingleArticleTags)
     .get('/article/:articleId/comments', articleRouterModule.getSingleArticleComments)
     .get('/article/:articleId/comment/:commentId', articleRouterModule.getSingleArticleComments)
+
     .post('/articles', articleRouterModule.postArticle)
     .post('/article/:articleId/voteUp', articleRouterModule.postVoteUp)
     .post('/article/:articleId/voteDown', articleRouterModule.postVoteDown)
-    .post('/article/:articleId/comments', articleRouterModule.postSingleArticleComment);
+    .post('/article/:articleId/comments', articleRouterModule.postSingleArticleComment)
+
+    // the following functions must still be implemented in this module
+    .put('/article/:articleId', routerHelperModule.notYetImplementedHandler)    // TODO Implement
+    .delete('/article/:articleId', routerHelperModule.notYetImplementedHandler) // TODO Implement
+    .put('/article/:articleId/comment/:commentId', routerHelperModule.notYetImplementedHandler) // TODO Implement
+    .delete('/article/:articleId/comment/:commentId', routerHelperModule.notYetImplementedHandler)  // TODO Implement
+    .get('/article/:articleId/votes/:userId', routerHelperModule.notYetImplementedHandler)  // TODO Implement
+    ;
 
 module.exports = router;

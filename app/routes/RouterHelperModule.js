@@ -15,6 +15,12 @@ module.exports = function() {
             for (var i = 0, len = paramModule.length; i < len; i++) {
                 router.param(paramModule[i].paramId, paramModule[i].paramFunction);
             }
+        },
+        /**
+         * This function sends a "not yet implemented error" (501)
+         */
+        notYetImplementedHandler: function(req, res) {
+            res.status(501).send("Not yet implemented");
         }
     }
 };
