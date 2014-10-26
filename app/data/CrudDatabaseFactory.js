@@ -116,7 +116,7 @@ CrudDatabase.prototype._getNewId = function() {
 CrudDatabase.prototype.insert = function(entity) {
     this._checkInstance(entity);
     this._checkNotNullProperties(entity);
-    if(this._findPositionById(entity[this.idProperty])) {
+    if(this._findPositionById(entity[this.idProperty]) !== undefined) {
         throw new Error('Unique key constraint violated');
     }
     // update entity with new id
@@ -178,6 +178,10 @@ CrudDatabase.prototype.update = function(entity) {
     return this._cloneEntity(entity);
 };
 
+/**
+ * This function removes the givene element from the database. It must be found via it's ID property
+ * @param entity
+ */
 CrudDatabase.prototype.remove = function(entity) {
     var pos;
     this._checkInstance(entity);
