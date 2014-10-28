@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node --harmony_collections lnk-server.js",
     "test": "jasmine-node test/spec",
-    "mocha-test": "node ./node_modules/mocha/bin/mocha -u bdd  -R html-cov ./test/spec/**/*-spec.js",
+    "mocha-test": "node ./node_modules/mocha/bin/mocha -u bdd  -R spec ./test/spec/**/*-spec.js",
     "coverage": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 500 ./test/spec/**/*-spec.js"
   },
   "dependencies": {
@@ -55,6 +55,7 @@
     "node-mocks-http": "^1.2.1",
     "opn": "^0.1.1",
     "requirejs": "^2.1.15",
+    "sinon": "^1.11.1",
     "wiredep": "^1.4.3"
   },
   "engines": {
