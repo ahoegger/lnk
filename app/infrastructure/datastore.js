@@ -62,11 +62,11 @@ var DAO = function(datastore) {
     };
 
     var _deleteId = function(id) {
-        // TODO implement
+        // NICE implement
     };
 
     var _deleteQuery = function(query) {
-        // TODO implement
+        // NICE implement
     };
 
     return {
@@ -77,7 +77,7 @@ var DAO = function(datastore) {
     }
 };
 
-// TODO JavaDoc
+// NICE JavaDoc
 var TagsDAO = function(dao) {
     var self = this;
     self.dao = dao;
@@ -99,7 +99,7 @@ var TagsDAO = function(dao) {
                 var tagsLength;
                 var i = 0;
                 var j = 0;
-                // TODO implement filter function
+                // NICE implement filter function
                 for (; i < docsLength; i++) {
                     if (docs[i].tags) {
                         tempTags = docs[i].tags;
@@ -127,7 +127,7 @@ db.users.loadDatabase();
 
 db.dao = {
     articles: new DAO(db.articles),
-    tags: new TagsDAO(new DAO(db.articles)),    // TODO actually, do not create a second article DAO
+    tags: new TagsDAO(new DAO(db.articles)),    // NICE actually, do not create a second article DAO
     users: new DAO(db.users)
 };
 module.exports = db;

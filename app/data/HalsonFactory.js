@@ -20,7 +20,16 @@ function _halsonify(entityKey, entityObject) {
         throw new Error('Illegal argument error');
     }
     return (halsonFunctionObject[entityKey])(entityObject);
+}
 
+function _halsonifyArray(entityKey, entityArray) {
+    var results = [];
+    var singleResource;
+    for (var i = 0, len = entityArray.length; i< len; i++) {
+        singleResource = _halsonify(entityKey, entityArray[i]);
+        results.push(singleResource);
+    }
+    return results;
 }
 
 /**
@@ -36,9 +45,16 @@ function _register(entityKey, halsonFunction) {
 
 // Function to transform an article into a halson article
 _register('Article', function articleHalsonify(entity) {
+    var halsonTags;
     var baseString = '/api/article/' + entity.id;
     var resource = new halson(entity);
     resource.addLink('self', baseString);
+    // if there are tags present, move them into halson embedded tags,
+    if (entity.tags) {
+        halsonTags = _halsonifyArray('Tag', entity.tags);
+        resource.addEmbed('tags', halsonTags);
+        delete resource.tags;
+    }
     resource.addLink('tags', baseString + '/tags');
     resource.addLink('comments', baseString + '/comments');
     resource.addLink('user', baseString + '/user/' + entity.submittedBy);
@@ -79,13 +95,7 @@ module.exports = {
     halsonify: function(entityKey, entityObject) {
         return _halsonify(entityKey, entityObject);
     },
-    halsonifyArray: function(entityKey, entityArray) {
-        var results = [];
-        var singleResource;
-        for (var i = 0, len = entityArray.length; i< len; i++) {
-            singleResource = _halsonify(entityKey, entityArray[i]);
-            results.push(singleResource);
-        }
-        return results;
+    halsonifyArray: function(entity, entityObject) {
+        return _halsonifyArray(entity, entityObject);
     }
 };

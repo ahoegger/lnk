@@ -7,16 +7,17 @@ var path = require('path');
 var log4js = require('log4js');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 
-var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
-
 var logger = log4js.getLogger('routes.ArticleParamModule');
 
 function _paramFunction(req, res, next, articleId) {
     var articleResultSet;
+    var singleArticle;
     var queryFunction = function (entity) {
         return entity.id === parseInt(articleId);
     };
-    articleResultSet = this.datastore.selectArticles(queryFunction);
+    articleResultSet = this.datastore.selectArticles(queryFunction, {
+        includeTags: true
+    });
     if (!articleResultSet || articleResultSet.length === 0) {
         // not found
         res.status(404);
@@ -26,7 +27,9 @@ function _paramFunction(req, res, next, articleId) {
         res.status(500);
         return next(new Error('Internal server error'));
     }
-    req.article = articleResultSet[0];
+    singleArticle = articleResultSet[0];
+    singleArticle.tags = this.datastore.selectTagsForArticle(singleArticle.id);
+    req.article = singleArticle;
     logger.debug('Added following article to request: ' + req.article);
     next();
 }

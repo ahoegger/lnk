@@ -13,10 +13,10 @@ var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'
 var CommentClass = require(app_constants.packagedModule('entities', 'Comment.js'));
 var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
 
-module.exports = function(datastore) {
+module.exports = function (datastore) {
     this.datastore = datastore;
     function _loadJsonFile(fileName, callback) {
-        fs.readFile(fileName, {encoding: 'utf8'}, function(err, content) {
+        fs.readFile(fileName, {encoding: 'utf8'}, function (err, content) {
             if (err) {
                 logger.error('Error', err);
                 return;
@@ -58,19 +58,20 @@ module.exports = function(datastore) {
             datastore.insertComment(commentObject);
         }
     }
+
     return {
         /**
          * Load articles into the datastore
          * @param jsonFileReference Path to a JSON file with article data
          */
-        loadArticles: function(jsonFileReference) {
+        loadArticles: function (jsonFileReference) {
             _loadJsonFile(jsonFileReference, _insertArticles);
         },
-        loadComments: function(jsonFileReference) {
+        loadComments: function (jsonFileReference) {
             _loadJsonFile(jsonFileReference, _insertComments);
         },
-        loadUsers: function(jsonFileReference) {
-            // TODO Implement
+        loadUsers: function (jsonFileReference) {
+            // TODO Implement loading dummy users
         }
     }
 };

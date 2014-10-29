@@ -44,6 +44,20 @@ function _findTag(tag) {
     return resultSet[0];
 }
 
+function _selectTagsForArticle(articleId) {
+    var map;
+    var resultingTags = [];
+
+    map = articleTagTable.select(function (element) {
+        return element.articleId === articleId;
+    });
+
+    for (var i = 0, len = map.length; i < len; i++) {
+        resultingTags.push(tagsTable.selectById(map[i].tagId));
+    }
+    return resultingTags;
+}
+
 module.exports = {
     insertArticle: function(article) {
         return articlesTable.insert(article);
@@ -80,10 +94,26 @@ module.exports = {
     /**
      * This function selects the articles table based on the query function
      * @param {Function} queryFunction The function to query the articles
-     * @return {*}
+     * @param {Object} options Options-object
+     * @return {Article[]}
      */
-    selectArticles: function(queryFunction) {
-        return articlesTable.select(queryFunction);
+    selectArticles: function(queryFunction, options) {
+        var resultSet;
+        var i,len;
+        options = options || {
+            includeTags: false,
+            includeComments: false,
+            includeVoteCount: false,
+            voteUserId: undefined
+        };   // default value
+        resultSet = articlesTable.select(queryFunction);
+        // according to the options, include the various sub entities, if requested
+        if (options.includeTags) {
+            for(i = 0, len = resultSet.length; i < len; i++) {
+                resultSet[i].tags = _selectTagsForArticle(resultSet[i].id);
+            }
+        }
+        return resultSet;
     },
     selectTags: function(queryFunction) {
         return tagsTable.select(queryFunction);
@@ -92,19 +122,8 @@ module.exports = {
      * This function selects and returns the tags for a given article
      * @param {number} articleId The ID of the article
      */
-    selectTagsForArticle: function(articleId) {
-        var map;
-        var resultingTags = [];
+    selectTagsForArticle: _selectTagsForArticle,
 
-        map = articleTagTable.select(function(element) {
-            return element.articleId === articleId;
-        });
-
-        for(var i = 0, len = map.length; i < len; i++) {
-            resultingTags.push(tagsTable.selectById(map[i].tagId));
-        }
-        return resultingTags;
-    },
     /**
      * This function inserts a new user vote for an article
      * @param {ArticleUserVote} articleUserVote The article suer vaote to be inserted

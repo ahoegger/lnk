@@ -30,7 +30,7 @@ router
     .get('/tags', function(req, res, next) {
         datastore.dao.tags.selectTags(
             function() {
-                /* TODO implement filter function to select only specific tags*/
+                // TODO implement filter function to select only specific tags
             },
             function(err) {
                 logger.error('Error querying', err);
