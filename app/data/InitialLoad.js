@@ -12,6 +12,7 @@ var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constant
 var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
 var CommentClass = require(app_constants.packagedModule('entities', 'Comment.js'));
 var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
+var UserClass = require(app_constants.packagedModule('entities', 'User.js'));
 
 module.exports = function (datastore) {
     this.datastore = datastore;
@@ -47,6 +48,15 @@ module.exports = function (datastore) {
 
             articleObject = datastore.insertArticle(articleObject);
             datastore.insertArticleTags(articleObject, tagsArray);
+        }
+    }
+
+    function _insertUsers(users) {
+        var userObject;
+        for (var i = 0, len = users.length; i < len; i++) {
+            userObject = new UserClass.User();
+            userObject.updateFromJsonObject(users[i]);
+            datastore.insertUser(userObject);
         }
     }
 

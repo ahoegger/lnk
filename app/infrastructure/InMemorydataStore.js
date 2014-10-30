@@ -11,6 +11,7 @@ var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
 var CommentClass = require(app_constants.packagedModule('entities', 'Comment.js'));
 var ArticleTagClass = require(app_constants.packagedModule('entities', 'ArticleTag.js'));
 var ArticleUserVoteClass = require(app_constants.packagedModule('entities', 'ArticleUserVote.js'));
+var UserClass = require(app_constants.packagedModule('entities', 'User.js'));
 
 // the table database factory
 var CrudDatabaseFactory = require(app_constants.packagedModule('data', 'CrudDatabaseFactory'));
@@ -22,6 +23,7 @@ var tagsTable = CrudDatabaseFactory.factory(TagClass.Tag, 'id');
 var commentsTable = CrudDatabaseFactory.factory(CommentClass.Comment, 'id', ['articleId']);
 var articleTagTable = CrudDatabaseFactory.factory(ArticleTagClass.ArticleTag, 'id', ['articleId']);
 var articleUserVoteTable = CrudDatabaseFactory.factory(ArticleUserVoteClass.ArticleUserVote, 'id', ['articleId', 'userId', 'vote']);
+var userTable = CrudDatabaseFactory.factory(UserClass.User, 'id', ['userName']);
 
 /**
  * This function finds a tag by ist tag name
@@ -56,6 +58,14 @@ function _selectTagsForArticle(articleId) {
         resultingTags.push(tagsTable.selectById(map[i].tagId));
     }
     return resultingTags;
+}
+
+function _insertUser(user) {
+    return userTable.insert(user);
+}
+
+function _selectUser(queryFunction) {
+    return userTable.select(queryFunction);
 }
 
 module.exports = {
@@ -136,5 +146,11 @@ module.exports = {
     },
     updateVote: function(articleUserVote) {
         return articleUserVoteTable.update(articleUserVote);
+    },
+    insertUser: function(userObject) {
+        return _insertUser(userObject);
+    },
+    selectUser: function(queryFunction) {
+        return
     }
 };

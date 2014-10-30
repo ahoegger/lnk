@@ -23,19 +23,21 @@ describe('Test CrudDatabaseFactory', function () {
             singleTag = tagsDatabase.insert(singleTag);
             expect(singleTag.id).to.equal(0);
         });
-        it('Throws error when inserting exiting element', function() {
+        it('Throws error when inserting exiting element', function () {
             singleTag = tagsDatabase.insert(singleTag);
-            expect(function() {tagsDatabase.insert(singleTag); }).to.throw(/Unique key constraint violated/);
+            expect(function () {
+                tagsDatabase.insert(singleTag);
+            }).to.throw(/Unique key constraint violated/);
         })
     });
-    describe('Test selectById', function() {
-        it('Finds item by ID', function() {
+    describe('Test selectById', function () {
+        it('Finds item by ID', function () {
             var actual;
             singleTag = tagsDatabase.insert(singleTag);
             actual = tagsDatabase.selectById(singleTag.id);
             expect(actual).to.be.eql(singleTag);
         });
-        it('Returns undefined, if tag is not found', function() {
+        it('Returns undefined, if tag is not found', function () {
             var actual = tagsDatabase.selectById(46587435);
             expect(actual).to.be.undefined;
         })
@@ -79,18 +81,20 @@ describe('Test CrudDatabaseFactory', function () {
             expect(tagAfterInsert.id).not.to.be.undefined;
             tagAfterInsert.tag = newTagName;
             tagsDatabase.update(tagAfterInsert);
-            updatedTag = tagsDatabase.selectById(oneTag.id);
+            updatedTag = tagsDatabase.selectById(tagAfterInsert.id);
             expect(updatedTag.tag).to.eql(newTagName);
         });
         it('Throws an exception, if element (that must have an ID) is not found for updates', function () {
             var tagAfterInsert;
             var dummyTag = new TagClass.Tag(undefined, 'Hello unupdatable');
-            tagAfterInsert = tagsDatabase.insert(oneTag);
-            expect(function() { tagsDatabase.update(dummyTag); }).to.throw(/Entity not found/);
+            tagsDatabase.insert(oneTag);
+            expect(function () {
+                tagsDatabase.update(dummyTag);
+            }).to.throw(/Entity not found/);
         });
     });
-    describe('Test remove function', function() {
-        it('Inserts and removes item properly', function() {
+    describe('Test remove function', function () {
+        it('Inserts and removes item properly', function () {
             var tagAfterInsert;
             tagAfterInsert = tagsDatabase.insert(singleTag);
             expect(tagsDatabase.selectById(tagAfterInsert.id)).not.to.be.undefined;
@@ -99,6 +103,43 @@ describe('Test CrudDatabaseFactory', function () {
             // checking, nothing bad happens when removing missing item
             tagsDatabase.remove(tagAfterInsert);
             expect(tagsDatabase.selectById(tagAfterInsert.id)).to.be.undefined;
-        })
+        });
+    });
+    describe('Test unique hash', function () {
+        var uniquedDatabase;
+        var dummyTag1;
+
+        beforeEach(function () {
+            uniquedDatabase = crudDbFactory.factory(TagClass.Tag, 'id', ['tag'], ['tag']);
+            dummyTag1 = new TagClass.Tag(null, 'Dummy1');
+        });
+
+        it('Allows insert of single tag', function () {
+            var dummy1afterUpdate = uniquedDatabase.insert(dummyTag1);
+        });
+        it('Throws unique constraint violation when inserting same tag again', function () {
+            var dummy1afterUpdate = uniquedDatabase.insert(dummyTag1);
+            expect(function () {
+                uniquedDatabase.insert(dummyTag1);
+            }).to.throw();
+        });
+        it('Does not throw unique constraint when inserting removed tag a second time', function () {
+            var dummy1afterUpdate = uniquedDatabase.insert(dummyTag1);
+            expect(function () {
+                uniquedDatabase.insert(dummyTag1);
+            }).to.throw();
+            uniquedDatabase.remove(dummy1afterUpdate);
+            var dummy1afterUpdate = uniquedDatabase.insert(dummyTag1);
+        });
+        it('Does handle updates properly', function() {
+            var dummy1afterUpdate = uniquedDatabase.insert(dummyTag1);
+            dummy1afterUpdate.tag = 'updated the stuff';
+            dummy1afterUpdate = uniquedDatabase.update(dummy1afterUpdate);
+            dummyTag1.id = null;
+            uniquedDatabase.insert(dummyTag1);      // must not throw, as the previous insert has been renamed and has a different hash
+        });
+    });
+    describe('Test not null properties', function() {
+
     });
 });

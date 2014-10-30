@@ -1,0 +1,14 @@
+[
+    {
+        "id": 0,
+        "userName": "andy",
+        "password": "this should ne be here",
+        "active": true
+    },
+    {
+        "id": 1,
+        "userName": "holger",
+        "password": "bad practice, but for th hack of it",
+        "active": true
+    }
+]
