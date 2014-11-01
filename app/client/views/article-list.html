@@ -38,9 +38,9 @@
                             <div class="article-meta">
                                 <ul>
                                     <li><i class="fa fa-tags icon-passive"></i><div class="icon-spacer make-inline">Tags
-                                        <ul class="article-tags" ng-repeat="tag in article.tags">
+                                        <ul class="article-tags" ng-repeat="tag in article._embedded.tags">
                                             <li>
-                                                <a href=#TODO{{tag}}">{{tag}}</a>
+                                                <a href={{tag._links.self.href}}>{{tag.tag}}</a>
                                             </li>
                                         </ul>
                                     </div>
