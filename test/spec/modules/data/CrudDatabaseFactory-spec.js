@@ -140,6 +140,30 @@ describe('Test CrudDatabaseFactory', function () {
         });
     });
     describe('Test not null properties', function() {
+        var notNullDatabase;
+        var dummyTag;
+        var dummyTagWithNullProperty;
+        beforeEach(function() {
+           notNullDatabase = crudDbFactory.factory(TagClass.Tag, 'id', ['tag']);
+           dummyTag = new TagClass.Tag(null, 'unimportant');
+           dummyTagWithNullProperty = new TagClass.Tag(null, null);
+        });
+        it('Throws exception with null on not null property when inserting', function() {
+            expect(function() { notNullDatabase.insert(dummyTagWithNullProperty); }).to.throw(/Illegal argument error: Missing required property tag.*/);
+        });
+        it('Throws exception with null on not null property when updating', function() {
+            var afterInsert = notNullDatabase.insert(dummyTag);
+            afterInsert.tag = null;
+            expect(function() { notNullDatabase.update(afterInsert); }).to.throw(/Illegal argument error: Missing required property tag.*/);
+        });
+        it('Throws exception with missing property on not null property when inserting', function() {
+            delete dummyTag.tag;
+            expect(function() { notNullDatabase.insert(dummyTag); }).to.throw(/Illegal argument error: Missing required property tag.*/);
+        });
+        it('Throws exception when inserting missing entity', function() {
+            expect(function() { notNullDatabase.insert(); }).to.throw(/Illegal argument error/);
+        });
+
 
     });
 });
