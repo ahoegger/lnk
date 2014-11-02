@@ -90,7 +90,7 @@ _register('User', function userHalsonify(entity) {
 
 // Register function to transform a comment into a halson comment
 _register('Comment', function commentHalsonify(entity) {
-    var baseString = '/api/comment/' + entity.id;
+    var baseString = '/api/article/' + entity.articleId + '/comment/' + entity.id;
     var resource = new halson(entity);
     resource.addLink('self', baseString);
     resource.addLink('user', baseString + '/user/' + entity.submittedBy);
