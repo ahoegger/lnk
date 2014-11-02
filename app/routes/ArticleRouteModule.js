@@ -77,7 +77,8 @@ module.exports = function(datastore) {
             };
             // TODO Check the votes for the user to provide (or not provide) the voteUp / voteDown links
             resultSet = datastore.selectArticles(query, {
-                includeTags: true
+                includeTags: true,
+                includeComments: true
             });
             halsonResultSet = halsonFactory.halsonifyArray('Article', resultSet);
             logger.debug('Returning articles', halsonResultSet);

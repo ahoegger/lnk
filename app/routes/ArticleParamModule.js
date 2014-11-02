@@ -16,7 +16,8 @@ function _paramFunction(req, res, next, articleId) {
         return entity.id === parseInt(articleId);
     };
     articleResultSet = this.datastore.selectArticles(queryFunction, {
-        includeTags: true
+        includeTags: true,
+        includeComments: true
     });
     if (!articleResultSet || articleResultSet.length === 0) {
         // not found

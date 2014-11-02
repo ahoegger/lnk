@@ -60,6 +60,13 @@ function _selectTagsForArticle(articleId) {
     return resultingTags;
 }
 
+function _selectCommentsForArticle(articleId) {
+    var queryFunction = function(entity) {
+        return entity.articleId === articleId;
+    };
+    return commentsTable.select(queryFunction);
+}
+
 function _insertUser(user) {
     return userTable.insert(user);
 }
@@ -121,6 +128,11 @@ module.exports = {
         if (options.includeTags) {
             for(i = 0, len = resultSet.length; i < len; i++) {
                 resultSet[i].tags = _selectTagsForArticle(resultSet[i].id);
+            }
+        }
+        if (options.includeComments) {
+            for(i = 0, len = resultSet.length; i < len; i++) {
+                resultSet[i].comments = _selectCommentsForArticle(resultSet[i].id);
             }
         }
         return resultSet;

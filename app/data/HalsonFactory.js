@@ -46,6 +46,7 @@ function _register(entityKey, halsonFunction) {
 // Function to transform an article into a halson article
 _register('Article', function articleHalsonify(entity) {
     var halsonTags;
+    var halsonComments;
     var baseString = '/api/article/' + entity.id;
     var resource = new halson(entity);
     resource.addLink('self', baseString);
@@ -54,6 +55,12 @@ _register('Article', function articleHalsonify(entity) {
         halsonTags = _halsonifyArray('Tag', entity.tags);
         resource.addEmbed('tags', halsonTags);
         delete resource.tags;
+    }
+    // if there are comments present, move them into halson embedded tags,
+    if (entity.comments) {
+        halsonComments = _halsonifyArray('Comment', entity.comments);
+        resource.addEmbed('comments', halsonComments);
+        delete resource.comments;
     }
     resource.addLink('tags', baseString + '/tags');
     resource.addLink('comments', baseString + '/comments');
