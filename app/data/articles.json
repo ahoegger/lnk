@@ -6,7 +6,7 @@
         "url": "https://jersey.java.net/",
         "imageUrl": "https://jersey.java.net/images/jersey_logo.png",
         "submittedBy": "hhe",
-        "submittedOn": "20140614",
+        "submittedOn": "2014-06-14T10:12:26Z",
         "votes": 0,
         "tags": ["Java", "REST", "JAX-RS"],
         "numberOfComments": 2
@@ -18,7 +18,7 @@
         "url": "https://github.com/FasterXML/jackson",
         "imageUrl": "http://fasterxml.com/images/fxml_logo.png",
         "submittedBy": "aho",
-        "submittedOn": "20140615",
+        "submittedOn": "2014-06-15T12:55:26Z",
         "votes": 0,
         "tags": ["Java", "JSON"],
         "numberOfComments": 2
@@ -30,7 +30,7 @@
         "url": "https://www.eclipse.org/scout/",
         "imageUrl": "http://www.bsiag.com/scout/wp-content/themes/bsi_new/images/header1.png",
         "submittedBy": "aho",
-        "submittedOn": "20140616",
+        "submittedOn": "2014-06-16T13:12:26Z",
         "votes": 2,
         "tags": ["Scout", "Eclipse Scout", "Eclipse"],
         "numberOfComments": 3

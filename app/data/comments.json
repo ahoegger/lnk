@@ -3,7 +3,7 @@
         "id":  1,
         "articleId":  1,
         "text":  "Comment 1 for article 1",
-        "submittedOn":  "20140614",
+        "submittedOn":  "2014-09-02T10:12:26Z",
         "submittedBy":  "aho"
 
     },
@@ -11,42 +11,42 @@
         "id":  2,
         "articleId":  1,
         "text":  "Comment 2 for article 1",
-        "submittedOn":  "20140614",
+        "submittedOn":  "2014-10-31T06:06:06Z",
         "submittedBy":  "hhe"
     },
     {
         "id":  3,
         "articleId":  2,
         "text":  "Comment 1 for article 2",
-        "submittedOn":  "20140614",
+        "submittedOn":  "2014-11-01T18:21:20Z",
         "submittedBy":  "hhe"
     },
     {
         "id":  4,
         "articleId":  2,
         "text":  "Comment 2 for article 2",
-        "submittedOn":  "20140614",
+        "submittedOn":  "2014-11-01T19:22:33Z",
         "submittedBy":  "aho"
     },
     {
         "id":  5,
         "articleId":  3,
         "text":  "Simple: Looking for an an application framework where you really get what you see? Then you might really like to have a look at the Eclipse Scout Screencasts",
-        "submittedOn":  "20140614",
+        "submittedOn":  "2014-11-02T10:12:26Z",
         "submittedBy":  "hhe"
     },
     {
         "id":  6,
         "articleId":  3,
         "text":  "Simple: Looking for an an application framework where you really get what you see? Then you might really like to have a look at the Eclipse Scout Screencasts.",
-        "submittedOn":  "20140614",
+        "submittedOn":  "2014-11-02T10:13:26Z",
         "submittedBy":  "hhe"
     },
     {
         "id":  7,
         "articleId":  3,
         "text":  "Flexible: Dreaming of an application framework that combines easy learning with powerful adapting? Why don\"t you check out our Eclipse Scout tutorial",
-        "submittedOn":  "20140614",
+        "submittedOn":  "2014-11-02T10:14:26Z",
         "submittedBy":  "hhe"
     }
 ]

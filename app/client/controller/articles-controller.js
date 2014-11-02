@@ -3,7 +3,7 @@
  */
     var articlesController = angular.module('articlesController', ['service.article']);
 
-    articlesController.controller('articleListController', ['$scope', 'article',
+    articlesController.controller('articleListController', ['$scope', 'article', 'behaviour',
         function ($scope,  article) {
             article.getArticles().success(function(data, status, headers, config) {
                 $scope.articles = data;
@@ -11,10 +11,12 @@
             });
             $scope.voteUp = function($event, articleId){
                 $event.preventDefault();
+                // TODO Implement colling voteUp API call
                 article.voteUp(articleId);
-            }
+            };
             $scope.voteDown = function($event, articleId){
                 $event.preventDefault();
+                // TODO Implement colling voteDown API call
                 article.voteDown(articleId);
             }
         }]);

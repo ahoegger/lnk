@@ -55,8 +55,8 @@
                             <!-- Article description end -->
                             <!-- toggle show comment begin -->
                             <div class="show-comments-divider-group">
-                                <a class="article-comments" href="" data-bind="click: toggleShowComments, text: 'Show comments', visible: !displayComments()"></a>
-                                <a class="article-comments" href="" data-bind="click: toggleShowComments, text: 'Hide comments', visible: displayComments()"></a>
+                                <a class="article-comments" ng-click="showComments = !showComments" href="" ng-hide="showComments" class="ng-hide">Show comments</a>
+                                <a class="article-comments" ng-click="showComments = !showComments" href="" ng-show="showComments" class="ng-hide">Hide comments</a>
                             </div>
                             <!-- toggle show comment end -->
                         </div>
@@ -67,15 +67,23 @@
                 <div class="no-padding" style="padding-left: 40px;">
                     <div class="col-xs-12">
                         <div class="comments">
-                            <div data-bind="visible: displayAddComment" class="clearfix row">
-                                <form class="form-horizontal" role="form"
-                                      data-bind="submit: lnk.behaviour.addComment">
+                            <div ng-show="showComments" class="ng-hide clearfix row">
+                                <!-- TODO Implement submitting of comment -->
+                                <form class="form-horizontal" role="form">
                                     <div class="form-group>">
                                         <div class="col-sm-10 cell-spacing-vertical-sm">
-                                            <textarea id="comment" class="form-control" rows="1"
+                                            <textarea name="comment" ng-keyup="autoResizeTextarea('',$event)"
+                                                      class="form-control full-width-sm animate msd-elastic"
+                                                      rows="1"
+                                                      placeholder="Comment"
+                                                      ng-required="true" maxlength="400"></textarea>
+                                            <!--
+                                            <textarea id="{{article.id}}comment"  class="form-control animate msd-elastic" rows="1"
                                                       placeholder="Comment"
                                                       required="required"
-                                                      data-bind="event: { keyup: lnk.behaviour.autoResize }"></textarea>
+                                                      ng-keyup="autoResizeTextarea('',$event)">
+                                            </textarea>
+                                            -->
                                         </div>
                                         <div class="col-sm-2 cell-spacing-vertical-sm pull-right-sm">
                                             <button type="submit" class="btn btn-primary btn-sm">submit</button>
@@ -83,16 +91,16 @@
                                     </div>
                                 </form>
                             </div>
-                            <div data-bind="visible: displayComments" class="row">
+                            <div ng-show="showComments" class="row">
                                 <div class="column grid-12">
-                                    <ul class="fa-ul comments-ul" data-bind="foreach: comments">
+                                    <ul class="fa-ul comments-ul" ng-repeat="comment in article._embedded.comments">
                                         <!-- existing comments -->
                                         <li><i class="fa-li fa fa-comment-o icon-passive"></i>
-                                            <p data-bind="text: text"></p>
+                                            <p>{{comment.text}}</p>
                                             <div class="comment-meta">
                                                 <ul>
-                                                    <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer" data-bind="text: 'Submitted ' + moment(submittedOn).fromNow()"></span></li>
-                                                    <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a data-bind="text: submittedBy, attr: {href: './users/' + submittedBy}"></a></span></li>
+                                                    <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer">Submitted {{comment.submittedOn | dateFromNow}}</span></li>
+                                                    <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a href={{comment._links.self.href}}>{{comment.submittedBy}}</a></span></li>
                                                     <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
                                                     <li><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></li>
                                                 </ul>
