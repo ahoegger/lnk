@@ -30,7 +30,7 @@ describe('Test article entity', function () {
             expect(actual.submittedBy).to.be.equal(expected.submittedBy);
             expect(actual.submittedOn).to.be.equal(expected.submittedOn);
             expect(actual.tags).to.be.eql(expected.tags);
-        };
+        }
 
         function assertObjectUnequal(actual, expected) {
             expect(actual.id).not.to.be.equal(expected.id);
@@ -41,7 +41,7 @@ describe('Test article entity', function () {
             expect(actual.submittedBy).not.to.be.equal(expected.submittedBy);
             expect(actual.submittedOn).not.to.be.equal(expected.submittedOn);
             expect(actual.tags).not.to.be.eql(expected.tags);
-        };
+        }
 
         it('Updates all values from JSON', function() {
             // Article(id, title, url, imageUrl, description, submittedBy, submittedOn, tags)
