@@ -60,6 +60,8 @@ app.use(function(err, req, res){
 // Initialload data
 initialLoader.loadArticles(app_constants.packagedModule('data', 'articles.json'));
 initialLoader.loadComments(app_constants.packagedModule('data', 'comments.json'));
+initialLoader.loadUsers(app_constants.packagedModule('data', 'users.json'));
+initialLoader.loadVotes(app_constants.packagedModule('data', 'votes.json'));
 
 // start der server
 http.createServer(app).listen(express_server_port);

@@ -17,7 +17,8 @@ function _paramFunction(req, res, next, articleId) {
     };
     articleResultSet = this.datastore.selectArticles(queryFunction, {
         includeTags: true,
-        includeComments: true
+        includeComments: true,
+        includeVoteCount: true
     });
     if (!articleResultSet || articleResultSet.length === 0) {
         // not found

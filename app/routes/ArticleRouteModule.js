@@ -5,7 +5,7 @@
 var path = require('path');
 var log4js = require('log4js');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
-var helper = require(app_constants.packagedModule('routes', 'ArticleRouterHelperModule.js'))();
+var helper = require(app_constants.packagedModule('routes', 'ArticleRouterHelperModule.js'))(datastore);
 
 var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
 var UserClass = require(app_constants.packagedModule('entities', 'User.js'));
@@ -78,7 +78,8 @@ module.exports = function(datastore) {
             // TODO Check the votes for the user to provide (or not provide) the voteUp / voteDown links
             resultSet = datastore.selectArticles(query, {
                 includeTags: true,
-                includeComments: true
+                includeComments: true,
+                includeVoteCount: true
             });
             halsonResultSet = halsonFactory.halsonifyArray('Article', resultSet);
             logger.debug('Returning articles', halsonResultSet);

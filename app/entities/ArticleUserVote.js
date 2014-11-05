@@ -16,10 +16,10 @@ function ArticleUserVote(id, articleId, userId, vote) {
  * @param jsonObject
  */
 ArticleUserVote.prototype.updateFromJsonObject = function(jsonObject) {
-    this.id = jsonObject.id ? jsonObject.id : this.id;
-    this.articleId = jsonObject.articleId ? jsonObject.articleId : this.articleId;
-    this.userId = jsonObject.userId ? jsonObject.userId : this.userId;
-    this.vote = jsonObject.vote ? jsonObject.vote : this.vote;
+    this.id = jsonObject.id != undefined ? jsonObject.id : this.id;
+    this.articleId = jsonObject.articleId != undefined  ? jsonObject.articleId : this.articleId;
+    this.userId = jsonObject.userId != undefined ? jsonObject.userId : this.userId;
+    this.vote = jsonObject.vote != undefined  ? jsonObject.vote : this.vote;
 };
 
 ArticleUserVote.prototype.updateFromJsonString = function(jsonString) {

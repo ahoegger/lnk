@@ -13,9 +13,10 @@
  * @param {String} submittedBy
  * @param {Date} submittedOn
  * @param {String[]} tags
+ * @param {VoteContainer} votes Entity that contains the number of votes
  * @constructor
  */
-function Article(id, title, url, imageUrl, description, submittedBy, submittedOn, tags) {
+function Article(id, title, url, imageUrl, description, submittedBy, submittedOn, tags, votes) {
     this.id = id;
     this.title = title;
     this.url = url;
@@ -24,6 +25,7 @@ function Article(id, title, url, imageUrl, description, submittedBy, submittedOn
     this.submittedBy = submittedBy;
     this.submittedOn = submittedOn;
     this.tags = tags;
+    this.votes = votes;
 }
 
 /**
@@ -40,6 +42,7 @@ Article.prototype.updateFromJsonObject = function(jsonObject) {
     this.submittedBy = jsonObject.submittedBy ? jsonObject.submittedBy : this.submittedBy;
     this.submittedOn = jsonObject.submittedOn ? jsonObject.submittedOn : this.submittedOn;
     this.tags = jsonObject.tags ? jsonObject.tags : this.tags;
+    this.votes = jsonObject.votes ? jsonObject.votes : this.votes;
 };
 
 Article.prototype.updateFromJsonString = function(jsonString) {
@@ -47,7 +50,7 @@ Article.prototype.updateFromJsonString = function(jsonString) {
 };
 
 Article.prototype.clone = function() {
-    return new Article(this.id, this.title, this.url, this.imageUrl, this.description, this.submittedBy, this.submittedOn, this.tags);
+    return new Article(this.id, this.title, this.url, this.imageUrl, this.description, this.submittedBy, this.submittedOn, this.tags, this.votes);
 };
 
 module.exports = {

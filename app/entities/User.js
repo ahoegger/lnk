@@ -16,7 +16,7 @@ var bcrypt = require('bcryptjs');
 function User(id, userName, password, active) {
     this.id = id;
     this.userName= userName;
-    this.password = bcrypt.hashSync(password, 8);
+    this.password = bcrypt.hashSync(password ? password : 'dummy', 8);
     this.active = active;
 }
 

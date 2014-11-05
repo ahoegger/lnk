@@ -97,7 +97,7 @@ _register('Comment', function commentHalsonify(entity) {
     return resource;
 });
 
-
+// --------------------
 module.exports = {
     halsonify: function(entityKey, entityObject) {
         return _halsonify(entityKey, entityObject);

@@ -12,6 +12,7 @@ var CommentClass = require(app_constants.packagedModule('entities', 'Comment.js'
 var ArticleTagClass = require(app_constants.packagedModule('entities', 'ArticleTag.js'));
 var ArticleUserVoteClass = require(app_constants.packagedModule('entities', 'ArticleUserVote.js'));
 var UserClass = require(app_constants.packagedModule('entities', 'User.js'));
+var VoteContainerClass = require(app_constants.packagedModule('entities', 'VoteContainer.js'));
 
 // the table database factory
 var CrudDatabaseFactory = require(app_constants.packagedModule('data', 'CrudDatabaseFactory'));
@@ -73,6 +74,25 @@ function _insertUser(user) {
 
 function _selectUser(queryFunction) {
     return userTable.select(queryFunction);
+}
+
+function _selectVotes(articleId, userId) {
+    var singleResult;
+    var voteValue = 0;
+    var userVote;
+    var resultSet;
+    var votesQuery = function(entity) {
+        return entity.articleId === articleId;
+    };
+    resultSet = articleUserVoteTable.select(votesQuery);
+    for (var i = 0, len = resultSet.length; i < len; i++) {
+        singleResult = resultSet[i];
+        voteValue = voteValue + singleResult.vote;
+        if (singleResult.userId === userId) {
+            userVote = voteValue;
+        }
+    }
+    return new VoteContainerClass.VoteContainer(voteValue, userVote);
 }
 
 module.exports = {
@@ -137,6 +157,11 @@ module.exports = {
         if (options.includeComments) {
             for(i = 0, len = resultSet.length; i < len; i++) {
                 resultSet[i].comments = _selectCommentsForArticle(resultSet[i].id);
+            }
+        }
+        if (options.includeVoteCount) {
+            for(i = 0, len = resultSet.length; i < len; i++) {
+                resultSet[i].votes = _selectVotes(resultSet[i].id, options.voteUserId);
             }
         }
         return resultSet;

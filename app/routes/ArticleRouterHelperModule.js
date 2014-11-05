@@ -9,8 +9,13 @@ var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constant
 var logger = log4js.getLogger('routes.ArticleRouteHelperModule');
 
 var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
+var VoteContainerClass = require(app_constants.packagedModule('entities', 'VoteContainer.js'));
 
-module.exports = function() {
+module.exports = function(datastore) {
+    var self = {
+        datastore: datastore
+    };
+
     return {
         /**
          * This function returns an array of Tag objects from the given JSON object as array
@@ -26,6 +31,24 @@ module.exports = function() {
                 }
             }
             return tags;
+        },
+        selectArticleVotes: function(articleId, userId) {
+            var singleResult;
+            var voteValue;
+            var userVote;
+            var resultSet;
+            var votesQuery = function(entity) {
+                return entity.articleId === articleId;
+            };
+            resultSet = self.datastore.selectVotes(votesQuery);
+            for (var i = 0, len = resultSet.length; i < len; i++) {
+                singleResult = resultSet[i];
+                voteValue = voteValue + singleResult.vote;
+                if (singleResult.userId === userId) {
+                    userVote = voteValue;
+                }
+            }
+            return new VoteContainerClass.VoteConatiner(voteValue. userVote);
         }
     }
 };
