@@ -87,10 +87,12 @@ module.exports = {
      * or a reference is being used
      * @param article
      * @param tags
+     * @return {Tags[]} returns the updated tags from the database (i.e. with a proper id)
      */
     insertArticleTags: function(article, tags) {
         var singleTag;
         var storedTag;
+        var updatedTags = [];
         for (var i = 0, len = tags.length; i < len; i++) {
             singleTag = tags[i];
             storedTag = _findTag(singleTag);
@@ -98,9 +100,11 @@ module.exports = {
                 // first, create the article
                 storedTag = tagsTable.insert(singleTag);
             }
+            updatedTags.push(storedTag);
             // insert the mapping
             articleTagTable.insert(new ArticleTagClass.ArticleTag(undefined, article.id, storedTag.id))
         }
+        return updatedTags;
     },
     insertComment: function(comment) {
         return commentsTable.insert(comment);

@@ -92,7 +92,7 @@ module.exports = function(datastore) {
             articleObject.updateFromJsonObject(req.body);            // put posted content into article
             tagsArray = helper.createTagsFromJsonBody(req.body);     // create the tags as well
             articleObject = datastore.insertArticle(articleObject);  // insert the article
-            datastore.insertArticleTags(articleObject, tagsArray);   // insert it's tags
+            articleObject.tags = datastore.insertArticleTags(articleObject, tagsArray);   // insert it's tags
             halsonSingleArticle = halsonFactory.halsonify('Article', articleObject);
             res.status(201).send(JSON.stringify(halsonSingleArticle));
         },

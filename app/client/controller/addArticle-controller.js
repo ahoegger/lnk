@@ -29,11 +29,39 @@ addArticleController.controller('addArticle', ['$scope', '$location', 'article',
 
 
     function ($scope, $location, article, behaviour) {
+
+        var _genericHttpCallbackFactory = function(message) {
+            var self = {
+                message: message
+            };
+            return function (data, status, headers, config) {
+                console.log('HTTP Callback: ' + self.message);
+                console.log('Data is:');
+                console.dir(data);
+                console.log('Status = ' + status);
+                console.log('Headers is:');
+                console.dir(headers);
+                console.log('Config is:');
+                console.dir(config);
+            };
+        };
+
         $scope.postArticle = function ($event, $form) {
+            var articleDto = {};
             $event.preventDefault();
             if ($form.$valid) {
-                console.dir($scope.article);
-                $location.path('/articles');
+                articleDto.title = $scope.article.title;
+                articleDto.url = $scope.article.url;
+                articleDto.description = $scope.article.description;
+                articleDto.alternateImageUrl = $scope.article.alternateImageUrl;
+                articleDto.tags = [$scope.article.tags];
+                articleDto.submittedOn = new Date();
+                articleDto.submittedBy = 'DUMMY';
+
+                console.dir(articleDto);
+                article.submitArticle(articleDto,
+                    _genericHttpCallbackFactory('Article submit success callback'),
+                    _genericHttpCallbackFactory('Article submit error callback'));
             }
         };
 
@@ -54,6 +82,7 @@ addArticleController.controller('addArticle', ['$scope', '$location', 'article',
                 return true;
             }
         };
+
     }
 ]);
 

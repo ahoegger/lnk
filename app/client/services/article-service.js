@@ -26,10 +26,26 @@ articleServices.factory('article', ['$http',
             console.log('remote call [voteDown : ' + articleId + ']');
         };
 
+        /**
+         * This function submit a form with the given ID
+         * @param {Object} articleObject The article object containing it's data
+         */
+        var submitArticle = function(articleObject, successCallback, errorCallback) {
+            var data = JSON.stringify(articleObject);
+            var url = '/api/articles';
+            $http
+                .post(url, data,
+                    { headers: { 'Content-Type': 'application/json'} }
+                )
+                .success( successCallback )
+                .error( errorCallback );
+        };
+
         return {
             getArticles: get,
             voteUp: voteUp,
-            voteDown: voteDown
+            voteDown: voteDown,
+            submitArticle: submitArticle
         };
     }]);
 
