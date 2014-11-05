@@ -37,7 +37,7 @@
                                   rows="1"
                                   placeholder="Describe your .lnk here"
                                   ng-required="true" maxlength="400"
-                                  ng-model="submitArticle.description"></textarea>
+                                  ng-model="article.description"></textarea>
 
                         <p ng-show="articleForm.description.$error.required && !articleForm.description.$pristine"
                            class="help-block">A description is required!</p>
@@ -61,7 +61,7 @@
 
                     <div class="col-sm-10 no-padding-sm">
                         <input name="tags" type="text" class="form-control full-width-sm"
-                               placeholder="Add comma separated tags" ng-model="submitArticle.tags" ng-required="true"
+                               placeholder="Add comma separated tags" ng-model="article.tags" ng-required="true"
                                maxlength="100">
 
                         <p ng-show="articleForm.tags.$error.required && !articleForm.tags.$pristine" class="help-block">
