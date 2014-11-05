@@ -25,7 +25,7 @@ var logger = log4js.getLogger('routes.ArticleRouteModule');
  * @param newVoteValue Value to be set, if a new vote will be made (i.e. -1 oder 1)
  */
 function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, updateExistingVoteValueFunction, newVoteValue) {
-    var user = new UserClass.User(0, 'DefaultUser', true);    // TODO Implement retrieving user from request, the session, whatever
+    var user = new UserClass.User(0, 'DefaultUser', 'dummy', true);    // TODO Implement retrieving user from request, the session, whatever
     var userVote;
     var articleUserVote;
     var userVoteQuery = function(element) {
