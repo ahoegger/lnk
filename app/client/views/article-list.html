@@ -21,11 +21,11 @@
                             </div>
                             <!-- Voting begin -->
                             <div class="article-voting">
-                                <a ng-click="voteUp($event, article.id)"
+                                <a ng-click="voteUp($event, $index, article._links.voteUp.href)"
                                    class="vote icon-passive icon-activatable" href="#"><i
                                         class="fa fa-arrow-circle-o-up fa-2x"></i></a>
                                 <div class="vote position-center" >{{article.votes.numberOfVotes}}</div>
-                                <a ng-click="voteDown($event, article.id)"
+                                <a ng-click="voteDown($event, $index, article._links.voteDown.href)"
                                    class="vote icon-passive icon-activatable" href="#"><i
                                         class="fa fa-arrow-circle-o-down fa-2x"></i></a>
                             </div>

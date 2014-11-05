@@ -47,12 +47,10 @@ function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, upd
             // for the moment do nothing (i.e. no error to the client, just don't increment or decrement the votes value
         }
         res.status(200).send(JSON.stringify(userVote));
-        next();
     } else {
         articleUserVote = new ArticleUserVoteClass.ArticleUserVote(null, parseInt(req.article.id), user.id, newVoteValue);
         userVote = this.datastore.insertVote(articleUserVote);
         res.status(201).send(JSON.stringify(userVote));
-        next();
     }
 }
 

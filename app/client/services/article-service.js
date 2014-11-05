@@ -6,6 +6,15 @@ var articleServices = angular.module('service.article', []);
 
 articleServices.factory('article', ['$http',
     function ($http) {
+        var doVote = function(url, successCallback, errorCallback) {
+            return $http.post(
+                url,
+                null
+            )
+            .success( successCallback )
+            .error( errorCallback );
+        };
+
         var doRequest = function () {
             return $http({method: 'GET', url: '/api/articles'}).
                 error(function (data, status, headers, config) {
@@ -18,13 +27,9 @@ articleServices.factory('article', ['$http',
             return doRequest();
         };
 
-        var voteUp = function (articleId) {
-            console.log('remote call [voteUp : ' + articleId + ']');
-        };
+        var voteUp = doVote;
 
-        var voteDown = function (articleId) {
-            console.log('remote call [voteDown : ' + articleId + ']');
-        };
+        var voteDown = doVote;
 
         /**
          * This function submit a form with the given ID

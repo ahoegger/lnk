@@ -9,15 +9,36 @@
                 $scope.articles = data;
                 console.log('success with get articles!');
             });
-            $scope.voteUp = function($event, articleId){
-                $event.preventDefault();
-                // TODO Implement colling voteUp API call
-                article.voteUp(articleId);
+
+            var votingExecution = function(message, index) {
+                var self = {
+                    message: message,
+                    index: index
+                };
+                return function(data, status, headers, config) {
+                    console.log('Voting callback ' + self.message);
+                    console.log(data);
+                    $scope.articles[index].votes.numberOfVotes = data.vote;     // TODO Respect user vote
+                }
             };
-            $scope.voteDown = function($event, articleId){
+
+            $scope.voteUp = function($event, index, apiUrl){
                 $event.preventDefault();
-                // TODO Implement colling voteDown API call
-                article.voteDown(articleId);
+                console.dir(article);
+                console.log(apiUrl);
+                // TODO Implement calling voteUp API call
+                article.voteUp(apiUrl,
+                    votingExecution('VoteUp success', index),
+                    votingExecution('VoteUp error', index)
+                );
+            };
+            $scope.voteDown = function($event, index, apiUrl){
+                $event.preventDefault();
+                // TODO Implement calling voteDown API call
+                article.voteDown(apiUrl,
+                    votingExecution('VoteDown success', index),
+                    votingExecution('VoteDown error', index)
+                );
             };
 
             $scope.autoResizeTextarea = behaviour.autoResizeTextarea;
