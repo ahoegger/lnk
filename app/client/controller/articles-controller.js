@@ -1,10 +1,10 @@
 /**
  * Created by aho on 12.09.2014.
  */
-    var articlesController = angular.module('articlesController', ['service.article']);
+    var articlesController = angular.module('articlesController', ['service.article', 'service.behaviour']);
 
     articlesController.controller('articleListController', ['$scope', 'article', 'behaviour',
-        function ($scope,  article) {
+        function ($scope,  article, behaviour) {
             article.getArticles().success(function(data, status, headers, config) {
                 $scope.articles = data;
                 console.log('success with get articles!');
@@ -18,7 +18,9 @@
                 $event.preventDefault();
                 // TODO Implement colling voteDown API call
                 article.voteDown(articleId);
-            }
+            };
+
+            $scope.autoResizeTextarea = behaviour.autoResizeTextarea;
         }]);
 
 /**
