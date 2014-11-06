@@ -32,3 +32,11 @@
 * Bessere responsive breakpoints
 * OK [hhe] "Manual"
 * Tabgroup Suche/Favoriten/New besser gestalten.
+
+------------------------------
+* [aho] login geschichte
+* [aho] Form add .lnk it button gross und aliniert (rechts)
+* [aho] Comments dynamisch nachladen
+* [aho] Preview article
+* [aho] after .lnk it sinnvolle aktion z.b. zurück auf suche
+
