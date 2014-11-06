@@ -14,7 +14,7 @@
                     <div class="article-content">
                         <div class="article-main ">
                             <h3 class="article-heading"><span>{{article.title}}</span>
-                                <a href={{article.url}} class="icon-spacer fa fa-external-link" title="{{article.title}} ({{article.url}})" target="_blank"></a>
+                                <a href="{{article.url}}" class="icon-spacer fa fa-external-link" title="{{article.title}} ({{article.url}})" target="_blank"></a>
                             </h3>
                             <div class="article-image">
                                 <img ng-src="{{article.imageUrl}}">
@@ -40,7 +40,7 @@
                                     <li><i class="fa fa-tags icon-passive"></i><div class="icon-spacer make-inline">Tags
                                         <ul class="article-tags" ng-repeat="tag in article._embedded.tags">
                                             <li>
-                                                <a href={{tag._links.self.href}}>{{tag.tag}}</a>
+                                                <a href="{{tag._links.self.href}}">{{tag.tag}}</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -55,8 +55,8 @@
                             <!-- Article description end -->
                             <!-- toggle show comment begin -->
                             <div class="show-comments-divider-group">
-                                <a class="article-comments" ng-click="showComments = !showComments" href="" ng-hide="showComments" class="ng-hide">Show comments</a>
-                                <a class="article-comments" ng-click="showComments = !showComments" href="" ng-show="showComments" class="ng-hide">Hide comments</a>
+                                <a class="article-comments ng-hide" ng-click="showComments = !showComments" href="" ng-hide="showComments">Show comments</a>
+                                <a class="article-comments ng-hide" ng-click="showComments = !showComments" href="" ng-show="showComments">Hide comments</a>
                             </div>
                             <!-- toggle show comment end -->
                         </div>
@@ -77,14 +77,8 @@
                                                       class="form-control full-width-sm animate"
                                                       rows="1"
                                                       placeholder="Comment"
-                                                      ng-required="true" maxlength="400"></textarea>
-                                            <!--
-                                            <textarea id="{{article.id}}comment"  class="form-control animate msd-elastic" rows="1"
-                                                      placeholder="Comment"
-                                                      required="required"
-                                                      ng-keyup="autoResizeTextarea('',$event)">
+                                                      ng-required="true" maxlength="400">
                                             </textarea>
-                                            -->
                                         </div>
                                         <div class="col-sm-2 cell-spacing-vertical-sm pull-right-sm">
                                             <button type="submit" class="btn btn-primary btn-sm">submit</button>
@@ -101,7 +95,7 @@
                                             <div class="comment-meta">
                                                 <ul>
                                                     <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer">Submitted {{comment.submittedOn | dateFromNow}}</span></li>
-                                                    <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a href={{comment._links.self.href}}>{{comment.submittedBy}}</a></span></li>
+                                                    <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a href="{{comment._links.self.href}}">{{comment.submittedBy}}</a></span></li>
                                                     <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
                                                     <li><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></li>
                                                 </ul>
