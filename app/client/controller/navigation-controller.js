@@ -3,7 +3,7 @@
  */
 
 
-var navigationController = angular.module('navigationController', []);
+//var navigationController = angular.module('navigationController', []);
 
 articlesController.controller('navigationController', ['$scope','$rootScope','$location',
     function ($scope, $rootScope, $location) {

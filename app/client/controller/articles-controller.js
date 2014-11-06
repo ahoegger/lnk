@@ -54,8 +54,3 @@ articlesController.filter('dateFromNow', function() {
 });
 
 
-//articlesController.controller('navigationController', ['$scope',
-//    function ($scope) {
-//
-//        $scope.sloagan2='navigation Sloagan';
-//    }]);

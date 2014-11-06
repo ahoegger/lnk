@@ -19,9 +19,11 @@
     <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="viewModel/app.js"></script>
+    <script src="controller/login.js"></script>
     <script src="controller/articles-controller.js"></script>
     <script src="controller/navigation-controller.js"></script>
     <script src="controller/addArticle-controller.js"></script>
+    <script src="services/authentication-service.js"></script>
     <script src="services/article-service.js"></script>
     <script src="services/behaviour-service.js"></script>
 </head>
@@ -32,7 +34,7 @@
     your browser</a> to improve your experience.</p>
 <![endif]-->
 <!--include header-->
-<div ng-include='"views/navigation.html"' ng-controller="navigationController"></div>
+<div ng-include='"views/navigation.html"'></div>
 
 <div class="container-fluid content" ng-controller="navigationController">
     <ul class="nav nav-tabs " id="main-navigation">
