@@ -3,7 +3,7 @@
  */
 var behaviourModule = angular.module('service.behaviour', []);
 
-articleServices.factory('behaviour', [
+behaviourModule.factory('behaviour', [
     function () {
          /**
          * This function can be bound to the textarea form elements to automatically resize these element with the text growing.
