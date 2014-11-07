@@ -54,6 +54,7 @@
 ## API ##
 Hint: Watch out singular and plural
 * GET /articles: Returns a list of articles
+    * Query-Parameter "content=": Articles with the content in title or description
     * Query-Parameter "tags=": Articles with at least one of the given tags
     * Query-Parameter "user=": Articles for the given users
     * Query-Parameter "dateFrom=": Articles newer than the given date
