@@ -23,11 +23,10 @@
 ### User
 * id: Generated ID of the article
 * username: username, min length 3, max length = 20, must be unique, not blank
-* email: email address of the user, mandatory, valid email address, not blank
+* name:
+* firstname:
 * active: true, if the user ist still active; false if she deleted the account
-* real name: mandatory, max length = 50, not blank
 * password: user password
-* roles: list of role entities the user has
 
 ### vote
 * id: generated ID of the article
@@ -77,3 +76,8 @@ Hint: Watch out singular and plural
 * POST /article/13/votes/user/534: Adds a new vote to the article for the given user
 * GET /article/13/votes/user/534: Returns the vote of the given user
 * [HHE OK] PUT /article/13/votes/user/534: Updates the vote of the given user
+* Authentication
+** POST /api/authentication/ : Payload (application/json) { userName: ccc, password: xxx (encrypted mit bycrtpjs, hash = 8)} result bei NOK: 401, bei ok: 200 mit user class
+*** siehe link http://www.kdelemme.com/2014/03/09/authentication-with-angularjs-and-a-node-js-rest-api/ var token = jwt.sign(user, secret.secretToken, { expiresInMinutes: 60 });
+** POST /api/users/ : Payload {Payload (application/json) { userName: ccc, name:, firstname;, password: xxx } return: 201, mit user class
+** PUT /api/user/:id/: Update vom User, return neuer user
