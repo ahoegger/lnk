@@ -41,4 +41,7 @@
 * [aho] Preview article
 * [aho] after .lnk it sinnvolle aktion z.b. zurück auf suche
 * OK [hhe] user API
-* OK [hhe] authentication 
+* OK [hhe] authentication
+* OK [hhe] Submitten von comments
+* [???] User im frontend wen authenticated speichern (authentication, enablen von Funktionalitäten)
+ [hhe] Evtl. "anti-halson" im frontend

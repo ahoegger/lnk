@@ -65,6 +65,7 @@
                         console.log(data);
                         // Finally, add the comment object from the response to the viewModel
                         $scope.articles[index]._embedded.comments[data.id] = data;
+                        $event.target[0].value = '';
                     },
                     submitCommentExecution('Submit comment error', index)
                 );

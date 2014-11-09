@@ -63,6 +63,7 @@ addArticleController.controller('addArticle', ['$scope', '$location', 'article',
                     _genericHttpCallbackFactory('Article submit success callback'),
                     _genericHttpCallbackFactory('Article submit error callback'));
             }
+            // TODO Clear form after submitting
         };
 
         $scope.urlIsImage = false;
