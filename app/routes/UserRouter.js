@@ -8,6 +8,7 @@ var url = require('url');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 
 var datastore = require(app_constants.packagedModule('infrastructure', 'InMemorydataStore.js'));
+var jwt = require('express-jwt');       // route handler for authenticating against a token
 
 var routerHelperModule = require(app_constants.packagedModule('routes', 'RouterHelperModule.js'))();
 var userRouterModule = require(app_constants.packagedModule('routes', 'UserRouteModule.js'))(datastore);
@@ -21,8 +22,8 @@ router
     .get('/users', routerHelperModule.notYetImplementedHandler)
     .get('/user/:userId', userRouterModule.getUser)
     .post('/users', userRouterModule.postUser)
-    .put('/user/:userId', userRouterModule.putUser)
-    .delete('/user/:userId', userRouterModule.deleteUser)
+    .put('/user/:userId', jwt({secret: app_constants.secret.secretToken}), userRouterModule.putUser)
+    .delete('/user/:userId', jwt({secret: app_constants.secret.secretToken}), userRouterModule.deleteUser)
     ;
 
 module.exports = router;

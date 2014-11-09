@@ -54,6 +54,13 @@ var app_constants = {
             return path.join(module_packages[packageName].path, module);
         }
         throw "undefined package or module";
+    },
+
+    /**
+     * Object containing security relevant information
+     */
+    secret: {
+        secretToken: "ABC"
     }
 };
 

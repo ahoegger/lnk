@@ -22,6 +22,7 @@ var initialLoader = require(app_constants.packagedModule('data', 'InitialLoad.js
 var articlesRouter = require(app_constants.packagedModule('routes', 'ArticleRouter.js'));
 var tagsRouter = require(app_constants.packagedModule('routes', 'tags'));
 var userRouter = require(app_constants.packagedModule('routes', 'UserRouter.js'));
+var authenticationRouter = require(app_constants.packagedModule('routes', 'AuthenticationRouter.js'));
 // constants and basic variables
 var express_server_port = 3000;
 
@@ -48,11 +49,16 @@ app.use(bodyParser.json());
 app.use('/api', articlesRouter);
 app.use('/api', tagsRouter);
 app.use('/api', userRouter);
+app.use('/api', authenticationRouter);
 
 // error handler
 app.use('/api', function(err, req, res){
     logger.warn(err.stack);
-    res.send(err.message);
+    if (res.send != undefined) {
+        res.send(err.message);
+    } else {
+        logger.debug('Not returning error message, as response is already sent.');
+    }
 });
 app.use(function(err, req, res){
     logger.warn(err.stack);

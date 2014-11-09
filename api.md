@@ -78,8 +78,14 @@ Hint: Watch out singular and plural
 * GET /article/13/votes/user/534: Returns the vote of the given user
 * [HHE OK] PUT /article/13/votes/user/534: Updates the vote of the given user
 * Authentication
-** POST /api/authentication/ : Payload (application/json) { userName: ccc, password: xxx (encrypted mit bycrtpjs, hash = 8)} result bei NOK: 401, bei ok: 200 mit user class
+    * POST /api/authentication/ : Payload (application/json) { userName: ccc, password: xxx (encrypted mit bycrtpjs, hash = 8)} result bei NOK: 401, bei ok: 200 mit user class
+        * Currently, password may NOT be encrypted
+        * Method will return a token, that must be added to the HTTP Header "Authorization" with the value "Bearer {token}". Note: space between Bearer and effective token
+        * express-jwt will add req.user object to the request with the infortmation.
+        * Sample Token: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlck5hbWUiOiJoaGUiLCJuYW1lIjoiaGV5bWFubnMiLCJmaXJzdG5hbWUiOiJob2xnZXIiLCJwYXNzd29yZCI6IiQyYSQwOCQxcklVZ0ZQYk1sTW9qSzNSMEh5bjMucWZZbkJVNTU3N2g1OUEvQnNqMFVHYUV3TEJFNTRrVyIsImFjdGl2ZSI6dHJ1ZSwiaWF0IjoxNDE1NTM0MDA2LCJleHAiOjE0MTU1Mzc2MDZ9.XllFCuY6hlEurBsuPER80nOZ0PWI60pkfMdaMDkmgaM
 *** siehe link http://www.kdelemme.com/2014/03/09/authentication-with-angularjs-and-a-node-js-rest-api/ var token = jwt.sign(user, secret.secretToken, { expiresInMinutes: 60 });
+*** user hhe, password = $2a$08$hs4iDHKduMbNz2cNpHUG9OcRDRD3u8IIMqcYHVBN4i9fcBfnAK0BK
+*** user aho, password = $2a$08$5xb.Ly3La0FuRn21rJ5qe.JqFjXLXDgMaOYmynYaLNkMAkt5XZPay
 ** [HHE OK] GET /api/user/:id/: Return des Users
 ** [HHE OK] POST /api/users/ : Payload {Payload (application/json) { userName: ccc, name:, firstname;, password: xxx } return: 201, mit user class
 ** [HHE OK] PUT /api/user/:id/: Update vom User, return neuer user

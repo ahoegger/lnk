@@ -28,8 +28,8 @@ function _paramFunction(req, res, next, userId) {
         return next(new Error('Internal server error'));
     }
     singleUser = resultSet[0];
-    req.user = singleUser;
-    logger.debug('Added following user to request: ' + req.user);
+    req.paramhandler_user = singleUser;
+    logger.debug('Added following user to request: ' + req.paramhandler_user);
     next();
 }
 
