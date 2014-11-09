@@ -13,7 +13,7 @@ var logger = log4js.getLogger('routes.UserRouteModule');
 module.exports = function(datastore) {
     this.datastore = datastore;
 
-    function _handleUserUpdating(req, requestUserObject, databaseAction) {
+    function _handleUserUpdating(requestUserObject, databaseAction) {
         var userObject = new UserClass.User();
         var halsonSingleUser;
         userObject.updateFromJsonObject(requestUserObject);            // put putted content into user object
@@ -52,7 +52,7 @@ module.exports = function(datastore) {
             return res.status(200).send(JSON.stringify(halsonSingleUser));
         },
         deleteUser: function(req, res) {
-            var userObject = _handleUserUpdating(req, req.user, function(user) {
+            var userObject = _handleUserUpdating(req.user, function(user) {
                 user.active = false;
                 user = datastore.updateUser(user);
                 return user;
