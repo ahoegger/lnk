@@ -40,5 +40,5 @@
 * [aho] Comments dynamisch nachladen
 * [aho] Preview article
 * [aho] after .lnk it sinnvolle aktion z.b. zurück auf suche
-* [hhe] user API
-* [hhe] 
+* OK [hhe] user API
+* OK [hhe] authentication 
