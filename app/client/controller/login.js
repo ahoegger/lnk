@@ -35,12 +35,10 @@ loginController.controller('loginController', ['$scope', 'UserService','Authenti
 //        });
 //        $scope.voteUp = function($event, articleId){
 //            $event.preventDefault();
-//            // TODO Implement colling voteUp API call
 //            article.voteUp(articleId);
 //        };
 //        $scope.voteDown = function($event, articleId){
 //            $event.preventDefault();
-//            // TODO Implement colling voteDown API call
 //            article.voteDown(articleId);
 //        }
     }]);

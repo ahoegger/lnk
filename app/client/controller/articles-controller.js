@@ -26,7 +26,6 @@
                 $event.preventDefault();
                 console.dir(article);
                 console.log(apiUrl);
-                // TODO Implement calling voteUp API call
                 article.voteUp(apiUrl,
                     votingExecution('VoteUp success', index),
                     votingExecution('VoteUp error', index)
@@ -34,7 +33,6 @@
             };
             $scope.voteDown = function($event, index, apiUrl){
                 $event.preventDefault();
-                // TODO Implement calling voteDown API call
                 article.voteDown(apiUrl,
                     votingExecution('VoteDown success', index),
                     votingExecution('VoteDown error', index)
