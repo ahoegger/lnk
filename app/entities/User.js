@@ -59,7 +59,7 @@ User.prototype.isAuthenticated = function(password, encrypted) {
         return false;
     }
     if (encrypted) {
-        return bcrypt.compareSync(password, this.password);
+        return this.password === password;
     }
     return bcrypt.compareSync(password, this.password);
 };
