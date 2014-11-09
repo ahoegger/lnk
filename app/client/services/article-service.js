@@ -46,11 +46,29 @@ articleServices.factory('article', ['$http',
                 .error( errorCallback );
         };
 
+        /**
+         * This function submits a comment
+         * @param {String} apiUrl URL of the backend to submit the article
+         * @param {Object} commentObject A comments object to be submitted
+         * @param {Function} successCallback Handler for success case
+         * @param {Function} errorCallback Handler for the error case
+         */
+        var submitComment = function(apiUrl, commentObject, successCallback, errorCallback) {
+            var data = JSON.stringify(commentObject);
+            $http
+                .post(apiUrl, data,
+                { headers: {'Content-Type': 'application/json'} }
+            )
+            .success( successCallback )
+            .error( errorCallback );
+        };
+
         return {
             getArticles: get,
             voteUp: voteUp,
             voteDown: voteDown,
-            submitArticle: submitArticle
+            submitArticle: submitArticle,
+            submitComment: submitComment
         };
     }]);
 
