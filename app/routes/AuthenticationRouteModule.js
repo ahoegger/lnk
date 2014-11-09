@@ -1,15 +1,16 @@
 var path = require('path');
 var log4js = require('log4js');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
-var helper = require(app_constants.packagedModule('routes', 'ArticleRouterHelperModule.js'))(datastore);
+var helper;
 var jwt = require('jsonwebtoken');
-var UserClass = require(app_constants.packagedModule('entities', 'User.js'));
 var logger = log4js.getLogger('routes.UserAuthenticationModule');
 var secret = {
     secretToken: 'ABC'
 };
 
 module.exports = function(datastore) {
+
+    require(app_constants.packagedModule('routes', 'ArticleRouterHelperModule.js'))(datastore);
 
     return {
         authenticate: function(req, res) {
