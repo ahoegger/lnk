@@ -17,11 +17,11 @@ function Comment(id, articleId, text, submittedBy, submittedOn) {
  * @param jsonObject
  */
 Comment.prototype.updateFromJsonObject = function(jsonObject) {
-    this.id = jsonObject.id ? jsonObject.id : this.id;
-    this.articleId = jsonObject.articleId ? jsonObject.articleId : this.articleId;
-    this.text = jsonObject.text ? jsonObject.text  : this.text;
-    this.submittedBy = jsonObject.submittedBy ? jsonObject.submittedBy : this.submittedBy;
-    this.submittedOn = jsonObject.submittedOn ? jsonObject.submittedOn : this.submittedOn;
+    this.id = jsonObject.id != undefined ? jsonObject.id : this.id;
+    this.articleId = jsonObject.articleId != undefined ? jsonObject.articleId : this.articleId;
+    this.text = jsonObject.text != undefined ? jsonObject.text  : this.text;
+    this.submittedBy = jsonObject.submittedBy != undefined ? jsonObject.submittedBy : this.submittedBy;
+    this.submittedOn = jsonObject.submittedOn != undefined ? jsonObject.submittedOn : this.submittedOn;
 };
 
 Comment.prototype.updateFromJsonString = function(jsonString) {

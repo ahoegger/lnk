@@ -19,8 +19,8 @@ Tag.prototype.clone = function() {
 };
 
 Tag.prototype.updateFromJsonObject = function(jsonObject) {
-    this.id = jsonObject.id ? jsonObject.id : this.id;
-    this.tag = jsonObject.tag ? jsonObject.tag : this.tag;
+    this.id = jsonObject.id != undefined ? jsonObject.id : this.id;
+    this.tag = jsonObject.tag != undefined ? jsonObject.tag : this.tag;
 };
 
 Tag.prototype.updateFromJsonString = function(jsonString) {

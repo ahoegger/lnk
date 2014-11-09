@@ -21,6 +21,7 @@ var initialLoader = require(app_constants.packagedModule('data', 'InitialLoad.js
 
 var articlesRouter = require(app_constants.packagedModule('routes', 'ArticleRouter.js'));
 var tagsRouter = require(app_constants.packagedModule('routes', 'tags'));
+var userRouter = require(app_constants.packagedModule('routes', 'UserRouter.js'));
 // constants and basic variables
 var express_server_port = 3000;
 
@@ -46,6 +47,7 @@ app.use('/fonts',  express.static(fonts_root_path));               // needed bec
 app.use(bodyParser.json());
 app.use('/api', articlesRouter);
 app.use('/api', tagsRouter);
+app.use('/api', userRouter);
 
 // error handler
 app.use('/api', function(err, req, res){

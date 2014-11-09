@@ -25,7 +25,7 @@ var logger = log4js.getLogger('routes.ArticleRouteModule');
  * @param newVoteValue Value to be set, if a new vote will be made (i.e. -1 oder 1)
  */
 function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, updateExistingVoteValueFunction, newVoteValue) {
-    var user = new UserClass.User(0, 'DefaultUser', 'dummy', true);    // TODO Implement retrieving user from request, the session, whatever
+    var user = new UserClass.User(0, 'DefaultUser', 'dummy', 'dummy', 'dummy', true);    // TODO Implement retrieving user from request, the session, whatever
     var userVote;
     var articleUserVote;
     var userVoteQuery = function(element) {
@@ -46,11 +46,11 @@ function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, upd
         } else {
             // for the moment do nothing (i.e. no error to the client, just don't increment or decrement the votes value
         }
-        res.status(200).send(JSON.stringify(userVote));
+        return res.status(200).send(JSON.stringify(userVote));
     } else {
         articleUserVote = new ArticleUserVoteClass.ArticleUserVote(null, parseInt(req.article.id), user.id, newVoteValue);
         userVote = this.datastore.insertVote(articleUserVote);
-        res.status(201).send(JSON.stringify(userVote));
+        return res.status(201).send(JSON.stringify(userVote));
     }
 }
 
@@ -81,7 +81,7 @@ module.exports = function(datastore) {
             });
             halsonResultSet = halsonFactory.halsonifyArray('Article', resultSet);
             logger.debug('Returning articles', halsonResultSet);
-            res.status(200).send(JSON.stringify(halsonResultSet));
+            return res.status(200).send(JSON.stringify(halsonResultSet));
         },
         postArticle: function(req, res) {
             var articleObject = new ArticleClass.Article();
@@ -93,7 +93,7 @@ module.exports = function(datastore) {
             articleObject = datastore.insertArticle(articleObject);  // insert the article
             articleObject.tags = datastore.insertArticleTags(articleObject, tagsArray);   // insert it's tags
             halsonSingleArticle = halsonFactory.halsonify('Article', articleObject);
-            res.status(201).send(JSON.stringify(halsonSingleArticle));
+            return res.status(201).send(JSON.stringify(halsonSingleArticle));
         },
         /**
          * Returns a single article. The articleId must be in the path and the paramHandler must be installed.
@@ -106,7 +106,7 @@ module.exports = function(datastore) {
             var halsonResult;
             halsonResult = halsonFactory.halsonify('Article', req.article);
             logger.debug('Returning article', halsonResult);
-            res.status(200).send(JSON.stringify(halsonResult));
+            return res.status(200).send(JSON.stringify(halsonResult));
         },
         /**
          * Returns the tags of a single article. The articleId must be in the path and the paramHandler must be installed.
@@ -140,7 +140,7 @@ module.exports = function(datastore) {
             resultSet = datastore.selectComments(query);
             halsonResultSet = halsonFactory.halsonifyArray('Comment', resultSet);
             logger.debug('Returning comments for article', halsonResultSet);
-            res.status(200).send(JSON.stringify(halsonResultSet));
+            return res.status(200).send(JSON.stringify(halsonResultSet));
         },
         postVoteUp: function(req, res, next) {
             _handleVoteUpOrDown(req, res, next,
@@ -171,7 +171,7 @@ module.exports = function(datastore) {
             commentObject.articleId = req.article.id;           // update with article id
             commentObject = datastore.insertComment(commentObject);  // insert the comment
             halsonSingleComment = halsonFactory.halsonify('Comment', commentObject);
-            res.status(201).send(JSON.stringify(halsonSingleComment));
+            return res.status(201).send(JSON.stringify(halsonSingleComment));
         }
     }
 };

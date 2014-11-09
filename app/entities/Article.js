@@ -34,15 +34,15 @@ function Article(id, title, url, imageUrl, description, submittedBy, submittedOn
  * @param jsonObject
  */
 Article.prototype.updateFromJsonObject = function(jsonObject) {
-    this.id = jsonObject.id ? jsonObject.id : this.id;
-    this.title = jsonObject.title ? jsonObject.title : this.title;
-    this.url = jsonObject.url ? jsonObject.url : this.url;
-    this.imageUrl = jsonObject.imageUrl ? jsonObject.imageUrl : this.imageUrl;
-    this.description = jsonObject.description ? jsonObject.description : this.description;
-    this.submittedBy = jsonObject.submittedBy ? jsonObject.submittedBy : this.submittedBy;
-    this.submittedOn = jsonObject.submittedOn ? jsonObject.submittedOn : this.submittedOn;
-    this.tags = jsonObject.tags ? jsonObject.tags : this.tags;
-    this.votes = jsonObject.votes ? jsonObject.votes : this.votes;
+    this.id = jsonObject.id != undefined ? jsonObject.id : this.id;
+    this.title = jsonObject.title != undefined ? jsonObject.title : this.title;
+    this.url = jsonObject.url != undefined ? jsonObject.url : this.url;
+    this.imageUrl = jsonObject.imageUrl != undefined ? jsonObject.imageUrl : this.imageUrl;
+    this.description = jsonObject.description != undefined ? jsonObject.description : this.description;
+    this.submittedBy = jsonObject.submittedBy != undefined ? jsonObject.submittedBy : this.submittedBy;
+    this.submittedOn = jsonObject.submittedOn != undefined ? jsonObject.submittedOn : this.submittedOn;
+    this.tags = jsonObject.tags != undefined ? jsonObject.tags : this.tags;
+    this.votes = jsonObject.votes != undefined ? jsonObject.votes : this.votes;
 };
 
 Article.prototype.updateFromJsonString = function(jsonString) {

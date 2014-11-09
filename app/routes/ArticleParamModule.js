@@ -1,6 +1,6 @@
 /**
  * Created by Holger on 12.10.2014.
- * Module providing functionality for the artile as parameter in a path
+ * Module providing functionality for the article as parameter in a path
  */
 
 var path = require('path');

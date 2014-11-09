@@ -36,12 +36,12 @@ User.prototype.encryptPassword = function(password) {
  * @param jsonObject
  */
 User.prototype.updateFromJsonObject = function(jsonObject) {
-    this.id = jsonObject.id ? jsonObject.id : this.id;
-    this.userName = jsonObject.userName ? jsonObject.userName : this.userName;
-    this.name = jsonObject.name ? jsonObject.name : this.name;
-    this.firstname = jsonObject.firstname ? jsonObject.firstname : this.firstname;
-    this.password = jsonObject.password ? bcrypt.hashSync(jsonObject.password, 8) : this.password;
-    this.active= jsonObject.active ? jsonObject.active : this.active;
+    this.id = jsonObject.id != undefined ? jsonObject.id : this.id;
+    this.userName = jsonObject.userName != undefined ? jsonObject.userName : this.userName;
+    this.name = jsonObject.name != undefined ? jsonObject.name : this.name;
+    this.firstname = jsonObject.firstname != undefined ? jsonObject.firstname : this.firstname;
+    this.password = jsonObject.password != undefined ? bcrypt.hashSync(jsonObject.password, 8) : this.password;
+    this.active= jsonObject.active != undefined ? jsonObject.active : this.active;
 };
 
 User.prototype.updateFromJsonString = function(jsonString) {

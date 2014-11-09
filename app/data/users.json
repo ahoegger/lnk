@@ -1,13 +1,17 @@
 [
     {
         "id": 0,
-        "userName": "andy",
+        "userName": "aho",
+        "name": "hoegger",
+        "firstname": "andy",
         "password": "this should ne be here",
         "active": true
     },
     {
         "id": 1,
-        "userName": "holger",
+        "userName": "hhe",
+        "name": "heymanns",
+        "firstname": "holger",
         "password": "bad practice, but for th hack of it",
         "active": true
     }

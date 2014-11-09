@@ -72,6 +72,10 @@ function _insertUser(user) {
     return userTable.insert(user);
 }
 
+function _updateUser(user) {
+    return userTable.update(user);
+}
+
 function _selectUser(queryFunction) {
     return userTable.select(queryFunction);
 }
@@ -192,6 +196,9 @@ module.exports = {
         return _insertUser(userObject);
     },
     selectUser: function(queryFunction) {
-        return
+        return _selectUser(queryFunction);
+    },
+    updateUser: function(userObject) {
+        return _updateUser(userObject);
     }
 };

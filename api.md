@@ -80,5 +80,7 @@ Hint: Watch out singular and plural
 * Authentication
 ** POST /api/authentication/ : Payload (application/json) { userName: ccc, password: xxx (encrypted mit bycrtpjs, hash = 8)} result bei NOK: 401, bei ok: 200 mit user class
 *** siehe link http://www.kdelemme.com/2014/03/09/authentication-with-angularjs-and-a-node-js-rest-api/ var token = jwt.sign(user, secret.secretToken, { expiresInMinutes: 60 });
-** POST /api/users/ : Payload {Payload (application/json) { userName: ccc, name:, firstname;, password: xxx } return: 201, mit user class
-** PUT /api/user/:id/: Update vom User, return neuer user
+** [HHE OK] GET /api/user/:id/: Return des Users
+** [HHE OK] POST /api/users/ : Payload {Payload (application/json) { userName: ccc, name:, firstname;, password: xxx } return: 201, mit user class
+** [HHE OK] PUT /api/user/:id/: Update vom User, return neuer user
+** [HHE OK] DELETE /api/user/:id/: Löschen vom User (setzt active = false); gibt nichts zurück
