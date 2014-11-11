@@ -43,5 +43,5 @@
 * OK [hhe] user API
 * OK [hhe] authentication
 * OK [hhe] Submitten von comments
-* [???] User im frontend wen authenticated speichern (authentication, enablen von Funktionalitäten)
- [hhe] Evtl. "anti-halson" im frontend
+* [???] User im frontend wenn authenticated speichern (authentication, enablen von Funktionalitäten)
+ [hhe] Evtl. "reverse-halson" im frontend, $resource?

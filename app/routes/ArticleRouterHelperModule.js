@@ -34,8 +34,8 @@ module.exports = function(datastore) {
         },
         selectArticleVotes: function(articleId, userId) {
             var singleResult;
-            var voteValue;
-            var userVote;
+            var voteValue = 0;
+            var userVote = 0;
             var resultSet;
             var votesQuery = function(entity) {
                 return entity.articleId === articleId;
@@ -48,7 +48,7 @@ module.exports = function(datastore) {
                     userVote = voteValue;
                 }
             }
-            return new VoteContainerClass.VoteConatiner(voteValue. userVote);
+            return new VoteContainerClass.VoteContainer(voteValue, userVote, articleId);
         }
     }
 };

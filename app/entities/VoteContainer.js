@@ -3,13 +3,14 @@
  * This class contains information regarding a collection of votes
  */
 
-function VoteContainer(numberOfVotes, userVote) {
+function VoteContainer(numberOfVotes, userVote, articleId) {
     this.numberOfVotes = numberOfVotes;
     this.userVote = userVote;
+    this.articleId = articleId;
 }
 
 VoteContainer.prototype.clone = function() {
-    return new VoteContainer(this.numberOfVotes, this.userVote);
+    return new VoteContainer(this.numberOfVotes, this.userVote, this.articleId);
 };
 
 VoteContainer.prototype.isUserVote = function() {

@@ -81,7 +81,7 @@ Hint: Watch out singular and plural
     * POST /api/authentication/ : Payload (application/json) { userName: ccc, password: xxx (encrypted mit bycrtpjs, hash = 8)} result bei NOK: 401, bei ok: 200 mit user class
         * Currently, password may NOT be encrypted
         * Method will return a token, that must be added to the HTTP Header "Authorization" with the value "Bearer {token}". Note: space between Bearer and effective token
-        * express-jwt will add req.user object to the request with the infortmation.
+        * express-jwt will add req.user object to the request with the information.
         * Sample Token: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlck5hbWUiOiJoaGUiLCJuYW1lIjoiaGV5bWFubnMiLCJmaXJzdG5hbWUiOiJob2xnZXIiLCJwYXNzd29yZCI6IiQyYSQwOCQxcklVZ0ZQYk1sTW9qSzNSMEh5bjMucWZZbkJVNTU3N2g1OUEvQnNqMFVHYUV3TEJFNTRrVyIsImFjdGl2ZSI6dHJ1ZSwiaWF0IjoxNDE1NTM0MDA2LCJleHAiOjE0MTU1Mzc2MDZ9.XllFCuY6hlEurBsuPER80nOZ0PWI60pkfMdaMDkmgaM
 *** siehe link http://www.kdelemme.com/2014/03/09/authentication-with-angularjs-and-a-node-js-rest-api/ var token = jwt.sign(user, secret.secretToken, { expiresInMinutes: 60 });
 *** user hhe, password = $2a$08$hs4iDHKduMbNz2cNpHUG9OcRDRD3u8IIMqcYHVBN4i9fcBfnAK0BK

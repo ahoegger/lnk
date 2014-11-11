@@ -29,7 +29,7 @@
                 return function(data, status, headers, config) {
                     console.log('Voting callback ' + self.message);
                     console.log(data);
-                    $scope.articles[index].votes.numberOfVotes = data.vote;     // TODO Respect user vote
+                    $scope.articles[index].votes.numberOfVotes = data.numberOfVotes;     // TODO Respect user vote
                 }
             };
 

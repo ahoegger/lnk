@@ -47,6 +47,7 @@ function _register(entityKey, halsonFunction) {
 _register('Article', function articleHalsonify(entity) {
     var halsonTags;
     var halsonComments;
+    var halsonVoteContainer;
     var baseString = '/api/article/' + entity.id;
     var resource = new halson(entity);
     resource.addLink('self', baseString);
@@ -62,11 +63,14 @@ _register('Article', function articleHalsonify(entity) {
         resource.addEmbed('comments', halsonComments);
         delete resource.comments;
     }
+    if (entity.votes) {
+        halsonVoteContainer = _halsonify('VoteContainer', entity.votes);
+        resource.addEmbed('votes', halsonVoteContainer);
+        delete entity.votes;
+    }
     resource.addLink('tags', baseString + '/tags');
     resource.addLink('comments', baseString + '/comments');
     resource.addLink('user', baseString + '/user/' + entity.submittedBy);
-    resource.addLink('voteUp', baseString + '/voteUp');
-    resource.addLink('voteDown', baseString + '/voteDown');
     return resource;
 });
 
@@ -94,6 +98,15 @@ _register('Comment', function commentHalsonify(entity) {
     var resource = new halson(entity);
     resource.addLink('self', baseString);
     resource.addLink('user', baseString + '/user/' + entity.submittedBy);
+    return resource;
+});
+
+// Register function to transform a VoteContainer into a halson VoteContainer
+_register('VoteContainer', function voteContainerHalsonify(entity) {
+    var baseString = '/api/article/' + entity.articleId;
+    var resource = new halson(entity);
+    resource.addLink('voteUp', baseString + '/voteUp');
+    resource.addLink('voteDown', baseString + '/voteDown');
     return resource;
 });
 

@@ -96,7 +96,7 @@ function _selectVotes(articleId, userId) {
             userVote = voteValue;
         }
     }
-    return new VoteContainerClass.VoteContainer(voteValue, userVote);
+    return new VoteContainerClass.VoteContainer(voteValue, userVote, articleId);
 }
 
 module.exports = {

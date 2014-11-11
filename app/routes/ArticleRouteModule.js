@@ -28,6 +28,8 @@ function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, upd
     var user = new UserClass.User(0, 'DefaultUser', 'dummy', 'dummy', 'dummy', true);    // TODO Implement retrieving user from request, the session, whatever
     var userVote;
     var articleUserVote;
+    var returnCode;
+    var updatedVoteContainer;
     var userVoteQuery = function(element) {
         if(element.articleId != parseInt(req.params.articleId)) {
             return false;
@@ -46,11 +48,16 @@ function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, upd
         } else {
             // for the moment do nothing (i.e. no error to the client, just don't increment or decrement the votes value
         }
-        return res.status(200).send(JSON.stringify(userVote));
+        returnCode = 200;
     } else {
         articleUserVote = new ArticleUserVoteClass.ArticleUserVote(null, parseInt(req.article.id), user.id, newVoteValue);
         userVote = this.datastore.insertVote(articleUserVote);
-        return res.status(201).send(JSON.stringify(userVote));
+        returnCode = 201;
+    }
+    // Cheap trick: Select the article, grab it's VoteContainer and return it to the frontend
+    updatedVoteContainer = helper.selectArticleVotes(userVote.articleId, userVote.userId);
+    if (updatedVoteContainer) {
+        return res.status(returnCode).send(JSON.stringify(halsonFactory.halsonify('VoteContainer', updatedVoteContainer)));
     }
 }
 
