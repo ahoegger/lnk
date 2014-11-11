@@ -30,6 +30,24 @@ addArticleController.controller('addArticle', ['$scope', '$location', 'article',
 
     function ($scope, $location, article, behaviour) {
 
+        /**
+         * This function converts a string with tags (separated by commas) into an array of (trimmed) strings
+         * @param tagString {String} A string with comma separated tags
+         * @param separator {String} The separator character
+         * @return {String[]}
+         */
+        var _tagStringToArray = function(tagString, separator) {
+            var plainTags = [],
+                trimmedTags = [];
+            if (tagString && $.trim(tagString).length > 0) {
+                plainTags = tagString.split(separator);
+                $.each(plainTags, function(indexInArray, element) {
+                    trimmedTags.push($.trim(element));
+                });
+                return trimmedTags;
+            }
+        }
+
         var _genericHttpCallbackFactory = function(message) {
             var self = {
                 message: message
@@ -54,7 +72,7 @@ addArticleController.controller('addArticle', ['$scope', '$location', 'article',
                 articleDto.url = $scope.article.url;
                 articleDto.description = $scope.article.description;
                 articleDto.alternateImageUrl = $scope.article.alternateImageUrl;
-                articleDto.tags = [$scope.article.tags];
+                articleDto.tags = _tagStringToArray($scope.article.tags, ',');
                 articleDto.submittedOn = new Date();
                 articleDto.submittedBy = 'DUMMY';
 
