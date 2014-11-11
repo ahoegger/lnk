@@ -67,14 +67,6 @@ CrudDatabase.prototype._removeHash = function(entity) {
 };
 
 /**
- * This function returns true, if the entitiy's hash is already in the unique hash holder
- * @param entity
- */
-CrudDatabase.prototype._checkHash = function(entity) {
-    return this.uniqueHashHolder.hasOwnProperty(this._createUniqueHash(entity));
-};
-
-/**
  * This function validates an entity if it has the required not null properties
  * @private
  */
@@ -174,7 +166,6 @@ CrudDatabase.prototype._findPositionByHash = function(entity) {
  */
 CrudDatabase.prototype._checkInstance = function(object) {
     if (!(object instanceof this.entityConstructor)) {
-        // requestLogger.error('Object ' + object + ' not of type ', constructor);
         throw new Error('Illegal argument error');
     }
 };
@@ -207,7 +198,7 @@ CrudDatabase.prototype.insert = function(entity) {
         throw new Error('Unique key constraint violated');
     }
     // update entity with new id
-    clonedEntity = this._cloneEntity(entity)
+    clonedEntity = this._cloneEntity(entity);
     if(!clonedEntity[this.idProperty]) {
         clonedEntity[this.idProperty] = this._getNewId();
     }

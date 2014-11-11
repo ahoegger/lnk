@@ -111,7 +111,7 @@ module.exports = {
      * or a reference is being used
      * @param article
      * @param tags
-     * @return {Tags[]} returns the updated tags from the database (i.e. with a proper id)
+     * @return {Tag[]} returns the updated tags from the database (i.e. with a proper id)
      */
     insertArticleTags: function(article, tags) {
         var singleTag;
