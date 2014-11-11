@@ -12,6 +12,7 @@ var lnkApp = angular.module('lnkApp', [
     , 'articlesController'
     , 'addArticleController'
     , 'loginController'
+    , 'navigationController'
     ,'angular-momentjs'
 ]);
 

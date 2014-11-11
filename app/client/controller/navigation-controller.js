@@ -3,10 +3,15 @@
  */
 
 
-//var navigationController = angular.module('navigationController', []);
+var navigationController = angular.module('navigationController', ['service.authentication']);
 
-articlesController.controller('navigationController', ['$scope','$rootScope','$location',
-    function ($scope, $rootScope, $location) {
+navigationController.controller('navigationController', ['$scope','$rootScope','$location','AuthenticationService',
+    function ($scope, $rootScope, $location, AuthenticationService) {
+        $scope.user = AuthenticationService.isLogged;
+        $scope.$watch(AuthenticationService.isLogged, function (newVal, oldVal, scope) {
+            $scope.user = newVal;
+            console.log('login changed! '+newVal);
+        });
         $scope.isActiveRoute = function(routeName){
             var regex = new RegExp('/?'+routeName.toLowerCase()+'/?');
             return regex.test($location.path().toLowerCase());

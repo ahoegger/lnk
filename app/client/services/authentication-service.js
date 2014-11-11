@@ -16,15 +16,13 @@ authenticationService.factory('UserService', ['$http',function($http) {
     return {
         logIn: function(username, password) {
             console.log('userService:login with user:'+username+' and password:'+password)
-            return {
-                success: function (onSuccess) {
-                    return {
-                        error: function(onError) {
-                        }
-                    }
-                }
-            };
-//            return $http.post(options.api.base_url + '/login', {username: username, password: password});
+            var data = JSON.stringify({
+                "userName": username,
+                "password": password
+            });
+            return $http.post('/api/authentication', data,
+                { headers: {'Content-Type': 'application/json'} }
+            );
         },
 
         logOut: function() {

@@ -14,5 +14,13 @@
         "firstname": "holger",
         "password": "bad practice, but for th hack of it",
         "active": true
+    },
+    {
+        "id": 2,
+        "userName": "admin",
+        "name": "Administrator",
+        "firstname": "Hans",
+        "password": "manager",
+        "active": true
     }
 ]

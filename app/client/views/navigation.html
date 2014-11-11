@@ -1,14 +1,17 @@
-<div class="header">
+<div class="header" ng-controller="navigationController">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-2" id="logo">.lnk</div>
             <h5 class="col-xs-8 text-center hidden-xxs" id="headline">Love
-                the things you find - share the things you love <3.
+                the things you find - share the things you love <3. {{user}}
             </h5>
 
             <div class="col-xs-2 pull-right">
-                <form action="#login">
+                <form action="#login" ng-if="!user">
                     <button type="submit" class="btn btn-default">login</button>
+                </form>
+                <form action="#logout" ng-if="user">
+                    <button type="submit" class="btn btn-default">logout</button>
                 </form>
                 <!--<button class="btn btn-default">login</button>-->
                 <!--<div class="btn-group pull-right">-->

@@ -1,7 +1,7 @@
 var loginController = angular.module('loginController', [ 'service.authentication']);
 
-loginController.controller('loginController', ['$scope', 'UserService','AuthenticationService',
-    function ($scope, UserService, AuthenticationService) {
+loginController.controller('loginController', ['$scope','$location','$window', 'UserService','AuthenticationService',
+    function ($scope, $location, $window, UserService, AuthenticationService) {
 
         $scope.login = function ($event, $form) {
 
@@ -9,10 +9,11 @@ loginController.controller('loginController', ['$scope', 'UserService','Authenti
             $event.preventDefault();
         };
 
-        var loginSucess = function(data) {
+        var loginSuccess = function(data) {
+            console.log('successful logged in...');
             AuthenticationService.isLogged = true;
             $window.sessionStorage.token = data.token;
-            $location.path("/admin");
+            $location.path("/");
         };
         var loginError = function(status, data) {
             console.log(status);
@@ -24,10 +25,17 @@ loginController.controller('loginController', ['$scope', 'UserService','Authenti
             password = $scope.login.password
             console.log('loginController: user:'+username);
             if (username !== undefined && password !== undefined) {
-                UserService.logIn(username, password).success(loginSucess).error(loginError);
+                UserService.logIn(username, password).success(loginSuccess).error(loginError);
             }
         }
 
+        $scope.logout = function logout() {
+            if (AuthenticationService.isLogged) {
+                AuthenticationService.isLogged = false;
+                delete $window.sessionStorage.token;
+                $location.path("/");
+            }
+        }
 
 //        login.getArticles().success(function(data, status, headers, config) {
 //            $scope.articles = data;
