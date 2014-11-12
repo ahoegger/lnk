@@ -7,6 +7,7 @@ var navigationController = angular.module('navigationController', ['service.auth
 
 navigationController.controller('navigationController', ['$scope','$rootScope','$location','AuthenticationService',
     function ($scope, $rootScope, $location, AuthenticationService) {
+        $scope.authenticationService = AuthenticationService;
         $scope.user = AuthenticationService.isLogged;
         $scope.$watch(AuthenticationService.isLogged, function (newVal, oldVal, scope) {
             $scope.user = newVal;

@@ -3,14 +3,14 @@
         <div class="row">
             <div class="col-xs-2" id="logo">.lnk</div>
             <h5 class="col-xs-8 text-center hidden-xxs" id="headline">Love
-                the things you find - share the things you love <3. {{user}}
+                the things you find - share the things you love <3. {{authenticationService.isLogged}}
             </h5>
 
             <div class="col-xs-2 pull-right">
-                <form action="#login" ng-if="!user">
+                <form action="#login" ng-if="!authenticationService.isLogged">
                     <button type="submit" class="btn btn-default">login</button>
                 </form>
-                <form action="#logout" ng-if="user">
+                <form ng-submit="postArticle($event, articleForm) action="#logout" ng-if="authenticationService.isLogged">
                     <button type="submit" class="btn btn-default">logout</button>
                 </form>
                 <!--<button class="btn btn-default">login</button>-->
