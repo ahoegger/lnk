@@ -11,13 +11,13 @@
                     <button type="submit" class="btn btn-default">login</button>
                 </form>
                 <div ng-if="authenticationService.user">
-                    <a href="#" class="hidden-xxs">{{authenticationService.user.firstname}} {{authenticationService.user.name}}</a>
-                    <a href="#" class="visible-xxs">{{authenticationService.user.userName}}</a>
-                    <a href="#" >Logout</a>
+                    <a href="#" class="hidden-xxs col-xs-12">{{authenticationService.user.firstname}} {{authenticationService.user.name}}</a>
+                    <a href="#" class="visible-xxs col-xs-12">{{authenticationService.user.userName}}</a>
+                    <a href="#" class="col-xs-12" ng-click="logout($event)" >Logout</a>
                 </div>
-                <form ng-submit="logout()" ng-if="authenticationService.user" novalidate>
-                    <button type="submit" class="btn btn-default">logout</button>
-                </form>
+                <!--<form ng-submit="logout()" ng-if="authenticationService.user" novalidate>-->
+                    <!--<button type="submit" class="btn btn-default">logout</button>-->
+                <!--</form>-->
                 <!--<button class="btn btn-default">login</button>-->
                 <!--<div class="btn-group pull-right">-->
                     <!--<button data-toggle="dropdown" class="btn btn-default dropdown-toggle header-control-inverse"><span-->
