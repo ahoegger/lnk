@@ -28,13 +28,13 @@ router
     .get('/article/:articleId/comment/:commentId', articleRouterModule.getSingleArticleComments)
 
     .post('/articles', jwt({secret: app_constants.secret.secretToken}), articleRouterModule.postArticle)
-    .post('/article/:articleId/voteUp', articleRouterModule.postVoteUp)
-    .post('/article/:articleId/voteDown', articleRouterModule.postVoteDown)
-    .post('/article/:articleId/comments', articleRouterModule.postSingleArticleComment)
+    .post('/article/:articleId/voteUp', jwt({secret: app_constants.secret.secretToken}), articleRouterModule.postVoteUp)
+    .post('/article/:articleId/voteDown', jwt({secret: app_constants.secret.secretToken}), articleRouterModule.postVoteDown)
+    .post('/article/:articleId/comments', jwt({secret: app_constants.secret.secretToken}), articleRouterModule.postSingleArticleComment)
 
-    .put('/article/:articleId', articleRouterModule.putArticle)
+    .put('/article/:articleId', jwt({secret: app_constants.secret.secretToken}), articleRouterModule.putArticle)
 
-    .delete('/article/:articleId', articleRouterModule.deleteArticle)
+    .delete('/article/:articleId', jwt({secret: app_constants.secret.secretToken}), articleRouterModule.deleteArticle)
 
     // the following functions must still be implemented in this module
     .put('/article/:articleId/comment/:commentId', routerHelperModule.notYetImplementedHandler) // TODO Implement

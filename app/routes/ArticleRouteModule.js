@@ -25,7 +25,7 @@ var logger = log4js.getLogger('routes.ArticleRouteModule');
  * @param newVoteValue Value to be set, if a new vote will be made (i.e. -1 oder 1)
  */
 function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, updateExistingVoteValueFunction, newVoteValue) {
-    var user = new UserClass.User(0, 'DefaultUser', 'dummy', 'dummy', 'dummy', true);    // TODO Implement retrieving user from request, the session, whatever
+    var userId = req.user ? req.user.id : undefined;
     var userVote;
     var articleUserVote;
     var returnCode;
@@ -34,7 +34,7 @@ function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, upd
         if(element.articleId != parseInt(req.params.articleId)) {
             return false;
         }
-        return (element.userId == user.id);
+        return (element.userId == userId);
     };
 
     // Get the (possible) vote from the user
@@ -50,7 +50,7 @@ function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, upd
         }
         returnCode = 200;
     } else {
-        articleUserVote = new ArticleUserVoteClass.ArticleUserVote(null, parseInt(req.article.id), user.id, newVoteValue);
+        articleUserVote = new ArticleUserVoteClass.ArticleUserVote(null, parseInt(req.article.id), userId, newVoteValue);
         userVote = this.datastore.insertVote(articleUserVote);
         returnCode = 201;
     }
@@ -74,6 +74,7 @@ function _insertOrUpdateArticle(req, articleDbFunction, tagsDbFunction) {
     var tagsArray;
 
     articleObject.updateFromJsonObject(req.body);            // put posted content into article
+    articleObject.submittedBy = req.user.userName;              // Take user name from request (user must be logged in) and possible user name in the article provided by the frontend.
     tagsArray = helper.createTagsFromJsonBody(req.body);     // create the tags as well
     articleObject = articleDbFunction(articleObject);
     articleObject.tags = tagsDbFunction(articleObject, tagsArray);
@@ -103,7 +104,8 @@ module.exports = function(datastore) {
             resultSet = datastore.selectArticles(query, {
                 includeTags: true,
                 includeComments: true,
-                includeVoteCount: true
+                includeVoteCount: true,
+                voteUserId: req.user ? res.user.id : undefined
             });
             halsonResultSet = halsonFactory.halsonifyArray('Article', resultSet);
             logger.debug('Returning articles', halsonResultSet);

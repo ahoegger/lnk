@@ -18,7 +18,8 @@ function _paramFunction(req, res, next, articleId) {
     articleResultSet = this.datastore.selectArticles(queryFunction, {
         includeTags: true,
         includeComments: true,
-        includeVoteCount: true
+        includeVoteCount: true,
+        voteUserId: req.user ? res.user.id : undefined
     });
     if (!articleResultSet || articleResultSet.length === 0) {
         // not found
