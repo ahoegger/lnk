@@ -30,6 +30,9 @@ addArticleController.controller('addArticle', ['$scope', '$location', 'article',
 
     function ($scope, $location, article, behaviour) {
 
+        $scope.$on('$viewContentLoaded', function(){
+            $("input[autofocus]").first().focus();
+        });
         /**
          * This function converts a string with tags (separated by commas) into an array of (trimmed) strings
          * @param tagString {String} A string with comma separated tags

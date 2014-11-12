@@ -1,115 +1,150 @@
 <div class="container-fluid">
 
 
-        <div class="alert alert-info" ng-if="results.length == 0">
-            <h4>No results</h4>
-            <p>To see .lnk entries, use the search tab</p>
-            <p>To add your own .lnk, use the add tab. To verify your adding, search again.</p>
+    <div class="alert alert-info" ng-if="results.length == 0">
+        <h4>No results</h4>
+
+        <p>To see .lnk entries, use the search tab</p>
+
+        <p>To add your own .lnk, use the add tab. To verify your adding, search again.</p>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 hidden-xxs"></div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <form name="loginForm" ng-submit="search($event)" novalidate>
+                    <span class="input-group-btn full-width">
+                        <input ng-model="searchQuery" id="submit-search" type="text" class="form-control">
+                        <button class="btn btn-default fa fa-search" type="submit"></button>
+                    </span>
+                </form>
+            </div>
+            <!-- /input-group -->
         </div>
-        <!-- loop over articles -->
-        <div ng-repeat="article in articles">
-            <article class="row article-separator">
-                <!-- Article begin -->
-                <div class="col-xs-12 full-width-xs">
-                    <div class="article-content">
-                        <div class="article-main ">
-                            <h3 class="article-heading"><span>{{article.title}}</span>
-                                <a href="{{article.url}}" class="icon-spacer fa fa-external-link" title="{{article.title}} ({{article.url}})" target="_blank"></a>
-                            </h3>
-                            <div class="article-image">
-                                <img ng-src="{{article.imageUrl}}">
-                            </div>
-                            <!-- Voting begin -->
-                            <div class="article-voting">
-                                <a ng-click="voteUp($event, $index, article._embedded.votes._links.voteUp.href)"
-                                   class="vote icon-passive icon-activatable" href="#"><i
-                                        class="fa fa-arrow-circle-o-up fa-2x"></i></a>
-                                <div class="vote position-center" >{{article.votes.numberOfVotes}}</div>
-                                <a ng-click="voteDown($event, $index, article._embedded.votes._links.voteDown.href)"
-                                   class="vote icon-passive icon-activatable" href="#"><i
-                                        class="fa fa-arrow-circle-o-down fa-2x"></i></a>
-                            </div>
-                            <!-- Voting end -->
-                            <!-- Article description begin -->
-                            <div class="article-description">
-                                <p >{{article.description}}</p>
-                            </div>
-                            <!-- Metadata begin -->
-                            <div class="article-meta">
-                                <ul>
-                                    <li><i class="fa fa-tags icon-passive"></i><div class="icon-spacer make-inline">Tags
+        <div class="col-sm-3 hidden-xxs"></div>
+    </div>
+    <!-- loop over articles -->
+    <div ng-repeat="article in articles">
+        <article class="row article-separator">
+            <!-- Article begin -->
+            <div class="col-xs-12 full-width-xs">
+                <div class="article-content">
+                    <div class="article-main ">
+                        <h3 class="article-heading"><span>{{article.title}}</span>
+                            <a href="{{article.url}}" class="icon-spacer fa fa-external-link"
+                               title="{{article.title}} ({{article.url}})" target="_blank"></a>
+                        </h3>
+
+                        <div class="article-image">
+                            <img ng-src="{{article.imageUrl}}">
+                        </div>
+                        <!-- Voting begin -->
+                        <div class="article-voting">
+                            <a ng-click="voteUp($event, $index, article._embedded.votes._links.voteUp.href)"
+                               class="vote icon-passive icon-activatable" href="#"><i
+                                    class="fa fa-arrow-circle-o-up fa-2x"></i></a>
+
+                            <div class="vote position-center">{{article.votes.numberOfVotes}}</div>
+                            <a ng-click="voteDown($event, $index, article._embedded.votes._links.voteDown.href)"
+                               class="vote icon-passive icon-activatable" href="#"><i
+                                    class="fa fa-arrow-circle-o-down fa-2x"></i></a>
+                        </div>
+                        <!-- Voting end -->
+                        <!-- Article description begin -->
+                        <div class="article-description">
+                            <p>{{article.description}}</p>
+                        </div>
+                        <!-- Metadata begin -->
+                        <div class="article-meta">
+                            <ul>
+                                <li><i class="fa fa-tags icon-passive"></i>
+
+                                    <div class="icon-spacer make-inline">Tags
                                         <ul class="article-tags" ng-repeat="tag in article._embedded.tags">
                                             <li>
                                                 <a href="{{tag._links.self.href}}">{{tag.tag}}</a>
                                             </li>
                                         </ul>
                                     </div>
+                                </li>
+                                <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer">{{article.submittedOn | dateFromNow}}</span>
+                                </li>
+                                <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a
+                                        href="#Users/{{article.submittedBy}}">{{article.submittedBy}}</a></span></li>
+                                <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
+                                <li><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></li>
+                            </ul>
+                        </div>
+                        <!-- Metadata end -->
+                        <!-- Article description end -->
+                        <!-- toggle show comment begin -->
+                        <div class="show-comments-divider-group">
+                            <a class="article-comments ng-hide" ng-click="showComments = !showComments" href=""
+                               ng-hide="showComments">Show comments</a>
+                            <a class="article-comments ng-hide" ng-click="showComments = !showComments" href=""
+                               ng-show="showComments">Hide comments</a>
+                        </div>
+                        <!-- toggle show comment end -->
+                    </div>
+                </div>
+            </div>
+            <!-- Article end -->
+            <!-- Comment row begin -->
+            <div class="no-padding" style="padding-left: 40px;">
+                <div class="col-xs-12">
+                    <div class="comments">
+                        <div ng-show="showComments" class="ng-hide clearfix row">
+                            <!-- TODO Implement submitting of comment -->
+                            <form class="form-horizontal" role="form"
+                                  ng-submit="submitComment($event, $index, article._links.comments.href, article.id)">
+                                <div class="form-group>">
+                                    <div class="col-sm-10 cell-spacing-vertical-sm">
+                                        <textarea ng-keyup="autoResizeTextarea('',$event)"
+                                                  name="comment"
+                                                  class="form-control full-width-sm animate"
+                                                  rows="1"
+                                                  required=true;
+                                                  placeholder="Comment"
+                                                  value=""
+                                                  ng-required="true" maxlength="400">
+                                        </textarea>
+                                    </div>
+                                    <div class="col-sm-2 cell-spacing-vertical-sm pull-right-sm">
+                                        <button type="submit" class="btn btn-primary btn-sm">submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div ng-show="showComments" class="row">
+                            <div class="column grid-12">
+                                <ul class="fa-ul comments-ul" ng-repeat="comment in article._embedded.comments">
+                                    <!-- existing comments -->
+                                    <li><i class="fa-li fa fa-comment-o icon-passive"></i>
+
+                                        <p>{{comment.text}}</p>
+
+                                        <div class="comment-meta">
+                                            <ul>
+                                                <li><i class="fa fa-calendar icon-passive"></i><span
+                                                        class="icon-spacer">Submitted {{comment.submittedOn | dateFromNow}}</span>
+                                                </li>
+                                                <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a
+                                                        href="{{comment._links.self.href}}">{{comment.submittedBy}}</a></span>
+                                                </li>
+                                                <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span>
+                                                </li>
+                                                <li><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </li>
-                                    <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer" >{{article.submittedOn | dateFromNow}}</span></li>
-                                    <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a href="#Users/{{article.submittedBy}}">{{article.submittedBy}}</a></span></li>
-                                    <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
-                                    <li><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></li>
                                 </ul>
                             </div>
-                            <!-- Metadata end -->
-                            <!-- Article description end -->
-                            <!-- toggle show comment begin -->
-                            <div class="show-comments-divider-group">
-                                <a class="article-comments ng-hide" ng-click="showComments = !showComments" href="" ng-hide="showComments">Show comments</a>
-                                <a class="article-comments ng-hide" ng-click="showComments = !showComments" href="" ng-show="showComments">Hide comments</a>
-                            </div>
-                            <!-- toggle show comment end -->
                         </div>
                     </div>
                 </div>
-                <!-- Article end -->
-                <!-- Comment row begin -->
-                <div class="no-padding" style="padding-left: 40px;">
-                    <div class="col-xs-12">
-                        <div class="comments">
-                            <div ng-show="showComments" class="ng-hide clearfix row">
-                                <!-- TODO Implement submitting of comment -->
-                                <form class="form-horizontal" role="form" ng-submit="submitComment($event, $index, article._links.comments.href, article.id)">
-                                    <div class="form-group>">
-                                        <div class="col-sm-10 cell-spacing-vertical-sm">
-                                            <textarea ng-keyup="autoResizeTextarea('',$event)"
-                                                      name = "comment"
-                                                      class = "form-control full-width-sm animate"
-                                                      rows = "1"
-                                                      required = true;
-                                                      placeholder="Comment"
-                                                      value = ""
-                                                      ng-required="true" maxlength="400">
-                                            </textarea>
-                                        </div>
-                                        <div class="col-sm-2 cell-spacing-vertical-sm pull-right-sm">
-                                            <button type="submit" class="btn btn-primary btn-sm">submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div ng-show="showComments" class="row">
-                                <div class="column grid-12">
-                                    <ul class="fa-ul comments-ul" ng-repeat="comment in article._embedded.comments">
-                                        <!-- existing comments -->
-                                        <li><i class="fa-li fa fa-comment-o icon-passive"></i>
-                                            <p>{{comment.text}}</p>
-                                            <div class="comment-meta">
-                                                <ul>
-                                                    <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer">Submitted {{comment.submittedOn | dateFromNow}}</span></li>
-                                                    <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a href="{{comment._links.self.href}}">{{comment.submittedBy}}</a></span></li>
-                                                    <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
-                                                    <li><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Comment row end -->
-            </article>
-        </div>
+            </div>
+            <!-- Comment row end -->
+        </article>
+    </div>
 </div>

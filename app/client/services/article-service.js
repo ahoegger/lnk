@@ -15,7 +15,12 @@ articleServices.factory('article', ['$http',
             .error( errorCallback );
         };
 
-        var doRequest = function () {
+        var doRequest = function (searchQuery) {
+            var url = '/api/articles';
+            if(searchQuery){
+                url += '?anywhere='+searchQuery;
+            }
+            console.log(url);
             return $http({method: 'GET', url: '/api/articles'}).
                 error(function (data, status, headers, config) {
                     // called asynchronously if an error occurs
@@ -23,8 +28,8 @@ articleServices.factory('article', ['$http',
                     console.log('An error during data access')
                 });
         };
-        var get = function () {
-            return doRequest();
+        var get = function (searchQuery) {
+            return doRequest(searchQuery);
         };
 
         var voteUp = doVote;

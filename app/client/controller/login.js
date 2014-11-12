@@ -1,8 +1,12 @@
 var loginController = angular.module('loginController', [ 'service.authentication']);
 
-loginController.controller('loginController', ['$scope','$location','$window', 'UserService','AuthenticationService',
+loginController.controller('loginController', ['$scope','$location', '$window', 'UserService','AuthenticationService',
     function ($scope, $location, $window, UserService, AuthenticationService) {
 
+        $scope.$on('$viewContentLoaded', function(){
+            console.log("activate login");
+            $("input[autofocus]").first().focus();
+        });
 //        $scope.login = function ($event, $form) {
 //            UserService.logIn($scope.login.username,$scope.login.password);
 //            $event.preventDefault();

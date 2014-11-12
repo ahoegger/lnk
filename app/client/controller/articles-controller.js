@@ -3,12 +3,14 @@
  */
     var articlesController = angular.module('articlesController', ['service.article', 'service.behaviour']);
 
-    articlesController.controller('articleListController', ['$scope', 'article', 'behaviour',
-        function ($scope,  article, behaviour) {
-            article.getArticles().success(function(data, status, headers, config) {
+    articlesController.controller('articleListController', ['$scope', '$location','article', 'behaviour',
+        function ($scope,  $location, article, behaviour) {
+            var successLoadArticles = function(data, status, headers, config) {
                 $scope.articles = data;
                 console.log('success with get articles!');
-            });
+            }
+            article.getArticles().success(successLoadArticles);
+
 
             var submitCommentExecution = function(message, index) {
                 var self = {
@@ -33,6 +35,10 @@
                 }
             };
 
+            $scope.search = function(){
+                console.log($scope.searchQuery);
+                article.getArticles($scope.searchQuery).success(successLoadArticles);
+            };
             $scope.voteUp = function($event, index, apiUrl){
                 $event.preventDefault();
                 console.dir(article);
