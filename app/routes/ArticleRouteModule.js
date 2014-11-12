@@ -139,6 +139,15 @@ module.exports = function(datastore) {
             return res.status(200).send(JSON.stringify(halsonSingleArticle));
         },
         /**
+         * Deletes the article from the datastore
+         * @param req
+         * @param res
+         */
+        deleteArticle: function(req, res) {
+            datastore.deleteArticle(req.article);
+            return res.status(204).send();
+        },
+        /**
          * Returns a single article. The articleId must be in the path and the paramHandler must be installed.
          * This function will send the response
          * so the article is present in teh request

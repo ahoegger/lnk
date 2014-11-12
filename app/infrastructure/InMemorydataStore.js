@@ -138,6 +138,21 @@ function _insertTags(article, tags) {
     }
     return updatedTags;
 }
+
+function _deleteArticle(article) {
+    articlesTable.remove(article);
+}
+
+function _deleteArticleTags(article) {
+    var articleTags;
+    var query = function(entity) {
+        return entity.articleId = article.id
+    };
+    articleTags = articleTagTable.select(query);
+    for (var i = 0, len = articleTags.length; i < len; i++) {
+        articleTagTable.remove(articleTags[i]);
+    }
+}
 module.exports = {
     insertArticle: function(article) {
         return articlesTable.insert(article);
@@ -149,6 +164,14 @@ module.exports = {
      */
     updateArticle: function(article) {
         return articlesTable.update(article)
+    },
+    /**
+     * This function deletes the article and deletes the articletags
+     * @param article
+     */
+    deleteArticle: function(article) {
+        _deleteArticle(article);
+        _deleteArticleTags(article);
     },
     insertTag: function(tag) {
         return tagsTable.insert(tag);

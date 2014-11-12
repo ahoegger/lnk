@@ -33,8 +33,9 @@ router
 
     .put('/article/:articleId', articleRouterModule.putArticle)
 
+    .delete('/article/:articleId', articleRouterModule.deleteArticle)
+
     // the following functions must still be implemented in this module
-    .delete('/article/:articleId', routerHelperModule.notYetImplementedHandler) // TODO Implement
     .put('/article/:articleId/comment/:commentId', routerHelperModule.notYetImplementedHandler) // TODO Implement
     .delete('/article/:articleId/comment/:commentId', routerHelperModule.notYetImplementedHandler)  // TODO Implement
     .get('/article/:articleId/votes/:userId', routerHelperModule.notYetImplementedHandler)  // TODO Implement
