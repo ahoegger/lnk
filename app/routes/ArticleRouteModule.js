@@ -8,7 +8,6 @@ var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constant
 var helper = require(app_constants.packagedModule('routes', 'ArticleRouterHelperModule.js'))(datastore);
 
 var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
-var UserClass = require(app_constants.packagedModule('entities', 'User.js'));
 var ArticleUserVoteClass = require(app_constants.packagedModule('entities', 'ArticleUserVote.js'));
 var CommentClass = require(app_constants.packagedModule('entities', 'Comment.js'));
 
@@ -223,6 +222,7 @@ module.exports = function(datastore) {
             var halsonSingleComment;
             commentObject.updateFromJsonObject(req.body);
             commentObject.articleId = req.article.id;           // update with article id
+            commentObject.submittedBy = req.user ? req.user.userName : undefined;  // set the user name of the logged in user
             commentObject = datastore.insertComment(commentObject);  // insert the comment
             halsonSingleComment = halsonFactory.halsonify('Comment', commentObject);
             return res.status(201).send(JSON.stringify(halsonSingleComment));
