@@ -37,7 +37,7 @@ module.exports = function(datastore) {
                 // TODO verify if logic really works
                 // jwt({ secret: secret.secretToken, userProperty: 'auth'});
                 token = jwt.sign(user, secret.secretToken, { expiresInMinutes: 60 });
-                return res.json({token:token});
+                return res.json({token:token, user: user});
             } else {
                 return res.send(401);
             }

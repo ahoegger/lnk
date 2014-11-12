@@ -3,38 +3,27 @@ var loginController = angular.module('loginController', [ 'service.authenticatio
 loginController.controller('loginController', ['$scope','$location','$window', 'UserService','AuthenticationService',
     function ($scope, $location, $window, UserService, AuthenticationService) {
 
-        $scope.login = function ($event, $form) {
+//        $scope.login = function ($event, $form) {
+//            UserService.logIn($scope.login.username,$scope.login.password);
+//            $event.preventDefault();
+//        };
 
-            UserService.logIn($scope.login.username,$scope.login.password);
-            $event.preventDefault();
-        };
-
-        var loginSuccess = function(data) {
-            console.log('successful logged in...');
-            AuthenticationService.isLogged = true;
-            $window.sessionStorage.token = data.token;
+        var loginSuccess = function() {
             $location.path("/");
         };
-        var loginError = function(status, data) {
-            console.log(status);
-            console.log(data);
-        };
+
+        var logoutSuccess = function() {
+            $location.path("/");
+        }
 
         $scope.login = function logIn(username, password) {
             username = $scope.login.username;
             password = $scope.login.password
-            console.log('loginController: user:'+username);
-            if (username !== undefined && password !== undefined) {
-                UserService.logIn(username, password).success(loginSuccess).error(loginError);
-            }
+            UserService.logIn(username, password,loginSuccess);
         }
 
-        $scope.logout = function logout() {
-            if (AuthenticationService.isLogged) {
-                AuthenticationService.isLogged = false;
-                delete $window.sessionStorage.token;
-                $location.path("/");
-            }
+        $scope.logout = function logout(logoutSuccess) {
+                UserService.logOut();
         }
 
 //        login.getArticles().success(function(data, status, headers, config) {
