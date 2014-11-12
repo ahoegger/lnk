@@ -47,7 +47,29 @@ function _findTag(tag) {
     return resultSet[0];
 }
 
+/**
+ * This function transform an array of tags into an array of article tags
+ * @param article
+ * @param tags
+ * @private
+ */
+function _tagsToArticleTags(article, tags) {
+    var articleTags = [];
+    for (var i = 0, len = tags.length; i < len; i++) {
+        articleTags.push(new ArticleTagClass.ArticleTag(null, article.id, tags[i].id));
+    }
+    return articleTags;
+}
+
+function _deleteTags(article, tags) {
+    var articleTags = _tagsToArticleTags(article, tags);
+    for (var i = 0, len = articleTags.length; i < len; i++) {
+        articleTagTable.remove(articleTags[i]);
+    }
+}
+
 function _selectTagsForArticle(articleId) {
+    // NICE: Split into two function: one selects the ArticleTag objects, one converts them into simple Tag objects
     var map;
     var resultingTags = [];
 
@@ -99,9 +121,34 @@ function _selectVotes(articleId, userId) {
     return new VoteContainerClass.VoteContainer(voteValue, userVote, articleId);
 }
 
+function _insertTags(article, tags) {
+    var singleTag;
+    var storedTag;
+    var updatedTags = [];
+    for (var i = 0, len = tags.length; i < len; i++) {
+        singleTag = tags[i];
+        storedTag = _findTag(singleTag);
+        if (!storedTag) {
+            // first, create the article
+            storedTag = tagsTable.insert(singleTag);
+        }
+        updatedTags.push(storedTag);
+        // insert the mapping
+        articleTagTable.insert(new ArticleTagClass.ArticleTag(undefined, article.id, storedTag.id))
+    }
+    return updatedTags;
+}
 module.exports = {
     insertArticle: function(article) {
         return articlesTable.insert(article);
+    },
+    /**
+     * This function updates an existing article object in the datastore
+     * @param article
+     * @return {Article} The article object after inserting
+     */
+    updateArticle: function(article) {
+        return articlesTable.update(article)
     },
     insertTag: function(tag) {
         return tagsTable.insert(tag);
@@ -114,21 +161,19 @@ module.exports = {
      * @return {Tag[]} returns the updated tags from the database (i.e. with a proper id)
      */
     insertArticleTags: function(article, tags) {
-        var singleTag;
-        var storedTag;
-        var updatedTags = [];
-        for (var i = 0, len = tags.length; i < len; i++) {
-            singleTag = tags[i];
-            storedTag = _findTag(singleTag);
-            if(!storedTag) {
-                // first, create the article
-                storedTag = tagsTable.insert(singleTag);
-            }
-            updatedTags.push(storedTag);
-            // insert the mapping
-            articleTagTable.insert(new ArticleTagClass.ArticleTag(undefined, article.id, storedTag.id))
-        }
-        return updatedTags;
+        return _insertTags(article, tags);
+    },
+    /**
+     * This function updates the tags array of a given article
+     * @param {Article} article The article
+     * @param {Tags[]} tags The complete list of tags associated with the article
+     */
+    updateArticleTags: function(article, tags) {
+        // crude implementation: First, delete all current tags from the article, then insert the new array
+        // note: the provided article is the NEW one, to delete the tags, the old tags array has to be retrieved
+        var oldTags = _selectTagsForArticle(article.id);
+        _deleteTags(article, oldTags);
+        _insertTags(article, tags);
     },
     insertComment: function(comment) {
         return commentsTable.insert(comment);
@@ -181,7 +226,7 @@ module.exports = {
 
     /**
      * This function inserts a new user vote for an article
-     * @param {ArticleUserVote} articleUserVote The article suer vaote to be inserted
+     * @param {ArticleUserVote} articleUserVote The article user vote to be inserted
      */
     insertVote: function(articleUserVote) {
         return articleUserVoteTable.insert(articleUserVote);

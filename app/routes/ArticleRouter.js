@@ -31,8 +31,9 @@ router
     .post('/article/:articleId/voteDown', articleRouterModule.postVoteDown)
     .post('/article/:articleId/comments', articleRouterModule.postSingleArticleComment)
 
+    .put('/article/:articleId', articleRouterModule.putArticle)
+
     // the following functions must still be implemented in this module
-    .put('/article/:articleId', routerHelperModule.notYetImplementedHandler)    // TODO Implement
     .delete('/article/:articleId', routerHelperModule.notYetImplementedHandler) // TODO Implement
     .put('/article/:articleId/comment/:commentId', routerHelperModule.notYetImplementedHandler) // TODO Implement
     .delete('/article/:articleId/comment/:commentId', routerHelperModule.notYetImplementedHandler)  // TODO Implement

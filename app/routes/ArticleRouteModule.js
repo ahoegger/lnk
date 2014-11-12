@@ -61,6 +61,25 @@ function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, upd
     }
 }
 
+/**
+ * This function insert or updates a given article in the database and return the halsonified article object. A response is not being sent
+ * @param {Request} req
+ * @param {Response} res
+ * @param {Function} articleDbFunction Function that executes the actual DB operation on the article (i.e insert or update). Argument is articleObject
+ * @param {Function} tagsDbFunction Function that executes the actual DB operation on the tags array (i.e insert or update). Arguments are articleObject and tagsArray
+ * @private
+ */
+function _insertOrUpdateArticle(req, articleDbFunction, tagsDbFunction) {
+    var articleObject = new ArticleClass.Article();
+    var tagsArray;
+
+    articleObject.updateFromJsonObject(req.body);            // put posted content into article
+    tagsArray = helper.createTagsFromJsonBody(req.body);     // create the tags as well
+    articleObject = articleDbFunction(articleObject);
+    articleObject.tags = tagsDbFunction(articleObject, tagsArray);
+    return halsonFactory.halsonify('Article', articleObject);
+}
+
 module.exports = function(datastore) {
     this.datastore = datastore;
 
@@ -91,16 +110,33 @@ module.exports = function(datastore) {
             return res.status(200).send(JSON.stringify(halsonResultSet));
         },
         postArticle: function(req, res) {
-            var articleObject = new ArticleClass.Article();
-            var halsonSingleArticle;
-            var tagsArray;
-
-            articleObject.updateFromJsonObject(req.body);            // put posted content into article
-            tagsArray = helper.createTagsFromJsonBody(req.body);     // create the tags as well
-            articleObject = datastore.insertArticle(articleObject);  // insert the article
-            articleObject.tags = datastore.insertArticleTags(articleObject, tagsArray);   // insert it's tags
-            halsonSingleArticle = halsonFactory.halsonify('Article', articleObject);
+            var halsonSingleArticle = _insertOrUpdateArticle(
+                req,
+                function(articleObject) {
+                    return datastore.insertArticle(articleObject);  // insert the article
+                },
+                function(articleObject, tagsArray) {
+                    return datastore.insertArticleTags(articleObject, tagsArray);   // insert it's tags
+                }
+            );
             return res.status(201).send(JSON.stringify(halsonSingleArticle));
+        },
+        /**
+         * Updates a given article on the data store. The response will be the updated article as halson object
+         * @param req
+         * @param res
+         */
+        putArticle: function(req, res) {
+            var halsonSingleArticle = _insertOrUpdateArticle(
+                req,
+                function(articleObject) {
+                    return datastore.updateArticle(articleObject);
+                },
+                function(articleObject, tagsArray) {
+                    return datastore.updateArticleTags(articleObject, tagsArray);
+                }
+            );
+            return res.status(200).send(JSON.stringify(halsonSingleArticle));
         },
         /**
          * Returns a single article. The articleId must be in the path and the paramHandler must be installed.

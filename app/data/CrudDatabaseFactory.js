@@ -261,7 +261,7 @@ CrudDatabase.prototype.update = function(entity) {
 };
 
 /**
- * This function removes the givene element from the database. It must be found via it's ID property
+ * This function removes the given element from the database. It must be found via it's ID property
  * @param entity
  */
 CrudDatabase.prototype.remove = function(entity) {
