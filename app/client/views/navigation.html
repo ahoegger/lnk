@@ -10,6 +10,11 @@
                 <form action="#login" ng-if="!authenticationService.user" novalidate>
                     <button type="submit" class="btn btn-default">login</button>
                 </form>
+                <div ng-if="authenticationService.user">
+                    <a href="#" class="hidden-xxs">{{authenticationService.user.firstname}} {{authenticationService.user.name}}</a>
+                    <a href="#" class="visible-xxs">{{authenticationService.user.userName}}</a>
+                    <a href="#" >Logout</a>
+                </div>
                 <form ng-submit="logout()" ng-if="authenticationService.user" novalidate>
                     <button type="submit" class="btn btn-default">logout</button>
                 </form>

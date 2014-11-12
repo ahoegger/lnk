@@ -13,7 +13,8 @@ var lnkApp = angular.module('lnkApp', [
     , 'addArticleController'
     , 'loginController'
     , 'navigationController'
-    ,'angular-momentjs'
+    ,'angular-momentjs',
+    'service.tokenInterceptor'
 ]);
 
 lnkApp.config(['$routeProvider',
@@ -38,7 +39,8 @@ lnkApp.config(['$routeProvider',
             otherwise({
                 redirectTo: '/articles'
             });
-    }])
+    }
+])
     .run(function($rootScope, $location) {
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
 //            console.log('route changed');
@@ -50,4 +52,10 @@ lnkApp.config(['$routeProvider',
 //            }
 //        }
     })});
+
+lnkApp.config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push('tokenInterceptor');
+}]);
+
+
 

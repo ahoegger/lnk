@@ -4449,6 +4449,24 @@ input[type="button"].btn-block {
     display: none !important;
   }
 }
+.visible-xxs {
+  display: none !important;
+}
+@media (max-width: 430px) {
+  .visible-xxs {
+    display: block !important;
+  }
+  table.visible-xxs {
+    display: table;
+  }
+  tr.visible-xxs {
+    display: table-row !important;
+  }
+  th.visible-xxs,
+  td.visible-xxs {
+    display: table-cell !important;
+  }
+}
 .tab-first-row {
   margin-top: -1px;
 }
