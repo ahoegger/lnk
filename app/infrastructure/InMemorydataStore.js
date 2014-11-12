@@ -153,6 +153,30 @@ function _deleteArticleTags(article) {
         articleTagTable.remove(articleTags[i]);
     }
 }
+
+function _deleteArticleVotes(article) {
+    var articleVotes;
+    var query = function(entity) {
+        return entity.articleId = article.id
+    };
+    articleVotes = articleUserVoteTable.select(query);
+    for (var i = 0, len = articleVotes.length; i < len; i++) {
+        articleUserVoteTable.remove(articleVotes[i]);
+    }
+}
+
+function _deleteArticleComments(article) {
+    var articleComments;
+    var query = function(entity) {
+        return entity.articleId = article.id
+    };
+    articleComments = commentsTable.select(query);
+    for (var i = 0, len = articleComments.length; i < len; i++) {
+        commentsTable.remove(articleComments[i]);
+    }
+}
+
+// ------------------------
 module.exports = {
     insertArticle: function(article) {
         return articlesTable.insert(article);
@@ -172,6 +196,8 @@ module.exports = {
     deleteArticle: function(article) {
         _deleteArticle(article);
         _deleteArticleTags(article);
+        _deleteArticleVotes(article);
+        _deleteArticleComments(article);
     },
     insertTag: function(tag) {
         return tagsTable.insert(tag);
