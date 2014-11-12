@@ -13,6 +13,7 @@ var routerHelperModule = require(app_constants.packagedModule('routes', 'RouterH
 var articleRouterModule = require(app_constants.packagedModule('routes', 'ArticleRouteModule.js'))(datastore);
 var articleParamModule = require(app_constants.packagedModule('routes', 'ArticleParamModule.js'))(datastore);
 var commentParamModule = require(app_constants.packagedModule('routes', 'CommentParamModule.js'))(datastore);
+var jwt = require('express-jwt');       // route handler for authenticating against a token
 
 var router = express.Router();
 
@@ -26,7 +27,7 @@ router
     .get('/article/:articleId/comments', articleRouterModule.getSingleArticleComments)
     .get('/article/:articleId/comment/:commentId', articleRouterModule.getSingleArticleComments)
 
-    .post('/articles', articleRouterModule.postArticle)
+    .post('/articles', jwt({secret: app_constants.secret.secretToken}), articleRouterModule.postArticle)
     .post('/article/:articleId/voteUp', articleRouterModule.postVoteUp)
     .post('/article/:articleId/voteDown', articleRouterModule.postVoteDown)
     .post('/article/:articleId/comments', articleRouterModule.postSingleArticleComment)
