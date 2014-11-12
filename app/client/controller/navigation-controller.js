@@ -12,7 +12,10 @@ navigationController.controller('navigationController', ['$scope','$rootScope','
             var regex = new RegExp('/?'+routeName.toLowerCase()+'/?');
             return regex.test($location.path().toLowerCase());
         }
-        $scope.logout = function(){
+        $scope.logout = function($event){
+            if($event) {
+                $event.preventDefault();
+            }
             UserService.logOut();
         }
     }
