@@ -104,7 +104,7 @@ module.exports = function(datastore) {
                 includeTags: true,
                 includeComments: true,
                 includeVoteCount: true,
-                voteUserId: req.user ? res.user.id : undefined
+                voteUserId: req.user ? req.user.id : undefined
             });
             halsonResultSet = halsonFactory.halsonifyArray('Article', resultSet);
             logger.debug('Returning articles', halsonResultSet);

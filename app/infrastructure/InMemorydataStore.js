@@ -102,10 +102,17 @@ function _selectUser(queryFunction) {
     return userTable.select(queryFunction);
 }
 
+/**
+ * This function selects for a given articleId a VoteContainer object that contains the total number of votes and a possible value of a users vote
+ * @param articleId
+ * @param userId
+ * @return {exports.VoteContainer}
+ * @private
+ */
 function _selectVotes(articleId, userId) {
     var singleResult;
     var voteValue = 0;
-    var userVote;
+    var userVote = undefined;
     var resultSet;
     var votesQuery = function(entity) {
         return entity.articleId === articleId;
@@ -115,7 +122,7 @@ function _selectVotes(articleId, userId) {
         singleResult = resultSet[i];
         voteValue = voteValue + singleResult.vote;
         if (singleResult.userId === userId) {
-            userVote = voteValue;
+            userVote = singleResult.vote;
         }
     }
     return new VoteContainerClass.VoteContainer(voteValue, userVote, articleId);

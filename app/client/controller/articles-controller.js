@@ -31,7 +31,9 @@
                 return function(data, status, headers, config) {
                     console.log('Voting callback ' + self.message);
                     console.log(data);
-                    $scope.articles[index].votes.numberOfVotes = data.numberOfVotes;     // TODO Respect user vote
+                    if (status === 200 || status === 201) {
+                        $scope.articles[index].votes = data;
+                    }
                 }
             };
 
