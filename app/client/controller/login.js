@@ -1,14 +1,14 @@
 var loginController = angular.module('loginController', [ 'service.authentication']);
 
-loginController.controller('loginController', ['$scope','$location', '$window', 'UserService','AuthenticationService',
-    function ($scope, $location, $window, UserService, AuthenticationService) {
+loginController.controller('loginController', ['$scope','$location', '$window','authenticationService',
+    function ($scope, $location, $window, authenticationService) {
 
         $scope.$on('$viewContentLoaded', function(){
             console.log("activate login");
             $("input[autofocus]").first().focus();
         });
 //        $scope.login = function ($event, $form) {
-//            UserService.logIn($scope.login.username,$scope.login.password);
+//            authenticationService.logIn($scope.login.username,$scope.login.password);
 //            $event.preventDefault();
 //        };
 
@@ -23,11 +23,11 @@ loginController.controller('loginController', ['$scope','$location', '$window', 
         $scope.login = function logIn(username, password) {
             username = $scope.login.username;
             password = $scope.login.password
-            UserService.logIn(username, password,loginSuccess);
+            authenticationService.logIn(username, password,loginSuccess);
         }
 
         $scope.logout = function logout(logoutSuccess) {
-                UserService.logOut();
+                authenticationService.logOut();
         }
 
 //        login.getArticles().success(function(data, status, headers, config) {

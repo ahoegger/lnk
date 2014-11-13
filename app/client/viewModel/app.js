@@ -13,6 +13,7 @@ var lnkApp = angular.module('lnkApp', [
     , 'addArticleController'
     , 'loginController'
     , 'navigationController'
+    , 'userController'
     ,'angular-momentjs',
     'service.tokenInterceptor'
 ]);
@@ -36,6 +37,10 @@ lnkApp.config(['$routeProvider',
                 templateUrl: 'views/login.html',
                 controller: 'loginController'
             }).
+            when('/user:id',{
+               templateUrl: 'views/userUpdate.html',
+                controller: 'userController'
+            }).
             otherwise({
                 redirectTo: '/articles'
             });
@@ -43,6 +48,8 @@ lnkApp.config(['$routeProvider',
 ])
     .run(function($rootScope, $location) {
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+        console.log('route to: '+next.templateUrl);
+        console.dir(next);
 //            console.log('route changed');
 //        if ($rootScope.loggedInUser == null) {
 //            // no logged user, redirect to /login
