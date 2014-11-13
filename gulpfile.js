@@ -2,6 +2,7 @@
 // generated on 2014-06-18 using generator-gulp-webapp 0.1.0
 
 var gulp = require('gulp');
+var jsdoc = require('gulp-jsdoc');
 
 var static_files_root = 'app/client';
 var static_bower_root = 'app/bower_components';
@@ -143,4 +144,34 @@ gulp.task('watch', ['connect', 'serve'], function () {
     gulp.watch(static_files_root + '/scripts/**/*.js', ['scripts']);
     gulp.watch(static_files_root + '/images/**/*', ['images']);
     gulp.watch('bower.json', ['wiredep']);
+});
+
+gulp.task('jsdoc', function() {
+    console.log('Executing jsdoc...');
+    var infos = {
+        name: '.lnk JSDoc'
+    };
+    gulp.src('./app/routes/*.js')
+        .pipe(jsdoc.parser(infos, 'data.json'))
+        .pipe(jsdoc.generator(
+            './documentation',
+            {
+                path: 'ink-docstrap',
+                systemName      : '.lnk',
+                footer          : "CAS-FEE Project .lnk",
+                copyright       : "Andy Hoegger, Holger Heymanns",
+                navType         : "vertical",
+                theme           : "Cerulean",
+                linenums        : true,
+                collapseSymbols : false,
+                inverseNav      : false
+            },
+            {
+                'private': false,
+                monospaceLinks: false,
+                cleverLinks: false,
+                outputSourceFiles: true
+            }
+        )
+    );
 });

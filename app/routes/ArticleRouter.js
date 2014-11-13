@@ -1,6 +1,9 @@
 /**
  * Created by holger on 05.09.2014.
- */
+ *
+ * This module defines the routes and assigns the url to the effective functions
+ * @module backend/routes/ArticleRouter
+*/
 var express = require('express');
 var path = require('path');
 var log4js = require('log4js');

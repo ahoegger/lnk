@@ -1,3 +1,8 @@
+/**
+ * This module proovides functionality for user authentication
+ * @module backend/routes/AuthenticationRouteModule
+ * @type {exports}
+ */
 var path = require('path');
 var log4js = require('log4js');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
@@ -13,6 +18,12 @@ module.exports = function(datastore) {
     require(app_constants.packagedModule('routes', 'ArticleRouterHelperModule.js'))(datastore);
 
     return {
+        /**
+         * This function authenticates a user based on the credentials provided
+         * @param {Request} req Body must containe userName and unencrypted password
+         * @param {Response} res
+         * @return {*} Sends the token and the plain suer objects as a json response
+         */
         authenticate: function(req, res) {
             var user;
             var token;

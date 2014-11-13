@@ -1,6 +1,8 @@
 /**
  * Created by Holger on 12.10.2014.
  * This module contains various helper functions for the article router module
+ * @module backend/routes/ArticleRouterHelperModule
+ * @type {exports}
  */
 
 var path = require('path');
@@ -32,6 +34,12 @@ module.exports = function(datastore) {
             }
             return tags;
         },
+        /**
+         * This function selects the votes for an article
+         * @param {Number} articleId ID of the article
+         * @param {Number} userId ID of the user, required to find out the vote of the user
+         * @return {exports.VoteContainer}
+         */
         selectArticleVotes: function(articleId, userId) {
             var singleResult;
             var voteValue = 0;

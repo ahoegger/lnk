@@ -1,6 +1,8 @@
 /**
  * Created by Holger on 12.10.2014.
  * This module exports the functions needed for article functionality
+ * @module backend/routes/ArticleRouteModule
+ * @type {exports}
  */
 var path = require('path');
 var log4js = require('log4js');
