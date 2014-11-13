@@ -1,0 +1,21 @@
+Affordanz:
+
+Anordnung / Ausrichtung:
+- Diverse fehlerhafte Ausrichtungen (z.B. Add Article form)
+- Add article: 
+- Klares Raster auf den Artikeln: Innerhalb einer artikel-row werden keine bottstrap-ratser verwendet
+
+Farbe:
+- favicon: hat noch falsche Farben
+
+
+Fitt's Law:
+- Submit-Button ist zu klein
+- Slogan ist zu klein verglichen mit "Logo"
+
+
+
+Geschlossene Gestalt:
+- Trennlinien zwischen Artikeln sind semantisch komisch und trennen den Artikel zu wenig
+- Zu wenig trennunng --> Mehr whitespace
+- 
