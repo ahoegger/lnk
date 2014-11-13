@@ -5,6 +5,10 @@ var userController = angular.module('userController', [ 'service.authentication'
 
 userController.controller('userController', ['$scope','$location','$routeParams','userServiceState','userService',
     function ($scope, $location,$routeParams,   userServiceState, userService) {
+        $scope.$on('$viewContentLoaded', function(){
+            $("input[autofocus]").first().focus();
+        });
+
         $scope.user = {
             id : 2,
             userName: 'admin',
@@ -23,6 +27,7 @@ userController.controller('userController', ['$scope','$location','$routeParams'
 //            $scope.user = $data.user;
             console.dir($data);
             console.log("blubber");
+            $location.path('/articles');
         };
         $scope.updateUser = function($event){
             $event.preventDefault();
