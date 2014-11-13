@@ -54,6 +54,7 @@ app.use('/api', authenticationRouter);
 // error handler
 app.use('/api', function(err, req, res){
     logger.warn(err.stack);
+    logger.warn(err);
     if (res.send != undefined) {
         res.send(err.message);
     } else {

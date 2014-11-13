@@ -6,6 +6,7 @@ var userService = angular.module('service.user', []);
 
 userService.factory('userService',['$http',
     function($http) {
+
     var getUserInternal = function(id){
 
         return $http({method: 'GET', url: '/api/user:'+id}).
@@ -15,9 +16,18 @@ userService.factory('userService',['$http',
                 console.log('An error during data access')
             });
     }
+        var updateUserInternal = function(user){
+            return $http({method: 'PUT', url: '/api/user:'+user.id}).
+                error(function (data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    console.log('An error during data access')
+                });
+        }
 
     return{
-        getUser : getUserInternal
+        getUser : getUserInternal,
+        updateUser : updateUserInternal
     };
 }]);
 

@@ -1,36 +1,69 @@
 <div id="add" class="tab-pane">
     <div class="row no-padding">
         <div class="col-xs-12">
-            <form name="loginForm" class="form-horizontal" ng-submit="login($event, loginForm)" novalidate>
+            <form name="userform" class="form-horizontal" ng-submit="updateUser($event)" novalidate>
+                <!-- firstname -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Firstname</label>
+                    <div class="col-sm-10 no-padding-sm">
+                        <input name="firstname"  class="form-control full-width-sm" placeholder="Firstname" autofocus
+                               ng-model="user.firstname" ng-required="true">
+
+                        <p ng-show="user.firstname.$error.required && !user.firstname.$pristine" class="help-block">
+                            Firstname is required.</p>
+                    </div>
+                </div>
+                <!-- name -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10 no-padding-sm">
+                        <input name="name"  class="form-control full-width-sm" placeholder="Name"
+                               ng-model="user.name" ng-required="true">
+
+                        <p ng-show="user.name.$error.required && !user.name.$pristine" class="help-block">
+                            Name is required.</p>
+                    </div>
+                </div>
+                <!-- username -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Username</label>
                     <div class="col-sm-10 no-padding-sm">
-                        <!--<div class="full-width-sm">abc</div>-->
-                        <input name="username"  class="form-control full-width-sm" placeholder="Username" autofocus
-                               ng-model="login.username" ng-required="true">
+                        <input name="username"  class="form-control full-width-sm" placeholder="Username" readonly tabindex="-10"
+                               ng-model="user.userName" ng-required="true">
 
-                        <p ng-show="login.username.$error.required && !login.url.$pristine" class="help-block">
-                            URL is required.</p>
-
-                        <p ng-show="articleForm.url.$error.url && !articleForm.url.$pristine" class="help-block">Invalid
-                            URL.</p>
+                        <p ng-show="user.userName.$error.required && !user.userName.$pristine" class="help-block">
+                            Username is required.</p>
                     </div>
                 </div>
+                <!-- password -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Password</label>
 
                     <div class="col-sm-10 no-padding-sm">
                         <input name="password" type="password" class="form-control full-width-sm"
-                               placeholder="Password" maxlength="50" ng-required="true" ng-model="login.password">
+                               placeholder="Password" maxlength="50" ng-required="true" ng-model="user.password" equals="{{user.password_verify}}">
 
-                        <p ng-show="loginForm.password.$error.required  && !loginForm.password.$pristine"
+                        <p ng-show="userform.password.$error.required && !userform.password.$pristine"
                            class="help-block">Password is required.</p>
+                    </div>
+                </div>
+                <!-- password verify -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Re-type Password</label>
+
+                    <div class="col-sm-10 no-padding-sm">
+                        <input name="password_verify" type="password" class="form-control full-width-sm"
+                               placeholder="Password" maxlength="50" ng-required="true" ng-model="user.password_verify" equals="{{user.password}}">
+
+
+                        <p ng-show="userform.password_verify.$error.equals  && !userform.password_verify.$pristine"
+                           class="help-block">Password does not match.</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-10 no-padding-sm">
-                        <button  type="submit" class="btn btn-primary form-control full-width-sm" ng-disabled="!loginForm.$valid">.login</button>
+                        <button  type="submit" class="btn btn-primary form-control full-width-sm" ng-disabled="!userform.$valid">.save</button>
                     </div>
                 </div>
             </form>

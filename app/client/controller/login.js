@@ -30,16 +30,4 @@ loginController.controller('loginController', ['$scope','$location', '$window','
                 authenticationService.logOut();
         }
 
-//        login.getArticles().success(function(data, status, headers, config) {
-//            $scope.articles = data;
-//            console.log('success with get articles!');
-//        });
-//        $scope.voteUp = function($event, articleId){
-//            $event.preventDefault();
-//            article.voteUp(articleId);
-//        };
-//        $scope.voteDown = function($event, articleId){
-//            $event.preventDefault();
-//            article.voteDown(articleId);
-//        }
     }]);
