@@ -47,7 +47,7 @@ userUpdateController.controller('userUpdateController', ['$scope','$location','$
         if(userServiceState.user) {
             var routeParamUser = $routeParams.id.replace('^\:*','');
             console.log('route user id:'+routeParamUser);
-            userService.getUser(userServiceState.user.id).success(userSuccessfulLoaded).success(userSuccessfulLoaded);
+            userService.getUser(userServiceState.user.id).success(userSuccessfulLoaded);
         }
     }
     ]);
