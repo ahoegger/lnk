@@ -9,7 +9,9 @@
     "start": "node --harmony_collections lnk-server.js",
     "test": "jasmine-node test/spec",
     "mocha-test": "node ./node_modules/mocha/bin/mocha -u bdd  -R spec ./test/spec/**/*-spec.js",
-    "coverage": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 500 ./test/spec/**/*-spec.js"
+    "coverage": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 500 ./test/spec/**/*-spec.js",
+    "start": "node lnk-server.js",
+    "postinstall": "bower install"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -25,8 +27,7 @@
     "morgan": "^1.2.3",
     "nedb": "^0.11.1",
     "q": "^1.0.1",
-    "serve-favicon": "^2.1.1",
-    "static-favicon": "^2.0.0-alpha"
+    "serve-favicon": "^2.1.1"
   },
   "devDependencies": {
     "chai": "^1.9.2",
