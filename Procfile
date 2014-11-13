@@ -1,1 +1,1 @@
-web: node ln-server.js
+web: node lnk-server.js
