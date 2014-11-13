@@ -2,10 +2,10 @@
  * Created by aho on 12.11.2014.
  */
 
-var tokenInterceptorService = angular.module('service.tokenInterceptor', []);
+var tokenInterceptorService = angular.module('service.tokenInterceptor', ['service.user']);
 
 
-tokenInterceptorService.factory('tokenInterceptor', function ($q, $window, $location, AuthenticationService) {
+tokenInterceptorService.factory('tokenInterceptor', function ($q, $window, $location, userServiceState) {
     return {
         request: function (config) {
             config.headers = config.headers || {};
@@ -21,17 +21,17 @@ tokenInterceptorService.factory('tokenInterceptor', function ($q, $window, $loca
 
         /* Set Authentication.isAuthenticated to true if 200 received */
         response: function (response) {
-            if (response != null && response.status == 200 && $window.sessionStorage.token && !AuthenticationService.isAuthenticated) {
-                AuthenticationService.isAuthenticated = true;
+            if (response != null && response.status == 200 && $window.sessionStorage.token && !userServiceState.isAuthenticated) {
+                userServiceState.isAuthenticated = true;
             }
             return response || $q.when(response);
         },
 
         /* Revoke client authentication if 401 is received */
         responseError: function(rejection) {
-            if (rejection != null && rejection.status === 401 && ($window.sessionStorage.token || AuthenticationService.isAuthenticated)) {
+            if (rejection != null && rejection.status === 401 && ($window.sessionStorage.token || userServiceState.isAuthenticated)) {
                 delete $window.sessionStorage.token;
-                AuthenticationService.isAuthenticated = false;
+                userServiceState.isAuthenticated = false;
                 $location.path("/admin/login");
             }
 

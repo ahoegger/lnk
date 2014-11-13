@@ -1,25 +1,14 @@
 /**
  * Created by aho on 06.11.2014.
  */
-var authenticationService = angular.module('service.authentication', []);
+var authenticationService = angular.module('service.authentication', ['service.user']);
 
 
-authenticationService.factory('AuthenticationService', function() {
-    var auth = {
-        isLogged: false,
-        user: null
-    }
-
-    return auth;
-});
-
-authenticationService.factory('UserService', ['$http', '$window', 'AuthenticationService',
-    function($http,$window, AuthenticationService) {
+authenticationService.factory('authenticationService', ['$http', '$window', 'userServiceState',
+    function($http,$window, userServiceState) {
         var loginSuccessFunction = function(data, loginSuccessCallback){
             console.log('successful logged in...');
-            AuthenticationService.isLogged = true;
-            AuthenticationService.user = data.user;
-            console.log(AuthenticationService.user)
+            userServiceState.user = data.user;
             $window.sessionStorage.token = data.token;
             loginSuccessCallback();
         };
@@ -53,9 +42,8 @@ authenticationService.factory('UserService', ['$http', '$window', 'Authenticatio
         },
 
         logOut: function(successCallback) {
-            if (AuthenticationService.isLogged) {
-                AuthenticationService.isLogged = false;
-                AuthenticationService.user = null;
+            if (userServiceState.user) {
+                userServiceState.user = undefined;
                 delete $window.sessionStorage.token;
                 if(successCallback) {
                     successCallback();

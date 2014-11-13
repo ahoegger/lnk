@@ -3,19 +3,19 @@
         <div class="row">
             <div class="col-xs-2" id="logo">.lnk</div>
             <h5 class="col-xs-8 text-center hidden-xxs" id="headline">Love
-                the things you find - share the things you love <3. {{authenticationService.user.userName}}
+                the things you find - share the things you love <3. {{userStateService.user.id}}
             </h5>
 
             <div class="col-xs-2 pull-right">
-                <form action="#login" ng-if="!authenticationService.user" novalidate>
+                <form action="#login" ng-if="!userStateService.user" novalidate>
                     <button type="submit" class="btn btn-default">login</button>
                 </form>
-                <div ng-if="authenticationService.user">
-                    <a href="#" class="hidden-xxs col-xs-12">{{authenticationService.user.firstname}} {{authenticationService.user.name}}</a>
-                    <a href="#" class="visible-xxs col-xs-12">{{authenticationService.user.userName}}</a>
+                <div ng-if="userStateService.user">
+                    <a href="#user:{{userStateService.user.id}}" class="hidden-xxs col-xs-12">{{userStateService.user.firstname}} {{userStateService.user.name}}</a>
+                    <a href="#" class="visible-xxs col-xs-12">{{userStateService.user.userName}}</a>
                     <a href="#" class="col-xs-12" ng-click="logout($event)" >Logout</a>
                 </div>
-                <!--<form ng-submit="logout()" ng-if="authenticationService.user" novalidate>-->
+                <!--<form ng-submit="logout()" ng-if="userStateService.user" novalidate>-->
                     <!--<button type="submit" class="btn btn-default">logout</button>-->
                 <!--</form>-->
                 <!--<button class="btn btn-default">login</button>-->
