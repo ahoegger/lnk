@@ -45,12 +45,12 @@
                 </div>
                 <div class="form-group">
                     <label for="add-form-image" class="col-sm-2 control-label">Image</label>
-                    <img ng-src="{{articleForm.url | imageUrlFilter : articleForm.alternateImageUrl: urlIsImage}}"
-                         id="add-form-image" class="article-preview-image col-sm-2" imageonload/>
+                    <!--<img ng-src="{{articleForm.url | imageUrlFilter : articleForm.alternateImageUrl: urlIsImage}}"-->
+                         <!--id="add-form-image" class="article-preview-image col-sm-2" imageonload/>-->
 
-                    <div class="col-sm-7" ng-if="isAternateUrlVisible()">
+                    <div class="col-sm-10 no-padding-sm" ng-if="isAternateUrlVisible()">
                         <input name="alternateImageUrl" ng-model="article.alternateImageUrl" type="url"
-                               class="form-control pull-right" placeholder="Alternate image URL">
+                               class="form-control full-width-sm animate" placeholder="Alternate image URL">
 
                         <p ng-show="articleForm.alternateImageUrl.$error.url && !articleForm.alternateImageUrl.$pristine"
                            class="help-block">Invalid URL.</p>
@@ -91,7 +91,7 @@
                         </h3>
 
                         <div class="article-image">
-                            <img ng-src="{{article.imageUrl}}">
+                            <img ng-src="{{articleForm.url | imageUrlFilter : articleForm.alternateImageUrl: urlIsImage}}">
                         </div>
                         <!-- Voting begin -->
                         <div class="article-voting">
