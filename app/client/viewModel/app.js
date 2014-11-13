@@ -13,7 +13,8 @@ var lnkApp = angular.module('lnkApp', [
     , 'addArticleController'
     , 'loginController'
     , 'navigationController'
-    , 'userController'
+    , 'userUpdateController'
+    , 'userCreateController'
     , 'angular-momentjs'
     , 'service.tokenInterceptor'
     , 'service.user'
@@ -28,7 +29,7 @@ lnkApp.config(['$routeProvider',
                 controller: 'articleListController',
                 access: { requiredLogin: false }
             }).
-            when('/add',{
+            when('/article/add',{
                 templateUrl: 'views/addArticle.html',
                 controller: 'addArticle',
                 access: { requiredLogin: true }
@@ -44,9 +45,14 @@ lnkApp.config(['$routeProvider',
                 controller: 'loginController',
                 access: { requiredLogin: false }
             }).
+            when('/user/create',{
+                templateUrl: 'views/userUpdate.html',
+                controller: 'userCreateController',
+                access: { requiredLogin: false }
+            }).
             when('/user:id',{
                templateUrl: 'views/userUpdate.html',
-                controller: 'userController',
+                controller: 'userUpdateController',
                 access: { requiredLogin: true }
             }).
             otherwise({
@@ -55,8 +61,9 @@ lnkApp.config(['$routeProvider',
     }
 ])
     .run(function($rootScope, $location, userServiceState) {
+
         $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
-            if (nextRoute.access.requiredLogin && !userServiceState.user) {
+            if (nextRoute.access && nextRoute.access.requiredLogin && !userServiceState.user) {
                 $location.path("/login");
             }
         });

@@ -1,7 +1,18 @@
 <div id="add" class="tab-pane">
     <div class="row no-padding">
         <div class="col-xs-12">
-            <form name="userform" class="form-horizontal" ng-submit="updateUser($event)" novalidate>
+            <form name="userform" class="form-horizontal" ng-submit="storeUser($event)" novalidate>
+                <!-- username -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Username</label>
+                    <div class="col-sm-10 no-padding-sm">
+                        <input name="username"  class="form-control full-width-sm" placeholder="Username"  autofocus ng-readonly="usernameReadOnly" tabindex="-10"
+                               ng-model="user.userName" ng-required="true">
+
+                        <p ng-show="user.userName.$error.required && !user.userName.$pristine" class="help-block">
+                            Username is required.</p>
+                    </div>
+                </div>
                 <!-- firstname -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Firstname</label>
@@ -24,17 +35,7 @@
                             Name is required.</p>
                     </div>
                 </div>
-                <!-- username -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Username</label>
-                    <div class="col-sm-10 no-padding-sm">
-                        <input name="username"  class="form-control full-width-sm" placeholder="Username" readonly tabindex="-10"
-                               ng-model="user.userName" ng-required="true">
 
-                        <p ng-show="user.userName.$error.required && !user.userName.$pristine" class="help-block">
-                            Username is required.</p>
-                    </div>
-                </div>
                 <!-- password -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Password</label>

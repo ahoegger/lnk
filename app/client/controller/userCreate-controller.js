@@ -1,53 +1,37 @@
 /**
  * Created by aho on 12.11.2014.
  */
-var userController = angular.module('userController', [ 'service.authentication','service.user']);
+var userCreateController = angular.module('userCreateController', [ 'service.authentication','service.user']);
 
-userController.controller('userController', ['$scope','$location','$routeParams','userServiceState','userService',
+userCreateController.controller('userCreateController', ['$scope','$location','$routeParams','userServiceState','userService',
     function ($scope, $location,$routeParams,   userServiceState, userService) {
         $scope.$on('$viewContentLoaded', function(){
-            $("input[autofocus]").first().focus();
+            $("input[autofocus]:not([ng-readonly=true])").first().focus();
         });
 
-        $scope.user = {
-            id : 2,
-            userName: 'admin',
-            name: 'Administrator',
-            firstname : 'Hans',
-            password: undefined,
-            active: true,
-            password_verify : undefined
-        };
-        var userSuccessfulLoaded = function($data){
+        $scope.user = undefined;
+        $scope.usernameReadOnly = false;
+
+        var successfulStored= function($data){
             $scope.user = $data.user;
-            console.dir($data);
-            console.log("blubber");
-        };
-        var userSuccessfulUpdated= function($data){
-//            $scope.user = $data.user;
-            console.dir($data);
-            console.log("blubber");
+            console.log('User '+$scope.user.userName+' successfully created!');
             $location.path('/articles');
         };
-        $scope.updateUser = function($event){
+        $scope.storeUser = function($event){
             $event.preventDefault();
             var userVar = {
-                id : $scope.user.id,
                 userName : $scope.user.userName,
                 name : $scope.user.name,
                 firstname : $scope.user.firstname,
                 password : $scope.user.password,
-                active : $scope.user.active
             };
-            userService.updateUser(userVar);
-            userServiceState.user = userVar;
+            userService.createUser(userVar);
         }
-         userService.getUser($routeParams.id).success(userSuccessfulLoaded).success(userSuccessfulLoaded);
     }
     ]);
 
 
-userController.directive('equals', function() {
+userCreateController.directive('equals', function() {
     return {
 //        restrict: 'A', // only activate on element attribute
         require: '?ngModel', // get a hold of NgModelController
