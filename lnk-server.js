@@ -24,7 +24,7 @@ var tagsRouter = require(app_constants.packagedModule('routes', 'tags'));
 var userRouter = require(app_constants.packagedModule('routes', 'UserRouter.js'));
 var authenticationRouter = require(app_constants.packagedModule('routes', 'AuthenticationRouter.js'));
 // constants and basic variables
-var express_server_port = 3000;
+var express_server_port = process.env.PORT || 5000;
 
 var public_root_path = path.join(app_constants.appPath, 'public');
 var bower_root_path = path.join(app_constants.appPath, 'bower_components');
