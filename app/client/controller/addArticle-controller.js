@@ -3,20 +3,20 @@
  */
 
 
-var addArticleController = angular.module('addArticleController', ['service.article', 'service.behaviour']);
+var addArticleController = angular.module('addArticleController', ['service.article', 'service.behaviour', 'service.user']);
 
 addArticleController.directive('imageonload',
-    function ( ) {
+    function () {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
                 element.bind('load', function () {
-                    scope.$apply(function(){
-                   scope.urlIsImage = true;
+                    scope.$apply(function () {
+                        scope.urlIsImage = true;
+                    });
                 });
-                });
-                element.bind('error',function () {
-                    scope.$apply(function(){
+                element.bind('error', function () {
+                    scope.$apply(function () {
                         scope.urlIsImage = false;
                     });
                 });
@@ -25,12 +25,12 @@ addArticleController.directive('imageonload',
     });
 
 
-addArticleController.controller('addArticle', ['$scope', '$location', 'article', 'behaviour',
+addArticleController.controller('addArticleController', ['$scope', '$location', 'articleService', 'behaviour', 'userServiceState',
 
 
-    function ($scope, $location, article, behaviour) {
+    function ($scope, $location, articleService, behaviour, userServiceState) {
 
-        $scope.$on('$viewContentLoaded', function(){
+        $scope.$on('$viewContentLoaded', function () {
             $("input[autofocus]").first().focus();
         });
         /**
@@ -39,19 +39,19 @@ addArticleController.controller('addArticle', ['$scope', '$location', 'article',
          * @param separator {String} The separator character
          * @return {String[]}
          */
-        var _tagStringToArray = function(tagString, separator) {
+        var _tagStringToArray = function (tagString, separator) {
             var plainTags = [],
                 trimmedTags = [];
             if (tagString && $.trim(tagString).length > 0) {
                 plainTags = tagString.split(separator);
-                $.each(plainTags, function(indexInArray, element) {
+                $.each(plainTags, function (indexInArray, element) {
                     trimmedTags.push($.trim(element));
                 });
                 return trimmedTags;
             }
         }
 
-        var _genericHttpCallbackFactory = function(message) {
+        var _genericHttpCallbackFactory = function (message) {
             var self = {
                 message: message
             };
@@ -66,6 +66,23 @@ addArticleController.controller('addArticle', ['$scope', '$location', 'article',
                 console.dir(config);
             };
         };
+        var getImageUrlInternal = function () {
+            if ($scope.article.alternateImageUrl) {
+                return $scope.article.alternateImageUrl;
+            } else if ($scope.article.url) {
+                return $scope.article.url;
+            }
+            return undefined;
+        }
+
+        var onPostArticleSuccess = function(data){
+            console.log('successful posted article.');
+            $location.path('/articles')
+        }
+
+        var onPostArticleError = function(data){
+            // TODO set error message
+        }
 
         $scope.postArticle = function ($event, $form) {
             var articleDto = {};
@@ -74,17 +91,15 @@ addArticleController.controller('addArticle', ['$scope', '$location', 'article',
                 articleDto.title = $scope.article.title;
                 articleDto.url = $scope.article.url;
                 articleDto.description = $scope.article.description;
-                articleDto.alternateImageUrl = $scope.article.alternateImageUrl;
+                articleDto.imageUrl = getImageUrlInternal();
                 articleDto.tags = _tagStringToArray($scope.article.tags, ',');
                 articleDto.submittedOn = new Date();
-                articleDto.submittedBy = 'DUMMY';
+                articleDto.submittedBy = userServiceState.user.username;
 
                 console.dir(articleDto);
-                article.submitArticle(articleDto,
-                    _genericHttpCallbackFactory('Article submit success callback'),
-                    _genericHttpCallbackFactory('Article submit error callback'));
+                articleService.submitArticle(articleDto,
+                    onPostArticleSuccess,onPostArticleError);
             }
-            // TODO Clear form after submitting
         };
 
         $scope.urlIsImage = false;
@@ -96,11 +111,10 @@ addArticleController.controller('addArticle', ['$scope', '$location', 'article',
         $scope.autoResizeTextarea = behaviour.autoResizeTextarea;
 
 
-
-        $scope.isAternateUrlVisible = function(){
-            if($scope.urlIsImage && !$scope.article.alternateImageUrl){
+        $scope.isAternateUrlVisible = function () {
+            if ($scope.urlIsImage && !$scope.article.alternateImageUrl) {
                 return false;
-            }else{
+            } else {
                 return true;
             }
         };
@@ -109,11 +123,11 @@ addArticleController.controller('addArticle', ['$scope', '$location', 'article',
 ]);
 
 
-addArticleController.filter('imageUrlFilter', function() {
-    return function(url,  alternateUrl, isValidImage) {
-        if(alternateUrl && alternateUrl.$viewValue){
+addArticleController.filter('imageUrlFilter', function () {
+    return function (url, alternateUrl, isValidImage) {
+        if (alternateUrl && alternateUrl.$viewValue) {
             return alternateUrl.$viewValue;
-        }else{
+        } else {
             return url.$viewValue;
         }
 

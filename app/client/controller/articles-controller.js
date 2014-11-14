@@ -3,13 +3,13 @@
  */
     var articlesController = angular.module('articlesController', ['service.article', 'service.behaviour']);
 
-    articlesController.controller('articleListController', ['$scope', '$location','article', 'behaviour',
-        function ($scope,  $location, article, behaviour) {
+    articlesController.controller('articleListController', ['$scope', '$location','articleService', 'behaviour',
+        function ($scope,  $location, articleService, behaviour) {
             var successLoadArticles = function(data, status, headers, config) {
                 $scope.articles = data;
                 console.log('success with get articles!');
             }
-            article.getArticles().success(successLoadArticles);
+            articleService.getArticles().success(successLoadArticles);
 
 
             var submitCommentExecution = function(message, index) {
@@ -39,20 +39,20 @@
 
             $scope.search = function(){
                 console.log($scope.searchQuery);
-                article.getArticles($scope.searchQuery).success(successLoadArticles);
+                articleService.getArticles($scope.searchQuery).success(successLoadArticles);
             };
             $scope.voteUp = function($event, index, apiUrl){
                 $event.preventDefault();
-                console.dir(article);
+                console.dir(articleService);
                 console.log(apiUrl);
-                article.voteUp(apiUrl,
+                articleService.voteUp(apiUrl,
                     votingExecution('VoteUp success', index),
                     votingExecution('VoteUp error', index)
                 );
             };
             $scope.voteDown = function($event, index, apiUrl){
                 $event.preventDefault();
-                article.voteDown(apiUrl,
+                articleService.voteDown(apiUrl,
                     votingExecution('VoteDown success', index),
                     votingExecution('VoteDown error', index)
                 );
@@ -66,7 +66,7 @@
                     submittedBy: 'FIXME',
                     submittedOn: new Date()
                 };
-                article.submitComment(apiUrl,
+                articleService.submitComment(apiUrl,
                     commentObject,
                     function(data, status, headers, config) {
                         console.log('Submit comment callback ' + self.message);

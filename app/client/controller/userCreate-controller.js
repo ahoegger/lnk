@@ -1,10 +1,10 @@
 /**
  * Created by aho on 12.11.2014.
  */
-var userCreateController = angular.module('userCreateController', [ 'service.authentication','service.user']);
+var userCreateController = angular.module('userCreateController', [ 'service.authentication','service.user', 'service.authentication']);
 
-userCreateController.controller('userCreateController', ['$scope','$location','$routeParams','userServiceState','userService',
-    function ($scope, $location,$routeParams,   userServiceState, userService) {
+userCreateController.controller('userCreateController', ['$scope','$location','$routeParams','userServiceState','userService','authenticationService',
+    function ($scope, $location,$routeParams,   userServiceState, userService,authenticationService) {
         $scope.$on('$viewContentLoaded', function(){
             $("input[autofocus]:not([ng-readonly=true])").first().focus();
         });
@@ -12,20 +12,30 @@ userCreateController.controller('userCreateController', ['$scope','$location','$
         $scope.user = undefined;
         $scope.usernameReadOnly = false;
 
-        var successfulStored= function($data){
-            $scope.user = $data.user;
+        var successfulStored= function(data){
             console.log('User '+$scope.user.userName+' successfully created!');
-            $location.path('/articles');
+            loginInternal($scope.user.userName, $scope.user.password);
+
         };
+
+        var loginSuccess = function() {
+            $location.path("/articles");
+        };
+
+
+        var loginInternal = function logIn(username, password) {
+            authenticationService.logIn(username, password,loginSuccess);
+        };
+
         $scope.storeUser = function($event){
             $event.preventDefault();
             var userVar = {
                 userName : $scope.user.userName,
                 name : $scope.user.name,
                 firstname : $scope.user.firstname,
-                password : $scope.user.password,
+                password : $scope.user.password
             };
-            userService.createUser(userVar);
+            userService.createUser(userVar).success(successfulStored);
         }
     }
     ]);

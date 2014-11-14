@@ -4,7 +4,7 @@
 
 var articleServices = angular.module('service.article', []);
 
-articleServices.factory('article', ['$http',
+articleServices.factory('articleService', ['$http',
     function ($http) {
         var doVote = function(url, successCallback, errorCallback) {
             return $http.post(

@@ -8,12 +8,12 @@
 
             <div class="col-xs-2 pull-right">
                 <form action="#login" ng-if="!userStateService.user" novalidate>
-                    <button type="submit" class="btn btn-default">login</button>
+                    <button type="submit" class="btn btn-default">.login</button>
                 </form>
                 <div ng-if="userStateService.user">
                     <a href="#user:{{userStateService.user.id}}" class="hidden-xxs col-xs-12">{{userStateService.user.firstname}} {{userStateService.user.name}}</a>
                     <a href="#" class="visible-xxs col-xs-12">{{userStateService.user.userName}}</a>
-                    <a href="#" class="col-xs-12" ng-click="logout($event)" >Logout</a>
+                    <a href="#" class="col-xs-12" ng-click="logout($event)" >.logout</a>
                 </div>
                 <!--<form ng-submit="logout()" ng-if="userStateService.user" novalidate>-->
                     <!--<button type="submit" class="btn btn-default">logout</button>-->

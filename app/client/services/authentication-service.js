@@ -36,7 +36,8 @@ authenticationService.factory('authenticationService', ['$http', '$window', 'use
                     .error(function () {
                         loginErrorFunction(data, errorCallback)
                     });
-            }else{
+            }else if(errorCallback){
+
                 errorCallback();
             }
         },

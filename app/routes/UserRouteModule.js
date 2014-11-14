@@ -36,6 +36,7 @@ module.exports = function(datastore) {
             var userObject = new UserClass.User();
             var halsonSingleUser;
             userObject.updateFromJsonObject(req.body);            // put posted content into user object
+            userObject.active = true;
             userObject = datastore.insertUser(userObject);
             userObject.password = null;
             halsonSingleUser = halsonFactory.halsonify('User', userObject);

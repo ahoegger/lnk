@@ -31,7 +31,7 @@ lnkApp.config(['$routeProvider',
             }).
             when('/article/add',{
                 templateUrl: 'views/addArticle.html',
-                controller: 'addArticle',
+                controller: 'addArticleController',
                 access: { requiredLogin: true }
 
             }).
