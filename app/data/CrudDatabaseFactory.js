@@ -233,7 +233,7 @@ CrudDatabase.prototype.select = function(filterFunction) {
     for (var i = 0, len = this.getData().length; i < len; i++) {
         value = this.getData()[i];
         if (filterFunction.call(undefined, value, i, t)) {
-            result.push(value);
+            result.push(this._cloneEntity(value));
         }
     }
     return result;

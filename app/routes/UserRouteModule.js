@@ -27,7 +27,7 @@ module.exports = function(datastore) {
         getUser: function(req, res) {
             var halsonResult;
             req.paramhandler_user.password = null;   // remove password for response
-            halsonResult = halsonFactory.halsonify('User', req.userId);
+            halsonResult = halsonFactory.halsonify('User', req.paramhandler_user);
             logger.debug('Returning user', halsonResult);
             return res.status(200).send(JSON.stringify(halsonResult));
         },

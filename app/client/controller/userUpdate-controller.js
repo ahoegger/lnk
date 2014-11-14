@@ -20,14 +20,14 @@ userUpdateController.controller('userUpdateController', ['$scope','$location','$
 //            active: true,
 //            password_verify : undefined
 //        };
-        var userSuccessfulLoaded = function($data){
-            $scope.user = $data.user;
-            console.dir($data);
+        var userSuccessfulLoaded = function(data){
+            $scope.user = data;
+            console.dir(data);
             console.log("blubber");
         };
-        var successfulStored= function($data){
-            $scope.user = $data.user;
-            console.dir($data);
+        var successfulStored= function(data){
+            $scope.user = data.user;
+            console.dir(data);
             console.log("blubber");
             $location.path('/articles');
         };
