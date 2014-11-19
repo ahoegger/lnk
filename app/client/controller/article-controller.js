@@ -49,10 +49,12 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             // nice: implement check, if user is allowed to delete the article
             articleService.deleteArticle($scope.article._links.self.href,
             function(data, status, headers, config) {
-                console.log('deleted!');
+                console.log('deleted an backend with status' + status);
+                var idx = $scope.$parent.articles.indexOf($scope.article);
+                $scope.$parent.articles.splice(idx,1);
             },
             function(data, status, headers, config) {
-                console.log('delete not successful');
+                console.log('delete not successful, status = ' + status);
             });
         };
 

@@ -1,5 +1,5 @@
 /**
- * This module proovides functionality for user authentication
+ * This module provides functionality for user authentication
  * @module backend/routes/AuthenticationRouteModule
  * @type {exports}
  */
@@ -48,7 +48,7 @@ module.exports = function(datastore) {
                 // TODO verify if logic really works
                 // jwt({ secret: secret.secretToken, userProperty: 'auth'});
                 token = jwt.sign(user, secret.secretToken, { expiresInMinutes: 60 });
-                return res.json({token:token, user: user});
+                return res.status(302).json({token:token, user: user});
             } else {
                 return res.send(401);
             }

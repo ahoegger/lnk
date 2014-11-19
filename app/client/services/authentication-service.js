@@ -33,8 +33,12 @@ authenticationService.factory('authenticationService', ['$http', '$window', 'use
                 ).success(function (data) {
                         loginSuccessFunction(data, successCallback)
                     })
-                    .error(function () {
-                        loginErrorFunction(data, errorCallback)
+                    .error(function (data, status, headers, config) {
+                        if (status === 302) {
+                            loginSuccessFunction(data, successCallback);
+                        } else {
+                            loginErrorFunction(data, errorCallback)
+                        }
                     });
             }else if(errorCallback){
 
