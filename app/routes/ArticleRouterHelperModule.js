@@ -57,6 +57,15 @@ module.exports = function(datastore) {
                 }
             }
             return new VoteContainerClass.VoteContainer(voteValue, userVote, articleId);
+        },
+        createSearchAnywhere: function(req) {
+            var term = (req.query != undefined && req.query.anywhere != undefined) ? req.query.anywhere.toLowerCase() : undefined;
+            return function(entity) {
+                if (term == undefined) {
+                    return true;
+                }
+                return entity.title.toLowerCase().indexOf(term) >= 0 || entity.description.toLowerCase().indexOf(term) >= 0;
+            }
         }
     }
 };

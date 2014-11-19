@@ -94,14 +94,13 @@ module.exports = function(datastore) {
          * @param {Object} res The response object
          */
         getArticles: function(req, res) {
-            // TODO Implement proper query string from HTTP query string
+            // NICE Implement filter on tags as well.
             var resultSet;
             var halsonResultSet;
-            var query = function() {
-                // TODO Implement query / filter logic based on query parameters
-                return true;
+            var searchAnywhere = helper.createSearchAnywhere(req);
+            var query = function(entity) {
+                return searchAnywhere(entity);
             };
-            // TODO Check the votes for the user to provide (or not provide) the voteUp / voteDown links
             resultSet = datastore.selectArticles(query, {
                 includeTags: true,
                 includeComments: true,
