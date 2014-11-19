@@ -8,7 +8,7 @@
             var successLoadArticles = function(data, status, headers, config) {
                 $scope.articles = data;
                 console.log('success with get articles!');
-            }
+            };
             articleService.getArticles().success(successLoadArticles);
 
 
@@ -43,7 +43,7 @@
             };
             $scope.voteUp = function($event, index, apiUrl){
                 $event.preventDefault();
-                console.dir(articleService);
+                console.dir(article);
                 console.log(apiUrl);
                 articleService.voteUp(apiUrl,
                     votingExecution('VoteUp success', index),
@@ -92,3 +92,8 @@ articlesController.filter('dateFromNow', function() {
 });
 
 
+articlesController.directive('voteUpLink', function() {
+    return {
+        template: '<span ng-show="article._embedded.votes._links.voteUp.href">up</span><a ng-click="voteUp($event, $index, article._embedded.votes._links.voteUp.href)" class="vote icon-passive icon-activatable" href="#"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>'
+    }
+});

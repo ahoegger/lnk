@@ -24,11 +24,11 @@ routerHelperModule.registerParamModule(router, articleParamModule);
 routerHelperModule.registerParamModule(router, commentParamModule);
 
 router
-    .get('/articles', articleRouterModule.getArticles)
-    .get('/article/:articleId', articleRouterModule.getSingleArticle)
-    .get('/article/:articleId/tags', articleRouterModule.getSingleArticleTags)
-    .get('/article/:articleId/comments', articleRouterModule.getSingleArticleComments)
-    .get('/article/:articleId/comment/:commentId', articleRouterModule.getSingleArticleComments)
+    .get('/articles', jwt({secret: app_constants.secret.secretToken, credentialsRequired: false}), articleRouterModule.getArticles)
+    .get('/article/:articleId', jwt({secret: app_constants.secret.secretToken, credentialsRequired: false}), articleRouterModule.getSingleArticle)
+    .get('/article/:articleId/tags', jwt({secret: app_constants.secret.secretToken, credentialsRequired: false}), articleRouterModule.getSingleArticleTags)
+    .get('/article/:articleId/comments', jwt({secret: app_constants.secret.secretToken, credentialsRequired: false}), articleRouterModule.getSingleArticleComments)
+    .get('/article/:articleId/comment/:commentId', jwt({secret: app_constants.secret.secretToken, credentialsRequired: false}), articleRouterModule.getSingleArticleComments)
 
     .post('/articles', jwt({secret: app_constants.secret.secretToken}), articleRouterModule.postArticle)
     .post('/article/:articleId/voteUp', jwt({secret: app_constants.secret.secretToken}), articleRouterModule.postVoteUp)

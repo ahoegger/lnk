@@ -53,7 +53,7 @@ module.exports = function(datastore) {
                 singleResult = resultSet[i];
                 voteValue = voteValue + singleResult.vote;
                 if (singleResult.userId === userId) {
-                    userVote = voteValue;
+                    userVote = singleResult.vote;
                 }
             }
             return new VoteContainerClass.VoteContainer(voteValue, userVote, articleId);

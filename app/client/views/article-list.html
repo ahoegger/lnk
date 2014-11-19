@@ -24,7 +24,7 @@
         <div class="col-sm-3 hidden-xxs"></div>
     </div>
     <!-- loop over articles -->
-    <div ng-repeat="article in articles">
+    <div ng-repeat="article in articles" ng-controller="singleArticleController">
         <article class="row article-separator">
             <!-- Article begin -->
             <div class="col-xs-12 full-width-xs">
@@ -40,12 +40,12 @@
                         </div>
                         <!-- Voting begin -->
                         <div class="article-voting">
-                            <a ng-click="voteUp($event, $index, article._embedded.votes._links.voteUp.href)"
+                            <a ng-show="article.hasVoteUp" ng-click="voteUp2($event, article._embedded.votes._links.voteUp.href)"
                                class="vote icon-passive icon-activatable" href="#"><i
                                     class="fa fa-arrow-circle-o-up fa-2x"></i></a>
-
-                            <div class="vote position-center">{{article.votes.numberOfVotes}}</div>
-                            <a ng-click="voteDown($event, $index, article._embedded.votes._links.voteDown.href)"
+                            <div class="vote position-center">{{article._embedded.votes.numberOfVotes}}</div>
+                            <!-- div number-of-votes></div -->
+                            <a ng-show="article.hasVoteDown" ng-click="voteDown2($event, article._embedded.votes._links.voteDown.href)"
                                class="vote icon-passive icon-activatable" href="#"><i
                                     class="fa fa-arrow-circle-o-down fa-2x"></i></a>
                         </div>

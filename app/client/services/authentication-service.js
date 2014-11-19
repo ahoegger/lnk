@@ -18,7 +18,7 @@ authenticationService.factory('authenticationService', ['$http', '$window', 'use
             if(loginErrorCallback) {
                 loginErrorCallback();
             }
-        }
+        };
     return {
         logIn: function(username, password, successCallback, errorCallback) {
             console.log('userService:login with user:'+username+' and password:'+password)

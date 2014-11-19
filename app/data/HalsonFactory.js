@@ -105,8 +105,12 @@ _register('Comment', function commentHalsonify(entity) {
 _register('VoteContainer', function voteContainerHalsonify(entity) {
     var baseString = '/api/article/' + entity.articleId;
     var resource = new halson(entity);
-    resource.addLink('voteUp', baseString + '/voteUp');
-    resource.addLink('voteDown', baseString + '/voteDown');
+    if (entity.userVote == undefined || entity.userVote < 1) {
+        resource.addLink('voteUp', baseString + '/voteUp');
+    }
+    if (entity.userVote == undefined || entity.userVote > -1) {
+        resource.addLink('voteDown', baseString + '/voteDown');
+    }
     return resource;
 });
 

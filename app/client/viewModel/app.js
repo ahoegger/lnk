@@ -10,6 +10,7 @@
 var lnkApp = angular.module('lnkApp', [
     'ngRoute'
     , 'articlesController'
+    , 'singleArticleController'
     , 'addArticleController'
     , 'loginController'
     , 'navigationController'
