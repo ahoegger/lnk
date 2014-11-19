@@ -72,7 +72,7 @@
                                 <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a
                                         href="#Users/{{article.submittedBy}}">{{article.submittedBy}}</a></span></li>
                                 <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
-                                <li><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></li>
+                                <li ng-show="hasDelete()" delete-article></li>
                             </ul>
                         </div>
                         <!-- Metadata end -->

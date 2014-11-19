@@ -11,7 +11,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             $scope.article.hasVoteDown = userServiceState.user != undefined && $scope.article._embedded.votes._links.voteDown != undefined;
         };
 
-        var votingExecution = function (message) {
+        var votingExecutionFactory = function (message) {
             var self = {
                 message: message
             };
@@ -30,25 +30,35 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             $event.preventDefault();
             console.log(apiUrl);
             articleService.voteUp(apiUrl,
-                votingExecution('VoteUp success'),
-                votingExecution('VoteUp error')
+                votingExecutionFactory('VoteUp success'),
+                votingExecutionFactory('VoteUp error')
             );
         };
         $scope.voteDown2 = function ($event, apiUrl) {
             $event.preventDefault();
             articleService.voteDown(apiUrl,
-                votingExecution('VoteDown success'),
-                votingExecution('VoteDown error')
+                votingExecutionFactory('VoteDown success'),
+                votingExecutionFactory('VoteDown error')
             );
         };
 
-        $scope.$on('updatedVotes', function(event, args) {
-            $scope.nov = $scope.article.votes.numberOfVotes;
-            $scope.article.hasVoteUp = $scope.article._embedded.votes._links.voteUp != undefined;
-            $scope.article.hasVoteDown = $scope.article._embedded.votes._links.voteDown != undefined;
-        });
+        /**
+         * This controller function deletes the article on the backend and removed the article from the collection
+         */
+        $scope.deleteArticle = function() {
+            // nice: implement check, if user is allowed to delete the article
+            articleService.deleteArticle($scope.article._links.self.href,
+            function(data, status, headers, config) {
+                console.log('deleted!');
+            },
+            function(data, status, headers, config) {
+                console.log('delete not successful');
+            });
+        };
 
         updateVotePropertyOnScope($scope);
+
+        $scope.hasDelete = userServiceState.user != undefined && $scope.article._links.self != undefined && $scope.article.submittedBy === userServiceState.user.userName;
     }
 ]);
 
@@ -56,5 +66,14 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
 singleArticleController.directive('numberOfVotes', function() {
     return {
         template: '<span ng-show="article.hasVoteUp == true" <a ng-click="voteUp2($event, article._embedded.votes._links.voteUp.href)" class="vote icon-passive icon-activatable" href="#"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>'
+    }
+});
+
+/**
+ * This directive creates the html for deleting an article
+ */
+singleArticleController.directive('deleteArticle', function() {
+    return {
+        template: '<a ng-click="deleteArticle()"><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></a>'
     }
 });

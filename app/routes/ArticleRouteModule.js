@@ -147,8 +147,11 @@ module.exports = function(datastore) {
          * @param res
          */
         deleteArticle: function(req, res) {
-            datastore.deleteArticle(req.article);
-            return res.status(204).send();
+            if (req.user.userName === req.article.submittedBy) {
+                datastore.deleteArticle(req.article);
+                return res.status(204).send();
+            }
+            return res.status(403).send();      // forbidden, as logegd in user ist not the one that submitted the article
         },
         /**
          * Returns a single article. The articleId must be in the path and the paramHandler must be installed.
