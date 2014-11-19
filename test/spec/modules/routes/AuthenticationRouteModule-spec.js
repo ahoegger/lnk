@@ -15,6 +15,7 @@ var dummyDataStore = {
 };
 
 var resMock = {
+    status: function(dummy){ return this },
     send: function(){ },
     json: function(dummy) { }
 };
@@ -22,6 +23,7 @@ var resMock = {
 describe('Test authenticate', function() {
     var testModule = new require(app_constants.packagedModule('routes', 'AuthenticationRouteModule.js'))(dummyDataStore);
     var spySend = sinon.spy(resMock, 'send');
+    var spyStatus = sinon.spy(resMock, 'status');
 
     beforeEach(function () {
         spySend.reset();
@@ -55,6 +57,7 @@ describe('Test authenticate', function() {
         dummyDataStore.resultSet = [{isAuthenticated: function() {return true} }];
         testModule.authenticate({body: {userName: 'faked', password: 'not relevant'}}, resMock);
         expect(spyJson.calledOnce).to.be.true;
+        expect(spyStatus.withArgs(302).calledOnce).to.be.true;
         expect(spyJson.firstCall.args[0].token).not.to.be.undefined;
     })
 });
