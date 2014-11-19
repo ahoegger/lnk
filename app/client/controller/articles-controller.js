@@ -5,10 +5,15 @@
 
     articlesController.controller('articleListController', ['$scope', '$location','articleService', 'behaviour',
         function ($scope,  $location, articleService, behaviour) {
+            var errorLoadArticles = function(data){
+                console.log('error loading articles \'articlesController\'');
+                $scope.error = data;
+            };
             var successLoadArticles = function(data, status, headers, config) {
-                $scope.articles = data;
+ 	    	$scope.articles = data;
                 console.log('success with get articles!');
                 $scope.loadingArticles = false;
+
             };
 
             var errorLoadArticles = function(data, status, headers, config) {
@@ -21,7 +26,7 @@
             var initialize = function() {
                 $scope.loadingArticles = true;
                 articleService.getArticles()
-                    .success(successLoadArticles)
+            articleService.getArticles().success(successLoadArticles);
                     .error(errorLoadArticles);
             };
 
