@@ -230,6 +230,18 @@ module.exports = function(datastore) {
             commentObject = datastore.insertComment(commentObject);  // insert the comment
             halsonSingleComment = halsonFactory.halsonify('Comment', commentObject);
             return res.status(201).send(JSON.stringify(halsonSingleComment));
+        },
+        /**
+         * Deletes the article from the datastore
+         * @param req
+         * @param res
+         */
+        deleteSingleArticleComment: function(req, res) {
+            if (req.user.userName === req.comment.submittedBy) {
+                datastore.deleteComment(req.comment);
+                return res.status(204).send();
+            }
+            return res.status(403).send();      // forbidden, as logged in user ist not the one that submitted the article
         }
     }
 };

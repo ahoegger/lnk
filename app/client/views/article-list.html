@@ -95,7 +95,7 @@
                     <div class="comments">
                         <div ng-show="showComments" class="ng-hide clearfix row">
                             <!-- TODO Implement submitting of comment -->
-                            <form class="form-horizontal" role="form"
+                            <form ng-show="hasSubmitComment" class="form-horizontal" role="form"
                                   ng-submit="submitComment($event, $index, article._links.comments.href, article.id)">
                                 <div class="form-group>">
                                     <div class="col-sm-10 cell-spacing-vertical-sm">
@@ -117,7 +117,7 @@
                         </div>
                         <div ng-show="showComments" class="row">
                             <div class="column grid-12">
-                                <ul class="fa-ul comments-ul" ng-repeat="comment in article._embedded.comments">
+                                <ul class="fa-ul comments-ul" ng-repeat="comment in article._embedded.comments track by comment.id"  ng-controller="singleCommentController">
                                     <!-- existing comments -->
                                     <li><i class="fa-li fa fa-comment-o icon-passive"></i>
 
@@ -131,10 +131,8 @@
                                                 <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a
                                                         href="{{comment._links.self.href}}">{{comment.submittedBy}}</a></span>
                                                 </li>
-                                                <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span>
-                                                </li>
-                                                <li><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span>
-                                                </li>
+                                                <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
+                                                <li ng-show="hasDelete" delete-comment></li>
                                             </ul>
                                         </div>
                                     </li>

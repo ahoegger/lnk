@@ -69,12 +69,12 @@ articleServices.factory('articleService', ['$http',
         };
 
         /**
-         * This function calls the http delete method an the backend with the given apiUrl
+         * This function calls the http delete method on the backend with the given apiUrl
          * @param apiUrl
          * @param successCallback
          * @param errorCallback
          */
-        var deleteArticle = function(apiUrl, successCallback, errorCallback) {
+        var deleteEntity = function(apiUrl, successCallback, errorCallback) {
             $http({method: 'DELETE', url: apiUrl})
                 .success(successCallback)
                 .error(errorCallback)
@@ -86,7 +86,8 @@ articleServices.factory('articleService', ['$http',
             voteDown: voteDown,
             submitArticle: submitArticle,
             submitComment: submitComment,
-            deleteArticle: deleteArticle
+            deleteArticle: deleteEntity,
+            deleteComment: deleteEntity
         };
     }]);
 

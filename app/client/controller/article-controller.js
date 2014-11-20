@@ -61,6 +61,8 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
         updateVotePropertyOnScope($scope);
 
         $scope.hasDelete = userServiceState.user != undefined && $scope.article._links.self != undefined && $scope.article.submittedBy === userServiceState.user.userName;
+
+        $scope.hasSubmitComment = userServiceState.user != undefined;
     }
 ]);
 

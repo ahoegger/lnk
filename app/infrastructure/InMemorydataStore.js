@@ -238,6 +238,13 @@ module.exports = {
         return commentsTable.select(queryFunction);
     },
     /**
+     * This function deletes the comment
+     * @param {Comment} comment
+     */
+    deleteComment: function(comment) {
+        commentsTable.remove(comment);
+    },
+    /**
      * This function selects the articles table based on the query function
      * @param {Function} queryFunction The function to query the articles
      * @param {Object} options Options-object
