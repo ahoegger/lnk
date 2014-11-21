@@ -103,7 +103,7 @@ module.exports = function(datastore) {
             };
             resultSet = datastore.selectArticles(query, {
                 includeTags: true,
-                includeComments: true,
+                includeComments: false,
                 includeVoteCount: true,
                 voteUserId: req.user ? req.user.id : undefined
             });

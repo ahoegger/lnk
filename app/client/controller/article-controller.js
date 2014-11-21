@@ -6,6 +6,8 @@ var singleArticleController = angular.module('singleArticleController', ['servic
 singleArticleController.controller('singleArticleController', ['$scope', 'articleService', 'userServiceState',
     function($scope, articleService, userServiceState) {
 
+        var commentsLoaded = false;
+
         var updateVotePropertyOnScope = function($scope) {
             $scope.article.hasVoteUp = userServiceState.user != undefined && $scope.article._embedded.votes._links.voteUp != undefined;
             $scope.article.hasVoteDown = userServiceState.user != undefined && $scope.article._embedded.votes._links.voteDown != undefined;
@@ -63,6 +65,24 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
         $scope.hasDelete = userServiceState.user != undefined && $scope.article._links.self != undefined && $scope.article.submittedBy === userServiceState.user.userName;
 
         $scope.hasSubmitComment = userServiceState.user != undefined;
+
+        $scope.hasCommentsLoaded = commentsLoaded;      // make state of loaded comments accessible
+
+        $scope.doShowComments = function($event) {
+            $event.preventDefault();
+            articleService.loadComments($scope.article._links.comments.href,
+            function(data, status, headers, config) {
+                if ($scope.article._embedded == undefined) {
+                    $scope.article._embedded = {};
+                }
+                $scope.article._embedded.comments = data;
+                $scope.showComments = true;
+            },
+            function(data, status, headers, config) {
+                console.log('Error ' + status + ' loading comments: ' + data);
+            });
+
+        }
     }
 ]);
 

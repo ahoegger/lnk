@@ -79,7 +79,7 @@
                         <!-- Article description end -->
                         <!-- toggle show comment begin -->
                         <div class="show-comments-divider-group">
-                            <a class="article-comments ng-hide" ng-click="showComments = !showComments" href=""
+                            <a class="article-comments ng-hide" ng-click="doShowComments($event)" href=""
                                ng-hide="showComments">Show comments</a>
                             <a class="article-comments ng-hide" ng-click="showComments = !showComments" href=""
                                ng-show="showComments">Hide comments</a>
@@ -94,7 +94,6 @@
                 <div class="col-xs-12">
                     <div class="comments">
                         <div ng-show="showComments" class="ng-hide clearfix row">
-                            <!-- TODO Implement submitting of comment -->
                             <form ng-show="hasSubmitComment" class="form-horizontal" role="form"
                                   ng-submit="submitComment($event, $index, article._links.comments.href, article.id)">
                                 <div class="form-group>">

@@ -80,6 +80,15 @@ articleServices.factory('articleService', ['$http',
                 .error(errorCallback)
         };
 
+        var loadComments = function(apiUrl, successCallback, errorCallback) {
+            $http.get(apiUrl,
+                { headers: {'Content-Type': 'application/json'},
+                  timeout: 5000}
+            )
+                .success( successCallback )
+                .error( errorCallback );
+        };
+
         return {
             getArticles: get,
             voteUp: voteUp,
@@ -87,7 +96,8 @@ articleServices.factory('articleService', ['$http',
             submitArticle: submitArticle,
             submitComment: submitComment,
             deleteArticle: deleteEntity,
-            deleteComment: deleteEntity
+            deleteComment: deleteEntity,
+            loadComments: loadComments
         };
     }]);
 
