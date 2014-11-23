@@ -62,26 +62,34 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
 
         updateVotePropertyOnScope($scope);
 
+        $scope.hasEdit = false; // TODO Implement editing of article
         $scope.hasDelete = userServiceState.user != undefined && $scope.article._links.self != undefined && $scope.article.submittedBy === userServiceState.user.userName;
-
         $scope.hasSubmitComment = userServiceState.user != undefined;
-
         $scope.hasCommentsLoaded = commentsLoaded;      // make state of loaded comments accessible
+        $scope.loadingComments = false;
 
         $scope.doShowComments = function($event) {
             $event.preventDefault();
-            articleService.loadComments($scope.article._links.comments.href,
-            function(data, status, headers, config) {
-                if ($scope.article._embedded == undefined) {
-                    $scope.article._embedded = {};
-                }
-                $scope.article._embedded.comments = data;
+            if (commentsLoaded == false) {
+                $scope.loadingComments = true;
+                articleService.loadComments($scope.article._links.comments.href,
+                    function (data, status, headers, config) {
+                        if ($scope.article._embedded == undefined) {
+                            $scope.article._embedded = {};
+                        }
+                        $scope.article._embedded.comments = data;
+                        commentsLoaded = true;
+                        $scope.showComments = true;
+                        $scope.loadingComments = false;
+                    },
+                    function (data, status, headers, config) {
+                        console.log('Error ' + status + ' loading comments: ' + data);
+                        $scope.loadingComments = false;
+                    });
+            } else {
+                // comments are already loaded, so simply show them
                 $scope.showComments = true;
-            },
-            function(data, status, headers, config) {
-                console.log('Error ' + status + ' loading comments: ' + data);
-            });
-
+            }
         }
     }
 ]);

@@ -23,6 +23,7 @@ singleCommentController.controller('singleCommentController', ['$scope', 'articl
                 });
         };
 
+        $scope.hasEdit = false; // TODO Implement editing of comment
         $scope.hasDelete = userServiceState.user != undefined && $scope.comment._links.self != undefined && $scope.comment.submittedBy === userServiceState.user.userName;
         $scope.hasSubmitComment = userServiceState.user != undefined;
     }

@@ -23,6 +23,12 @@
         </div>
         <div class="col-sm-3 hidden-xxs"></div>
     </div>
+    <!-- begin loading comments spinner section -->
+    <div class="row" ng-show="loadingArticles"> <!-- ng-show="loadingArticles" -->
+        <div class="col-sm-6 col-sm-offset-3">
+            <p class="text-center"><i class="fa fa-spinner fa-spin"></i>Loading articles</p>
+        </div>
+    </div>
     <!-- loop over articles -->
     <div ng-repeat="article in articles" ng-controller="singleArticleController">
         <article class="row article-separator">
@@ -71,7 +77,7 @@
                                 </li>
                                 <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a
                                         href="#Users/{{article.submittedBy}}">{{article.submittedBy}}</a></span></li>
-                                <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
+                                <li ng-show="hasEdit"><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
                                 <li ng-show="hasDelete" delete-article></li>
                             </ul>
                         </div>
@@ -93,6 +99,7 @@
             <div class="no-padding" style="padding-left: 40px;">
                 <div class="col-xs-12">
                     <div class="comments">
+                        <!-- begin submit comments section -->
                         <div ng-show="showComments" class="ng-hide clearfix row">
                             <form ng-show="hasSubmitComment" class="form-horizontal" role="form"
                                   ng-submit="submitComment($event, $index, article._links.comments.href, article.id)">
@@ -114,6 +121,11 @@
                                 </div>
                             </form>
                         </div>
+                        <!-- begin loading comments spinner section -->
+                        <div ng-show="loadingComments">
+                            <p class="text-center"><i class="fa fa-spinner fa-spin"></i>Loading comments</p>
+                        </div>
+                        <!-- begin comments list section -->
                         <div ng-show="showComments" class="row">
                             <div class="column grid-12">
                                 <ul class="fa-ul comments-ul" ng-repeat="comment in article._embedded.comments track by comment.id"  ng-controller="singleCommentController">
@@ -130,7 +142,7 @@
                                                 <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a
                                                         href="{{comment._links.self.href}}">{{comment.submittedBy}}</a></span>
                                                 </li>
-                                                <li><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
+                                                <li ng-show="hasEdit"><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
                                                 <li ng-show="hasDelete" delete-comment></li>
                                             </ul>
                                         </div>

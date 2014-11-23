@@ -8,9 +8,22 @@
             var successLoadArticles = function(data, status, headers, config) {
                 $scope.articles = data;
                 console.log('success with get articles!');
+                $scope.loadingArticles = false;
             };
-            articleService.getArticles().success(successLoadArticles);
 
+            var errorLoadArticles = function(data, status, headers, config) {
+                console.log('error with get articles. Status = ' + status);
+                $scope.loadingArticles = false;
+            };
+
+            $scope.loadingArticle = false;
+
+            var initialize = function() {
+                $scope.loadingArticles = true;
+                articleService.getArticles()
+                    .success(successLoadArticles)
+                    .error(errorLoadArticles);
+            };
 
             var submitCommentExecution = function(message, index) {
                 var self = {
@@ -39,7 +52,10 @@
 
             $scope.search = function(){
                 console.log($scope.searchQuery);
-                articleService.getArticles($scope.searchQuery).success(successLoadArticles);
+                $scope.loadingArticles = true;
+                articleService.getArticles($scope.searchQuery)
+                    .success(successLoadArticles)
+                    .error(errorLoadArticles);
             };
             $scope.voteUp = function($event, index, apiUrl){
                 $event.preventDefault();
@@ -80,6 +96,8 @@
             };
 
             $scope.autoResizeTextarea = behaviour.autoResizeTextarea;
+
+            initialize();
         }]);
 
 /**
