@@ -122,11 +122,9 @@ CrudDatabase.prototype._findPositionById = function(idValue) {
     }
     for (var i = 0, len = this.getData().length; i < len; i += 1) {
         if (this.getData()[i][this.idProperty] != undefined && this.getData()[i][this.idProperty] === idValue) {
-            logger.debug('Found item with id ' + idValue + ' at position ' + i);
             return i;
         }
     }
-    logger.debug('Found no item with id ' + idValue);
     return undefined;
 };
 

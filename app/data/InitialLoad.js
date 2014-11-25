@@ -23,7 +23,7 @@ module.exports = function (datastore) {
                 logger.error('Error', err);
                 return;
             }
-            logger.debug('Loaded', content);
+            // logger.debug('Loaded', content);
             return callback(JSON.parse(content));
         });
     }

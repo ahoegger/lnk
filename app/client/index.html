@@ -32,7 +32,7 @@
     <script src="services/article-service.js"></script>
     <script src="services/behaviour-service.js"></script>
     <script src="services/user-service.js"></script>
-
+    <script src="services/socket-factory.js"></script>
 </head>
 <body>
 
@@ -76,5 +76,9 @@
 <script src="../bower_components/angular-elastic/elastic.js"></script>
 <script src="../bower_components/moment/moment.js"></script>
 <!-- endbuild -->
+<script src="../socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+</script>
 </body>
 </html>

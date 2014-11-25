@@ -20,6 +20,7 @@ var lnkApp = angular.module('lnkApp', [
     , 'angular-momentjs'
     , 'service.tokenInterceptor'
     , 'service.user'
+    , 'socket'
 
 ]);
 

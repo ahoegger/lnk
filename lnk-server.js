@@ -7,6 +7,7 @@
 var express = require('express');
 var requestLogger = require('morgan');     // a requestLogger
 var http = require('http');
+// var io = require('socket.io')(express);              // socket.io
 var path = require('path');                       // path utilities
 var favicon = require('serve-favicon');           // fav-icon handling
 var lessMiddleware = require('less-middleware');  // less middleware, compiles the .less files into .css on the fly; gulp had done this before
@@ -14,12 +15,18 @@ var bodyParser = require('body-parser');          // middleware for body-parsing
 var log4js = require('log4js');
 var logger = log4js.getLogger('lnk-server');
 
+// Prepare the server and the websocket server
+var app = express();
+var server = http.createServer(app);
+var socket = require('socket.io').listen(server);
+
+// start with the implementation of the business logic
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 
 var dataStore = require(app_constants.packagedModule('infrastructure', 'InMemorydataStore.js'));
 var initialLoader = require(app_constants.packagedModule('data', 'InitialLoad.js'))(dataStore);
 
-var articlesRouter = require(app_constants.packagedModule('routes', 'ArticleRouter.js'));
+var articlesRouter = require(app_constants.packagedModule('routes', 'ArticleRouter.js'))(socket);
 var tagsRouter = require(app_constants.packagedModule('routes', 'tags'));
 var userRouter = require(app_constants.packagedModule('routes', 'UserRouter.js'));
 var authenticationRouter = require(app_constants.packagedModule('routes', 'AuthenticationRouter.js'));
@@ -30,9 +37,6 @@ var public_root_path = path.join(app_constants.appPath, 'public');
 var bower_root_path = path.join(app_constants.appPath, 'bower_components');
 var fonts_root_path = path.join(app_constants.appPath, 'bower_components/font-awesome/fonts');
 
-// The express server
-var app = express();
-
 // Generic handling of request
 app.use(favicon(path.join(public_root_path, 'favicon.ico')));      // handle favicon requests in a special way
 app.use(requestLogger('combined'));                                       // use morgan requestLogger function
@@ -41,6 +45,7 @@ app.use(lessMiddleware(public_root_path, {compress: true}));       // transpiles
 // serving static content
 //app.use(express.static(public_root_path));                         // serve static files
 app.use(express.static( path.join(app_constants.appPath, 'client')));                         // serve static files
+app.use(express.static( path.join(app_constants.appPath, 'socket.io')));                         // serve static files
 app.use('/bower_components',  express.static(bower_root_path));    // bower components are not inside public
 app.use('/fonts',  express.static(fonts_root_path));               // needed because of font-awesome.css, gulp had done this before
 
@@ -72,6 +77,24 @@ initialLoader.loadComments(app_constants.packagedModule('data', 'comments.json')
 initialLoader.loadUsers(app_constants.packagedModule('data', 'users.json'));
 initialLoader.loadVotes(app_constants.packagedModule('data', 'votes.json'));
 
+// listeners on websockets
+socket.on('connection', function(client){
+    console.log(socket.id + '=============================================================================================== user connected');
+    client.on('disconnect', function(){
+        console.log('--------------------------------------------------------------user disconnected');
+    });
+    /*
+    client.on('voted:update', function(data){
+        console.log('voted:update --------------------------------------------------------------' + data.toString());
+        data.server = 'updated';
+        client.broadcast.emit('vote:received', data);
+    });
+    */
+});
+
 // start der server
-http.createServer(app).listen(express_server_port);
+server.listen(express_server_port, function(){
+    console.log("Express server listening on port %d in %s mode", server.address().port, app.settings.env);
+});
+
 console.log('Server started on localhost:' + express_server_port + '; press Ctrl-C to terminate....');

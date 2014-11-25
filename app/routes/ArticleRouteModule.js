@@ -20,7 +20,6 @@ var logger = log4js.getLogger('routes.ArticleRouteModule');
  * This function handles post request for voteUp and vote down situations
  * @param req The express request
  * @param res The express response
- * @param next The express next callback
  * @param {Function} checkExistingVoteValueFunction Function that evaluates the current value if a vote exists and returns true, of the vote can be modified. Parameter is the current value of the existing vote
  * @param {Function} updateExistingVoteValueFunction Function that changes the current value of the vote. Parameter is the current value of the existing vote
  * @param newVoteValue Value to be set, if a new vote will be made (i.e. -1 oder 1)
@@ -31,6 +30,7 @@ function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, upd
     var articleUserVote;
     var returnCode;
     var updatedVoteContainer;
+    var halsonUpdatedVoteContainer;
     var userVoteQuery = function(element) {
         if(element.articleId != parseInt(req.params.articleId)) {
             return false;
@@ -58,7 +58,9 @@ function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, upd
     // Cheap trick: Select the article, grab it's VoteContainer and return it to the frontend
     updatedVoteContainer = helper.selectArticleVotes(userVote.articleId, userVote.userId);
     if (updatedVoteContainer) {
-        return res.status(returnCode).send(JSON.stringify(halsonFactory.halsonify('VoteContainer', updatedVoteContainer)));
+        halsonUpdatedVoteContainer = halsonFactory.halsonify('VoteContainer', updatedVoteContainer);
+        socket.emit('vote:updated', halsonUpdatedVoteContainer);
+        return res.status(returnCode).send(JSON.stringify(halsonUpdatedVoteContainer));
     }
 }
 
@@ -82,8 +84,9 @@ function _insertOrUpdateArticle(req, articleDbFunction, tagsDbFunction) {
     return halsonFactory.halsonify('Article', articleObject);
 }
 
-module.exports = function(datastore) {
+module.exports = function(datastore, socket) {
     this.datastore = datastore;
+    this.socket = socket;
 
     return {
         /**
@@ -108,7 +111,6 @@ module.exports = function(datastore) {
                 voteUserId: req.user ? req.user.id : undefined
             });
             halsonResultSet = halsonFactory.halsonifyArray('Article', resultSet);
-            logger.debug('Returning articles', halsonResultSet);
             return res.status(200).send(JSON.stringify(halsonResultSet));
         },
         postArticle: function(req, res) {

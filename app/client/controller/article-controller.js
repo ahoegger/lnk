@@ -1,10 +1,10 @@
 /**
  * Created by Holger on 17.11.2014.
  */
-var singleArticleController = angular.module('singleArticleController', ['service.article', 'service.user']);
+var singleArticleController = angular.module('singleArticleController', ['service.article', 'service.user', 'socket']);
 
-singleArticleController.controller('singleArticleController', ['$scope', 'articleService', 'userServiceState',
-    function($scope, articleService, userServiceState) {
+singleArticleController.controller('singleArticleController', ['$scope', 'articleService', 'userServiceState', 'socket',
+    function($scope, articleService, userServiceState, socket) {
 
         var commentsLoaded = false;
 
@@ -13,7 +13,18 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             $scope.article.hasVoteDown = userServiceState.user != undefined && $scope.article._embedded.votes._links.voteDown != undefined;
         };
 
+        // listener on websockt event broadcast to update the vote
+        socket.on('vote:updated', function(data) {
+            // received an updated vote. search, if the the available articles, there is one with the given id and then update it's vote value
+                if($scope.article.id === data.articleId) {
+                    $scope.article._embedded.votes = data;
+                }
+        });
+
         var votingExecutionFactory = function (message) {
+            socket.emit('voted:update', {
+                thingy: 'super cool"'
+            });
             var self = {
                 message: message
             };

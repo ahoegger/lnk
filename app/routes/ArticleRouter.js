@@ -13,7 +13,7 @@ var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constant
 var datastore = require(app_constants.packagedModule('infrastructure', 'InMemorydataStore.js'));
 
 var routerHelperModule = require(app_constants.packagedModule('routes', 'RouterHelperModule.js'))();
-var articleRouterModule = require(app_constants.packagedModule('routes', 'ArticleRouteModule.js'))(datastore);
+var articleRouterModule = require(app_constants.packagedModule('routes', 'ArticleRouteModule.js'))(datastore, this.socket);
 var articleParamModule = require(app_constants.packagedModule('routes', 'ArticleParamModule.js'))(datastore);
 var commentParamModule = require(app_constants.packagedModule('routes', 'CommentParamModule.js'))(datastore);
 var jwt = require('express-jwt');       // route handler for authenticating against a token
@@ -45,4 +45,7 @@ router
     .get('/article/:articleId/votes/:userId', jwt({secret: app_constants.secret.secretToken, credentialsRequired: false}), routerHelperModule.notYetImplementedHandler)  // TODO Implement
     ;
 
-module.exports = router;
+module.exports = function(socket) {
+    this.socket = socket;
+    return router;
+};
