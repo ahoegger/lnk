@@ -9,7 +9,7 @@ authenticationService.factory('authenticationService', ['$http', '$window', 'aut
         var userInternal = undefined;
         var loginSuccessFunction = function (data, loginSuccessCallback) {
             console.log('successful logged in...');
-            authenticationState.setAuthentication(data.user.id, data.token);
+            authenticationState.setAuthentication(data.user, data.token);
             loginSuccessCallback();
         };
         var loginErrorFunction = function (data, loginErrorCallback) {
@@ -57,35 +57,39 @@ authenticationService.factory('authenticationService', ['$http', '$window', 'aut
 
 authenticationService.factory('authenticationState', [ '$window',
     function ($window) {
-        var setAuthenticationInternal = function (userId, token) {
-            if(userId == undefined){
-                delete $window.sessionStorage.userId;
+        var internalUser = undefined;
+        var setAuthenticationInternal = function (user, token) {
+            if(user == undefined){
+                delete $window.sessionStorage.user;
+                internalUser = undefined;
             }else{
-                $window.sessionStorage.userId = userId;
+                $window.sessionStorage.user = JSON.stringify(user);
+                internalUser = user;
             }
             if(token == undefined){
                 delete $window.sessionStorage.token;
             }else{
                 $window.sessionStorage.token = token;
             }
-
         };
 
         var getUserTokenInternal = function () {
             return $window.sessionStorage.token;
         };
 
-        var getUserIdInternal = function () {
-            var userId = $window.sessionStorage.userId;
-            if(userId != undefined){
-                var numUserId = Number(userId);
-                return  numUserId;
-            }
-            return undefined;
+        var getUserInternal = function () {
+            return internalUser;
         };
+        // try to read user from session store
+        var userString = $window.sessionStorage.user;
+        if(userString != undefined){
+            internalUser = JSON.parse(userString);
+        }else{
+            internalUser = undefined;
+        }
 
         return {
-            getUserId: getUserIdInternal,
+            getUser: getUserInternal,
             getUserToken: getUserTokenInternal,
             setAuthentication: setAuthenticationInternal
         };

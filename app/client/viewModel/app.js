@@ -68,7 +68,7 @@ lnkApp.config(['$routeProvider',
 
         $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
             console.log('route to: '+nextRoute.templateUrl);
-            if (nextRoute.access && nextRoute.access.requiredLogin && !authenticationState.getUserId()) {
+            if (nextRoute.access && nextRoute.access.requiredLogin && authenticationState.getUser() == undefined) {
                 $location.path("/login");
             }
         });

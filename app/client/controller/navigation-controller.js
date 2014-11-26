@@ -7,22 +7,23 @@ var navigationController = angular.module('navigationController', ['service.auth
 
 navigationController.controller('navigationController', ['$scope', '$rootScope', '$window', '$location', '$http', 'userService', 'authenticationService','authenticationState',
     function ($scope, $rootScope, $window, $location, $http, userService, authenticationService,authenticationState) {
-        var loadUserById = function(userId){
-            if( userId != undefined){
-                userService.getUser(userId).success(function(data, status, headers, config){
-                    console.dir(data);
-                    console.log("user loaded: ")
-                    $scope.user = data;
-                });
-            }else{
-                $scope.user = undefined;
-            }
+//        var loadUserById = function(userId){
+//            if( userId != undefined){
+//                userService.getUser(userId).success(function(data, status, headers, config){
+//                    console.dir(data);
+//                    console.log("user loaded: ")
+//                    $scope.user = data;
+//                });
+//            }else{
+//                $scope.user = undefined;
+//            }
+//
+//        };
 
-        };
-
-        $scope.$watch(authenticationState.getUserId, function(){
-            $scope.userId = authenticationState.getUserId();
-            loadUserById(authenticationState.getUserId());
+        $scope.$watch(authenticationState.getUser, function(){
+            $scope.user = authenticationState.getUser();
+//            $scope.userId = authenticationState.getUserId();
+//            loadUserById(authenticationState.getUserId());
         });
 //        // watch userId on user state service
 //        $scope.$watch(userServiceState.userId, function (newValue) {
@@ -39,11 +40,7 @@ navigationController.controller('navigationController', ['$scope', '$rootScope',
 
 //        $scope.user = userServiceState.getUser();
 //        $scope.userStateService = userServiceState;
-        if ($scope.user) {
-            console.log('userName: ' + $scope.user.userName);
-        } else {
-            console.log('no user !!!');
-        }
+
         $scope.isActiveRoute = function (routeName) {
             var regex = new RegExp('/?' + routeName.toLowerCase() + '/?');
             return regex.test($location.path().toLowerCase());

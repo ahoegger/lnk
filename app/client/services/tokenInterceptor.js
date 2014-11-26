@@ -31,7 +31,7 @@ tokenInterceptorService.factory('tokenInterceptor', function ($q, $window, $loca
         responseError: function(rejection) {
             if (rejection != null && rejection.status === 401 && ($window.sessionStorage.token || authenticationState.isAuthenticated)) {
                 delete $window.sessionStorage.token;
-                userServiceState.isAuthenticated = false;
+                authenticationState.isAuthenticated = false;
                 $location.path("/admin/login");
             }
 

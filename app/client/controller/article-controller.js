@@ -1,34 +1,21 @@
 /**
  * Created by Holger on 17.11.2014.
  */
-var singleArticleController = angular.module('singleArticleController', ['service.article', 'service.user','service.authentication', 'socket']);
+var singleArticleController = angular.module('singleArticleController', ['service.article', 'service.authentication', 'socket']);
 
-singleArticleController.controller('singleArticleController', ['$scope', 'articleService','userService', 'authenticationState', 'socket',
-    function($scope, articleService, userService,authenticationState, socket) {
+singleArticleController.controller('singleArticleController', ['$scope', 'articleService', 'authenticationState', 'socket',
+    function($scope, articleService, authenticationState, socket) {
 
-//        var loadUserById = function(userId){
-//            if( userId != undefined){
-//                userService.getUser(userId).success(function(data, status, headers, config){
-//                    $scope.user = data;
-//                });
-//            }else{
-//                $scope.user = undefined;
-//            }
-//            handleUserChanged();
-//
-//        };
-//
-        $scope.$watch(authenticationState.getUserId, function(){
-//            $scope.userId = authenticationState.getUserId();
-//            loadUserById(authenticationState.getUserId());
+        // add watch to auth state userId to update visibility of delete.
+        $scope.$watch(authenticationState.getUser, function(){
             handleUserChanged();
         });
 
         var author = $scope.article._embedded.user;
 
         var handleUserChanged = function(){
-            $scope.hasDelete = $scope.article._links.self != undefined && $scope.article._embedded.user.id === authenticationState.getUserId();
-            $scope.hasSubmitComment = authenticationState.getUserId() != undefined;
+            $scope.hasDelete = authenticationState.getUser() != undefined &&  $scope.article._links.self != undefined && $scope.article._embedded.user.id === authenticationState.getUser().id;
+            $scope.hasSubmitComment = authenticationState.getUser() != undefined;
         }
 
         var commentsLoaded = false;
