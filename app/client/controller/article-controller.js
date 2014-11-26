@@ -103,15 +103,14 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             });
         };
 
-
+        $scope.newCommentValue;
 
         $scope.submitComment = function ($event, index, apiUrl, articleId) {
             var commentObject;
             $event.preventDefault();
             commentObject = {
                 articleId: articleId,
-                text: $event.target[0].value,
-                submittedBy: 'FIXME',
+                text: $event.srcElement[0].value,
                 submittedOn: new Date()
             };
             articleService.submitComment(apiUrl,
