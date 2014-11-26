@@ -94,7 +94,7 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
                 articleDto.imageUrl = getImageUrlInternal();
                 articleDto.tags = _tagStringToArray($scope.article.tags, ',');
                 articleDto.submittedOn = new Date();
-                articleDto.submittedBy = userServiceState.user.username;
+                articleDto.submittedBy = authenticationState.getUserId();
 
                 console.dir(articleDto);
                 articleService.submitArticle(articleDto,
