@@ -6,26 +6,29 @@ var singleArticleController = angular.module('singleArticleController', ['servic
 singleArticleController.controller('singleArticleController', ['$scope', 'articleService','userService', 'authenticationState', 'socket',
     function($scope, articleService, userService,authenticationState, socket) {
 
-        var loadUserById = function(userId){
-            if( userId != undefined){
-                userService.getUser(userId).success(function(data, status, headers, config){
-                    $scope.user = data;
-                });
-            }else{
-                $scope.user = undefined;
-            }
-            handleUserChanged();
-
-        };
-
+//        var loadUserById = function(userId){
+//            if( userId != undefined){
+//                userService.getUser(userId).success(function(data, status, headers, config){
+//                    $scope.user = data;
+//                });
+//            }else{
+//                $scope.user = undefined;
+//            }
+//            handleUserChanged();
+//
+//        };
+//
         $scope.$watch(authenticationState.getUserId, function(){
-            $scope.userId = authenticationState.getUserId();
-            loadUserById(authenticationState.getUserId());
+//            $scope.userId = authenticationState.getUserId();
+//            loadUserById(authenticationState.getUserId());
+            handleUserChanged();
         });
 
+        var author = $scope.article._embedded.user;
+
         var handleUserChanged = function(){
-            $scope.hasDelete = $scope.user && $scope.article._links.self != undefined && $scope.article.submittedBy === $scope.user.userName;
-            $scope.hasSubmitComment = $scope.user != undefined;
+            $scope.hasDelete = $scope.article._links.self != undefined && $scope.article._embedded.user.id === authenticationState.getUserId();
+            $scope.hasSubmitComment = authenticationState.getUserId() != undefined;
         }
 
         var commentsLoaded = false;

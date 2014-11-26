@@ -76,7 +76,12 @@ authenticationService.factory('authenticationState', [ '$window',
         };
 
         var getUserIdInternal = function () {
-            return $window.sessionStorage.userId;
+            var userId = $window.sessionStorage.userId;
+            if(userId != undefined){
+                var numUserId = Number(userId);
+                return  numUserId;
+            }
+            return undefined;
         };
 
         return {
