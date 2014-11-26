@@ -252,6 +252,7 @@ module.exports = {
      */
     selectArticles: function(queryFunction, options) {
         var resultSet;
+        var singleUser;
         var i,len;
         options = options || {
             includeTags: false,
@@ -279,9 +280,11 @@ module.exports = {
         }
         if (options.includeUser) {
             for(i = 0, len = resultSet.length; i < len; i++) {
-                resultSet[i].user = _selectUser(function(entity) {
-                    return entity.userName === resultSet[i].userName;
-                });
+                singleUser = _selectUser(function(entity) {
+                    return entity.userName === resultSet[i].submittedBy;
+                })[0];
+                delete singleUser.password;
+                resultSet[i].user = singleUser;
             }
         }
         return resultSet;

@@ -48,6 +48,7 @@ _register('Article', function articleHalsonify(entity) {
     var halsonTags;
     var halsonComments;
     var halsonVoteContainer;
+    var halsonUser;
     var baseString = '/api/article/' + entity.id;
     var resource = new halson(entity);
     resource.addLink('self', baseString);
@@ -67,6 +68,12 @@ _register('Article', function articleHalsonify(entity) {
         halsonVoteContainer = _halsonify('VoteContainer', entity.votes);
         resource.addEmbed('votes', halsonVoteContainer);
         delete entity.votes;
+    }
+    if (entity.user != undefined) {
+        halsonUser = _halsonify('User', entity.user);
+        resource.addEmbed('user', halsonUser);
+        delete resource.submittedBy;
+        delete resource.user;
     }
     resource.addLink('tags', baseString + '/tags');
     resource.addLink('comments', baseString + '/comments');

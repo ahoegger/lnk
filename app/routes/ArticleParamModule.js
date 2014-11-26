@@ -20,6 +20,7 @@ function _paramFunction(req, res, next, articleId) {
         includeTags: true,
         includeComments: true,
         includeVoteCount: true,
+        includeUser: true,
         voteUserId: req.user ? res.user.id : undefined
     });
     if (!articleResultSet || articleResultSet.length === 0) {
