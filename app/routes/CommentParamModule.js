@@ -14,7 +14,7 @@ var ArticleClass = require(app_constants.packagedModule('entities', 'Comment.js'
  var ArticleUserVoteClass = require(app_constants.packagedModule('entities', 'ArticleUserVote.js'));
  var CommentClass = require(app_constants.packagedModule('entities', 'Comment.js'));
  */
-// var inMemoryDatabase = require(app_constants.packagedModule('infrastructure', 'InMemorydataStore.js'));
+// var inMemoryDatabase = require(app_constants.packagedModule('data', 'InMemorydataStore.js'));
 
 var logger = log4js.getLogger('routes.CommentParamModule');
 

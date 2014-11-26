@@ -10,7 +10,7 @@ var log4js = require('log4js');
 var url = require('url');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 
-var datastore = require(app_constants.packagedModule('infrastructure', 'InMemorydataStore.js'));
+var datastore = require(app_constants.packagedModule('data', 'InMemorydataStore.js'));
 
 var routerHelperModule = require(app_constants.packagedModule('routes', 'RouterHelperModule.js'))();
 var articleRouterModule = require(app_constants.packagedModule('routes', 'ArticleRouteModule.js'))(datastore, this.socket);

@@ -45,10 +45,8 @@ module.exports = function(datastore) {
 
             user = resultSet[0];
             if (user.isAuthenticated(password, false)) {
-                // TODO verify if logic really works
-                // jwt({ secret: secret.secretToken, userProperty: 'auth'});
                 token = jwt.sign(user, secret.secretToken, { expiresInMinutes: 60 });
-                return res.status(302).json({token:token, user: user});
+                return res.status(200).json({token:token, user: user});
             } else {
                 return res.send(401);
             }

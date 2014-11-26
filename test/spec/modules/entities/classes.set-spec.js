@@ -5,7 +5,7 @@ var expect = require('chai').expect;
 
 var path = require('path');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
-var classesModule = require(app_constants.packagedModule('infrastructure', 'classes'));
+var classesModule = require(app_constants.packagedModule('entities', 'classes.js'));
 
 describe('Test the StringSet class', function () {
     describe('Test basic functionality', function () {

@@ -13,7 +13,6 @@ var resolve_any_app_module = function(module_name) {
 };
 
 // Create some static paths
-var predefined_infrastructure = resolve_any_app_module('infrastructure');
 var predefined_routes = resolve_any_app_module('routes');
 var predefined_data = resolve_any_app_module('data');
 var predefined_entities = resolve_any_app_module('entities');
@@ -25,9 +24,6 @@ var module_packages = {
     },
     routes: {
         path: predefined_routes
-    },
-    infrastructure: {
-        path: predefined_infrastructure
     },
     entities: {
         path: predefined_entities

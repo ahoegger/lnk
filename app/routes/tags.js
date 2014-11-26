@@ -6,7 +6,6 @@ var log4js = require('log4js');
 var path = require('path');
 var halson = require('halson');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
-var datastore = require(app_constants.packagedModule('infrastructure', 'datastore'));
 
 var router = express.Router();
 var logger = log4js.getLogger('routers.tags');

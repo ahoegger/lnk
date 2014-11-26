@@ -257,6 +257,7 @@ module.exports = {
             includeTags: false,
             includeComments: false,
             includeVoteCount: false,
+            includeUser: false,
             voteUserId: undefined
         };   // default value
         resultSet = articlesTable.select(queryFunction);
@@ -274,6 +275,13 @@ module.exports = {
         if (options.includeVoteCount) {
             for(i = 0, len = resultSet.length; i < len; i++) {
                 resultSet[i].votes = _selectVotes(resultSet[i].id, options.voteUserId);
+            }
+        }
+        if (options.includeUser) {
+            for(i = 0, len = resultSet.length; i < len; i++) {
+                resultSet[i].user = _selectUser(function(entity) {
+                    return entity.userName === resultSet[i].userName;
+                });
             }
         }
         return resultSet;
