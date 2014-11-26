@@ -61,10 +61,3 @@ userService.factory('userService', ['$http',
         };
     }]);
 
-userService.factory('userServiceState', function () {
-    var auth = {
-        user: undefined
-    };
-
-    return auth;
-});

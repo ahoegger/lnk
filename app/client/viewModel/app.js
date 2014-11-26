@@ -20,6 +20,7 @@ var lnkApp = angular.module('lnkApp', [
     , 'angular-momentjs'
     , 'service.tokenInterceptor'
     , 'service.user'
+    , 'service.authentication'
     , 'socket'
 
 ]);
@@ -63,10 +64,11 @@ lnkApp.config(['$routeProvider',
             });
     }
 ])
-    .run(function($rootScope, $location, userServiceState) {
+    .run(function($rootScope, $location, authenticationState) {
 
         $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
-            if (nextRoute.access && nextRoute.access.requiredLogin && !userServiceState.user) {
+            console.log('route to: '+nextRoute.templateUrl);
+            if (nextRoute.access && nextRoute.access.requiredLogin && !authenticationState.getUserId()) {
                 $location.path("/login");
             }
         });

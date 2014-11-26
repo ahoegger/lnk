@@ -1,16 +1,38 @@
 /**
  * Created by Holger on 17.11.2014.
  */
-var singleArticleController = angular.module('singleArticleController', ['service.article', 'service.user', 'socket']);
+var singleArticleController = angular.module('singleArticleController', ['service.article', 'service.user','service.authentication', 'socket']);
 
-singleArticleController.controller('singleArticleController', ['$scope', 'articleService', 'userServiceState', 'socket',
-    function($scope, articleService, userServiceState, socket) {
+singleArticleController.controller('singleArticleController', ['$scope', 'articleService','userService', 'authenticationState', 'socket',
+    function($scope, articleService, userService,authenticationState, socket) {
+
+        var loadUserById = function(userId){
+            if( userId != undefined){
+                userService.getUser(userId).success(function(data, status, headers, config){
+                    console.dir(data);
+                    console.log("user loaded: ")
+                    $scope.user = data;
+                    $scope.hasDelete = $scope.user && $scope.article._links.self != undefined && $scope.article.submittedBy === $scope.user.userName;
+                    console.log('hasDelete '+$scope.hasDelete);
+                });
+            }else{
+                $scope.user = undefined;
+                $scope.hasDelete = $scope.user && $scope.article._links.self != undefined && $scope.article.submittedBy === $scope.user.userName;
+                console.log('hasDelete '+$scope.hasDelete);
+            }
+
+        };
+
+        $scope.$watch(authenticationState.getUserId, function(){
+            $scope.userId = authenticationState.getUserId();
+            loadUserById(authenticationState.getUserId());
+        });
 
         var commentsLoaded = false;
 
         var updateVotePropertyOnScope = function($scope) {
-            $scope.article.hasVoteUp = userServiceState.user != undefined && $scope.article._embedded.votes._links.voteUp != undefined;
-            $scope.article.hasVoteDown = userServiceState.user != undefined && $scope.article._embedded.votes._links.voteDown != undefined;
+            $scope.article.hasVoteUp = authenticationState.getUserId() != undefined && $scope.article._embedded.votes._links.voteUp != undefined;
+            $scope.article.hasVoteDown = authenticationState.getUserId() != undefined && $scope.article._embedded.votes._links.voteDown != undefined;
         };
 
         // listener on websockt event broadcast to update the vote
@@ -74,8 +96,8 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
         updateVotePropertyOnScope($scope);
 
         $scope.hasEdit = false; // TODO Implement editing of article
-        $scope.hasDelete = userServiceState.user != undefined && $scope.article._links.self != undefined && $scope.article.submittedBy === userServiceState.user.userName;
-        $scope.hasSubmitComment = userServiceState.user != undefined;
+        $scope.hasDelete = $scope.user && $scope.article._links.self != undefined && $scope.article.submittedBy === $scope.user.userName;
+        $scope.hasSubmitComment = authenticationState.getUserId() != undefined;
         $scope.hasCommentsLoaded = commentsLoaded;      // make state of loaded comments accessible
         $scope.loadingComments = false;
 

@@ -3,10 +3,10 @@
  * Controller for single comments to be used in the loop of the article
  */
 
-var singleCommentController = angular.module('singleCommentController', ['service.article', 'service.user']);
+var singleCommentController = angular.module('singleCommentController', ['service.article', 'service.authentication']);
 
-singleCommentController.controller('singleCommentController', ['$scope', 'articleService', 'userServiceState',
-    function($scope, articleService, userServiceState) {
+singleCommentController.controller('singleCommentController', ['$scope', 'articleService', 'authenticationState',
+    function($scope, articleService, authenticationState) {
 
         /**
          * This controller function deletes the article on the backend and removed the article from the collection

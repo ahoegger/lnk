@@ -3,8 +3,8 @@
  */
 var userCreateController = angular.module('userCreateController', [ 'service.authentication','service.user', 'service.authentication']);
 
-userCreateController.controller('userCreateController', ['$scope','$location','$routeParams','userServiceState','userService','authenticationService',
-    function ($scope, $location,$routeParams,   userServiceState, userService,authenticationService) {
+userCreateController.controller('userCreateController', ['$scope','$location','$routeParams','authenticationState','userService','authenticationService',
+    function ($scope, $location,$routeParams,   authenticationState, userService,authenticationService) {
         $scope.$on('$viewContentLoaded', function(){
             $("input[autofocus]:not([ng-readonly=true])").first().focus();
         });

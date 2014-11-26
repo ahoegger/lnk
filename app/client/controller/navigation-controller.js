@@ -5,27 +5,51 @@
 
 var navigationController = angular.module('navigationController', ['service.authentication', 'service.user']);
 
-navigationController.controller('navigationController', ['$scope','$rootScope','$location', '$http', 'userServiceState', 'userService','authenticationService',
-    function ($scope, $rootScope, $location,$http, userServiceState, userService,authenticationService) {
-//        var updateUserData = function(userId){
-//            userService.getUser(userId).success(function(data, status, headers, config){
-//                console.dir(data);
-//                console.log("user loaded: ")
-//                $scope.user = data.user;
-//            });
-//        };
+navigationController.controller('navigationController', ['$scope', '$rootScope', '$window', '$location', '$http', 'userService', 'authenticationService','authenticationState',
+    function ($scope, $rootScope, $window, $location, $http, userService, authenticationService,authenticationState) {
+        var loadUserById = function(userId){
+            if( userId != undefined){
+                userService.getUser(userId).success(function(data, status, headers, config){
+                    console.dir(data);
+                    console.log("user loaded: ")
+                    $scope.user = data;
+                });
+            }else{
+                $scope.user = undefined;
+            }
+
+        };
+
+        $scope.$watch(authenticationState.getUserId, function(){
+            $scope.userId = authenticationState.getUserId();
+            loadUserById(authenticationState.getUserId());
+        });
 //        // watch userId on user state service
 //        $scope.$watch(userServiceState.userId, function (newValue) {
 //            updateUserData(newValue);
 ////            alert("isLoggedIn changed to " + newValue);
 //        });
-        $scope.userStateService = userServiceState;
-        $scope.isActiveRoute = function(routeName){
-            var regex = new RegExp('/?'+routeName.toLowerCase()+'/?');
+        var doLoginInternal = function (event) {
+            $location.path('/login')
+        }
+//        var loadUserByIdInternal = function (userId){
+//          userService.getUser
+//        };
+        $scope.doLogin = doLoginInternal;
+
+//        $scope.user = userServiceState.getUser();
+//        $scope.userStateService = userServiceState;
+        if ($scope.user) {
+            console.log('userName: ' + $scope.user.userName);
+        } else {
+            console.log('no user !!!');
+        }
+        $scope.isActiveRoute = function (routeName) {
+            var regex = new RegExp('/?' + routeName.toLowerCase() + '/?');
             return regex.test($location.path().toLowerCase());
         }
-        $scope.logout = function($event){
-            if($event) {
+        $scope.logout = function ($event) {
+            if ($event) {
                 $event.preventDefault();
             }
             authenticationService.logOut();

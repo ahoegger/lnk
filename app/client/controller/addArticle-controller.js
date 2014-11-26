@@ -3,7 +3,7 @@
  */
 
 
-var addArticleController = angular.module('addArticleController', ['service.article', 'service.behaviour', 'service.user']);
+var addArticleController = angular.module('addArticleController', ['service.article', 'service.behaviour', 'service.authentication']);
 
 addArticleController.directive('imageonload',
     function () {
@@ -25,10 +25,10 @@ addArticleController.directive('imageonload',
     });
 
 
-addArticleController.controller('addArticleController', ['$scope', '$location', 'articleService', 'behaviour', 'userServiceState',
+addArticleController.controller('addArticleController', ['$scope', '$location', 'articleService', 'behaviour', 'authenticationState',
 
 
-    function ($scope, $location, articleService, behaviour, userServiceState) {
+    function ($scope, $location, articleService, behaviour, authenticationState) {
 
         $scope.$on('$viewContentLoaded', function () {
             $("input[autofocus]").first().focus();
@@ -49,7 +49,7 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
                 });
                 return trimmedTags;
             }
-        }
+        };
 
         var _genericHttpCallbackFactory = function (message) {
             var self = {
@@ -73,16 +73,16 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
                 return $scope.article.url;
             }
             return undefined;
-        }
+        };
 
         var onPostArticleSuccess = function(data){
             console.log('successful posted article.');
             $location.path('/articles')
-        }
+        };
 
         var onPostArticleError = function(data){
             // TODO set error message
-        }
+        };
 
         $scope.postArticle = function ($event, $form) {
             var articleDto = {};

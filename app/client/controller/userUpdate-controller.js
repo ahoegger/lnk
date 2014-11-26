@@ -3,7 +3,7 @@
  */
 var userUpdateController = angular.module('userUpdateController', [ 'service.authentication','service.user']);
 
-userUpdateController.controller('userUpdateController', ['$scope','$location','$routeParams','userServiceState','userService',
+userUpdateController.controller('userUpdateController', ['$scope','$location','$routeParams','authenticationState','userService',
     function ($scope, $location,$routeParams,   userServiceState, userService) {
         $scope.$on('$viewContentLoaded', function(){
             $("input[autofocus]:not([ng-readonly])").first().focus();
