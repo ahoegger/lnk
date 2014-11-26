@@ -69,6 +69,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             return function (data, status, headers, config) {
                 console.log('Submit comment callback ' + self.message);
                 console.log(data);
+                $scope.submittingComment = false;
             }
         };
         $scope.voteUp2 = function ($event, apiUrl) {
@@ -108,6 +109,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
         $scope.submitComment = function ($event, index, apiUrl, articleId) {
             var commentObject;
             $event.preventDefault();
+            $scope.submittingComment = true;
             commentObject = {
                 articleId: articleId,
                 text: $event.srcElement[0].value,
@@ -121,6 +123,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
                     // Finally, add the comment object from the response to the viewModel
                     $scope.articles[index]._embedded.comments.push(data);
                     $event.target[0].value = '';
+                    $scope.submittingComment = false;
                 },
                 submitCommentExecution('Submit comment error', index)
             );
@@ -133,6 +136,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
 
         $scope.hasCommentsLoaded = commentsLoaded;      // make state of loaded comments accessible
         $scope.loadingComments = false;
+        $scope.submittingComment = false;
 
         $scope.doShowComments = function($event) {
             $event.preventDefault();
@@ -156,7 +160,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
                 // comments are already loaded, so simply show them
                 $scope.showComments = true;
             }
-        }
+        };
 
         handleUserChanged();
         updateVotePropertyOnScope($scope);
