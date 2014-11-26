@@ -20,9 +20,10 @@ loginController.controller('loginController', ['$scope','$location', '$window','
             $location.path("/");
         };
 
-        $scope.login = function logIn(username, password) {
-            username = $scope.login.username;
-            password = $scope.login.password;
+        $scope.login = function logIn($event, $form) {
+            $event.preventDefault();
+            var username = $scope.login.username;
+            var password = $scope.login.password;
             authenticationService.logIn(username, password,loginSuccess);
         };
 
