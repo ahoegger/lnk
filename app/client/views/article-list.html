@@ -77,7 +77,7 @@
                                 <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer">{{article.submittedOn | dateFromNow}}</span>
                                 </li>
                                 <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a
-                                        href="#Users/{{article.submittedBy}}">{{article.submittedBy}}</a></span></li>
+                                        href="#Users/{{article.submittedBy}}">{{article._embedded.user.userName}}</a></span></li>
                                 <li ng-show="hasEdit"><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
                                 <li ng-show="hasDelete" delete-article></li>
                             </ul>
