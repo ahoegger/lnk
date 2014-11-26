@@ -61,6 +61,16 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             }
         };
 
+        var submitCommentExecution = function (message, index) {
+            var self = {
+                message: message,
+                index: index
+            };
+            return function (data, status, headers, config) {
+                console.log('Submit comment callback ' + self.message);
+                console.log(data);
+            }
+        };
         $scope.voteUp2 = function ($event, apiUrl) {
             $event.preventDefault();
             console.log(apiUrl);
@@ -93,8 +103,31 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             });
         };
 
-        handleUserChanged();
-        updateVotePropertyOnScope($scope);
+
+
+        $scope.submitComment = function ($event, index, apiUrl, articleId) {
+            var commentObject;
+            $event.preventDefault();
+            commentObject = {
+                articleId: articleId,
+                text: $event.target[0].value,
+                submittedBy: 'FIXME',
+                submittedOn: new Date()
+            };
+            articleService.submitComment(apiUrl,
+                commentObject,
+                function (data, status, headers, config) {
+                    console.log('Submit comment callback ' + self.message);
+                    console.log(data);
+                    // Finally, add the comment object from the response to the viewModel
+                    $scope.articles[index]._embedded.comments.push(data);
+                    $event.target[0].value = '';
+                },
+                submitCommentExecution('Submit comment error', index)
+            );
+        };
+
+
 
         $scope.hasEdit = false; // TODO Implement editing of article
 //        $scope.hasDelete = $scope.user && $scope.article._links.self != undefined && $scope.article.submittedBy === $scope.user.userName;
@@ -125,6 +158,9 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
                 $scope.showComments = true;
             }
         }
+
+        handleUserChanged();
+        updateVotePropertyOnScope($scope);
     }
 ]);
 
