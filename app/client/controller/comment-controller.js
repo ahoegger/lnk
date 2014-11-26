@@ -3,11 +3,32 @@
  * Controller for single comments to be used in the loop of the article
  */
 
-var singleCommentController = angular.module('singleCommentController', ['service.article', 'service.authentication']);
+var singleCommentController = angular.module('singleCommentController', ['service.article', 'service.user','service.authentication']);
 
-singleCommentController.controller('singleCommentController', ['$scope', 'articleService', 'authenticationState',
-    function($scope, articleService, authenticationState) {
+singleCommentController.controller('singleCommentController', ['$scope', 'articleService', 'userService', 'authenticationState',
+    function($scope, articleService,userService, authenticationState) {
+        var loadUserById = function(userId){
+            if( userId != undefined){
+                userService.getUser(userId).success(function(data, status, headers, config){
+                    $scope.user = data;
+                });
+            }else{
+                $scope.user = undefined;
+            }
+            handleUserChanged();
 
+        };
+
+        $scope.$watch(authenticationState.getUserId, function(){
+            $scope.userId = authenticationState.getUserId();
+            loadUserById(authenticationState.getUserId());
+        });
+
+        var handleUserChanged = function(){
+            $scope.hasEdit = false; // TODO Implement editing of comment
+            $scope.hasDelete = $scope.user != undefined && $scope.comment._links.self != undefined && $scope.comment.submittedBy === $scope.user.userName;
+            $scope.hasSubmitComment = $scope.user != undefined;
+        };
         /**
          * This controller function deletes the article on the backend and removed the article from the collection
          */
@@ -23,9 +44,7 @@ singleCommentController.controller('singleCommentController', ['$scope', 'articl
                 });
         };
 
-        $scope.hasEdit = false; // TODO Implement editing of comment
-        $scope.hasDelete = userServiceState.user != undefined && $scope.comment._links.self != undefined && $scope.comment.submittedBy === userServiceState.user.userName;
-        $scope.hasSubmitComment = userServiceState.user != undefined;
+        handleUserChanged();
     }
 ]);
 

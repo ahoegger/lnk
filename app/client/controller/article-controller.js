@@ -9,17 +9,12 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
         var loadUserById = function(userId){
             if( userId != undefined){
                 userService.getUser(userId).success(function(data, status, headers, config){
-                    console.dir(data);
-                    console.log("user loaded: ")
                     $scope.user = data;
-                    $scope.hasDelete = $scope.user && $scope.article._links.self != undefined && $scope.article.submittedBy === $scope.user.userName;
-                    console.log('hasDelete '+$scope.hasDelete);
                 });
             }else{
                 $scope.user = undefined;
-                $scope.hasDelete = $scope.user && $scope.article._links.self != undefined && $scope.article.submittedBy === $scope.user.userName;
-                console.log('hasDelete '+$scope.hasDelete);
             }
+            handleUserChanged();
 
         };
 
@@ -28,11 +23,16 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             loadUserById(authenticationState.getUserId());
         });
 
+        var handleUserChanged = function(){
+            $scope.hasDelete = $scope.user && $scope.article._links.self != undefined && $scope.article.submittedBy === $scope.user.userName;
+            $scope.hasSubmitComment = $scope.user != undefined;
+        }
+
         var commentsLoaded = false;
 
         var updateVotePropertyOnScope = function($scope) {
-            $scope.article.hasVoteUp = authenticationState.getUserId() != undefined && $scope.article._embedded.votes._links.voteUp != undefined;
-            $scope.article.hasVoteDown = authenticationState.getUserId() != undefined && $scope.article._embedded.votes._links.voteDown != undefined;
+            $scope.article.hasVoteUp = $scope.user != undefined && $scope.article._embedded.votes._links.voteUp != undefined;
+            $scope.article.hasVoteDown = $scope.user != undefined && $scope.article._embedded.votes._links.voteDown != undefined;
         };
 
         // listener on websockt event broadcast to update the vote
@@ -93,11 +93,12 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             });
         };
 
+        handleUserChanged();
         updateVotePropertyOnScope($scope);
 
         $scope.hasEdit = false; // TODO Implement editing of article
-        $scope.hasDelete = $scope.user && $scope.article._links.self != undefined && $scope.article.submittedBy === $scope.user.userName;
-        $scope.hasSubmitComment = authenticationState.getUserId() != undefined;
+//        $scope.hasDelete = $scope.user && $scope.article._links.self != undefined && $scope.article.submittedBy === $scope.user.userName;
+
         $scope.hasCommentsLoaded = commentsLoaded;      // make state of loaded comments accessible
         $scope.loadingComments = false;
 
