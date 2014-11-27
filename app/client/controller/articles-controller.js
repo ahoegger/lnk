@@ -9,17 +9,12 @@ articlesController.controller('articleListController', ['$scope', '$location', '
             console.log('error loading articles \'articlesController\'');
             $scope.error = data;
         };
-        var successLoadArticles = function (data, status, headers, config) {
+        var successLoadArticles = function (data) {
             $scope.articles = data;
             console.log('success with get articles!');
             $scope.loadingArticles = false;
 
         };
-
-//        var errorLoadArticles = function (data, status, headers, config) {
-//            console.log('error with get articles. Status = ' + status);
-//            $scope.loadingArticles = false;
-//        };
 
         $scope.loadingArticle = false;
 
@@ -28,14 +23,12 @@ articlesController.controller('articleListController', ['$scope', '$location', '
             articleService.getArticles().success(successLoadArticles).error(errorLoadArticles);
         };
 
-
-
         var votingExecution = function (message, index) {
             var self = {
                 message: message,
                 index: index
             };
-            return function (data, status, headers, config) {
+            return function (data, status) {
                 console.log('Voting callback ' + self.message);
                 console.log(data);
                 if (status === 200 || status === 201) {
@@ -60,7 +53,6 @@ articlesController.controller('articleListController', ['$scope', '$location', '
         };
         $scope.voteUp = function ($event, index, apiUrl) {
             $event.preventDefault();
-            console.dir(article);
             console.log(apiUrl);
             articleService.voteUp(apiUrl,
                 votingExecution('VoteUp success', index),

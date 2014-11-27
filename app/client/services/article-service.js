@@ -22,7 +22,7 @@ articleServices.factory('articleService', ['$http',
             }
             console.log(url);
             return $http({method: 'GET', url: url}).
-                error(function (data, status, headers, config) {
+                error(function (data) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                     console.log('An error during data access')
@@ -48,6 +48,8 @@ articleServices.factory('articleService', ['$http',
         /**
          * This function submit a form with the given ID
          * @param {Object} articleObject The article object containing it's data
+         * @param {Function} successCallback Callback function for the success case
+         * @param {Function} errorCallback Callback function for the error case
          */
         var submitArticle = function(articleObject, successCallback, errorCallback) {
             var data = JSON.stringify(articleObject);

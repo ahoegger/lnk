@@ -5,8 +5,6 @@ var path = require('path');
 var log4js = require('log4js');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
 
-var UserClass = require(app_constants.packagedModule('entities', 'User.js'));
-
 var halsonFactory = require(app_constants.packagedModule('data', 'HalsonFactory.js'));
 var logger = log4js.getLogger('routes.UserRouteModule');
 
@@ -18,7 +16,7 @@ module.exports = function(datastore) {
         getTags: function(req, res) {
             var resultSet;
             var halsonResultSet;
-            resultSet = datastore.selectTags(function(entity) {
+            resultSet = datastore.selectTags(function() {
                 return true;        // TODO implement proper query string
             });
             if(resultSet != undefined && resultSet.length === 0) {

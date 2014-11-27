@@ -16,7 +16,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
         var handleUserChanged = function(){
             $scope.hasDelete = authenticationState.getUser() != undefined &&  $scope.article._links.self != undefined && $scope.article._embedded.user.id === authenticationState.getUser().id;
             $scope.hasSubmitComment = authenticationState.getUser() != undefined;
-        }
+        };
 
         var commentsLoaded = false;
 
@@ -40,7 +40,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             var self = {
                 message: message
             };
-            return function (data, status, headers, config) {
+            return function (data, status) {
                 console.log('Voting callback ' + self.message);
                 console.log(data);
                 if (status === 200 || status === 201) {
@@ -56,7 +56,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
                 message: message,
                 index: index
             };
-            return function (data, status, headers, config) {
+            return function (data) {
                 console.log('Submit comment callback ' + self.message);
                 console.log(data);
                 $scope.submittingComment = false;
@@ -84,17 +84,15 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
         $scope.deleteArticle = function() {
             // nice: implement check, if user is allowed to delete the article
             articleService.deleteArticle($scope.article._links.self.href,
-            function(data, status, headers, config) {
+            function(data, status) {
                 console.log('deleted an backend with status' + status);
                 var idx = $scope.$parent.articles.indexOf($scope.article);
                 $scope.$parent.articles.splice(idx,1);
             },
-            function(data, status, headers, config) {
+            function(data, status) {
                 console.log('delete not successful, status = ' + status);
             });
         };
-
-        $scope.newCommentValue;
 
         $scope.submitComment = function ($event, index, apiUrl, articleId) {
             var commentObject;
@@ -107,7 +105,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             };
             articleService.submitComment(apiUrl,
                 commentObject,
-                function (data, status, headers, config) {
+                function (data) {
                     console.log('Submit comment callback ' + self.message);
                     console.log(data);
                     // Finally, add the comment object from the response to the viewModel
@@ -133,7 +131,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             if (commentsLoaded == false) {
                 $scope.loadingComments = true;
                 articleService.loadComments($scope.article._links.comments.href,
-                    function (data, status, headers, config) {
+                    function (data) {
                         if ($scope.article._embedded == undefined) {
                             $scope.article._embedded = {};
                         }
@@ -142,7 +140,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
                         $scope.showComments = true;
                         $scope.loadingComments = false;
                     },
-                    function (data, status, headers, config) {
+                    function (data, status) {
                         console.log('Error ' + status + ' loading comments: ' + data);
                         $scope.loadingComments = false;
                     });

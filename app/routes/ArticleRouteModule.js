@@ -7,7 +7,7 @@
 var path = require('path');
 var log4js = require('log4js');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
-var helper = require(app_constants.packagedModule('routes', 'ArticleRouterHelperModule.js'))(datastore);
+var helper = require(app_constants.packagedModule('routes', 'ArticleRouterHelperModule.js'))(this.datastore);
 
 var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
 var ArticleUserVoteClass = require(app_constants.packagedModule('entities', 'ArticleUserVote.js'));
@@ -24,7 +24,7 @@ var logger = log4js.getLogger('routes.ArticleRouteModule');
  * @param {Function} updateExistingVoteValueFunction Function that changes the current value of the vote. Parameter is the current value of the existing vote
  * @param newVoteValue Value to be set, if a new vote will be made (i.e. -1 oder 1)
  */
-function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, updateExistingVoteValueFunction, newVoteValue) {
+function _handleVoteUpOrDown(req, res, checkExistingVoteValueFunction, updateExistingVoteValueFunction, newVoteValue) {
     var userId = req.user ? req.user.id : undefined;
     var userVote;
     var articleUserVote;
@@ -67,7 +67,6 @@ function _handleVoteUpOrDown(req, res, next, checkExistingVoteValueFunction, upd
 /**
  * This function insert or updates a given article in the database and return the halsonified article object. A response is not being sent
  * @param {Request} req
- * @param {Response} res
  * @param {Function} articleDbFunction Function that executes the actual DB operation on the article (i.e insert or update). Argument is articleObject
  * @param {Function} tagsDbFunction Function that executes the actual DB operation on the tags array (i.e insert or update). Arguments are articleObject and tagsArray
  * @private
@@ -77,7 +76,7 @@ function _insertOrUpdateArticle(req, articleDbFunction, tagsDbFunction) {
     var tagsArray;
 
     articleObject.updateFromJsonObject(req.body);            // put posted content into article
-    articleObject.submittedBy = req.user.userName;              // Take user name from request (user must be logged in) and possible user name in the article provided by the frontend.
+    articleObject.submittedBy = req.paramhandler_user.userName;              // Take user name from request (user must be logged in) and possible user name in the article provided by the frontend.
     tagsArray = helper.createTagsFromJsonBody(req.body);     // create the tags as well
     articleObject = articleDbFunction(articleObject);
     articleObject.tags = tagsDbFunction(articleObject, tagsArray);
@@ -202,8 +201,8 @@ module.exports = function(datastore, socket) {
             logger.debug('Returning comments for article', halsonResultSet);
             return res.status(200).send(JSON.stringify(halsonResultSet));
         },
-        postVoteUp: function(req, res, next) {
-            _handleVoteUpOrDown(req, res, next,
+        postVoteUp: function(req, res) {
+            _handleVoteUpOrDown(req, res,
                 function(value) {
                     return value < 1;
                 },
@@ -213,8 +212,8 @@ module.exports = function(datastore, socket) {
                 1
             );
         },
-        postVoteDown: function(req, res, next) {
-            _handleVoteUpOrDown(req, res, next,
+        postVoteDown: function(req, res) {
+            _handleVoteUpOrDown(req, res,
                 function(value) {
                     return value > -1;
                 },

@@ -78,7 +78,8 @@ function _deleteTags(article, tags) {
 function _selectArticles(queryFunction, options) {
     var resultSet;
     var singleUser;
-    var i,len;
+    var i;
+    var len;
     options = options || {
         includeTags: false,
         includeComments: false,
@@ -294,7 +295,7 @@ module.exports = {
     /**
      * This function updates the tags array of a given article
      * @param {Article} article The article
-     * @param {Tags[]} tags The complete list of tags associated with the article
+     * @param {Tag[]} tags The complete list of tags associated with the article
      */
     updateArticleTags: function(article, tags) {
         // crude implementation: First, delete all current tags from the article, then insert the new array
