@@ -76,7 +76,7 @@ function _insertOrUpdateArticle(req, articleDbFunction, tagsDbFunction) {
     var tagsArray;
 
     articleObject.updateFromJsonObject(req.body);            // put posted content into article
-    articleObject.submittedBy = req.paramhandler_user.userName;              // Take user name from request (user must be logged in) and possible user name in the article provided by the frontend.
+    articleObject.submittedBy = req.user.userName;              // Take user name from request (user must be logged in) and possible user name in the article provided by the frontend.
     tagsArray = helper.createTagsFromJsonBody(req.body);     // create the tags as well
     articleObject = articleDbFunction(articleObject);
     articleObject.tags = tagsDbFunction(articleObject, tagsArray);
