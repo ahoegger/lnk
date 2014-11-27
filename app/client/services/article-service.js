@@ -32,6 +32,15 @@ articleServices.factory('articleService', ['$http',
             return doRequest(searchQuery);
         };
 
+        var getArticlesByApi = function(apiUrl, successHandler, errorHandler) {
+            $http.get(apiUrl,
+                { headers: {'Accept': 'application/json'},
+                  timeout: 5000
+                })
+                .success(successHandler)
+                .error(errorHandler)
+        };
+
         var voteUp = doVote;
 
         var voteDown = doVote;
@@ -91,6 +100,7 @@ articleServices.factory('articleService', ['$http',
 
         return {
             getArticles: get,
+            getArticlesByApi: getArticlesByApi,
             voteUp: voteUp,
             voteDown: voteDown,
             submitArticle: submitArticle,

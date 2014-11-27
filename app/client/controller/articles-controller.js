@@ -54,6 +54,9 @@ articlesController.controller('articleListController', ['$scope', '$location', '
 
         $scope.searchByApi = function(apiUrl) {
             console.log('Search articles by given API url ' + apiUrl);
+            articleService.getArticlesByApi(apiUrl,
+                successLoadArticles,
+                errorLoadArticles);
         };
         $scope.voteUp = function ($event, index, apiUrl) {
             $event.preventDefault();
