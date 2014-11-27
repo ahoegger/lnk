@@ -24,11 +24,11 @@ singleCommentController.controller('singleCommentController', ['$scope', 'articl
         $scope.deleteComment = function () {
             // nice: implement check, if user is allowed to delete the article
             articleService.deleteComment($scope.comment._links.self.href,
-                function (data, status, headers, config) {
+                function (data, status) {
                     console.log('deleted at backend with status' + status);
                     delete $scope.$parent.article._embedded.comments.splice($scope.$index,1);
                 },
-                function (data, status, headers, config) {
+                function (data, status) {
                     console.log('delete not successful, status = ' + status);
                 });
         };
