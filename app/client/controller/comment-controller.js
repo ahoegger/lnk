@@ -26,7 +26,7 @@ singleCommentController.controller('singleCommentController', ['$scope', 'articl
             articleService.deleteComment($scope.comment._links.self.href,
                 function (data, status, headers, config) {
                     console.log('deleted at backend with status' + status);
-                    delete $scope.$parent.article._embedded.comments[$scope.$index];
+                    delete $scope.$parent.article._embedded.comments.splice($scope.$index,1);
                 },
                 function (data, status, headers, config) {
                     console.log('delete not successful, status = ' + status);
