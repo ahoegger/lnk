@@ -68,6 +68,53 @@ function _deleteTags(article, tags) {
     }
 }
 
+/**
+ * This method selects the articles for the given query function and options
+ * @param {Function} queryFunction The function to query the articles
+ * @param {Object} options Options-object
+ * @return {Article[]}
+ * @private
+ */
+function _selectArticles(queryFunction, options) {
+    var resultSet;
+    var singleUser;
+    var i,len;
+    options = options || {
+        includeTags: false,
+        includeComments: false,
+        includeVoteCount: false,
+        includeUser: false,
+        voteUserId: undefined
+    };   // default value
+    resultSet = articlesTable.select(queryFunction);
+    // according to the options, include the various sub entities, if requested
+    if (options.includeTags) {
+        for(i = 0, len = resultSet.length; i < len; i++) {
+            resultSet[i].tags = _selectTagsForArticle(resultSet[i].id);
+        }
+    }
+    if (options.includeComments) {
+        for(i = 0, len = resultSet.length; i < len; i++) {
+            resultSet[i].comments = _selectCommentsForArticle(resultSet[i].id);
+        }
+    }
+    if (options.includeVoteCount) {
+        for(i = 0, len = resultSet.length; i < len; i++) {
+            resultSet[i].votes = _selectVotes(resultSet[i].id, options.voteUserId);
+        }
+    }
+    if (options.includeUser) {
+        for(i = 0, len = resultSet.length; i < len; i++) {
+            singleUser = _selectUser(function(entity) {
+                return entity.userName === resultSet[i].submittedBy;
+            })[0];
+            delete singleUser.password;
+            resultSet[i].user = singleUser;
+        }
+    }
+    return resultSet;
+}
+
 function _selectTagsForArticle(articleId) {
     // NICE: Split into two function: one selects the ArticleTag objects, one converts them into simple Tag objects
     var map;
@@ -81,6 +128,37 @@ function _selectTagsForArticle(articleId) {
         resultingTags.push(tagsTable.selectById(map[i].tagId));
     }
     return resultingTags;
+}
+
+/**
+ * This function selects all articles that have a a given tag
+ * @param tagId
+ * @private
+ */
+function _selectArticlesForTag(tagId) {
+    var map;
+    var articleResultSet;
+    var resultingArticles = [];
+
+    map = articleTagTable.select(function (element) {
+        return element.tagId === tagId;
+    });
+
+    for (var i = 0, len = map.length; i < len; i++) {
+        articleResultSet = _selectArticles(function(entity) {
+            return entity.id === map[i].articleId
+        },
+        {
+            includeTags: true,
+            includeComments: false,
+            includeVoteCount: true,
+            includeUser: true,
+            voteUserId: undefined
+        });
+        if(articleResultSet != undefined && articleResultSet.length > 0)
+        resultingArticles.push(articleResultSet[0]);
+    }
+    return resultingArticles;
 }
 
 function _selectCommentsForArticle(articleId) {
@@ -250,45 +328,8 @@ module.exports = {
      * @param {Object} options Options-object
      * @return {Article[]}
      */
-    selectArticles: function(queryFunction, options) {
-        var resultSet;
-        var singleUser;
-        var i,len;
-        options = options || {
-            includeTags: false,
-            includeComments: false,
-            includeVoteCount: false,
-            includeUser: false,
-            voteUserId: undefined
-        };   // default value
-        resultSet = articlesTable.select(queryFunction);
-        // according to the options, include the various sub entities, if requested
-        if (options.includeTags) {
-            for(i = 0, len = resultSet.length; i < len; i++) {
-                resultSet[i].tags = _selectTagsForArticle(resultSet[i].id);
-            }
-        }
-        if (options.includeComments) {
-            for(i = 0, len = resultSet.length; i < len; i++) {
-                resultSet[i].comments = _selectCommentsForArticle(resultSet[i].id);
-            }
-        }
-        if (options.includeVoteCount) {
-            for(i = 0, len = resultSet.length; i < len; i++) {
-                resultSet[i].votes = _selectVotes(resultSet[i].id, options.voteUserId);
-            }
-        }
-        if (options.includeUser) {
-            for(i = 0, len = resultSet.length; i < len; i++) {
-                singleUser = _selectUser(function(entity) {
-                    return entity.userName === resultSet[i].submittedBy;
-                })[0];
-                delete singleUser.password;
-                resultSet[i].user = singleUser;
-            }
-        }
-        return resultSet;
-    },
+    selectArticles: _selectArticles,
+
     selectTags: function(queryFunction) {
         return tagsTable.select(queryFunction);
     },
@@ -297,6 +338,12 @@ module.exports = {
      * @param {number} articleId The ID of the article
      */
     selectTagsForArticle: _selectTagsForArticle,
+
+    /**
+     * This function selects and returns the articles for a given tag
+     * @param {number} tagId The ID of the tag
+     */
+    selectArticlesForTag: _selectArticlesForTag,
 
     /**
      * This function inserts a new user vote for an article

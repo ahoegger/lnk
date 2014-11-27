@@ -29,7 +29,7 @@ var initialLoader = require(app_constants.packagedModule('data', 'InitialLoad.js
 
 // routers / route definition modules
 var articlesRouter = require(app_constants.packagedModule('routes', 'ArticleRouter.js'))(socket);
-var tagsRouter = require(app_constants.packagedModule('routes', 'tags'));
+var tagsRouter = require(app_constants.packagedModule('routes', 'TagRouter.js'));
 var userRouter = require(app_constants.packagedModule('routes', 'UserRouter.js'));
 var authenticationRouter = require(app_constants.packagedModule('routes', 'AuthenticationRouter.js'));
 // constants and basic variables

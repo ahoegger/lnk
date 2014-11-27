@@ -65,14 +65,16 @@
                         <div class="article-meta">
                             <ul>
                                 <li><i class="fa fa-tags icon-passive"></i>
-
-                                    <div class="icon-spacer make-inline">Tags
+                                        <div class="icon-spacer make-inline btn-toolbar" >Tags
+                                            <button ng-click="searchByApi(tag._links.articles.href)" ng-repeat="tag in article._embedded.tags" type="button" class="btn btn-xs" role="button">{{tag.tag}}</button>
+                                        </div>
+                                        <!--
                                         <ul class="article-tags" ng-repeat="tag in article._embedded.tags">
                                             <li>
-                                                <a href="{{tag._links.self.href}}">{{tag.tag}}</a>
+                                                <a class="btn btn-xs" role="button" href="{{tag._links.self.href}}">{{tag.tag}}</a>
                                             </li>
                                         </ul>
-                                    </div>
+                                        -->
                                 </li>
                                 <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer">{{article.submittedOn | dateFromNow}}</span>
                                 </li>
@@ -117,8 +119,8 @@
                                         </textarea>
                                     </div>
                                     <div class="col-sm-2 cell-spacing-vertical-sm pull-right-sm">
-                                        <button ng-hide="submittingComment"type="submit" class="btn btn-primary btn-sm">.submit</button>
-                                        <button ng-show="submittingComment" disabled="true" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-spinner fa-spin"></i> submitting</button>
+                                        <button ng-hide="submittingComment" type="submit" class="btn btn-default btn-sm full-width-sm">.submit</button>
+                                        <button ng-show="submittingComment" disabled="true" type="submit" class="btn btn-default btn-sm"><i class="fa fa-spinner fa-spin"></i> submitting</button>
                                     </div>
                                 </div>
                             </form>
