@@ -36,7 +36,15 @@ module.exports = function(datastore) {
         getTagArticles: function(req, res) {
             var resultSet;
             var halsonResultSet;
-            resultSet = datastore.selectArticlesForTag(req.tag.id);
+            resultSet = datastore.selectArticlesForTag(
+                req.tag.id,
+                {
+                    includeTags: true,
+                    includeComments: false,
+                    includeVoteCount: true,
+                    includeUser: true,
+                    voteUserId: req.user ? req.user.id : undefined
+                });
             if(resultSet != undefined && resultSet.length === 0) {
                 res.status(200).send();     // empty resultset
             }

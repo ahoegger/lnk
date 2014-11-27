@@ -132,10 +132,11 @@ function _selectTagsForArticle(articleId) {
 
 /**
  * This function selects all articles that have a a given tag
- * @param tagId
+ * @param {Number} tagId ID of the tag
+ * @param {Object} articleOptions Options when querying the articles
  * @private
  */
-function _selectArticlesForTag(tagId) {
+function _selectArticlesForTag(tagId, articleOptions) {
     var map;
     var articleResultSet;
     var resultingArticles = [];
@@ -147,14 +148,7 @@ function _selectArticlesForTag(tagId) {
     for (var i = 0, len = map.length; i < len; i++) {
         articleResultSet = _selectArticles(function(entity) {
             return entity.id === map[i].articleId
-        },
-        {
-            includeTags: true,
-            includeComments: false,
-            includeVoteCount: true,
-            includeUser: true,
-            voteUserId: undefined
-        });
+        }, articleOptions);
         if(articleResultSet != undefined && articleResultSet.length > 0)
         resultingArticles.push(articleResultSet[0]);
     }
