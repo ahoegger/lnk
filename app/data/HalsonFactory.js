@@ -101,10 +101,17 @@ _register('User', function userHalsonify(entity) {
 
 // Register function to transform a comment into a halson comment
 _register('Comment', function commentHalsonify(entity) {
+    var halsonUser;
     var baseString = '/api/article/' + entity.articleId + '/comment/' + entity.id;
     var resource = new halson(entity);
     resource.addLink('self', baseString);
     resource.addLink('user', baseString + '/user/' + entity.submittedBy);
+    if (entity.user != undefined) {
+        halsonUser = _halsonify('User', entity.user);
+        resource.addEmbed('user', halsonUser);
+        delete resource.submittedBy;
+        delete resource.user;
+    }
     return resource;
 });
 

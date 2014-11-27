@@ -68,18 +68,11 @@
                                         <div class="icon-spacer make-inline btn-toolbar" >Tags
                                             <button ng-click="searchByApi(tag._links.articles.href)" ng-repeat="tag in article._embedded.tags" type="button" class="btn btn-xs" role="button">{{tag.tag}}</button>
                                         </div>
-                                        <!--
-                                        <ul class="article-tags" ng-repeat="tag in article._embedded.tags">
-                                            <li>
-                                                <a class="btn btn-xs" role="button" href="{{tag._links.self.href}}">{{tag.tag}}</a>
-                                            </li>
-                                        </ul>
-                                        -->
                                 </li>
                                 <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer">{{article.submittedOn | dateFromNow}}</span>
                                 </li>
-                                <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a
-                                        href="#Users/{{article.submittedBy}}">{{article._embedded.user.userName}}</a></span></li>
+                                <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By
+                                    <button ng-click="searchByApi(article._embedded.user._links.articles.href)" type="button" class="btn btn-xs" role="button">{{article._embedded.user.userName}}</button>
                                 <li ng-show="hasEdit"><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
                                 <li ng-show="hasDelete" delete-article></li>
                             </ul>
@@ -88,10 +81,8 @@
                         <!-- Article description end -->
                         <!-- toggle show comment begin -->
                         <div class="show-comments-divider-group">
-                            <a class="article-comments ng-hide" ng-click="doShowComments($event)" href=""
-                               ng-hide="showComments">Show comments</a>
-                            <a class="article-comments ng-hide" ng-click="showComments = !showComments" href=""
-                               ng-show="showComments">Hide comments</a>
+                            <a class="article-comments ng-hide" role="button" ng-click="doShowComments($event)" href="" ng-hide="showComments">Show comments</a>
+                            <a class="article-comments ng-hide" role="button" ng-click="showComments = !showComments" href="" ng-show="showComments">Hide comments</a>
                         </div>
                         <!-- toggle show comment end -->
                     </div>
@@ -143,8 +134,9 @@
                                                 <li><i class="fa fa-calendar icon-passive"></i><span
                                                         class="icon-spacer">Submitted {{comment.submittedOn | dateFromNow}}</span>
                                                 </li>
-                                                <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By <a
-                                                        href="{{comment._links.self.href}}">{{comment.submittedBy}}</a></span>
+                                                <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By
+                                                    <button ng-click="searchByApi(comment._embedded.user._links.articles.href)" type="button" class="btn btn-xs" role="button">{{comment._embedded.user.userName}}</button>
+                                                    </span>
                                                 </li>
                                                 <li ng-show="hasEdit"><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
                                                 <li ng-show="hasDelete" delete-comment></li>

@@ -67,7 +67,21 @@ function _deleteTags(article, tags) {
         articleTagTable.remove(articleTags[i]);
     }
 }
-
+/**
+ * This function retrieves a complete user object on the basis of the property "submittedBy"
+ * @param {Object[]} resultSet Array of objects that have a property submittedBy
+ * @private
+ */
+function _retrieveUserForSubmittedBy(resultSet) {
+    var singleUser;
+    for (var i = 0, len = resultSet.length; i < len; i++) {
+        singleUser = _selectUser(function (entity) {
+            return entity.userName === resultSet[i].submittedBy;
+        })[0];
+        delete singleUser.password;
+        resultSet[i].user = singleUser;
+    }
+}
 /**
  * This method selects the articles for the given query function and options
  * @param {Function} queryFunction The function to query the articles
@@ -105,13 +119,7 @@ function _selectArticles(queryFunction, options) {
         }
     }
     if (options.includeUser) {
-        for(i = 0, len = resultSet.length; i < len; i++) {
-            singleUser = _selectUser(function(entity) {
-                return entity.userName === resultSet[i].submittedBy;
-            })[0];
-            delete singleUser.password;
-            resultSet[i].user = singleUser;
-        }
+        _retrieveUserForSubmittedBy(resultSet);
     }
     return resultSet;
 }
@@ -157,10 +165,13 @@ function _selectArticlesForTag(tagId, articleOptions) {
 }
 
 function _selectCommentsForArticle(articleId) {
+    var resultSet;
     var queryFunction = function(entity) {
         return entity.articleId === articleId;
     };
-    return commentsTable.select(queryFunction);
+    resultSet = commentsTable.select(queryFunction);
+    _retrieveUserForSubmittedBy(resultSet); // transform submittedBy to user object
+    return resultSet;
 }
 
 function _insertUser(user) {
@@ -310,6 +321,10 @@ module.exports = {
     selectComments: function(queryFunction) {
         return commentsTable.select(queryFunction);
     },
+    /**
+     * This function retirves the comments for a given article ID
+     */
+    selectCommentsForArticle: _selectCommentsForArticle,
     /**
      * This function deletes the comment
      * @param {Comment} comment

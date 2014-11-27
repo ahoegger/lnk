@@ -5,8 +5,8 @@ var articlesController = angular.module('articlesController', ['service.article'
 
 articlesController.controller('articleListController', ['$scope', '$location', 'articleService', 'behaviour',
     function ($scope, $location, articleService, behaviour) {
-        var errorLoadArticles = function (data) {
-            console.log('error loading articles \'articlesController\'');
+        var errorLoadArticles = function (data, status) {
+            console.log('error loading articles \'articlesController\': ' + status);
             $scope.error = data;
         };
         var successLoadArticles = function (data) {

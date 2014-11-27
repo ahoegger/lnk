@@ -193,10 +193,7 @@ module.exports = function(datastore, socket) {
         getSingleArticleComments: function(req, res) {
             var resultSet;
             var halsonResultSet;
-            var query = function(entity) {
-                return entity.articleId === req.article.id;
-            };
-            resultSet = datastore.selectComments(query);
+            resultSet = datastore.selectCommentsForArticle(req.article.id);
             halsonResultSet = halsonFactory.halsonifyArray('Comment', resultSet);
             logger.debug('Returning comments for article', halsonResultSet);
             return res.status(200).send(JSON.stringify(halsonResultSet));

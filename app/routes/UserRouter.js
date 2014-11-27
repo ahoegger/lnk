@@ -21,6 +21,7 @@ routerHelperModule.registerParamModule(router, userParamModule);
 router
     .get('/users', routerHelperModule.notYetImplementedHandler)
     .get('/user/:userId', userRouterModule.getUser)
+    .get('/user/:userId/articles', userRouterModule.getUserArticles)
     .post('/users', userRouterModule.postUser)
     .put('/user/:userId', jwt({secret: app_constants.secret.secretToken}), userRouterModule.putUser)
     .delete('/user/:userId', jwt({secret: app_constants.secret.secretToken}), userRouterModule.deleteUser)

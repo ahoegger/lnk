@@ -59,6 +59,22 @@ module.exports = function(datastore) {
                 return user;
             });
             return res.status(204).send();      // 204, as no entity is being returned
+        },
+        getUserArticles: function(req, res) {
+            var resultSet;
+            var halsonResultSet;
+            var query = function(entity) {
+                return entity.submittedBy === req.paramhandler_user.userName;
+            };
+            resultSet = datastore.selectArticles(query, {
+                includeTags: true,
+                includeComments: false,
+                includeVoteCount: true,
+                includeUser: true,
+                voteUserId: req.user ? req.user.id : undefined
+            });
+            halsonResultSet = halsonFactory.halsonifyArray('Article', resultSet);
+            return res.status(200).send(JSON.stringify(halsonResultSet));
         }
     }
 };

@@ -167,6 +167,6 @@ singleArticleController.directive('numberOfVotes', function() {
  */
 singleArticleController.directive('deleteArticle', function() {
     return {
-        template: '<a ng-click="deleteArticle()"><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></a>'
+        template: '<a role="button" ng-click="deleteArticle()"><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></a>'
     }
 });
