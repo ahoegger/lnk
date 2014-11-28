@@ -1,7 +1,11 @@
 /**
- * This is the node server application for .lnk - Love the things you find - share the things you love <3
+ * This module is the node express server application for .lnk - Love the things you find - share the things you love <3
  * This application has been developed during the CAS-FEE (Certificate of Advanced Studies  in Front End Engineering)
  * Developed by Andy Hoegger and Holger Heymanns
+ * @module backend/lnk-server
+ * @author Holger Heymanns
+ * @author Andy Hoegger
+ * @since ever
  */
 'use strict';
 // the requirements

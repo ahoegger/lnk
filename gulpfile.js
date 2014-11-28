@@ -154,6 +154,9 @@ gulp.task('jsdoc', function() {
     gulp.src(['./app/routes/*.js'
             , './app/entities/*.js'
             , './app/data/*.js'
+            , './lnk-server.js'
+            , './app_constants.js'
+            , './readme.md'
             , './app/client/controller/*.js'
             , './app/client/services/*.js'
             , './app/client/viewModel/*.js'])

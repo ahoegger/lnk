@@ -1,7 +1,9 @@
 /**
- * Created by Holger on 13.09.2014.
- * This script provides absolute module path constants for requiring modules and not having to use relative,
+ * This module provides absolute module path constants for requiring modules and not having to use relative,
  * installation dependent paths
+ * @module backend/app_constants
+ * @author Holger Heymanns
+ * @since 13.09.2014
  */
 var path = require('path');
 // current path of node.js root = process.cwd()  //cwd() = current working directory

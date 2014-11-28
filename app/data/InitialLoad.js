@@ -4,7 +4,6 @@
  * @author Holger Heymanns
  * @since 11.10.2014
  */
-
 var fs = require('fs');
 var path = require('path');
 var log4js = require('log4js');
