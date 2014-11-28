@@ -1,12 +1,14 @@
 /**
- * Created by Holger on 08.10.2014.
  * This is the User entity
+ * @module backend/entities/User
+ * @author Holger Heymanns
+ * @since 08.10.2014
  */
 
 var bcrypt = require('bcryptjs');
 
 /**
- * Create a new user object
+ * This class implements the user entity
  * @param {Number} id must come from the datasets
  * @param {String} userName user name
  * @param {String} name the name of the user
@@ -14,6 +16,7 @@ var bcrypt = require('bcryptjs');
  * @param {String} password (must be encrypted)
  * @param {boolean} active true or false, if the user is active or not
  * @constructor
+ * @class
  */
 function User(id, userName, name, firstname, password, active) {
     this.id = id;
@@ -44,6 +47,10 @@ User.prototype.updateFromJsonObject = function(jsonObject) {
     this.active= jsonObject.active != undefined ? jsonObject.active : this.active;
 };
 
+/**
+ * Tis function updates the entity based on the given JSON string
+ * @param {String} jsonString
+ */
 User.prototype.updateFromJsonString = function(jsonString) {
     this.updateFromJsonObject(JSON.parse(jsonString));
 };
@@ -64,6 +71,10 @@ User.prototype.isAuthenticated = function(password, encrypted) {
     return bcrypt.compareSync(password, this.password);
 };
 
+/**
+ * This function returns a clone of the entity
+ * @return {User}
+ */
 User.prototype.clone = function() {
     var user = new User(this.id, this.userName, this.name, this.firstname, '', this.active);
     user.password = this.password; // note: the constructor will encypt an already encrypted password

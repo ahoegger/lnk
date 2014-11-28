@@ -1,8 +1,8 @@
 /**
- * Created by Holger on 09.11.2014.
- * This module assigns the functions of the {@link backend/routes/AuthenticationRouteModule} to the URLs for authentication
+ * This module assigns the functions of the {@link module:backend/routes/AuthenticationRouteModule} to the URLs for authentication
  * @module backend/routes/AuthenticationRouter
- * @type {exports}
+ * @author Holger Heymanns
+ * @since 12.10.2014
  */
 var express = require('express');
 var path = require('path');

@@ -1,6 +1,8 @@
 /**
- * Created by Holger on 12.10.2014.
  * This module contains helper methods for router modules
+ * @module backend/routes/RouterHelperModule
+ * @author Holger Heymanns
+ * @since 12.10.2014
  */
 
 module.exports = function() {

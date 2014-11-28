@@ -1,6 +1,8 @@
 /**
- * Created by Holger on 07.10.2014.
- * This module implements factory methods to build halso entities based on given entitites
+ * This module implements factory methods to build halson entities based on given entities. Halson is a defined format how to build HATEOS entities.
+ * @module backend/data/HalsonFactory
+ * @author Holger Heymanns
+ * @since 07.10.2014.
  */
 
 var log4js = require('log4js');
@@ -11,8 +13,9 @@ var halsonFunctionObject = {};
 
 /**
  * This function transforms a given entity according to the rules stored with the corresponding of the entityKey
- * @param {String} entityKey
- * @param entityObject
+ * @param {String} entityKey Key of the given entity
+ * @param {Object} entityObject Object to be transformed
+ * @throws {Error} Illegal argument error if the entityKey is not registered
  * @private
  */
 function _halsonify(entityKey, entityObject) {
@@ -22,6 +25,13 @@ function _halsonify(entityKey, entityObject) {
     return (halsonFunctionObject[entityKey])(entityObject);
 }
 
+/**
+ * This function transforms an array of the given entities
+ * @param {String} entityKey
+ * @param {Object[]} entityArray Array of the entity objects
+ * @return {Object[]}
+ * @private
+ */
 function _halsonifyArray(entityKey, entityArray) {
     var results = [];
     var singleResource;
@@ -35,7 +45,7 @@ function _halsonifyArray(entityKey, entityArray) {
 /**
  * This function registers a new halsonFunction with the given key for the entity
  * @param {String} entityKey
- * @param halsonFunction
+ * @param {Function} halsonFunction The function applied when transforming the entity objevct into the halso entity object
  * @private
  */
 function _register(entityKey, halsonFunction) {
@@ -44,6 +54,9 @@ function _register(entityKey, halsonFunction) {
 }
 
 // Function to transform an article into a halson article
+/**
+ * Register function to halsonify an Article class
+ */
 _register('Article', function articleHalsonify(entity) {
     var halsonTags;
     var halsonComments;
@@ -81,7 +94,9 @@ _register('Article', function articleHalsonify(entity) {
     return resource;
 });
 
-// Register function to transform a tag into a halson tag
+/**
+ * Register function to transform a tag into a halson tag
+ */
 _register('Tag', function tagHalsonify(entity) {
     var baseString = '/api/tag/' + entity.id;
     var resource = new halson(entity);
@@ -90,7 +105,9 @@ _register('Tag', function tagHalsonify(entity) {
     return resource;
 });
 
-// Register function to transform a user into a halson user
+/**
+ * Register function to transform a {@link User} into a halson user
+ */
 _register('User', function userHalsonify(entity) {
     var baseString = '/api/user/' + entity.id;
     var resource = new halson(entity);

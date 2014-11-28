@@ -151,7 +151,7 @@ gulp.task('jsdoc', function() {
     var infos = {
         name: '.lnk JSDoc'
     };
-    gulp.src('./app/routes/*.js')
+    gulp.src(['./app/routes/*.js', './app/entities/*.js', './app/data/*.js'])
         .pipe(jsdoc.parser(infos, 'data.json'))
         .pipe(jsdoc.generator(
             './documentation',
@@ -167,7 +167,7 @@ gulp.task('jsdoc', function() {
                 inverseNav      : false
             },
             {
-                'private': false,
+                showPrivate: true,
                 monospaceLinks: false,
                 cleverLinks: false,
                 outputSourceFiles: true

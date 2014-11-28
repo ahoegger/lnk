@@ -1,7 +1,8 @@
 /**
- * Created by Holger on 12.10.2014.
  * Module providing functionality for the article as parameter in a path
  * @module backend/routes/ArticleParamModule
+ * @author Holger Heymanns
+ * @since 12.10.2014
  */
 
 var path = require('path');

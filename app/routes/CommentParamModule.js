@@ -1,20 +1,13 @@
 /**
- * Created by Holger on 12.10.2014.
- * Module providing functionality for the artile as parameter in a path
+ * Module providing functionality for the commentId  as parameter in a path
+ * @module backend/routes/CommentParamModule
+ * @author Holger Heymanns
+ * @since 12.10.2014
  */
 
 var path = require('path');
 var log4js = require('log4js');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
-
-var ArticleClass = require(app_constants.packagedModule('entities', 'Comment.js'));
-/*
- var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
- var UserClass = require(app_constants.packagedModule('entities', 'User.js'));
- var ArticleUserVoteClass = require(app_constants.packagedModule('entities', 'ArticleUserVote.js'));
- var CommentClass = require(app_constants.packagedModule('entities', 'Comment.js'));
- */
-// var inMemoryDatabase = require(app_constants.packagedModule('data', 'InMemorydataStore.js'));
 
 var logger = log4js.getLogger('routes.CommentParamModule');
 

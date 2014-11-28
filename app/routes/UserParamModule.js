@@ -1,6 +1,8 @@
 /**
- * Created by Holger on 08.11.2014.
  * This module handles the user param :userId
+ * @module backend/routes/UserParamModule
+ * @author Holger Heymanns
+ * @since 08.11.2014
  */
 
 var path = require('path');

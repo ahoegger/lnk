@@ -1,5 +1,9 @@
 /**
- * Created by Holger on 27.11.2014.
+ * This module provides the route functions fot the {@link module:backend/router/TagRouter}
+ * @module backend/routes/TagRouterModule
+ * @author Holger Heymanns
+ * @since 27.11.2014
+
  */
 var path = require('path');
 var log4js = require('log4js');

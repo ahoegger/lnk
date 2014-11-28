@@ -1,5 +1,8 @@
 /**
- * Created by Holger on 05.10.2014.
+ * This module provides an implementation of the in memory database based on {@link module:backend/data/CrudDatabaseFactory}
+ * @module backend/data/CrudDatabaseFactory
+ * @author Holger Heymanns
+ * @since 05.10.2014
  */
 var path = require('path');
 var log4js = require('log4js');

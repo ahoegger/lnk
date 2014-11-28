@@ -6,9 +6,9 @@
     "url": "https://github.com/ahoegger/lnk.git"
   },
   "scripts": {
-    "test": "jasmine-node test/spec",
-    "mocha-test": "node ./node_modules/mocha/bin/mocha -u bdd  -R spec ./test/spec/**/*-spec.js",
+    "test": "node ./node_modules/mocha/bin/mocha -u bdd  -R spec ./test/spec/**/*-spec.js",
     "coverage": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 500 ./test/spec/**/*-spec.js",
+    "jsdoc": "node node_modules/gulp/bin/gulp.js jsdoc",
     "start": "node lnk-server.js",
     "postinstall": "bower install"
   },
@@ -45,7 +45,7 @@
     "gulp-jshint": "^1.5.3",
     "gulp-less": "^1.2.3",
     "gulp-livereload": "^1.2.0",
-    "gulp-load-plugins": "^0.5.0",
+    "gulp-load-plugins": "^0.7.0",
     "gulp-size": "^0.3.0",
     "gulp-uglify": "^0.2.1",
     "gulp-useref": "^0.4.2",

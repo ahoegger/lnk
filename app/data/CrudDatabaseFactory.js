@@ -1,5 +1,8 @@
 /**
  * Created by Holger on 05.10.2014.
+ * This module is for the CrudDatabaseFactory. The Factory constructs a "table" that provides the classic CRUD functionality
+ * @module backend/data/CrudDatabaseFactory
+ * @author Holger Heymanns
  */
 
 var log4js = require('log4js');
@@ -12,6 +15,7 @@ var logger = log4js.getLogger('data.CrudDatabaseFactory');
  * @param {String[]} notNullProperties Array of Strings containing the properties, that may not be null
  * @param {String[]} uniqueProperties Array of Strings containing the properties, that must be unique before inserting or updating
  * @constructor
+ * @class
  */
 CrudDatabase = function(entityConstructor,
                         idProperty,
@@ -31,6 +35,7 @@ CrudDatabase = function(entityConstructor,
 // PRIVATE FUNCTIONS for CrudDatabase prototype
 /**
  * This function creates a hash based on the properties of the entity that must be unique
+ * @private
  */
 CrudDatabase.prototype._createUniqueHash = function(entity) {
     var i;
@@ -161,6 +166,8 @@ CrudDatabase.prototype._findPositionByHash = function(entity) {
  * This function checks, if the given object is an instanceof the given constructor.
  * If this is not the case, an error will be thrown
  * @param object
+ * @throws {Error} Illegal argument error if the object does not match the entity for the table
+ * @private
  */
 CrudDatabase.prototype._checkInstance = function(object) {
     if (!(object instanceof this.entityConstructor)) {
@@ -185,6 +192,12 @@ CrudDatabase.prototype._getNewId = function() {
 };
 
 // PUBLIC FUNCTIONS for CrudDatabase
+/**
+ * This function inserts an instance of the entity into the table
+ * @param {Object} entity The entity to be inserted. Must be of the correct type defined in the constructor
+ * @return {Object} A clone of the entity that will be enriched with the
+ * @throws {Error} an error (unique key constraint,
+ */
 CrudDatabase.prototype.insert = function(entity) {
     var clonedEntity;
     this._checkInstance(entity);

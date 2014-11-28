@@ -1,5 +1,8 @@
 /**
- * Created by holger on 05.09.2014.
+ * This module defines the routes for the user API
+ * @module backend/routes/UserRouter
+ * @author Holger Heymanns
+ * @since 25.06.2014
  */
 var express = require('express');
 var path = require('path');

@@ -1,6 +1,8 @@
 /**
- * This class implements the Article class
- * Created by Holger on 24.09.2014.
+ * This module implements the Article class
+ * @module backend/entities/Article
+ * @author Holger Heymanns
+ * @since 24.09.2014
  */
 
 /**
@@ -15,6 +17,7 @@
  * @param {String[]} tags
  * @param {VoteContainer} votes Entity that contains the number of votes
  * @constructor
+ * @class
  */
 function Article(id, title, url, imageUrl, description, submittedBy, submittedOn, tags, votes) {
     this.id = id;

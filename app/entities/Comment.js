@@ -1,8 +1,20 @@
 /**
- * Created by Holger on 08.10.2014.
  * This entity class is for comments
+ * @module backend/entities/Comment
+ * @author Holger Heymanns
+ * @since 08.10.2014
  */
 
+/**
+ * This class implements the comment entity
+ * @param id
+ * @param articleId
+ * @param text
+ * @param submittedBy
+ * @param submittedOn
+ * @constructor
+ * @class
+ */
 function Comment(id, articleId, text, submittedBy, submittedOn) {
     this.id = id;
     this.articleId = articleId;
@@ -24,10 +36,18 @@ Comment.prototype.updateFromJsonObject = function(jsonObject) {
     this.submittedOn = jsonObject.submittedOn != undefined ? jsonObject.submittedOn : this.submittedOn;
 };
 
+/**
+ * Tis function updates the entity based on the given JSON string
+ * @param {String} jsonString
+ */
 Comment.prototype.updateFromJsonString = function(jsonString) {
     this.updateFromJsonObject(JSON.parse(jsonString));
 };
 
+/**
+ * This function returns a clone of the entity
+ * @return {Comment}
+ */
 Comment.prototype.clone = function() {
     return new Comment(this.id, this.articleId, this.text, this.submittedBy, this.submittedOn);
 };

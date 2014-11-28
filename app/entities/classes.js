@@ -1,11 +1,20 @@
 /**
- * Created by Holger on 14.09.2014.
- * This module exports functionality to mimic classes and providing mixins and stiff
+ * This module exports functionality to mimic classes and providing mixins and stuff
+ * @module backend/entities/classes
+ * @author Holger Heymanns
+ * @since 14.09.2014
  */
 'use strict';
 
 var classes = {};
 
+/**
+ * This class is an error container
+ * @param number
+ * @param message
+ * @constructor
+ * @class
+ */
 var lnkErrorConstructor = function LnkError(number, message) {
     this.number = number;
     this.message = message;
@@ -27,6 +36,7 @@ var lnkErrorConstructor = function LnkError(number, message) {
 /**
  * Creates an object to mimic a "string set"
  * @constructor
+ * @class
  */
 var setConstructor = function StringSet() {
     this.holder = Object.create(null);

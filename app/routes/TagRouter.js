@@ -1,3 +1,9 @@
+/**
+ * This module defines the routes and assigns the url to the effective functions
+ * @module backend/routes/TagRouter
+ * @author Holger Heymanns
+ * @since 27.11.2014
+ */
 var express = require('express');
 var path = require('path');
 var log4js = require('log4js');

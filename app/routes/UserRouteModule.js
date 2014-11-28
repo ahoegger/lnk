@@ -1,5 +1,8 @@
 /**
- * Created by Holger on 08.11.2014.
+ * This module defines the functionality used in the {@link module:backend/routes/UserRouter}
+ * @module backend/routes/UserRouterModule
+ * @author Holger Heymanns
+ * @since 08.11.2014
  */
 var path = require('path');
 var log4js = require('log4js');

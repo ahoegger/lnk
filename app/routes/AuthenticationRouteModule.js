@@ -1,7 +1,8 @@
 /**
- * This module provides functionality for user authentication
+ * This module provides functionality for user authentication used in the {@link module:backend/routes/AuthenticationRouter}
  * @module backend/routes/AuthenticationRouteModule
- * @type {exports}
+ * @author Holger Heymanns
+ * @since 12.10.2014
  */
 var path = require('path');
 var log4js = require('log4js');

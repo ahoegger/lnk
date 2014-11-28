@@ -1,8 +1,8 @@
 /**
- * Created by Holger on 12.10.2014.
  * This module contains various helper functions for the article router module
  * @module backend/routes/ArticleRouterHelperModule
- * @type {exports}
+ * @author Holger Heymanns
+ * @since 12.10.2014
  */
 
 var path = require('path');

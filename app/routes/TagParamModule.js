@@ -1,7 +1,9 @@
 /**
- * Created by Holger on 27.11.2014.
- * Module providing functionality for the tag as parameter in a path
+ * Module providing functionality for the tagId as parameter in a path
  * @module backend/routes/TagParamModule
+ * @module backend/routes/CommentParamModule
+ * @author Holger Heymanns
+ * @since 27.11.2014
  */
 
 var path = require('path');

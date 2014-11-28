@@ -1,6 +1,8 @@
 /**
- * Created by Holger on 11.10.2014.
  * This module allows the initial load auf data from a json file into the datastore
+ * @module backend/data/InitialLoad
+ * @author Holger Heymanns
+ * @since 11.10.2014
  */
 
 var fs = require('fs');
