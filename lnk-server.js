@@ -36,6 +36,7 @@ var articlesRouter = require(app_constants.packagedModule('routes', 'ArticleRout
 var tagsRouter = require(app_constants.packagedModule('routes', 'TagRouter.js'));
 var userRouter = require(app_constants.packagedModule('routes', 'UserRouter.js'));
 var authenticationRouter = require(app_constants.packagedModule('routes', 'AuthenticationRouter.js'));
+var notFoundRouter = require(app_constants.packagedModule('routes', '404Router.js'));
 // constants and basic variables
 var express_server_port = process.env.PORT || 3000;
 
@@ -57,7 +58,7 @@ app.use(express.static( path.join(app_constants.appPath, 'socket.io')));        
 app.use('/bower_components',  express.static(bower_root_path));    // bower components are not inside public
 app.use('/fonts',  express.static(fonts_root_path));               // needed because of font-awesome.css, gulp had done this before
 
-// attach routes for the ajax requersts to the base URL /api
+// attach routes for the ajax requests to the base URL /api
 app.use(bodyParser.json());
 app.use(api_base_uri, articlesRouter);
 app.use(api_base_uri, tagsRouter);
@@ -74,11 +75,18 @@ app.use(api_base_uri, function(err, req, res){
     }
 });
 
+app.use(notFoundRouter);
+
 //
 app.use(function(err, req, res){
     logger.warn('Processing error', err.stack);
     // Check error fo "status" not defined.
-    res.status(500).send('Internal server error');
+    if(res.status != undefined) {
+        res.status(500).send('Internal server error');
+    }
+    if(res.send != undefined) {
+        res.send('Internal server error');
+    }
 });
 
 // Initialload data
