@@ -1,8 +1,18 @@
 /**
- * Created by aho on 12.11.2014.
+ * Module for handling updating users
+ * @class angular_controller.UserUpdateModule
+ * @memberOf angular_controller
+ * @author Andy Hoegger
+ * @since 12.11.2014
  */
 var userUpdateController = angular.module('userUpdateController', [ 'service.authentication','service.user']);
 
+/**
+ * @name userCreateController
+ * @description Controller for updating users
+ * @function
+ * @memberOf angular_controller.UserUpdateModule
+ */
 userUpdateController.controller('userUpdateController', ['$scope','$location','$routeParams','authenticationState','userService',
     function ($scope, $location,$routeParams, authenticationState, userService) {
         $scope.$on('$viewContentLoaded', function(){
@@ -52,7 +62,12 @@ userUpdateController.controller('userUpdateController', ['$scope','$location','$
     }
     ]);
 
-
+/**
+ * @name equals
+ * @description Directive for checking equality of two values
+ * @function imageUrlFilter
+ * @memberOf angular_controller.UserUpdateModule
+ */
 userUpdateController.directive('equals', function() {
     return {
 //        restrict: 'A', // only activate on element attribute

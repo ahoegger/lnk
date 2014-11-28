@@ -1,10 +1,18 @@
 /**
- * Created by Holger on 20.11.2014.
- * Controller for single comments to be used in the loop of the article
+ * Module for handling a comment
+ * @class angular_controller.CommentModule
+ * @memberOf angular_controller
+ * @author Holger Heymanns
+ * @since 20.11.2014
  */
-
 var singleCommentController = angular.module('singleCommentController', ['service.article', 'service.user', 'service.authentication']);
 
+/**
+ * @name singleCommentController
+ * @description Controller for a single comment
+ * @function
+ * @memberOf angular_controller.CommentModule
+ */
 singleCommentController.controller('singleCommentController', ['$scope', 'articleService', 'userService', 'authenticationState',
     function ($scope, articleService, userService, authenticationState) {
 
@@ -38,7 +46,10 @@ singleCommentController.controller('singleCommentController', ['$scope', 'articl
 ]);
 
 /**
- * This directive creates the html for deleting a comment
+ * @name deleteComment
+ * @description Directive that creates the HTML for deleting a comment
+ * @function
+ * @memberOf angular_controller.CommentModule
  */
 singleCommentController.directive('deleteComment', function () {
     return {

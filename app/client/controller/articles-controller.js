@@ -1,8 +1,18 @@
 /**
- * Created by aho on 12.09.2014.
+ * Module for a collection of articles
+ * @class angular_controller.ArticlesModule
+ * @memberOf angular_controller
+ * @author Andy Hoegger
+ * @since 12.09.2014
  */
 var articlesController = angular.module('articlesController', ['service.article', 'service.behaviour']);
 
+/**
+ * @name articleListController
+ * @description Controller for handling a collection of articles
+ * @function
+ * @memberOf angular_controller.ArticlesModule
+ */
 articlesController.controller('articleListController', ['$scope', '$location', 'articleService', 'behaviour',
     function ($scope, $location, articleService, behaviour) {
         var errorLoadArticles = function (data, status) {
@@ -74,7 +84,10 @@ articlesController.controller('articleListController', ['$scope', '$location', '
     }]);
 
 /**
- * a filter to format the submitted date into a relative date from now like 'few seconds ago'
+ * @name dateFromNow
+ * @description Filter for formatting a date in relation to now
+ * @function
+ * @memberOf angular_controller.ArticlesModule
  */
 articlesController.filter('dateFromNow', function () {
     return function (input, $moment) {
@@ -82,7 +95,13 @@ articlesController.filter('dateFromNow', function () {
     };
 });
 
-
+/**
+ * @name voteUpLink
+ * @description Directive for creating the html code for voting up
+ * @function
+ * @memberOf angular_controller.ArticlesModule
+ * @deprecated
+ */
 articlesController.directive('voteUpLink', function () {
     return {
         template: '<span ng-show="article._embedded.votes._links.voteUp.href">up</span><a ng-click="voteUp($event, $index, article._embedded.votes._links.voteUp.href)" class="vote icon-passive icon-activatable" href="#"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>'

@@ -1,8 +1,18 @@
 /**
- * Created by aho on 12.11.2014.
+ * Module for handling the creation of users
+ * @class angular_controller.UserCreateModule
+ * @memberOf angular_controller
+ * @author Andy Hoegger
+ * @since 12.11.2014
  */
 var userCreateController = angular.module('userCreateController', [ 'service.authentication','service.user', 'service.authentication']);
 
+/**
+ * @name userCreateController
+ * @description Controller for the creation of users
+ * @function
+ * @memberOf angular_controller.UserCreateModule
+ */
 userCreateController.controller('userCreateController', ['$scope','$location','$routeParams','authenticationState','userService','authenticationService',
     function ($scope, $location,$routeParams,   authenticationState, userService,authenticationService) {
         $scope.$on('$viewContentLoaded', function(){
@@ -40,7 +50,12 @@ userCreateController.controller('userCreateController', ['$scope','$location','$
     }
     ]);
 
-
+/**
+ * @name equals
+ * @description Directive for checking equality of two values
+ * @function imageUrlFilter
+ * @memberOf angular_controller.UserCreateModule
+ */
 userCreateController.directive('equals', function() {
     return {
 //        restrict: 'A', // only activate on element attribute

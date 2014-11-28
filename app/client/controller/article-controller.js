@@ -1,8 +1,18 @@
 /**
- * Created by Holger on 17.11.2014.
+ * Module for single articles
+ * @class angular_controller.ArticleModule
+ * @memberOf angular_controller
+ * @author Holger Heymanns
+ * @since 17.11.2014
  */
 var singleArticleController = angular.module('singleArticleController', ['service.article', 'service.authentication', 'socket']);
 
+/**
+ * @name singleArticleController
+ * @description Controller for handling single article issues
+ * @function
+ * @memberOf angular_controller.ArticleModule
+ */
 singleArticleController.controller('singleArticleController', ['$scope', 'articleService', 'authenticationState', 'socket',
     function($scope, articleService, authenticationState, socket) {
 
@@ -155,7 +165,12 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
     }
 ]);
 
-
+/**
+ * @name numberOfVotes
+ * @description Directive for creating the html code displaying the number of votes and the vote up / vote down arrows
+ * @function
+ * @memberOf angular_controller.ArticleModule
+ */
 singleArticleController.directive('numberOfVotes', function() {
     return {
         template: '<span ng-show="article.hasVoteUp == true" <a ng-click="voteUp2($event, article._embedded.votes._links.voteUp.href)" class="vote icon-passive icon-activatable" href="#"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>'
@@ -163,7 +178,10 @@ singleArticleController.directive('numberOfVotes', function() {
 });
 
 /**
- * This directive creates the html for deleting an article
+ * @name deleteArticle
+ * @description Directive for creating the html code for deleting an article
+ * @function
+ * @memberOf angular_controller.ArticleModule
  */
 singleArticleController.directive('deleteArticle', function() {
     return {

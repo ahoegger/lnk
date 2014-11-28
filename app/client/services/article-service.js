@@ -1,9 +1,17 @@
 /**
- * Created by aho on 15.09.2014.
+ * Service for article functionality
+ * @class angular_services.ArticleServiceModule
+ * @memberOf angular_services
+ * @author Andy Hoegger
+ * @since 15.09.2014
  */
-
 var articleServices = angular.module('service.article', []);
 
+/**
+ * @description Service factory for interaction with the backend with regards to articles, comments, etc.
+ * @function ArticleService
+ * @memberOf angular_services.ArticleServiceModule
+ */
 articleServices.factory('articleService', ['$http',
     function ($http) {
         var doVote = function(url, successCallback, errorCallback) {

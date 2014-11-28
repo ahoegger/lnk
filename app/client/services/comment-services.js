@@ -1,9 +1,17 @@
 /**
- * Created by aho on 15.09.2014.
+ * Service for comments
+ * @class angular_services.CommentsServiceModule
+ * @memberOf angular_services
+ * @author Andy Hoegger
+ * @since 15.09.2014
  */
-
 var articleServices = angular.module('commentServiceModule', []);
 
+/**
+ * @description Service factory for comment services
+ * @function CommentService
+ * @memberOf angular_services.CommentsServiceModule
+ */
 articleServices.factory('commentsService', ['$http',
     function ($http) {
         var doRequest = function () {

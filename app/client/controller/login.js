@@ -1,5 +1,18 @@
+/**
+ * Module for handling Login stuff
+ * @class angular_controller.LoginModule
+ * @memberOf angular_controller
+ * @author Andy Hoegger
+ * @since 06.11.2014
+ */
 var loginController = angular.module('loginController', [ 'service.authentication']);
 
+/**
+ * @name loginController
+ * @description Controller for Login stuff
+ * @function
+ * @memberOf angular_controller.LoginModule
+ */
 loginController.controller('loginController', ['$scope','$location', '$window','authenticationService',
     function ($scope, $location, $window, authenticationService) {
 
@@ -7,10 +20,6 @@ loginController.controller('loginController', ['$scope','$location', '$window','
             console.log("activate login");
             $("input[autofocus]").first().focus();
         });
-//        $scope.login = function ($event, $form) {
-//            authenticationService.logIn($scope.login.username,$scope.login.password);
-//            $event.preventDefault();
-//        };
 
         var loginSuccess = function() {
             $location.path("/");
@@ -20,7 +29,7 @@ loginController.controller('loginController', ['$scope','$location', '$window','
             $location.path("/");
         };
 
-        $scope.login = function logIn($event, $form) {
+        $scope.login = function logIn($event) {
             $event.preventDefault();
             var username = $scope.login.username;
             var password = $scope.login.password;

@@ -1,10 +1,17 @@
 /**
- * Created by aho on 12.11.2014.
+ * Service for token interception to add the JSON web token to the header when doing request
+ * @class angular_services.TokenInterceptorServiceModule
+ * @memberOf angular_services
+ * @author Andy Hoegger
+ * @since 12.11.2014
  */
-
 var tokenInterceptorService = angular.module('service.tokenInterceptor', ['service.authentication']);
 
-
+/**
+ * @description Service factory for token interception
+ * @function TokenInterceptorService
+ * @memberOf angular_services.TokenInterceptorServiceModule
+ */
 tokenInterceptorService.factory('tokenInterceptor', function ($q, $window, $location, authenticationState) {
     return {
         request: function (config) {

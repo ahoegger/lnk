@@ -1,10 +1,17 @@
 /**
- * Created by Holger on 25.11.2014.
  * This module provides a factory to use socket.io in angular controllers
+ * @class angular_services.SocketModule
+ * @memberOf angular_services
+ * @author Holger Heymanns
+ * @since 15.09.2014
  */
-
 var socketFactory = angular.module('socket', []);
 
+/**
+ * @description Service factory for socket.io services
+ * @function SocketService
+ * @memberOf angular_services.SocketModule
+ */
 socketFactory.factory('socket', function ($rootScope) {
     var socket = io.connect();
     return {

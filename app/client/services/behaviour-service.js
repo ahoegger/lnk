@@ -1,8 +1,17 @@
 /**
- * Created by aho on 16.09.2014.
+ * Service for UI behaviour
+ * @class angular_services.BehaviourServiceModule
+ * @memberOf angular_services
+ * @author Andy Hoegger
+ * @since 16.09.2014
  */
 var behaviourModule = angular.module('service.behaviour', []);
 
+/**
+ * @description Service factory for behaviour services
+ * @function BehaviourService
+ * @memberOf angular_services.BehaviourServiceModule
+ */
 behaviourModule.factory('behaviour', [
     function () {
          /**
@@ -31,7 +40,8 @@ behaviourModule.factory('behaviour', [
         return {
             autoResizeTextarea: autoResizeTextarea
         };
-    }]);
+    }
+]);
 
 
 

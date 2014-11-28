@@ -1,10 +1,18 @@
 /**
- * Created by aho on 15.09.2014.
+ * Module for handling the navigation
+ * @class angular_controller.NavigationModule
+ * @memberOf angular_controller
+ * @author Andy Hoegger
+ * @since 15.09.2014
  */
-
-
 var navigationController = angular.module('navigationController', ['service.authentication', 'service.user']);
 
+/**
+ * @name navigationController
+ * @description Controller for the navigation
+ * @function
+ * @memberOf angular_controller.NavigationModule
+ */
 navigationController.controller('navigationController', ['$scope', '$rootScope', '$window', '$location', '$http', 'userService', 'authenticationService','authenticationState',
     function ($scope, $rootScope, $window, $location, $http, userService, authenticationService,authenticationState) {
 //        var loadUserById = function(userId){

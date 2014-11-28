@@ -1,10 +1,17 @@
 /**
- * Created by aho on 16.09.2014.
+ * Controller for adding articles
+ * @class angular_controller.AddArticleModule
+ * @memberOf angular_controller
+ * @author Andy Hoegger
+ * @since 16.09.2014
  */
-
-
 var addArticleController = angular.module('addArticleController', ['service.article', 'service.behaviour', 'service.authentication']);
 
+/**
+ * @description Directive for handling image loading
+ * @function imageonload
+ * @memberOf angular_controller.AddArticleModule
+ */
 addArticleController.directive('imageonload',
     function () {
         return {
@@ -24,9 +31,13 @@ addArticleController.directive('imageonload',
         };
     });
 
-
+/**
+ * @name addArticleController
+ * @description Controller for handling article additions
+ * @function
+ * @memberOf angular_controller.AddArticleModule
+ */
 addArticleController.controller('addArticleController', ['$scope', '$location', 'articleService', 'behaviour', 'authenticationState',
-
 
     function ($scope, $location, articleService, behaviour, authenticationState) {
 
@@ -112,7 +123,7 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
 
 
         $scope.isAternateUrlVisible = function () {
-            if ($scope.urlIsImage && !$scope.article.alternateImageUrl) {
+            if($scope.urlIsImage && !$scope.article.alternateImageUrl) {
                 return false;
             } else {
                 return true;
@@ -122,7 +133,11 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
     }
 ]);
 
-
+/**
+ * @description Filter for choosing the right URL for images
+ * @function imageUrlFilter
+ * @memberOf angular_controller.AddArticleModule
+ */
 addArticleController.filter('imageUrlFilter', function () {
     return function (url, alternateUrl, isValidImage) {
         if (alternateUrl && alternateUrl.$viewValue) {

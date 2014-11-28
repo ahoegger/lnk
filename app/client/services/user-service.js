@@ -1,9 +1,17 @@
 /**
- * Created by aho on 12.11.2014.
+ * Service for user handling
+ * @class angular_services.UserServiceModule
+ * @memberOf angular_services
+ * @author Andy Hoegger
+ * @since 12.11.2014
  */
 var userService = angular.module('service.user', []);
 
-
+/**
+ * @description Service factory for user service
+ * @function UserService
+ * @memberOf angular_services.UserServiceModule
+ */
 userService.factory('userService', ['$http',
     function ($http) {
 

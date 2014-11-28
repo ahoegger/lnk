@@ -1,9 +1,17 @@
 /**
- * Created by aho on 06.11.2014.
+ * Service for authentication
+ * @class angular_services.AuthenticationServiceModule
+ * @memberOf angular_services
+ * @author Andy Hoegger
+ * @since 06.11.2014
  */
 var authenticationService = angular.module('service.authentication', ['service.user']);
 
-
+/**
+ * @description Service factory for authentication
+ * @function AuthenticationService
+ * @memberOf angular_services.AuthenticationServiceModule
+ */
 authenticationService.factory('authenticationService', ['$http', '$window', 'authenticationState',
     function ($http, $window, authenticationState) {
         var userInternal = undefined;
@@ -55,6 +63,11 @@ authenticationService.factory('authenticationService', ['$http', '$window', 'aut
         }
     }]);
 
+/**
+ * @description Service factory for authentication sate
+ * @function AuthenticationState
+ * @memberOf angular_services.AuthenticationServiceModule
+ */
 authenticationService.factory('authenticationState', [ '$window',
     function ($window) {
         var internalUser = undefined;
