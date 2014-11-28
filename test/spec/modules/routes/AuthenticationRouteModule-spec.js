@@ -57,7 +57,7 @@ describe('Test authenticate', function() {
         dummyDataStore.resultSet = [{isAuthenticated: function() {return true} }];
         testModule.authenticate({body: {userName: 'faked', password: 'not relevant'}}, resMock);
         expect(spyJson.calledOnce).to.be.true;
-        expect(spyStatus.withArgs(302).calledOnce).to.be.true;
+        expect(spyStatus.withArgs(200).calledOnce).to.be.true;
         expect(spyJson.firstCall.args[0].token).not.to.be.undefined;
     })
 });

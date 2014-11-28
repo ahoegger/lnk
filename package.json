@@ -24,8 +24,6 @@
     "less-middleware": "^1.0.4",
     "log4js": "^0.6.21",
     "morgan": "^1.2.3",
-    "nedb": "^0.11.1",
-    "q": "^1.0.1",
     "serve-favicon": "^2.1.1",
     "socket.io": "^1.2.1"
   },
@@ -50,12 +48,7 @@
     "gulp-uglify": "^0.2.1",
     "gulp-useref": "^0.4.2",
     "istanbul": "^0.3.2",
-    "jasmine-node": "^1.14.5",
     "jshint-stylish": "^0.2.0",
-    "karma": "^0.12.24",
-    "karma-chai": "^0.1.0",
-    "karma-coverage": "^0.2.6",
-    "karma-mocha": "^0.1.9",
     "mocha": "^1.21.5",
     "node-mocks-http": "^1.2.1",
     "opn": "^0.1.1",
@@ -65,12 +58,5 @@
   },
   "engines": {
     "node": ">=0.10.0"
-  },
-  "config": {
-    "blanket": {
-      "pattern": [
-        "/app/data/*.js"
-      ]
-    }
   }
 }
