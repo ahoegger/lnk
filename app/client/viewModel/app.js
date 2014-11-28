@@ -1,12 +1,12 @@
-/**
- * Created by aho on 12.09.2014.
- */
-
-//lnkApp
 'use strict';
 
-/* App Module */
-
+/**
+ * Module of the magnificent .lnk application
+ * @class angular_app.AppModule
+ * @memberOf angular_app
+ * @author Andy Hoegger
+ * @since 12.09.2014
+ */
 var lnkApp = angular.module('lnkApp', [
     'ngRoute'
     , 'articlesController'
@@ -25,6 +25,13 @@ var lnkApp = angular.module('lnkApp', [
 
 ]);
 
+/**
+ * Application configuration of the routes
+ * @function angular_app.config
+ * @memberOf angular_app.AppModule
+ * @author Andy Hoegger
+ * @since 12.09.2014
+ */
 lnkApp.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
@@ -86,6 +93,13 @@ lnkApp.config(['$routeProvider',
 //        })
     });
 
+/**
+ * Application configuration of the http service provider
+ * @function angular_app.AppModule
+ * @memberOf angular_app.AppModule
+ * @author Andy Hoegger
+ * @since 12.09.2014
+ */
 lnkApp.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('tokenInterceptor');
 }]);

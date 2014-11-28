@@ -155,12 +155,13 @@ gulp.task('jsdoc', function() {
             , './app/entities/*.js'
             , './app/data/*.js'
             , './app/client/controller/*.js'
-            , './app/client/services/*.js'])
+            , './app/client/services/*.js'
+            , './app/client/viewModel/*.js'])
         .pipe(jsdoc.parser(infos, 'data.json'))
         .pipe(jsdoc.generator(
             './documentation',
             {
-                path: 'ink-docstrap',
+                path            : 'ink-docstrap',
                 systemName      : '.lnk',
                 footer          : "CAS-FEE Project .lnk",
                 copyright       : "Andy Hoegger, Holger Heymanns",
