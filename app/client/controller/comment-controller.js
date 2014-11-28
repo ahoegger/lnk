@@ -15,7 +15,7 @@ singleCommentController.controller('singleCommentController', ['$scope', 'articl
 
         var handleUserChanged = function () {
             $scope.hasEdit = false; // TODO Implement editing of comment
-            $scope.hasDelete = authenticationState.getUser() != undefined && $scope.comment._links.self != undefined && $scope.comment.submittedBy == authenticationState.getUser().userName;
+            $scope.hasDelete = authenticationState.getUser() != undefined && $scope.comment._links.self != undefined && $scope.comment._embedded.user.userName == authenticationState.getUser().userName;
             $scope.hasSubmitComment = authenticationState.getUser() != undefined;
         };
         /**
