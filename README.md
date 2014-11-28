@@ -1,7 +1,8 @@
 #lnk CAS FEE#
 Holger Heymanns, Andreas Hoegger
 
-The latest released version is available under http://ahoegger.github.io/lnk/dist/.
+The latest released of the front end only version is available under http://ahoegger.github.io/lnk/dist/.
+The current state is deployed at https://frozen-inlet-2896.herokuapp.com/
 
 ## Installation ##
 ### Prerequisits ###
