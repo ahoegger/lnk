@@ -49,7 +49,7 @@ userService.factory('userService', ['$http',
         var findUserByUsernameInternal= function(userName){
 //            /api/user?username=xxx
             return $http({method: 'GET',
-                url: '/api/user?username=' + userName,
+                url: '/api/users?username=' + userName,
                 headers: {
                     'Content-Type': 'application/json'
                 }
