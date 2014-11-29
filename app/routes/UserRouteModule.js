@@ -34,10 +34,13 @@ module.exports = function(datastore) {
             logger.debug('Returning user', halsonResult);
             return res.status(200).send(JSON.stringify(halsonResult));
         },
+        // create new user
         postUser: function(req, res) {
             // TODO Refactor to use _handleUserUpdating
             var userObject = new UserClass.User();
             var halsonSingleUser;
+            var halsonResult;
+            halsonResult = halsonFactory.halsonify('User', req.paramhandler_user);
             userObject.updateFromJsonObject(req.body);            // put posted content into user object
             userObject.active = true;
             userObject = datastore.insertUser(userObject);

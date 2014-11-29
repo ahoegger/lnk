@@ -46,6 +46,16 @@ userService.factory('userService', ['$http',
                 });
         };
 
+        var findUserByUsernameInternal= function(userName){
+//            /api/user?username=xxx
+            return $http({method: 'GET',
+                url: '/api/user?username=' + userName,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        };
+
         var createUserInternal = function (user) {
             return $http.post('/api/users',
                 JSON.stringify(user),
@@ -60,8 +70,11 @@ userService.factory('userService', ['$http',
                 });
         };
 
+
+
         return{
             getUser: getUserInternal,
+            findUserByUsername: findUserByUsernameInternal,
             storeUser: updateUserInternal,
             createUser: createUserInternal
         };

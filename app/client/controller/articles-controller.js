@@ -13,11 +13,11 @@ var articlesController = angular.module('articlesController', ['service.article'
  * @function
  * @memberOf angular_controller.ArticlesModule
  */
-articlesController.controller('articleListController', ['$scope', '$location', 'articleService', 'behaviour',
-    function ($scope, $location, articleService, behaviour) {
+articlesController.controller('articleListController', ['$scope', '$location', 'articleService', 'behaviour','toaster',
+    function ($scope, $location, articleService, behaviour,toaster) {
         var errorLoadArticles = function (data, status) {
+            toaster.pop('error', "Articles", data);
             console.log('error loading articles \'articlesController\': ' + status);
-            $scope.error = data;
         };
         var successLoadArticles = function (data) {
             $scope.articles = data;

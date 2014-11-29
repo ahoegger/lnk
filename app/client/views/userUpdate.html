@@ -7,7 +7,7 @@
                     <label class="col-sm-2 control-label">Username</label>
                     <div class="col-sm-10 no-padding-sm">
                         <input name="username"  class="form-control full-width-sm" placeholder="Username"  autofocus ng-readonly="usernameReadOnly" tabindex="{{usernameReadOnly && -10 || undefined }}"
-                               ng-model="user.userName" ng-required="true">
+                               ng-model="user.userName" used-user ng-required="true" >
 
                         <p ng-show="user.userName.$error.required && !user.userName.$pristine" class="help-block">
                             Username is required.</p>

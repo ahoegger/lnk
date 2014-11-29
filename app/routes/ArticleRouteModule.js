@@ -154,7 +154,7 @@ module.exports = function(datastore, socket) {
                 datastore.deleteArticle(req.article);
                 return res.status(204).send();
             }
-            return res.status(403).send();      // forbidden, as logegd in user ist not the one that submitted the article
+            return res.status(403).send('You are not authorized to delete this article!');
         },
         /**
          * Returns a single article. The articleId must be in the path and the paramHandler must be installed.
@@ -243,7 +243,7 @@ module.exports = function(datastore, socket) {
                 datastore.deleteComment(req.comment);
                 return res.status(204).send();
             }
-            return res.status(403).send();      // forbidden, as logged in user ist not the one that submitted the article
+            return res.status(403).send('You are not authorized to delete this comment!');
         }
     }
 };

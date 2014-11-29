@@ -87,37 +87,29 @@ articleServices.factory('articleService', ['$http',
          * This function submits a comment
          * @param {String} apiUrl URL of the backend to submit the article
          * @param {Object} commentObject A comments object to be submitted
-         * @param {Function} successCallback Handler for success case
-         * @param {Function} errorCallback Handler for the error case
          */
-        var submitComment = function(apiUrl, commentObject, successCallback, errorCallback) {
+        var submitComment = function(apiUrl, commentObject) {
             var data = JSON.stringify(commentObject);
-            $http
+            return $http
                 .post(apiUrl, data,
                 {
                     headers: {'Content-Type': GLOBAL_JSON_TYPE},
                     timeout: GLOBAL_TIMEOUT
                 }
-            )
-            .success( successCallback )
-            .error( errorCallback );
+            );
         };
 
         /**
          * This function calls the http delete method on the backend with the given apiUrl
          * @param apiUrl
-         * @param successCallback
-         * @param errorCallback
          */
-        var deleteEntity = function(apiUrl, successCallback, errorCallback) {
-            $http(
+        var deleteEntity = function(apiUrl) {
+            return $http(
                 {
                     method: 'DELETE',
                     url: apiUrl,
                     timeout: GLOBAL_TIMEOUT
                 })
-                .success(successCallback)
-                .error(errorCallback)
         };
 
         var loadComments = function(apiUrl, successCallback, errorCallback) {

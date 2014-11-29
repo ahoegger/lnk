@@ -13,8 +13,8 @@ var singleCommentController = angular.module('singleCommentController', ['servic
  * @function
  * @memberOf angular_controller.CommentModule
  */
-singleCommentController.controller('singleCommentController', ['$scope', 'articleService', 'userService', 'authenticationState',
-    function ($scope, articleService, userService, authenticationState) {
+singleCommentController.controller('singleCommentController', ['$scope', 'articleService', 'userService', 'authenticationState','toaster',
+    function ($scope, articleService, userService, authenticationState,toaster) {
 
 
         $scope.$watch(authenticationState.getUser, function () {
@@ -31,12 +31,15 @@ singleCommentController.controller('singleCommentController', ['$scope', 'articl
          */
         $scope.deleteComment = function () {
             // nice: implement check, if user is allowed to delete the article
-            articleService.deleteComment($scope.comment._links.self.href,
+            articleService.deleteComment($scope.comment._links.self.href)
+                .success(
                 function (data, status) {
                     console.log('deleted at backend with status' + status);
-                    delete $scope.$parent.article._embedded.comments.splice($scope.$index,1);
-                },
+                    delete $scope.$parent.article._embedded.comments.splice($scope.$index, 1);
+                })
+                .error(
                 function (data, status) {
+                    toaster.pop('error', "Comment", data);
                     console.log('delete not successful, status = ' + status);
                 });
         };

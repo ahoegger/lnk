@@ -71,26 +71,15 @@ lnkApp.config(['$routeProvider',
             });
     }
 ])
-    .run(function($rootScope, $location, authenticationState) {
+    .run(function($rootScope, $location, authenticationState,toaster) {
 
         $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
             console.log('route to: '+nextRoute.templateUrl);
             if (nextRoute.access && nextRoute.access.requiredLogin && authenticationState.getUser() == undefined) {
+                toaster.pop('error', null, "Authentication required!");
                 $location.path("/login");
             }
         });
-//        $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-//        console.log('route to: '+next.templateUrl);
-//        console.dir(next);
-////            console.log('route changed');
-////        if ($rootScope.loggedInUser == null) {
-////            // no logged user, redirect to /login
-////            if ( next.templateUrl === "partials/login.html") {
-////            } else {
-////                $location.path("/login");
-////            }
-////        }
-//        })
     });
 
 /**
