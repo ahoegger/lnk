@@ -18,39 +18,28 @@ authenticationService.factory('authenticationService', ['$http', '$window', 'aut
         var GLOBAL_JSON_TYPE = 'application/json';
 
         var userInternal = undefined;
+        var loginInternal = function(username, password){
+            console.log('userService:login with user:' + username + '.');
+            var data = JSON.stringify({
+                "userName": username,
+                "password": password
+            });
+            return $http.post('/api/authentication', data,
+                {
+                    headers: {'Content-Type': GLOBAL_JSON_TYPE},
+                    timeout: GLOBAL_TIMEOUT
+                }
+            ).success(loginSuccessFunction);
+        };
         var loginSuccessFunction = function (data) {
             authenticationState.setAuthentication(data.user, data.token);
         };
-        var loginErrorFunction = function (data, loginErrorCallback) {
-            console.log(status);
-            console.log(data);
-            if (loginErrorCallback) {
-                loginErrorCallback();
-            }
+        var logoutInternal = function(){
+            authenticationState.setAuthentication(undefined, undefined);
         };
         return {
-            logIn: function (username, password, successCallback, errorCallback) {
-                console.log('userService:login with user:' + username + ' and password:' + password);
-                console.log('loginController: user:' + username);
-                var data = JSON.stringify({
-                    "userName": username,
-                    "password": password
-                });
-                return $http.post('/api/authentication', data,
-                        {
-                            headers: {'Content-Type': GLOBAL_JSON_TYPE},
-                            timeout: GLOBAL_TIMEOUT
-                        }
-                ).success(loginSuccessFunction);
-
-            },
-
-            logOut: function (successCallback) {
-                authenticationState.setAuthentication(undefined, undefined);
-                if (successCallback) {
-                    successCallback();
-                }
-            }
+            logIn: loginInternal,
+            logOut: logoutInternal
         }
     }]);
 

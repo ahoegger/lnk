@@ -13,8 +13,8 @@ var userUpdateController = angular.module('userUpdateController', [ 'service.aut
  * @function
  * @memberOf angular_controller.UserUpdateModule
  */
-userUpdateController.controller('userUpdateController', ['$scope', '$location', '$routeParams', 'authenticationState', 'userService',
-    function ($scope, $location, $routeParams, authenticationState, userService) {
+userUpdateController.controller('userUpdateController', ['$scope', '$location', '$routeParams', 'authenticationState', 'userService','toaster',
+    function ($scope, $location, $routeParams, authenticationState, userService,toaster) {
 
 
         // have a copy of the user to ensure passwords are not bind. the password is anyway only a hash.
@@ -41,7 +41,11 @@ userUpdateController.controller('userUpdateController', ['$scope', '$location', 
                 password: $scope.user.password,
                 active: $scope.user.active
             };
-            userService.storeUser(userVar).success(successfulStored);
+            userService.storeUser(userVar)
+                .success(successfulStored)
+                .error(function(data){
+                    toaster.pop('error', "User", data);
+            });
         };
         var successfulStored = function (data) {
             updateScopeUserInternal(data);

@@ -67,20 +67,16 @@ articleServices.factory('articleService', ['$http',
         /**
          * This function submit a form with the given ID
          * @param {Object} articleObject The article object containing it's data
-         * @param {Function} successCallback Callback function for the success case
-         * @param {Function} errorCallback Callback function for the error case
          */
-        var submitArticle = function(articleObject, successCallback, errorCallback) {
+        var submitArticle = function(articleObject) {
             var data = JSON.stringify(articleObject);
             var url = '/api/articles';
-            $http
-                .post(url, data,
+            return $http.post(url, data,
                     {
                         headers: { 'Content-Type': GLOBAL_JSON_TYPE},
-                        timeout: GLOBAL_TIMEOUT}
-                )
-                .success( successCallback )
-                .error( errorCallback );
+                        timeout: GLOBAL_TIMEOUT
+                    }
+                );
         };
 
         /**
@@ -112,13 +108,11 @@ articleServices.factory('articleService', ['$http',
                 })
         };
 
-        var loadComments = function(apiUrl, successCallback, errorCallback) {
-            $http.get(apiUrl,
+        var loadComments = function(apiUrl) {
+            return $http.get(apiUrl,
                 { headers: {'Content-Type': GLOBAL_JSON_TYPE},
                   timeout: GLOBAL_TIMEOUT}
-            )
-                .success( successCallback )
-                .error( errorCallback );
+            );
         };
 
         return {

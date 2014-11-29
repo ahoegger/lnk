@@ -37,9 +37,9 @@ addArticleController.directive('imageonload',
  * @function
  * @memberOf angular_controller.AddArticleModule
  */
-addArticleController.controller('addArticleController', ['$scope', '$location', 'articleService', 'behaviour', 'authenticationState',
+addArticleController.controller('addArticleController', ['$scope', '$location', 'articleService', 'behaviour', 'authenticationState','toaster',
 
-    function ($scope, $location, articleService, behaviour, authenticationState) {
+    function ($scope, $location, articleService, behaviour, authenticationState, toaster) {
 
         $scope.$on('$viewContentLoaded', function () {
             var x = window.scrollX, y = window.scrollY;
@@ -94,7 +94,7 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
         };
 
         var onPostArticleError = function (data) {
-            // TODO set error message
+            toaster.pop('error', "Article", data);
         };
 
         $scope.postArticle = function ($event, $form) {
@@ -110,8 +110,9 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
                 articleDto.submittedBy = authenticationState.getUser().id;
 
                 console.dir(articleDto);
-                articleService.submitArticle(articleDto,
-                    onPostArticleSuccess, onPostArticleError);
+                articleService.submitArticle(articleDto)
+                    .success(onPostArticleSuccess)
+                    .error(onPostArticleError);
             }
         };
 

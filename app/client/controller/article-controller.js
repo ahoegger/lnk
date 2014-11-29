@@ -13,34 +13,34 @@ var singleArticleController = angular.module('singleArticleController', ['servic
  * @function
  * @memberOf angular_controller.ArticleModule
  */
-singleArticleController.controller('singleArticleController', ['$scope', 'articleService', 'authenticationState', 'socket','toaster',
-    function($scope, articleService, authenticationState, socket, toaster) {
+singleArticleController.controller('singleArticleController', ['$scope', 'articleService', 'authenticationState', 'socket', 'toaster',
+    function ($scope, articleService, authenticationState, socket, toaster) {
 
         // add watch to auth state userId to update visibility of delete.
-        $scope.$watch(authenticationState.getUser, function(){
+        $scope.$watch(authenticationState.getUser, function () {
             handleUserChanged();
         });
 
         var author = $scope.article._embedded.user;
 
-        var handleUserChanged = function(){
-            $scope.hasDelete = authenticationState.getUser() != undefined &&  $scope.article._links.self != undefined && $scope.article._embedded.user.id === authenticationState.getUser().id;
+        var handleUserChanged = function () {
+            $scope.hasDelete = authenticationState.getUser() != undefined && $scope.article._links.self != undefined && $scope.article._embedded.user.id === authenticationState.getUser().id;
             $scope.hasSubmitComment = authenticationState.getUser() != undefined;
         };
 
         var commentsLoaded = false;
 
-        var updateVotePropertyOnScope = function($scope) {
+        var updateVotePropertyOnScope = function ($scope) {
             $scope.article.hasVoteUp = $scope.user != undefined && $scope.article._embedded.votes._links.voteUp != undefined;
             $scope.article.hasVoteDown = $scope.user != undefined && $scope.article._embedded.votes._links.voteDown != undefined;
         };
 
         // listener on websockt event broadcast to update the vote
-        socket.on('vote:updated', function(data) {
+        socket.on('vote:updated', function (data) {
             // received an updated vote. search, if the the available articles, there is one with the given id and then update it's vote value
-                if($scope.article.id === data.articleId) {
-                    $scope.article._embedded.votes = data;
-                }
+            if ($scope.article.id === data.articleId) {
+                $scope.article._embedded.votes = data;
+            }
         });
 
         var votingExecutionFactory = function (message) {
@@ -80,17 +80,17 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
         /**
          * This controller function deletes the article on the backend and removed the article from the collection
          */
-        $scope.deleteArticle = function() {
+        $scope.deleteArticle = function () {
             // nice: implement check, if user is allowed to delete the article
             articleService.deleteArticle($scope.article._links.self.href)
                 .success(
-                function(data, status) {
+                function (data, status) {
                     console.log('deleted an backend with status' + status);
                     var idx = $scope.$parent.articles.indexOf($scope.article);
-                    $scope.$parent.articles.splice(idx,1);
+                    $scope.$parent.articles.splice(idx, 1);
                 }
             ).error(
-                function(data, status) {
+                function (data, status) {
                     toaster.pop('error', "Article", data);
                 }
             );
@@ -116,13 +116,12 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
                     $scope.submittingComment = false;
                 })
                 .error(
-                function(data) {
+                function (data) {
                     toaster.pop('error', "Comment", data);
                     $scope.submittingComment = false;
                 }
             );
         };
-
 
 
         $scope.hasEdit = false; // TODO Implement editing of article
@@ -132,11 +131,12 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
         $scope.loadingComments = false;
         $scope.submittingComment = false;
 
-        $scope.doShowComments = function($event) {
+        $scope.doShowComments = function ($event) {
             $event.preventDefault();
             if (commentsLoaded == false) {
                 $scope.loadingComments = true;
-                articleService.loadComments($scope.article._links.comments.href,
+                articleService.loadComments($scope.article._links.comments.href)
+                    .success(
                     function (data) {
                         if ($scope.article._embedded == undefined) {
                             $scope.article._embedded = {};
@@ -145,9 +145,10 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
                         commentsLoaded = true;
                         $scope.showComments = true;
                         $scope.loadingComments = false;
-                    },
+                    })
+                    .error(
                     function (data, status) {
-                        console.log('Error ' + status + ' loading comments: ' + data);
+                        toaster.pop('error', "Article", data);
                         $scope.loadingComments = false;
                     });
             } else {
@@ -167,7 +168,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
  * @function
  * @memberOf angular_controller.ArticleModule
  */
-singleArticleController.directive('numberOfVotes', function() {
+singleArticleController.directive('numberOfVotes', function () {
     return {
         template: '<span ng-show="article.hasVoteUp == true" <a ng-click="voteUp2($event, article._embedded.votes._links.voteUp.href)" class="vote icon-passive icon-activatable" href="#"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>'
     }
@@ -179,7 +180,7 @@ singleArticleController.directive('numberOfVotes', function() {
  * @function
  * @memberOf angular_controller.ArticleModule
  */
-singleArticleController.directive('deleteArticle', function() {
+singleArticleController.directive('deleteArticle', function () {
     return {
         template: '<a role="button" ng-click="deleteArticle()"><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></a>'
     }

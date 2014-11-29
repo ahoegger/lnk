@@ -22,18 +22,11 @@ articleServices.factory('commentsService', ['$http',
                 {
                     headers: {'Content-Type': GLOBAL_JSON_TYPE},
                     timeout: GLOBAL_TIMEOUT
-                }).
-                error(function (data) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                    console.log('An error during data access')
                 });
         };
 
         return {
-            getArticles: function () {
-                return doRequest();
-            },
+            getArticles:doRequest,
             voteUp: function (articleId) {
                 console.log('remote call [voteUp : ' + articleId + ']');
             },
