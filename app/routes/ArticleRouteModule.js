@@ -229,6 +229,7 @@ module.exports = function(datastore, socket) {
             commentObject.articleId = req.article.id;           // update with article id
             commentObject.submittedBy = req.user ? req.user.userName : undefined;  // set the user name of the logged in user
             commentObject = datastore.insertComment(commentObject);  // insert the comment
+            commentObject.user = req.user;  // Cheap hack as there should be a user object instead of submittedBy
             halsonSingleComment = halsonFactory.halsonify('Comment', commentObject);
             return res.status(201).send(JSON.stringify(halsonSingleComment));
         },

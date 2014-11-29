@@ -119,7 +119,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
                     console.log('Submit comment callback ' + self.message);
                     console.log(data);
                     // Finally, add the comment object from the response to the viewModel
-                    $scope.articles[index]._embedded.comments.push(data);
+                    $scope.article._embedded.comments.push(data);
                     $event.target[0].value = '';
                     $scope.submittingComment = false;
                 },
