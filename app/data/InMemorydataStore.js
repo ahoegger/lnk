@@ -289,9 +289,10 @@ module.exports = {
      */
     deleteArticle: function(article) {
         _deleteArticle(article);
-        _deleteArticleTags(article);
-        _deleteArticleVotes(article);
-        _deleteArticleComments(article);
+        // TODO Fix the deletion of cascading entities
+        // _deleteArticleTags(article);
+        // _deleteArticleVotes(article);
+        // _deleteArticleComments(article);
     },
     insertTag: function(tag) {
         return tagsTable.insert(tag);
