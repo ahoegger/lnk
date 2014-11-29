@@ -15,15 +15,17 @@ var userService = angular.module('service.user', []);
 userService.factory('userService', ['$http',
     function ($http) {
 
+        var GLOBAL_TIMEOUT = 5000;
+        var GLOBAL_JSON_TYPE = 'application/json';
+
         var getUserInternal = function (id) {
             console.log('getUserInternal with id \'' + id + '\'.');
-            return $http({method: 'GET',
-                url: '/api/user/' + id,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).
-                error(function (data, status, headers, config) {
+            return $http.get('/api/user/' + id,
+                {
+                    headers: { 'Content-Type': GLOBAL_JSON_TYPE },
+                    timeout: GLOBAL_TIMEOUT
+                })
+                .error(function (data) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                     console.log('An error during data access')
@@ -31,15 +33,13 @@ userService.factory('userService', ['$http',
         };
 
         var updateUserInternal = function (user) {
-            return $http({
-                method: 'PUT',
-                url: '/api/user/' + user.id,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: JSON.stringify(user)
-            })
-                .error(function (data, status, headers, config) {
+            return $http.put('/api/user/' + user.id,
+                JSON.stringify(user),
+                {
+                    headers: { 'Content-Type': GLOBAL_JSON_TYPE },
+                    timeout: GLOBAL_TIMEOUT
+                })
+                .error(function (data) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                     console.log('An error during data access')
@@ -47,15 +47,13 @@ userService.factory('userService', ['$http',
         };
 
         var createUserInternal = function (user) {
-            return $http({
-                method: 'POST',
-                url: '/api/users',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: JSON.stringify(user)
-            })
-                .error(function (data, status, headers, config) {
+            return $http.post('/api/users',
+                JSON.stringify(user),
+                {
+                    headers: { 'Content-Type': GLOBAL_JSON_TYPE },
+                    timeout: GLOBAL_TIMEOUT
+                })
+                .error(function (data) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                     console.log('An error during data access')

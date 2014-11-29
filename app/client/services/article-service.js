@@ -14,10 +14,16 @@ var articleServices = angular.module('service.article', []);
  */
 articleServices.factory('articleService', ['$http',
     function ($http) {
+        var GLOBAL_TIMEOUT = 5000;
+        var GLOBAL_JSON_TYPE = 'application/json';
         var doVote = function(url, successCallback, errorCallback) {
             return $http.post(
                 url,
-                null
+                null,
+                {
+                    headers: {'Content-Type': GLOBAL_JSON_TYPE},
+                    timeout: GLOBAL_TIMEOUT
+                }
             )
             .success( successCallback )
             .error( errorCallback );
@@ -29,8 +35,13 @@ articleServices.factory('articleService', ['$http',
                 url += '?anywhere='+searchQuery;
             }
             console.log(url);
-            return $http({method: 'GET', url: url}).
-                error(function (data) {
+            return $http.get(url,
+                    {
+                        headers: {'Accept': GLOBAL_JSON_TYPE},
+                        timeout: GLOBAL_TIMEOUT
+                    }
+                )
+                .error(function (data) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                     console.log('An error during data access')
@@ -42,8 +53,8 @@ articleServices.factory('articleService', ['$http',
 
         var getArticlesByApi = function(apiUrl, successHandler, errorHandler) {
             $http.get(apiUrl,
-                { headers: {'Accept': 'application/json'},
-                  timeout: 5000
+                { headers: {'Accept': GLOBAL_JSON_TYPE},
+                  timeout: GLOBAL_TIMEOUT
                 })
                 .success(successHandler)
                 .error(errorHandler)
@@ -64,7 +75,9 @@ articleServices.factory('articleService', ['$http',
             var url = '/api/articles';
             $http
                 .post(url, data,
-                    { headers: { 'Content-Type': 'application/json'} }
+                    {
+                        headers: { 'Content-Type': GLOBAL_JSON_TYPE},
+                        timeout: GLOBAL_TIMEOUT}
                 )
                 .success( successCallback )
                 .error( errorCallback );
@@ -81,7 +94,10 @@ articleServices.factory('articleService', ['$http',
             var data = JSON.stringify(commentObject);
             $http
                 .post(apiUrl, data,
-                { headers: {'Content-Type': 'application/json'} }
+                {
+                    headers: {'Content-Type': GLOBAL_JSON_TYPE},
+                    timeout: GLOBAL_TIMEOUT
+                }
             )
             .success( successCallback )
             .error( errorCallback );
@@ -94,15 +110,20 @@ articleServices.factory('articleService', ['$http',
          * @param errorCallback
          */
         var deleteEntity = function(apiUrl, successCallback, errorCallback) {
-            $http({method: 'DELETE', url: apiUrl})
+            $http(
+                {
+                    method: 'DELETE',
+                    url: apiUrl,
+                    timeout: GLOBAL_TIMEOUT
+                })
                 .success(successCallback)
                 .error(errorCallback)
         };
 
         var loadComments = function(apiUrl, successCallback, errorCallback) {
             $http.get(apiUrl,
-                { headers: {'Content-Type': 'application/json'},
-                  timeout: 5000}
+                { headers: {'Content-Type': GLOBAL_JSON_TYPE},
+                  timeout: GLOBAL_TIMEOUT}
             )
                 .success( successCallback )
                 .error( errorCallback );

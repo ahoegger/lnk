@@ -14,9 +14,16 @@ var articleServices = angular.module('commentServiceModule', []);
  */
 articleServices.factory('commentsService', ['$http',
     function ($http) {
+        var GLOBAL_TIMEOUT = 5000;
+        var GLOBAL_JSON_TYPE = 'application/json';
+
         var doRequest = function () {
-            return $http({method: 'GET', url: '/api/articles'}).
-                error(function (data, status, headers, config) {
+            return $http.get('/api/articles',
+                {
+                    headers: {'Content-Type': GLOBAL_JSON_TYPE},
+                    timeout: GLOBAL_TIMEOUT
+                }).
+                error(function (data) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                     console.log('An error during data access')

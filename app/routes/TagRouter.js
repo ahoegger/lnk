@@ -12,7 +12,7 @@ var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constant
 
 var datastore = require(app_constants.packagedModule('data', 'InMemorydataStore.js'));
 
-var routerHelperModule = require(app_constants.packagedModule('routes', 'RouterHelperModule.js'))();
+var routerHelperModule = require(app_constants.packagedModule('routes', 'RouterHelperModule.js'))(datastore);
 var tagRouterModule = require(app_constants.packagedModule('routes', 'TagRouteModule.js'))(datastore);
 var tagParamModule = require(app_constants.packagedModule('routes', 'TagParamModule.js'))(datastore);
 

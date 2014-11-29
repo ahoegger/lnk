@@ -13,7 +13,7 @@ var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constant
 var datastore = require(app_constants.packagedModule('data', 'InMemorydataStore.js'));
 var jwt = require('express-jwt');       // route handler for authenticating against a token
 
-var routerHelperModule = require(app_constants.packagedModule('routes', 'RouterHelperModule.js'))();
+var routerHelperModule = require(app_constants.packagedModule('routes', 'RouterHelperModule.js'))(datastore);
 var userRouterModule = require(app_constants.packagedModule('routes', 'UserRouteModule.js'))(datastore);
 var userParamModule = require(app_constants.packagedModule('routes', 'UserParamModule.js'))(datastore);
 

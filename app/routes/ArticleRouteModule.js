@@ -7,7 +7,7 @@
 var path = require('path');
 var log4js = require('log4js');
 var app_constants = require(path.join(path.resolve(process.cwd()), 'app_constants'));
-var helper = require(app_constants.packagedModule('routes', 'ArticleRouterHelperModule.js'))(this.datastore);
+var helper;
 
 var ArticleClass = require(app_constants.packagedModule('entities', 'Article.js'));
 var ArticleUserVoteClass = require(app_constants.packagedModule('entities', 'ArticleUserVote.js'));
@@ -86,6 +86,8 @@ function _insertOrUpdateArticle(req, articleDbFunction, tagsDbFunction) {
 module.exports = function(datastore, socket) {
     this.datastore = datastore;
     this.socket = socket;
+
+    helper = require(app_constants.packagedModule('routes', 'ArticleRouterHelperModule.js'))(this.datastore);
 
     return {
         /**

@@ -14,6 +14,9 @@ var authenticationService = angular.module('service.authentication', ['service.u
  */
 authenticationService.factory('authenticationService', ['$http', '$window', 'authenticationState',
     function ($http, $window, authenticationState) {
+        var GLOBAL_TIMEOUT = 5000;
+        var GLOBAL_JSON_TYPE = 'application/json';
+
         var userInternal = undefined;
         var loginSuccessFunction = function (data, loginSuccessCallback) {
             console.log('successful logged in...');
@@ -29,7 +32,7 @@ authenticationService.factory('authenticationService', ['$http', '$window', 'aut
         };
         return {
             logIn: function (username, password, successCallback, errorCallback) {
-                console.log('userService:login with user:' + username + ' and password:' + password)
+                console.log('userService:login with user:' + username + ' and password:' + password);
                 console.log('loginController: user:' + username);
                 if (username !== undefined && password !== undefined) {
                     var data = JSON.stringify({
@@ -37,11 +40,14 @@ authenticationService.factory('authenticationService', ['$http', '$window', 'aut
                         "password": password
                     });
                     $http.post('/api/authentication', data,
-                        { headers: {'Content-Type': 'application/json'} }
+                        {
+                            headers: {'Content-Type': GLOBAL_JSON_TYPE},
+                            timeout: GLOBAL_TIMEOUT
+                        }
                     ).success(function (data) {
                             loginSuccessFunction(data, successCallback)
                         })
-                        .error(function (data, status, headers, config) {
+                        .error(function (data, status) {
                             if (status === 302) {
                                 loginSuccessFunction(data, successCallback);
                             } else {
