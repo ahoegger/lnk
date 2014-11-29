@@ -42,7 +42,9 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
     function ($scope, $location, articleService, behaviour, authenticationState) {
 
         $scope.$on('$viewContentLoaded', function () {
-            $("input[autofocus]").first().focus();
+            var x = window.scrollX, y = window.scrollY;
+            $("input[autofocus]:not([ng-readonly=true])").first().focus();
+            window.scrollTo(x, y);
         });
         /**
          * This function converts a string with tags (separated by commas) into an array of (trimmed) strings
@@ -86,12 +88,12 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
             return undefined;
         };
 
-        var onPostArticleSuccess = function(data){
+        var onPostArticleSuccess = function (data) {
             console.log('successful posted article.');
             $location.path('/articles')
         };
 
-        var onPostArticleError = function(data){
+        var onPostArticleError = function (data) {
             // TODO set error message
         };
 
@@ -109,7 +111,7 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
 
                 console.dir(articleDto);
                 articleService.submitArticle(articleDto,
-                    onPostArticleSuccess,onPostArticleError);
+                    onPostArticleSuccess, onPostArticleError);
             }
         };
 
@@ -123,7 +125,7 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
 
 
         $scope.isAternateUrlVisible = function () {
-            if($scope.urlIsImage && !$scope.article.alternateImageUrl) {
+            if ($scope.urlIsImage && !$scope.article.alternateImageUrl) {
                 return false;
             } else {
                 return true;

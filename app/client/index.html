@@ -15,6 +15,8 @@
     <script src="../bower_components/angular/angular.min.js"></script>
     <script src="../bower_components/angular-route/angular-route.min.js"></script>
     <script src="../bower_components/angular-momentjs/angular-momentjs.min.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.js"></script>
+    <script src="../bower_components/angularjs-toaster/toaster.js"></script>
     <script src="../bower_components/modernizr/modernizr.js"></script>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -41,6 +43,7 @@
     your browser</a> to improve your experience.</p>
 <![endif]-->
 <!--include header-->
+<toaster-container toaster-options="{'time-out': 5000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
 <div ng-include='"views/navigation.html"'></div>
 
 <div class="container-fluid content" ng-controller="navigationController">

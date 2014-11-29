@@ -16,7 +16,9 @@ var userCreateController = angular.module('userCreateController', [ 'service.aut
 userCreateController.controller('userCreateController', ['$scope','$location','$routeParams','authenticationState','userService','authenticationService',
     function ($scope, $location,$routeParams,   authenticationState, userService,authenticationService) {
         $scope.$on('$viewContentLoaded', function(){
+            var x = window.scrollX, y = window.scrollY;
             $("input[autofocus]:not([ng-readonly=true])").first().focus();
+            window.scrollTo(x, y);
         });
 
         $scope.user = undefined;
@@ -84,3 +86,42 @@ userCreateController.directive('equals', function() {
         }
     }
 });
+
+/**
+ * @name usedUser
+ * @description Directive for checking a username is already in use
+ * @function imageUrlFilter
+ * @memberOf angular_controller.UserUpdateModule
+ */
+userCreateController.directive('usedUser', ['userService',
+    function (userService) {
+    return {
+//        restrict: 'A', // only activate on element attribute
+        require: '?ngModel', // get a hold of NgModelController
+        link: function (scope, elem, attrs, ngModel) {
+            var onSuccessUserLoad = function(data){
+                console.dir(data);
+                // set validity
+                ngModel.$setValidity('usedUser', true);
+            };
+            var onErrorUserLoad = function(data){
+              console.log('ERROR');
+            };
+            if (!ngModel) return; // do nothing if no ng-model
+
+            // watch own value and re-validate on change
+            scope.$watch(attrs.ngModel, function () {
+                validate();
+            });
+
+            var validate = function () {
+                // values
+                var val1 = ngModel.$viewValue;
+                userService.findUserByUsername(val1).success(onSuccessUserLoad).error(onErrorUserLoad);
+
+                // set validity
+//                ngModel.$setValidity('equals', !val1 || !val2 || val1 === val2);
+            };
+        }
+    }
+}]);

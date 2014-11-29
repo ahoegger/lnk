@@ -41,7 +41,7 @@ module.exports = function(datastore) {
 
             resultSet = datastore.selectUser(userQuery);
             if (resultSet.length !== 1) {
-                return res.send(401);
+                return res.status(401).send('Login failed!');
             }
 
             user = resultSet[0];
@@ -49,7 +49,7 @@ module.exports = function(datastore) {
                 token = jwt.sign(user, secret.secretToken, { expiresInMinutes: 60 });
                 return res.status(200).json({token:token, user: user});
             } else {
-                return res.send(401);
+                return res.status(401).send('Authentication required!');
             }
 
         }

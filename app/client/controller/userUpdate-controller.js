@@ -51,7 +51,9 @@ userUpdateController.controller('userUpdateController', ['$scope', '$location', 
 
         // set initial focus
         $scope.$on('$viewContentLoaded', function () {
-            $("input[autofocus]:not([ng-readonly])").first().focus();
+            var x = window.scrollX, y = window.scrollY;
+            $("input[autofocus]:not([ng-readonly=true])").first().focus();
+            window.scrollTo(x, y);
         });
 
         $scope.usernameReadOnly = true;

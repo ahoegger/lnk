@@ -13,8 +13,8 @@ var singleArticleController = angular.module('singleArticleController', ['servic
  * @function
  * @memberOf angular_controller.ArticleModule
  */
-singleArticleController.controller('singleArticleController', ['$scope', 'articleService', 'authenticationState', 'socket',
-    function($scope, articleService, authenticationState, socket) {
+singleArticleController.controller('singleArticleController', ['$scope', 'articleService', 'authenticationState', 'socket','toaster',
+    function($scope, articleService, authenticationState, socket, toaster) {
 
         // add watch to auth state userId to update visibility of delete.
         $scope.$watch(authenticationState.getUser, function(){
@@ -61,17 +61,6 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             }
         };
 
-        var submitCommentExecution = function (message, index) {
-            var self = {
-                message: message,
-                index: index
-            };
-            return function (data) {
-                console.log('Submit comment callback ' + self.message);
-                console.log(data);
-                $scope.submittingComment = false;
-            }
-        };
         $scope.voteUp2 = function ($event, apiUrl) {
             $event.preventDefault();
             console.log(apiUrl);
@@ -93,15 +82,18 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
          */
         $scope.deleteArticle = function() {
             // nice: implement check, if user is allowed to delete the article
-            articleService.deleteArticle($scope.article._links.self.href,
-            function(data, status) {
-                console.log('deleted an backend with status' + status);
-                var idx = $scope.$parent.articles.indexOf($scope.article);
-                $scope.$parent.articles.splice(idx,1);
-            },
-            function(data, status) {
-                console.log('delete not successful, status = ' + status);
-            });
+            articleService.deleteArticle($scope.article._links.self.href)
+                .success(
+                function(data, status) {
+                    console.log('deleted an backend with status' + status);
+                    var idx = $scope.$parent.articles.indexOf($scope.article);
+                    $scope.$parent.articles.splice(idx,1);
+                }
+            ).error(
+                function(data, status) {
+                    toaster.pop('error', "Article", data);
+                }
+            );
         };
 
         $scope.submitComment = function ($event, index, apiUrl, articleId) {
@@ -113,8 +105,8 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
                 text: $event.srcElement[0].value,
                 submittedOn: new Date()
             };
-            articleService.submitComment(apiUrl,
-                commentObject,
+            articleService.submitComment(apiUrl, commentObject)
+                .success(
                 function (data) {
                     console.log('Submit comment callback ' + self.message);
                     console.log(data);
@@ -122,8 +114,12 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
                     $scope.article._embedded.comments.push(data);
                     $event.target[0].value = '';
                     $scope.submittingComment = false;
-                },
-                submitCommentExecution('Submit comment error', index)
+                })
+                .error(
+                function(data) {
+                    toaster.pop('error', "Comment", data);
+                    $scope.submittingComment = false;
+                }
             );
         };
 
