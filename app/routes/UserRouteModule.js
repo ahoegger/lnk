@@ -38,6 +38,12 @@ module.exports = function(datastore) {
             // TODO Refactor to use _handleUserUpdating
             var userObject = new UserClass.User();
             var halsonSingleUser;
+            // first check, if the user name is already registered
+            if (datastore.selectUser(function(entity) {
+                return entity.userName === req.body.userName;
+            }).length > 0) {
+                return res.status(409).send('Username ' + req.body.userName + ' already registered.');
+            }
             userObject.updateFromJsonObject(req.body);            // put posted content into user object
             userObject.active = true;
             userObject = datastore.insertUser(userObject);
