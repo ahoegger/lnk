@@ -72,13 +72,7 @@ authenticationService.factory('authenticationState', [ '$window',
     function ($window) {
         var internalUser = undefined;
         var setAuthenticationInternal = function (user, token) {
-            if(user == undefined){
-                delete $window.sessionStorage.user;
-                internalUser = undefined;
-            }else{
-                $window.sessionStorage.user = JSON.stringify(user);
-                internalUser = user;
-            }
+            setUserInternal(user);
             if(token == undefined){
                 delete $window.sessionStorage.token;
             }else{
@@ -86,10 +80,21 @@ authenticationService.factory('authenticationState', [ '$window',
             }
         };
 
+
+
         var getUserTokenInternal = function () {
             return $window.sessionStorage.token;
         };
 
+        var setUserInternal = function(user){
+            if(user == undefined){
+                delete $window.sessionStorage.user;
+                internalUser = undefined;
+            }else{
+                $window.sessionStorage.user = JSON.stringify(user);
+                internalUser = user;
+            }
+        };
         var getUserInternal = function () {
             return internalUser;
         };
@@ -103,6 +108,7 @@ authenticationService.factory('authenticationState', [ '$window',
 
         return {
             getUser: getUserInternal,
+            setUser: setUserInternal,
             getUserToken: getUserTokenInternal,
             setAuthentication: setAuthenticationInternal
         };

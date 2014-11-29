@@ -5,7 +5,7 @@
  * @author Andy Hoegger
  * @since 12.11.2014
  */
-var userUpdateController = angular.module('userUpdateController', [ 'service.authentication','service.user']);
+var userUpdateController = angular.module('userUpdateController', [ 'service.authentication', 'service.user']);
 
 /**
  * @name userCreateController
@@ -13,54 +13,54 @@ var userUpdateController = angular.module('userUpdateController', [ 'service.aut
  * @function
  * @memberOf angular_controller.UserUpdateModule
  */
-userUpdateController.controller('userUpdateController', ['$scope','$location','$routeParams','authenticationState','userService',
-    function ($scope, $location,$routeParams, authenticationState, userService) {
-        $scope.$on('$viewContentLoaded', function(){
+userUpdateController.controller('userUpdateController', ['$scope', '$location', '$routeParams', 'authenticationState', 'userService',
+    function ($scope, $location, $routeParams, authenticationState, userService) {
+
+
+        // have a copy of the user to ensure passwords are not bind. the password is anyway only a hash.
+        var updateScopeUserInternal = function (user) {
+            $scope.user =
+            {
+                id: user.id,
+                userName: user.userName,
+                name: user.name,
+                firstname: user.firstname,
+                active: true,
+                password: undefined,
+                password_verify: undefined
+            };
+        };
+
+        var storeUserInternal = function ($event) {
+            $event.preventDefault();
+            var userVar = {
+                id: $scope.user.id,
+                userName: $scope.user.userName,
+                name: $scope.user.name,
+                firstname: $scope.user.firstname,
+                password: $scope.user.password,
+                active: $scope.user.active
+            };
+            userService.storeUser(userVar).success(successfulStored);
+        };
+        var successfulStored = function (data) {
+            updateScopeUserInternal(data);
+            authenticationState.setUser(data);
+            $location.path('/articles');
+        };
+
+        // set initial focus
+        $scope.$on('$viewContentLoaded', function () {
             $("input[autofocus]:not([ng-readonly])").first().focus();
         });
 
         $scope.usernameReadOnly = true;
         $scope.user = undefined;
-//        {
-//            id : 2,
-//            userName: 'admin',
-//            name: 'Administrator',
-//            firstname : 'Hans',
-//            password: undefined,
-//            active: true,
-//            password_verify : undefined
-//        };
-        var userSuccessfulLoaded = function(data){
-            $scope.user = data;
-            console.dir(data);
-            console.log("blubber");
-        };
-        var successfulStored= function(data){
-            $scope.user = data.user;
-            console.dir(data);
-            console.log("blubber");
-            $location.path('/articles');
-        };
-        $scope.storeUser = function($event){
-            $event.preventDefault();
-            var userVar = {
-                id : $scope.user.id,
-                userName : $scope.user.userName,
-                name : $scope.user.name,
-                firstname : $scope.user.firstname,
-                password : $scope.user.password,
-                active : $scope.user.active
-            };
-            userService.storeUser(userVar).success(successfulStored);
-            userServiceState.user = userVar;
-        }
-        if(userServiceState.user) {
-            var routeParamUser = $routeParams.id.replace('^\:*','');
-            console.log('route user id:'+routeParamUser);
-            userService.getUser(userServiceState.user.id).success(userSuccessfulLoaded);
-        }
+
+        $scope.storeUser = storeUserInternal;
+        updateScopeUserInternal(authenticationState.getUser());
     }
-    ]);
+]);
 
 /**
  * @name equals
@@ -68,15 +68,15 @@ userUpdateController.controller('userUpdateController', ['$scope','$location','$
  * @function imageUrlFilter
  * @memberOf angular_controller.UserUpdateModule
  */
-userUpdateController.directive('equals', function() {
+userUpdateController.directive('equals', function () {
     return {
 //        restrict: 'A', // only activate on element attribute
         require: '?ngModel', // get a hold of NgModelController
-        link: function(scope, elem, attrs, ngModel) {
-            if(!ngModel) return; // do nothing if no ng-model
+        link: function (scope, elem, attrs, ngModel) {
+            if (!ngModel) return; // do nothing if no ng-model
 
             // watch own value and re-validate on change
-            scope.$watch(attrs.ngModel, function() {
+            scope.$watch(attrs.ngModel, function () {
                 validate();
             });
 
@@ -85,13 +85,13 @@ userUpdateController.directive('equals', function() {
                 validate();
             });
 
-            var validate = function() {
+            var validate = function () {
                 // values
                 var val1 = ngModel.$viewValue;
                 var val2 = attrs.equals;
 
                 // set validity
-                ngModel.$setValidity('equals', ! val1 || ! val2 || val1 === val2);
+                ngModel.$setValidity('equals', !val1 || !val2 || val1 === val2);
             };
         }
     }
