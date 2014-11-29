@@ -16,7 +16,9 @@ var userCreateController = angular.module('userCreateController', [ 'service.aut
 userCreateController.controller('userCreateController', ['$scope','$location','$routeParams','authenticationState','userService','authenticationService',
     function ($scope, $location,$routeParams,   authenticationState, userService,authenticationService) {
         $scope.$on('$viewContentLoaded', function(){
+            var x = window.scrollX, y = window.scrollY;
             $("input[autofocus]:not([ng-readonly=true])").first().focus();
+            window.scrollTo(x, y);
         });
 
         $scope.user = undefined;

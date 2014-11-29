@@ -17,8 +17,9 @@ loginController.controller('loginController', ['$scope','$location', '$window','
     function ($scope, $location, $window, authenticationService,toaster) {
 
         $scope.$on('$viewContentLoaded', function(){
-            console.log("activate login");
-            $("input[autofocus]").first().focus();
+            var x = window.scrollX, y = window.scrollY;
+            $("input[autofocus]:not([ng-readonly=true])").first().focus();
+            window.scrollTo(x, y);
         });
 
         var loginSuccess = function(data) {
