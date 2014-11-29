@@ -22,7 +22,7 @@ var router = express.Router();
 routerHelperModule.registerParamModule(router, userParamModule);
 
 router
-    .get('/users', routerHelperModule.notYetImplementedHandler)
+    .get('/users', userRouterModule.getUsers)
     .get('/user/:userId', userRouterModule.getUser)
     .get('/user/:userId/articles', userRouterModule.getUserArticles)
     .post('/users', userRouterModule.postUser)

@@ -27,6 +27,24 @@ module.exports = function(datastore) {
     }
 
     return {
+        /**
+         * This function retrieves a collection of users based on the search criteria
+         * @param req
+         * @param res
+         */
+        getUsers: function(req, res) {
+            var resultSet;
+            var queryUserName = (req.query != undefined && req.query.username != undefined) ? req.query.username : undefined;
+            var halsonResult;
+            resultSet = datastore.selectUser(function(entity) {
+                return entity.userName === queryUserName;
+            });
+            if(resultSet === undefined || resultSet.length === 0) {
+                return res.status(200).send();      // Status =200 with an empty resultset
+            }
+            halsonResult = halsonFactory.halsonifyArray('User', resultSet);
+            return res.status(200).json(halsonResult);
+        },
         getUser: function(req, res) {
             var halsonResult;
             req.paramhandler_user.password = null;   // remove password for response
