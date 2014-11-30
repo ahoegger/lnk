@@ -12,9 +12,9 @@
         <div class="col-sm-3 hidden-xxs"></div>
         <div class="col-sm-6">
             <div class="input-group">
-                <form name="loginForm" ng-submit="search($event)" novalidate>
+                <form name="textSearchForm" ng-submit="search($event, textSearchQuery)" novalidate>
                     <span class="input-group-btn full-width">
-                        <input ng-model="searchQuery" id="submit-search" type="text" class="form-control">
+                        <input name="textSearchQuery" ng-model="textSearchQuery" type="text" class="form-control">
                         <button class="btn btn-default fa fa-search" type="submit"></button>
                     </span>
                 </form>
@@ -23,6 +23,15 @@
         </div>
         <div class="col-sm-3 hidden-xxs"></div>
     </div>
+    <div class="row" ng-if="searchQuery">
+        <div class="col-sm-3 hidden-xxs"></div>
+        <div class="col-sm-6">
+            {{searchQuery}}
+            <button class="btn btn-xs" ng-click="search($event)"><i class="fa fa-times"></i></button>
+        </div>
+        <div class="col-sm-3 hidden-xxs"></div>
+    </div>
+
     <!-- begin loading comments spinner section -->
     <div class="row" ng-show="loadingArticles"> <!-- ng-show="loadingArticles" -->
         <div class="col-sm-6 col-sm-offset-3">
@@ -65,13 +74,13 @@
                             <ul>
                                 <li><i class="fa fa-tags icon-passive"></i>
                                         <div class="icon-spacer make-inline btn-toolbar" >Tags
-                                            <button ng-click="searchByApi(tag._links.articles.href)" ng-repeat="tag in article._embedded.tags" type="button" class="btn btn-xs" role="button">{{tag.tag}}</button>
+                                            <button ng-click="searchByTag(tag)" ng-repeat="tag in article._embedded.tags" type="button" class="btn btn-xs" role="button">{{tag.tag}}</button>
                                         </div>
                                 </li>
                                 <li><i class="fa fa-calendar icon-passive"></i><span class="icon-spacer">{{article.submittedOn | dateFromNow}}</span>
                                 </li>
                                 <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By
-                                    <button ng-click="searchByApi(article._embedded.user._links.articles.href)" type="button" class="btn btn-xs" role="button">{{article._embedded.user.userName}}</button>
+                                    <button ng-click="searchByUser(article._embedded.user)" type="button" class="btn btn-xs" role="button">{{article._embedded.user.userName}}</button>
                                 <li ng-show="hasEdit"><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>
                                 <li ng-show="hasDelete" delete-article></li>
                             </ul>
@@ -134,7 +143,7 @@
                                                         class="icon-spacer">Submitted {{comment.submittedOn | dateFromNow}}</span>
                                                 </li>
                                                 <li><i class="fa fa-user icon-passive"></i><span class="icon-spacer">By
-                                                    <button ng-click="searchByApi(comment._embedded.user._links.articles.href)" type="button" class="btn btn-xs" role="button">{{comment._embedded.user.userName}}</button>
+                                                    <button ng-click="searchByUser(comment._embedded.user)" type="button" class="btn btn-xs" role="button">{{comment._embedded.user.userName}}</button>
                                                     </span>
                                                 </li>
                                                 <li ng-show="hasEdit"><i class="fa fa-edit icon-passive"></i><span class="icon-spacer">Edit</span></li>

@@ -46,21 +46,36 @@ articlesController.controller('articleListController', ['$scope', '$location', '
                 }
             }
         };
-
-        $scope.search = function () {
-            console.log($scope.searchQuery);
-            $scope.loadingArticles = true;
-            articleService.getArticles($scope.searchQuery)
-                .success(successLoadArticles)
-                .error(errorLoadArticles);
-        };
-
-        $scope.searchByApi = function(apiUrl) {
-            console.log('Search articles by given API url ' + apiUrl);
+        var searchByApiInternal = function(apiUrl){
             articleService.getArticlesByApi(apiUrl,
                 successLoadArticles,
                 errorLoadArticles);
         };
+        // input of search field
+        $scope.textSearchQuery = undefined;
+        // used for delete current query
+        $scope.searchQuery = undefined;
+
+        $scope.search = function ($event, searchText) {
+            $scope.searchQuery = undefined;
+            console.log(searchText);
+            $scope.textSearchQuery = searchText;
+            $scope.loadingArticles = true;
+            articleService.getArticles(searchText)
+                .success(successLoadArticles)
+                .error(errorLoadArticles);
+        };
+        $scope.searchByTag = function(tag){
+            $scope.textSearchQuery = undefined;
+            $scope.searchQuery = 'Filter tag \''+tag.tag+'\'';
+            searchByApiInternal(tag._links.articles.href);
+        };
+        $scope.searchByUser = function(user){
+            $scope.textSearchQuery = undefined;
+            $scope.searchQuery = 'Filter by user \''+user.userName+'\'';
+            searchByApiInternal(user._links.articles.href);
+        };
+
         $scope.voteUp = function ($event, index, apiUrl) {
             $event.preventDefault();
             console.log(apiUrl);
