@@ -6,7 +6,7 @@
     "url": "https://github.com/ahoegger/lnk.git"
   },
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha -u bdd  -R spec ./test/spec/**/*-spec.js",
+    "mocha-test": "node ./node_modules/mocha/bin/mocha -u bdd  -R spec ./test/spec/**/*-spec.js",
     "coverage": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 500 ./test/spec/**/*-spec.js",
     "jsdoc": "node node_modules/gulp/bin/gulp.js jsdoc",
     "start": "node lnk-server.js",
@@ -23,7 +23,7 @@
     "jsonwebtoken": "^1.1.2",
     "less-middleware": "^1.0.4",
     "log4js": "^0.6.21",
-    "morgan": "^1.2.3",
+    "morgan": "~1.4.1",
     "serve-favicon": "^2.1.1",
     "socket.io": "^1.2.1"
   },
