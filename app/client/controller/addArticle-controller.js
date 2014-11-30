@@ -93,9 +93,11 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
         };
 
         $scope.postArticle = function ($event, $form) {
-            var articleDto = {};
             $event.preventDefault();
+            // create a empty dto
+            var articleDto = {};
             if ($form.$valid) {
+                // fill the dto with scope data
                 articleDto.title = $scope.article.title;
                 articleDto.url = $scope.article.url;
                 articleDto.description = $scope.article.description;
@@ -104,7 +106,7 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
                 articleDto.submittedOn = new Date();
                 articleDto.submittedBy = authenticationState.getUser().id;
 
-                console.dir(articleDto);
+                // call article service
                 articleService.submitArticle(articleDto)
                     .success(onPostArticleSuccess)
                     .error(onPostArticleError);

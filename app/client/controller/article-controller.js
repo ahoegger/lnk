@@ -87,9 +87,11 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
                 function (data, status) {
                     console.log('deleted an backend with status' + status);
                     var idx = $scope.$parent.articles.indexOf($scope.article);
+                    // removes the deleted article out of the article array.
                     $scope.$parent.articles.splice(idx, 1);
                 }
             ).error(
+                // error handling
                 function (data, status) {
                     toaster.pop('error', "Article", data);
                 }
@@ -116,6 +118,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
                     $scope.submittingComment = false;
                 })
                 .error(
+                // error handling
                 function (data) {
                     toaster.pop('error', "Comment", data);
                     $scope.submittingComment = false;
