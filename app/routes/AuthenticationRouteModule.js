@@ -36,7 +36,7 @@ module.exports = function(datastore) {
             var resultSet;
 
             if (userName == '' || password == '') {
-                return res.send(401);
+                return res.status(401).send('Missing user name or password. Not authorized.');
             }
 
             resultSet = datastore.selectUser(userQuery);
