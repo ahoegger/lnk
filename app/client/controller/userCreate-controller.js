@@ -17,9 +17,6 @@ var userCreateController = angular.module('userCreateController', [ 'service.aut
 userCreateController.controller('userCreateController', ['$scope', '$location', '$routeParams', 'authenticationState', 'userService', 'authenticationService', 'toaster',
     function ($scope, $location, $routeParams, authenticationState, userService, authenticationService, toaster) {
 
-        $scope.user = undefined;
-        $scope.usernameReadOnly = false;
-
         var successfulStored = function (data) {
             console.log('User ' + $scope.user.userName + ' successfully created!');
             authenticationService.logIn($scope.user.userName, $scope.user.password)
@@ -33,6 +30,10 @@ userCreateController.controller('userCreateController', ['$scope', '$location', 
 
         var loginInternal = function logIn(username, password) {
         };
+
+        // used because the userUpdate.html is used twice for create and update
+        $scope.usernameReadOnly = false;
+        $scope.user = undefined;
 
         $scope.storeUser = function ($event) {
             $event.preventDefault();
@@ -48,81 +49,44 @@ userCreateController.controller('userCreateController', ['$scope', '$location', 
                     toaster.pop('error', "User", data);
                 });
         }
+
     }
 
 ]);
 
-/**
- * @name equals
- * @description Directive for checking equality of two values
- * @function imageUrlFilter
- * @memberOf angular_controller.UserCreateModule
- */
-userCreateController.directive('equals', function () {
-    return {
-//        restrict: 'A', // only activate on element attribute
-        require: '?ngModel', // get a hold of NgModelController
-        link: function (scope, elem, attrs, ngModel) {
-            if (!ngModel) return; // do nothing if no ng-model
-
-            // watch own value and re-validate on change
-            scope.$watch(attrs.ngModel, function () {
-                validate();
-            });
-
-            // observe the other value and re-validate on change
-            attrs.$observe('equals', function (val) {
-                validate();
-            });
-
-            var validate = function () {
-                // values
-                var val1 = ngModel.$viewValue;
-                var val2 = attrs.equals;
-
-                // set validity
-                ngModel.$setValidity('equals', !val1 || !val2 || val1 === val2);
-            };
-        }
-    }
-});
-
-/**
- * @name usedUser
- * @description Directive for checking a username is already in use
- * @function imageUrlFilter
- * @memberOf angular_controller.UserUpdateModule
- */
-userCreateController.directive('username', ['userService',
-    function (userService) {
-        return {
-//        restrict: 'A', // only activate on element attribute
-            require: '?ngModel', // get a hold of NgModelController
-            link: function (scope, elem, attrs, ngModel) {
-                var onSuccessUserLoad = function (data) {
-                    console.dir(data);
-                    console.log(data.length);
-                    // set validity
-                    ngModel.$setValidity('username', data.length === 0);
-                };
-                var onErrorUserLoad = function (data) {
-                    console.log('ERROR');
-                };
-                if (!ngModel) return; // do nothing if no ng-model
-
-                // watch own value and re-validate on change
-                scope.$watch(attrs.ngModel, function () {
-                    validate();
-                });
-
-                var validate = function () {
-                    // values
-                    var val1 = ngModel.$viewValue;
-                    userService.findUserByUsername(val1).success(onSuccessUserLoad).error(onErrorUserLoad);
-
-                    // set validity
+///**
+// * @name equals
+// * @description Directive for checking equality of two values
+// * @function imageUrlFilter
+// * @memberOf angular_controller.UserCreateModule
+// */
+//userCreateController.directive('equals', function () {
+//    return {
+////        restrict: 'A', // only activate on element attribute
+//        require: '?ngModel', // get a hold of NgModelController
+//        link: function (scope, elem, attrs, ngModel) {
+//            if (!ngModel) return; // do nothing if no ng-model
+//
+//            // watch own value and re-validate on change
+//            scope.$watch(attrs.ngModel, function () {
+//                validate();
+//            });
+//
+//            // observe the other value and re-validate on change
+//            attrs.$observe('equals', function (val) {
+//                validate();
+//            });
+//
+//            var validate = function () {
+//                // values
+//                var val1 = ngModel.$viewValue;
+//                var val2 = attrs.equals;
+//
+//                // set validity
 //                ngModel.$setValidity('equals', !val1 || !val2 || val1 === val2);
-                };
-            }
-        }
-    }]);
+//            };
+//        }
+//    }
+//});
+
+

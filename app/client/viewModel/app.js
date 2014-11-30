@@ -112,5 +112,82 @@ lnkApp.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('tokenInterceptor');
 }]);
 
+/**
+ * @name equals
+ * @description Directive for checking equality of two values
+ * @function imageUrlFilter
+ * @memberOf angular_controller.UserUpdateModule
+ */
+lnkApp.directive('equals', function () {
+    return {
+//        restrict: 'A', // only activate on element attribute
+        require: '?ngModel', // get a hold of NgModelController
+        link: function (scope, elem, attrs, ngModel) {
+            if (!ngModel) return; // do nothing if no ng-model
+
+            // watch own value and re-validate on change
+            scope.$watch(attrs.ngModel, function () {
+                validate();
+            });
+
+            // observe the other value and re-validate on change
+            attrs.$observe('equals', function (val) {
+                validate();
+            });
+
+            var validate = function () {
+                // values
+                var val1 = ngModel.$viewValue;
+                var val2 = attrs.equals;
+
+                // set validity
+                ngModel.$setValidity('equals', !val1 || !val2 || val1 === val2);
+            };
+        }
+    }
+});
 
 
+/**
+ * @name usedUser
+ * @description Directive for checking a username is already in use
+ * @function imageUrlFilter
+ * @memberOf angular_controller.UserUpdateModule
+ */
+lnkApp.directive('username', ['userService',
+    function (userService) {
+        return {
+//        restrict: 'A', // only activate on element attribute
+            require: '?ngModel', // get a hold of NgModelController
+            link: function (scope, elem, attrs, ngModel) {
+                var $element = $(elem);
+                if(scope.usernameReadOnly){
+                    // always valid for read only case
+                    ngModel.$setValidity('username', true);
+                }else{
+                    var onSuccessUserLoad = function (data) {
+                        console.dir(data);
+                        console.log(data.length);
+                        // set validity
+                        ngModel.$setValidity('username', data.length === 0);
+                    };
+                    var onErrorUserLoad = function (data) {
+                        console.log('ERROR');
+                    };
+                    if (!ngModel) return; // do nothing if no ng-model
+
+                    // watch own value and re-validate on change
+                    scope.$watch(attrs.ngModel, function () {
+                        validate();
+                    });
+
+                    var validate = function () {
+                        // values
+                        var val1 = ngModel.$viewValue;
+                        userService.findUserByUsername(val1).success(onSuccessUserLoad).error(onErrorUserLoad);
+
+                    };
+                }
+            }
+        }
+    }]);

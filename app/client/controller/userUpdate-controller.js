@@ -53,52 +53,16 @@ userUpdateController.controller('userUpdateController', ['$scope', '$location', 
             $location.path('/articles');
         };
 
-        // set initial focus
-        $scope.$on('$viewContentLoaded', function () {
-            var x = window.scrollX, y = window.scrollY;
-            $("input[autofocus]:not([ng-readonly=true])").first().focus();
-            window.scrollTo(x, y);
-        });
-
+        // used because the userUpdate.html is used twice for create and update
         $scope.usernameReadOnly = true;
         $scope.user = undefined;
 
         $scope.storeUser = storeUserInternal;
         updateScopeUserInternal(authenticationState.getUser());
+
+
     }
 ]);
 
-/**
- * @name equals
- * @description Directive for checking equality of two values
- * @function imageUrlFilter
- * @memberOf angular_controller.UserUpdateModule
- */
-userUpdateController.directive('equals', function () {
-    return {
-//        restrict: 'A', // only activate on element attribute
-        require: '?ngModel', // get a hold of NgModelController
-        link: function (scope, elem, attrs, ngModel) {
-            if (!ngModel) return; // do nothing if no ng-model
 
-            // watch own value and re-validate on change
-            scope.$watch(attrs.ngModel, function () {
-                validate();
-            });
 
-            // observe the other value and re-validate on change
-            attrs.$observe('equals', function (val) {
-                validate();
-            });
-
-            var validate = function () {
-                // values
-                var val1 = ngModel.$viewValue;
-                var val2 = attrs.equals;
-
-                // set validity
-                ngModel.$setValidity('equals', !val1 || !val2 || val1 === val2);
-            };
-        }
-    }
-});
