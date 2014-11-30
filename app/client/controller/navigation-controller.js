@@ -23,8 +23,14 @@ navigationController.controller('navigationController', ['$scope', '$rootScope',
         var doLoginInternal = function (event) {
             $location.path('/login')
         };
+        var showUserDetailInternal = function($event){
+            $event.preventDefault();
+            $location.path('/user:'+$scope.user.id);
+        };
 
         $scope.doLogin = doLoginInternal;
+
+        $scope.showUserDetail = showUserDetailInternal;
 
         $scope.isActiveRoute = function (routeName) {
             var regex = new RegExp('/?' + routeName.toLowerCase() + '/?');
