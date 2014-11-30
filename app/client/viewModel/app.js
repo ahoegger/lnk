@@ -71,14 +71,33 @@ lnkApp.config(['$routeProvider',
             });
     }
 ])
-    .run(function($rootScope, $location, authenticationState,toaster) {
-
+    .run(function($rootScope, $location,$timeout, authenticationState,toaster) {
         $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
             console.log('route to: '+nextRoute.templateUrl);
+            // check if the route requires authentication if so route to login mask.
             if (nextRoute.access && nextRoute.access.requiredLogin && authenticationState.getUser() == undefined) {
                 toaster.pop('error', null, "Authentication required!");
                 $location.path("/login");
             }
+        });
+
+
+        /**
+         * Global funciton to set the focus on the first enabled element having the autofocus tag.
+         * @function angular_app.AppModule
+         * @memberOf angular_app.AppModule
+         * @author Andy Hoegger
+         * @since 30.11.2014
+         */
+        $rootScope.$on("$routeChangeSuccess", function(event, nextRoute, currentRoute) {
+            $timeout(function() {
+                // backup scroll position
+                var x = window.scrollX, y = window.scrollY;
+                // set focus
+                $("input[autofocus]:not([ng-readonly=true])").first().focus();
+                // restore scroll position to avoid scrolling
+                window.scrollTo(x, y);
+            });
         });
     });
 

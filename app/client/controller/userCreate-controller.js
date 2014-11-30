@@ -16,11 +16,6 @@ var userCreateController = angular.module('userCreateController', [ 'service.aut
  */
 userCreateController.controller('userCreateController', ['$scope', '$location', '$routeParams', 'authenticationState', 'userService', 'authenticationService', 'toaster',
     function ($scope, $location, $routeParams, authenticationState, userService, authenticationService, toaster) {
-        $scope.$on('$viewContentLoaded', function () {
-            var x = window.scrollX, y = window.scrollY;
-            $("input[autofocus]:not([ng-readonly=true])").first().focus();
-            window.scrollTo(x, y);
-        });
 
         $scope.user = undefined;
         $scope.usernameReadOnly = false;
@@ -98,7 +93,7 @@ userCreateController.directive('equals', function () {
  * @function imageUrlFilter
  * @memberOf angular_controller.UserUpdateModule
  */
-userCreateController.directive('usedUser', ['userService',
+userCreateController.directive('username', ['userService',
     function (userService) {
         return {
 //        restrict: 'A', // only activate on element attribute
@@ -106,8 +101,9 @@ userCreateController.directive('usedUser', ['userService',
             link: function (scope, elem, attrs, ngModel) {
                 var onSuccessUserLoad = function (data) {
                     console.dir(data);
+                    console.log(data.length);
                     // set validity
-                    ngModel.$setValidity('usedUser', true);
+                    ngModel.$setValidity('username', data.length === 0);
                 };
                 var onErrorUserLoad = function (data) {
                     console.log('ERROR');

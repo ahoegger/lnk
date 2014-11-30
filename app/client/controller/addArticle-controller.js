@@ -41,11 +41,6 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
 
     function ($scope, $location, articleService, behaviour, authenticationState, toaster) {
 
-        $scope.$on('$viewContentLoaded', function () {
-            var x = window.scrollX, y = window.scrollY;
-            $("input[autofocus]:not([ng-readonly=true])").first().focus();
-            window.scrollTo(x, y);
-        });
         /**
          * This function converts a string with tags (separated by commas) into an array of (trimmed) strings
          * @param tagString {String} A string with comma separated tags

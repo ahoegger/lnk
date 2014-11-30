@@ -7,10 +7,12 @@
                     <label class="col-sm-2 control-label">Username</label>
                     <div class="col-sm-10 no-padding-sm">
                         <input name="username"  class="form-control full-width-sm" placeholder="Username"  autofocus ng-readonly="usernameReadOnly" tabindex="{{usernameReadOnly && -10 || undefined }}"
-                               ng-model="user.userName" used-user ng-required="true" >
+                               ng-model="user.userName" username ng-required="true" >
 
-                        <p ng-show="user.userName.$error.required && !user.userName.$pristine" class="help-block">
+                        <p ng-show="userform.username.$error.required && !userform.username.$pristine" class="help-block">
                             Username is required.</p>
+                        <p ng-show="userform.username.$error.username && !userform.username.$pristine" class="help-block">
+                            Username is already in use.</p>
                     </div>
                 </div>
                 <!-- firstname -->
@@ -20,7 +22,7 @@
                         <input name="firstname"  class="form-control full-width-sm" placeholder="Firstname" autofocus
                                ng-model="user.firstname" ng-required="true">
 
-                        <p ng-show="user.firstname.$error.required && !user.firstname.$pristine" class="help-block">
+                        <p ng-show="userform.firstname.$error.required && !userform.firstname.$pristine" class="help-block">
                             Firstname is required.</p>
                     </div>
                 </div>
@@ -31,7 +33,7 @@
                         <input name="name"  class="form-control full-width-sm" placeholder="Name"
                                ng-model="user.name" ng-required="true">
 
-                        <p ng-show="user.name.$error.required && !user.name.$pristine" class="help-block">
+                        <p ng-show="userform.name.$error.required && !userform.name.$pristine" class="help-block">
                             Name is required.</p>
                     </div>
                 </div>

@@ -20,15 +20,9 @@ navigationController.controller('navigationController', ['$scope', '$rootScope',
             $scope.user = authenticationState.getUser();
         });
 
-
         var doLoginInternal = function (event) {
             $location.path('/login')
         };
-
-        var logoutSuccess = function(){
-            $location.path('/articles');
-        };
-
 
         $scope.doLogin = doLoginInternal;
 
@@ -40,11 +34,9 @@ navigationController.controller('navigationController', ['$scope', '$rootScope',
             if ($event) {
                 $event.preventDefault();
             }
-            authenticationService.logOut(logoutSuccess);
-
+            authenticationService.logOut();
+            $location.path('/articles');
         };
-        // notification support
-        $scope.notifications = {};
     }
 ]);
 
