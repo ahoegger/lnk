@@ -38,6 +38,9 @@
             <p class="text-center"><i class="fa fa-spinner fa-spin"></i>Loading articles</p>
         </div>
     </div>
+    <div class="row" ng-if="articles.length == 0">
+        <p>No articles found!</p>
+    </div>
     <!-- loop over articles -->
     <div ng-repeat="article in articles | orderBy:'_embedded.votes.numberOfVotes':true" ng-controller="singleArticleController">
         <article class="row article-separator">
