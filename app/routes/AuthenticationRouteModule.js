@@ -49,7 +49,7 @@ module.exports = function(datastore) {
                 token = jwt.sign(user, secret.secretToken, { expiresInMinutes: 60 });
                 return res.status(200).json({token:token, user: user});
             } else {
-                return res.status(401).send('Authentication required!');
+                return res.status(401).send('Login failed!');
             }
 
         }

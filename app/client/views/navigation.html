@@ -15,15 +15,17 @@
             <div class="col-md-3 col-sm-4  col-xs-6 ">
                 <!--<form ng-submit="doLogin" ng-if="!userStateService.user" novalidate>-->
                 <div class="row" ng-if="!user">
-                    <button class="btn btn-default pull-right" ng-click="doLogin($event)" ng-if="!user"> .login</button>
+                    <button class="btn btn-default  pull-right hidden-xxs" ng-click="createAccount($event)"> .create Account</button>
+                    <button class="btn btn-default pull-right visible-xxs" ng-click="createAccount($event)">+ <i class="fa fa-user"></i></button>
+                    <button class="btn btn-default pull-right" ng-click="doLogin($event)"> .login</button>
                 </div>
 
                 <div class="row" ng-if="user">
                     <button class="btn btn-default hidden-xs pull-right" ng-click="showUserDetail($event)"><i
                             class="fa fa-user"></i> {{user.firstname}} {{user.name}}
                     </button>
-                    <button class="btn btn-default visible-xs pull-right" ng-click="showUserDetail($event)"><i
-                            class="fa fa-user"></i> {{user.userName}}
+                    <button class="btn btn-default visible-xs pull-right" ng-click="showUserDetail($event)">
+                        <i class="fa fa-user"></i> {{user.userName}}
                     </button>
                     <button class="btn btn-default pull-right" ng-click="logout($event)">.logout</button>
                 </div>

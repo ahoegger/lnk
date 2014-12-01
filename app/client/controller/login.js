@@ -17,24 +17,42 @@ loginController.controller('loginController', ['$scope', '$location', '$window',
     function ($scope, $location, $window, $timeout, authenticationService, toaster) {
 
         var loginSuccess = function (data) {
+            resetAllFieldValuesInternal();
             toaster.pop('success', "Login", "User " + data.user.userName + " logged in successfully.", 1500);
             // ensure the articles route is active
             $location.path("/articles");
         };
         var onLoginError = function (data, status, headers, config) {
+            resetAllFieldValuesInternal();
             toaster.pop('error', "Login", data);
         };
 
+
+        var resetAllFieldValuesInternal = function(){
+          if($scope.loginData){
+              $scope.loginData.username = undefined;
+              $scope.loginData.password = undefined;
+              $scope.loginForm.$setPristine();
+          }
+        };
+
         var logoutSuccess = function () {
+            resetAllFieldValuesInternal();
             toaster.pop('success', "Login", "Successfully logged out.", 1500);
             // ensure the articles route is active
             $location.path("/articles");
         };
 
+        $scope.loginData = {
+          username : undefined,
+          password : undefined
+
+        };
+
         $scope.login = function logIn($event) {
             $event.preventDefault();
-            var username = $scope.login.username;
-            var password = $scope.login.password;
+            var username = $scope.loginData.username;
+            var password = $scope.loginData.password;
             // call the authentication service
             authenticationService.logIn(username, password).success(loginSuccess).error(onLoginError);
         };

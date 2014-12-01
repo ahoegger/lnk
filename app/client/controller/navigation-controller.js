@@ -43,6 +43,11 @@ navigationController.controller('navigationController', ['$scope', '$rootScope',
             authenticationService.logOut();
             $location.path('/articles');
         };
+        $scope.createAccount = function ($event) {
+            $event.preventDefault();
+            // ensure the user create route is active
+            $location.path("/user/create");
+        };
     }
 ]);
 
