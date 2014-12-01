@@ -240,7 +240,7 @@ function _deleteArticle(article) {
 function _deleteArticleTags(article) {
     var articleTags;
     var query = function(entity) {
-        return entity.articleId = article.id
+        return entity.articleId === article.id
     };
     articleTags = articleTagTable.select(query);
     for (var i = 0, len = articleTags.length; i < len; i++) {
@@ -251,7 +251,7 @@ function _deleteArticleTags(article) {
 function _deleteArticleVotes(article) {
     var articleVotes;
     var query = function(entity) {
-        return entity.articleId = article.id
+        return entity.articleId === article.id
     };
     articleVotes = articleUserVoteTable.select(query);
     for (var i = 0, len = articleVotes.length; i < len; i++) {
@@ -262,7 +262,7 @@ function _deleteArticleVotes(article) {
 function _deleteArticleComments(article) {
     var articleComments;
     var query = function(entity) {
-        return entity.articleId = article.id
+        return entity.articleId === article.id
     };
     articleComments = commentsTable.select(query);
     for (var i = 0, len = articleComments.length; i < len; i++) {
@@ -289,10 +289,9 @@ module.exports = {
      */
     deleteArticle: function(article) {
         _deleteArticle(article);
-        // TODO Fix the deletion of cascading entities
-        // _deleteArticleTags(article);
-        // _deleteArticleVotes(article);
-        // _deleteArticleComments(article);
+        _deleteArticleTags(article);
+        _deleteArticleVotes(article);
+        _deleteArticleComments(article);
     },
     insertTag: function(tag) {
         return tagsTable.insert(tag);
