@@ -7,6 +7,7 @@
 
 var log4js = require('log4js');
 var logger = log4js.getLogger('data.CrudDatabaseFactory');
+var fs = require('fs');
 
 /**
  * Constructor for a simulated table
@@ -17,11 +18,20 @@ var logger = log4js.getLogger('data.CrudDatabaseFactory');
  * @constructor
  * @class
  */
-CrudDatabase = function(entityConstructor,
+CrudDatabase = function(name,
+                        entityConstructor,
                         idProperty,
                         notNullProperties,
                         uniqueProperties) {
+    var rawDataArray = [];
+    var singleNewBean;
+    var i;
+    var len;
     var dataArray = [];
+    var filename = './storage/' + name;
+    var dataArrayString;
+    var hashHolderString;
+
     this.notNullProperties = notNullProperties;
     this.uniqueProperties = uniqueProperties;
     this.entityConstructor = entityConstructor;
@@ -29,10 +39,59 @@ CrudDatabase = function(entityConstructor,
     this.getData = function() {
         return dataArray;
     };
+    this.setData = function(data) {
+        dataArray = data;
+    };
+    this.getName = function() {
+        return filename;
+    };
     this.uniqueHashHolder = {};
+
+    // initialize data from file system
+    if(fs.existsSync(this.getName() + '.json')) {
+        dataArrayString = fs.readFileSync(this.getName() + '.json');
+    }
+    if(fs.existsSync(this.getName() + '.hashes.json')) {
+        hashHolderString  = fs.readFileSync(this.getName() + '.hashes.json');
+    }
+    if(dataArrayString != undefined) {
+        rawDataArray = JSON.parse(dataArrayString);
+        for(i = 0, len = rawDataArray.length; i < len; i++) {
+            singleNewBean = new entityConstructor();
+            singleNewBean.updateFromJsonObject(rawDataArray[i]);
+            if (singleNewBean.password != undefined) {
+                singleNewBean.password = rawDataArray[i].password; // hack for encrypted password
+            }
+            dataArray.push(singleNewBean);
+        }
+    }
+    this.uniqueHashHolder = hashHolderString != undefined ? JSON.parse(hashHolderString) : this.uniqueHashHolder;
+
 };
 
 // PRIVATE FUNCTIONS for CrudDatabase prototype
+
+/**
+ * This function saves the internal data structures 1:1 as JSON on the filesystem
+ * @private
+ */
+CrudDatabase.prototype._store = function() {
+    var fsWriteCallback = function(dbname) {
+        var internalDbName = dbname;
+        return function(err) {
+            if(err) {
+                logger.warn(internalDbName + ': error', err);
+            } else {
+                logger.debug(internalDbName + ': saved');
+            }
+        }
+    };
+    // fs.writeFile(this.getName() + '.json', JSON.stringify(this.getData()), fsWriteCallback(this.getName()));
+    // fs.writeFile(this.getName() + '.hashes.json', JSON.stringify(this.uniqueHashHolder), fsWriteCallback(this.getName() + '(hash)'));
+    fs.writeFileSync(this.getName() + '.json', JSON.stringify(this.getData()));
+    fs.writeFileSync(this.getName() + '.hashes.json', JSON.stringify(this.uniqueHashHolder));
+};
+
 /**
  * This function creates a hash based on the properties of the entity that must be unique
  * @private
@@ -215,6 +274,7 @@ CrudDatabase.prototype.insert = function(entity) {
     }
     this._addHash(entity);
     this.getData().push(clonedEntity);    // insert the cloned entity to decouple from updates
+    this._store();
     return this._cloneEntity(clonedEntity);  // return another clone to prevent updating the object in the database table
 };
 
@@ -268,6 +328,7 @@ CrudDatabase.prototype.update = function(entity) {
     } else {
         throw new Error('Entity not found');
     }
+    this._store();
     return this._cloneEntity(entity);
 };
 
@@ -283,11 +344,12 @@ CrudDatabase.prototype.remove = function(entity) {
         this._removeHash(this.getData()[pos]);
         this.getData().splice(pos, 1);
     }
+    this._store();
 };
 
 
 module.exports = {
-    factory: function(entityConstructor, idProperty, notNullProperties, uniqueProperties) {
-        return new CrudDatabase(entityConstructor, idProperty, notNullProperties, uniqueProperties);
+    factory: function(name, entityConstructor, idProperty, notNullProperties, uniqueProperties) {
+        return new CrudDatabase(name, entityConstructor, idProperty, notNullProperties, uniqueProperties);
     }
 };

@@ -22,12 +22,12 @@ var CrudDatabaseFactory = require(app_constants.packagedModule('data', 'CrudData
 
 // Construct the required tables
 // The  supported tables
-var articlesTable = CrudDatabaseFactory.factory(ArticleClass.Article, 'id');
-var tagsTable = CrudDatabaseFactory.factory(TagClass.Tag, 'id');
-var commentsTable = CrudDatabaseFactory.factory(CommentClass.Comment, 'id', ['articleId']);
-var articleTagTable = CrudDatabaseFactory.factory(ArticleTagClass.ArticleTag, 'id', ['articleId']);
-var articleUserVoteTable = CrudDatabaseFactory.factory(ArticleUserVoteClass.ArticleUserVote, 'id', ['articleId', 'userId', 'vote']);
-var userTable = CrudDatabaseFactory.factory(UserClass.User, 'id', ['userName']);
+var articlesTable = CrudDatabaseFactory.factory('articles', ArticleClass.Article, 'id');
+var tagsTable = CrudDatabaseFactory.factory('tags', TagClass.Tag, 'id');
+var commentsTable = CrudDatabaseFactory.factory('comments', CommentClass.Comment, 'id', ['articleId']);
+var articleTagTable = CrudDatabaseFactory.factory('articletags', ArticleTagClass.ArticleTag, 'id', ['articleId']);
+var articleUserVoteTable = CrudDatabaseFactory.factory('articleuservotes', ArticleUserVoteClass.ArticleUserVote, 'id', ['articleId', 'userId', 'vote']);
+var userTable = CrudDatabaseFactory.factory('users', UserClass.User, 'id', ['userName']);
 
 /**
  * This function finds a tag by ist tag name

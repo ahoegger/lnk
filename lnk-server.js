@@ -90,10 +90,10 @@ app.use(function(err, req, res){
 });
 
 // Initialload data
-initialLoader.loadArticles(app_constants.packagedModule('data', 'articles.json'));
-initialLoader.loadComments(app_constants.packagedModule('data', 'comments.json'));
-initialLoader.loadUsers(app_constants.packagedModule('data', 'users.json'));
-initialLoader.loadVotes(app_constants.packagedModule('data', 'votes.json'));
+// initialLoader.loadArticles(app_constants.packagedModule('data', 'articles.json'));
+// initialLoader.loadComments(app_constants.packagedModule('data', 'comments.json'));
+// initialLoader.loadUsers(app_constants.packagedModule('data', 'users.json'));
+// initialLoader.loadVotes(app_constants.packagedModule('data', 'votes.json'));
 
 // listeners on websockets
 socket.on('connection', function(client){

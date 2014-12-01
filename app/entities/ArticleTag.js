@@ -20,6 +20,22 @@ function ArticleTag(id, articleId, tagId) {
 }
 
 /**
+ * This function updates the properties of the ArticleTag object with the given properties from the json object. If the property
+ * in the json object is missing, the property will not be updated
+ * @param jsonObject
+ */
+ArticleTag.prototype.updateFromJsonObject = function(jsonObject) {
+    this.id = jsonObject.id != undefined ? jsonObject.id : this.id;
+    this.articleId = jsonObject.articleId != undefined ? jsonObject.articleId : this.articleId;
+    this.tagId = jsonObject.tagId != undefined ? jsonObject.tagId : this.tagId;
+};
+
+ArticleTag.prototype.updateFromJsonString = function(jsonString) {
+    this.updateFromJsonObject(JSON.parse(jsonString));
+};
+
+
+/**
  * This function clones the entity
  * @return {ArticleTag}
  */
