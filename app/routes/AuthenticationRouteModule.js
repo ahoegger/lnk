@@ -21,9 +21,9 @@ module.exports = function(datastore) {
     return {
         /**
          * This function authenticates a user based on the credentials provided
-         * @param {Request} req Body must containe userName and unencrypted password
+         * @param {Request} req Body must contain userName and unencrypted password
          * @param {Response} res
-         * @return {*} Sends the token and the plain suer objects as a json response
+         * @return {*} Sends the token and the plain user objects as a json response
          */
         authenticate: function(req, res) {
             var user;

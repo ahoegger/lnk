@@ -27,30 +27,31 @@ describe('Test authenticate', function() {
 
     beforeEach(function () {
         spySend.reset();
+        spyStatus.reset();
     });
 
     it('Returns 401 when userName is missing ', function() {
         testModule.authenticate({body: {}}, resMock);
-        expect(spySend.withArgs(401).calledOnce).to.be.true;
+        expect(spyStatus.withArgs(401).calledOnce).to.be.true;
     });
     it('Returns 401 when password is missing ', function() {
         testModule.authenticate({body: {userName: 'faked'}}, resMock);
-        expect(spySend.withArgs(401).calledOnce).to.be.true;
+        expect(spyStatus.withArgs(401).calledOnce).to.be.true;
     });
     it('Returns 401 when user has not been found', function() {
         dummyDataStore.resultSet = [];
         testModule.authenticate({body: {userName: 'faked', password: 'not relevant'}}, resMock);
-        expect(spySend.withArgs(401).calledOnce).to.be.true;
+        expect(spyStatus.withArgs(401).calledOnce).to.be.true;
     });
     it('Returns 401 when more than one user has been found', function() {
         dummyDataStore.resultSet = [{userName: 'no'}, {userName: 'no'}];
         testModule.authenticate({body: {userName: 'faked', password: 'not relevant'}}, resMock);
-        expect(spySend.withArgs(401).calledOnce).to.be.true;
+        expect(spyStatus.withArgs(401).calledOnce).to.be.true;
     });
     it('Returns 401 when user is not authenticated', function() {
         dummyDataStore.resultSet = [{isAuthenticated: function() {return false} }];
         testModule.authenticate({body: {userName: 'faked', password: 'not relevant'}}, resMock);
-        expect(spySend.withArgs(401).calledOnce).to.be.true;
+        expect(spyStatus.withArgs(401).calledOnce).to.be.true;
     });
     it('Returns a token when user is not authenticated', function() {
         var spyJson = sinon.spy(resMock, 'json');
