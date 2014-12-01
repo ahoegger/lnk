@@ -10,12 +10,12 @@ var TagClass = require(app_constants.packagedModule('entities', 'Tag.js'));
 
 describe('Test CrudDatabaseFactory', function () {
     var tagsDatabase;
-    var globalTagsDatabase = crudDbFactory.factory(TagClass.Tag, 'id');
+    var globalTagsDatabase = crudDbFactory.factory('TEST_TAG', TagClass.Tag, 'id', undefined, undefined, {persist: false});
     var tagRawData = ['one', 'two', 'three'];
     var singleTag;
 
     beforeEach(function () {
-        tagsDatabase = crudDbFactory.factory(TagClass.Tag, 'id');
+        tagsDatabase = crudDbFactory.factory('TEST_TAG_2', TagClass.Tag, 'id', undefined, undefined, {persist: false});
         singleTag = new TagClass.Tag(undefined, 'Hello tag');
     });
     describe('Test insert', function () {
@@ -110,7 +110,7 @@ describe('Test CrudDatabaseFactory', function () {
         var dummyTag1;
 
         beforeEach(function () {
-            uniquedDatabase = crudDbFactory.factory(TagClass.Tag, 'id', ['tag'], ['tag']);
+            uniquedDatabase = crudDbFactory.factory('TEST_TAG_UNIQUE', TagClass.Tag, 'id', ['tag'], ['tag'], {persist: false});
             dummyTag1 = new TagClass.Tag(null, 'Dummy1');
         });
 
@@ -144,7 +144,7 @@ describe('Test CrudDatabaseFactory', function () {
         var dummyTag;
         var dummyTagWithNullProperty;
         beforeEach(function() {
-           notNullDatabase = crudDbFactory.factory(TagClass.Tag, 'id', ['tag']);
+           notNullDatabase = crudDbFactory.factory('TEST_TAG_NOT_NULL', TagClass.Tag, 'id', ['tag'], undefined, {persist: false});
            dummyTag = new TagClass.Tag(null, 'unimportant');
            dummyTagWithNullProperty = new TagClass.Tag(null, null);
         });

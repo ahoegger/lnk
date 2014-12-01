@@ -11,10 +11,12 @@ var fs = require('fs');
 
 /**
  * Constructor for a simulated table
+ * @param {String} name Base name of the database file
  * @param {Function} entityConstructor Constructor function for the entities stored in the table
  * @param {String} idProperty Property-Name for the ID property
  * @param {String[]} notNullProperties Array of Strings containing the properties, that may not be null
  * @param {String[]} uniqueProperties Array of Strings containing the properties, that must be unique before inserting or updating
+ * @param {Object} Options-Objcet with more configuration options
  * @constructor
  * @class
  */
@@ -22,7 +24,8 @@ CrudDatabase = function(name,
                         entityConstructor,
                         idProperty,
                         notNullProperties,
-                        uniqueProperties) {
+                        uniqueProperties,
+                        options) {
     var rawDataArray = [];
     var singleNewBean;
     var i;
@@ -31,6 +34,9 @@ CrudDatabase = function(name,
     var filename = './storage/' + name;
     var dataArrayString;
     var hashHolderString;
+    this.options = options || {
+        persist: true
+    };
 
     this.notNullProperties = notNullProperties;
     this.uniqueProperties = uniqueProperties;
@@ -48,24 +54,26 @@ CrudDatabase = function(name,
     this.uniqueHashHolder = {};
 
     // initialize data from file system
-    if(fs.existsSync(this.getName() + '.json')) {
-        dataArrayString = fs.readFileSync(this.getName() + '.json');
-    }
-    if(fs.existsSync(this.getName() + '.hashes.json')) {
-        hashHolderString  = fs.readFileSync(this.getName() + '.hashes.json');
-    }
-    if(dataArrayString != undefined) {
-        rawDataArray = JSON.parse(dataArrayString);
-        for(i = 0, len = rawDataArray.length; i < len; i++) {
-            singleNewBean = new entityConstructor();
-            singleNewBean.updateFromJsonObject(rawDataArray[i]);
-            if (singleNewBean.password != undefined) {
-                singleNewBean.password = rawDataArray[i].password; // hack for encrypted password
-            }
-            dataArray.push(singleNewBean);
+    if(this.options.persist) {
+        if (fs.existsSync(this.getName() + '.json')) {
+            dataArrayString = fs.readFileSync(this.getName() + '.json');
         }
+        if (fs.existsSync(this.getName() + '.hashes.json')) {
+            hashHolderString = fs.readFileSync(this.getName() + '.hashes.json');
+        }
+        if (dataArrayString != undefined) {
+            rawDataArray = JSON.parse(dataArrayString);
+            for (i = 0, len = rawDataArray.length; i < len; i++) {
+                singleNewBean = new entityConstructor();
+                singleNewBean.updateFromJsonObject(rawDataArray[i]);
+                if (singleNewBean.password != undefined) {
+                    singleNewBean.password = rawDataArray[i].password; // hack for encrypted password
+                }
+                dataArray.push(singleNewBean);
+            }
+        }
+        this.uniqueHashHolder = hashHolderString != undefined ? JSON.parse(hashHolderString) : this.uniqueHashHolder;
     }
-    this.uniqueHashHolder = hashHolderString != undefined ? JSON.parse(hashHolderString) : this.uniqueHashHolder;
 
 };
 
@@ -76,20 +84,11 @@ CrudDatabase = function(name,
  * @private
  */
 CrudDatabase.prototype._store = function() {
-    var fsWriteCallback = function(dbname) {
-        var internalDbName = dbname;
-        return function(err) {
-            if(err) {
-                logger.warn(internalDbName + ': error', err);
-            } else {
-                logger.debug(internalDbName + ': saved');
-            }
-        }
-    };
-    // fs.writeFile(this.getName() + '.json', JSON.stringify(this.getData()), fsWriteCallback(this.getName()));
-    // fs.writeFile(this.getName() + '.hashes.json', JSON.stringify(this.uniqueHashHolder), fsWriteCallback(this.getName() + '(hash)'));
-    fs.writeFileSync(this.getName() + '.json', JSON.stringify(this.getData()));
-    fs.writeFileSync(this.getName() + '.hashes.json', JSON.stringify(this.uniqueHashHolder));
+    if(this.options.persist) {
+        // had to write synchronously as the files somehow ware corrupted otherwise
+        fs.writeFileSync(this.getName() + '.json', JSON.stringify(this.getData()));
+        fs.writeFileSync(this.getName() + '.hashes.json', JSON.stringify(this.uniqueHashHolder));
+    }
 };
 
 /**
@@ -349,7 +348,7 @@ CrudDatabase.prototype.remove = function(entity) {
 
 
 module.exports = {
-    factory: function(name, entityConstructor, idProperty, notNullProperties, uniqueProperties) {
-        return new CrudDatabase(name, entityConstructor, idProperty, notNullProperties, uniqueProperties);
+    factory: function(name, entityConstructor, idProperty, notNullProperties, uniqueProperties, options) {
+        return new CrudDatabase(name, entityConstructor, idProperty, notNullProperties, uniqueProperties, options);
     }
 };
