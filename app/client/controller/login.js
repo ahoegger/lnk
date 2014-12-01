@@ -18,11 +18,11 @@ loginController.controller('loginController', ['$scope', '$location', '$window',
 
         var loginSuccess = function (data) {
             resetAllFieldValuesInternal();
-            toaster.pop('success', "Login", "User " + data.user.userName + " logged in successfully.", 1500);
+            toaster.pop('success', "Login", "User " + data.user.userName + " logged in successfully.", 1000);
             // ensure the articles route is active
             $location.path("/articles");
         };
-        var onLoginError = function (data, status, headers, config) {
+        var onLoginError = function (data) {
             resetAllFieldValuesInternal();
             toaster.pop('error', "Login", data);
         };
@@ -34,13 +34,6 @@ loginController.controller('loginController', ['$scope', '$location', '$window',
               $scope.loginData.password = undefined;
               $scope.loginForm.$setPristine();
           }
-        };
-
-        var logoutSuccess = function () {
-            resetAllFieldValuesInternal();
-            toaster.pop('success', "Login", "Successfully logged out.", 1500);
-            // ensure the articles route is active
-            $location.path("/articles");
         };
 
         $scope.loginData = {
@@ -57,9 +50,6 @@ loginController.controller('loginController', ['$scope', '$location', '$window',
             authenticationService.logIn(username, password).success(loginSuccess).error(onLoginError);
         };
 
-        $scope.logout = function logout(logoutSuccess) {
-            authenticationService.logOut();
-        };
         $scope.createAccount = function ($event) {
             $event.preventDefault();
             // ensure the user create route is active

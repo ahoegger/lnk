@@ -105,7 +105,7 @@ articlesController.controller('articleListController', ['$scope', '$location', '
  * @memberOf angular_controller.ArticlesModule
  */
 articlesController.filter('dateFromNow', function () {
-    return function (input, $moment) {
+    return function (input) {
         return moment(input).fromNow();
     };
 });

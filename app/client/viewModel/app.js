@@ -40,7 +40,7 @@ lnkApp.config(['$routeProvider',
                 controller: 'articleListController',
                 access: { requiredLogin: false }
             }).
-            when('/article/add',{
+            when('/article/add', {
                 templateUrl: 'views/addArticle.html',
                 controller: 'addArticleController',
                 access: { requiredLogin: true }
@@ -51,18 +51,18 @@ lnkApp.config(['$routeProvider',
                 controller: 'PhoneDetailCtrl',
                 access: { requiredLogin: false }
             }).
-            when('/login',{
+            when('/login', {
                 templateUrl: 'views/login.html',
                 controller: 'loginController',
                 access: { requiredLogin: false }
             }).
-            when('/user/create',{
+            when('/user/create', {
                 templateUrl: 'views/userUpdate.html',
                 controller: 'userCreateController',
                 access: { requiredLogin: false }
             }).
-            when('/user:id',{
-               templateUrl: 'views/userUpdate.html',
+            when('/user:id', {
+                templateUrl: 'views/userUpdate.html',
                 controller: 'userUpdateController',
                 access: { requiredLogin: true }
             }).
@@ -71,9 +71,9 @@ lnkApp.config(['$routeProvider',
             });
     }
 ])
-    .run(function($rootScope, $location,$timeout, authenticationState,toaster) {
-        $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
-            console.log('route to: '+nextRoute.templateUrl);
+    .run(function ($rootScope, $location, $timeout, authenticationState, toaster) {
+        $rootScope.$on("$routeChangeStart", function (event, nextRoute, currentRoute) {
+            console.log('route to: ' + nextRoute.templateUrl);
             // check if the route requires authentication if so route to login mask.
             if (nextRoute.access && nextRoute.access.requiredLogin && authenticationState.getUser() == undefined) {
                 toaster.pop('error', null, "Authentication required!");
@@ -81,24 +81,6 @@ lnkApp.config(['$routeProvider',
             }
         });
 
-
-        /**
-         * Global funciton to set the focus on the first enabled element having the autofocus tag.
-         * @function angular_app.AppModule
-         * @memberOf angular_app.AppModule
-         * @author Andy Hoegger
-         * @since 30.11.2014
-         */
-        $rootScope.$on("$routeChangeSuccess", function(event, nextRoute, currentRoute) {
-            $timeout(function() {
-                // backup scroll position
-                var x = window.scrollX, y = window.scrollY;
-                // set focus
-                $("input[autofocus]:not([ng-readonly=true])").first().focus();
-                // restore scroll position to avoid scrolling
-                window.scrollTo(x, y);
-            });
-        });
     });
 
 /**
@@ -116,7 +98,7 @@ lnkApp.config(['$httpProvider', function ($httpProvider) {
  * @name equals
  * @description Directive for checking equality of two values
  * @function imageUrlFilter
- * @memberOf angular_controller.UserUpdateModule
+ * @memberOf angular_app.AppModule
  */
 lnkApp.directive('equals', function () {
     return {
@@ -149,10 +131,10 @@ lnkApp.directive('equals', function () {
 
 
 /**
- * @name usedUser
+ * @name username
  * @description Directive for checking a username is already in use
  * @function imageUrlFilter
- * @memberOf angular_controller.UserUpdateModule
+ * @memberOf angular_app.AppModule
  */
 lnkApp.directive('username', ['userService',
     function (userService) {
@@ -161,10 +143,10 @@ lnkApp.directive('username', ['userService',
             require: '?ngModel', // get a hold of NgModelController
             link: function (scope, elem, attrs, ngModel) {
                 var $element = $(elem);
-                if(scope.usernameReadOnly){
+                if (scope.usernameReadOnly) {
                     // always valid for read only case
                     ngModel.$setValidity('username', true);
-                }else{
+                } else {
                     var onSuccessUserLoad = function (data) {
                         console.dir(data);
                         console.log(data.length);
@@ -191,3 +173,37 @@ lnkApp.directive('username', ['userService',
             }
         }
     }]);
+
+
+/**
+ * @name intitialfocus
+ * @description Directive to set the focus to the first writable element with the attribute 'initialfocus'
+ * @function imageUrlFilter
+ * @memberOf angular_app.AppModule
+ */
+lnkApp.directive('initialfocus',
+    function ($timeout) {
+        return {
+//        restrict: 'A', // only activate on element attribute
+            require: '?ngModel', // get a hold of NgModelController
+            link: function (scope, elem, attrs, document) {
+                if (elem) {
+                    $timeout(function(){
+                        var $element = $(elem);
+                        var readOnlyVal = $element.attr('ng-readonly');
+                        if (!readOnlyVal || readOnlyVal == 'false') {
+                            if(!scope.initialFocusSet) {
+                                scope.initialFocusSet = true;
+                                var x = window.scrollX, y = window.scrollY;
+                                // set focus
+                                $element.first().focus();
+                                // restore scroll position to avoid scrolling
+                                window.scrollTo(x, y);
+                            }
+                        }
+                    });
+
+                }
+            }
+        }
+    });

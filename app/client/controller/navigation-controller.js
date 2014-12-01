@@ -42,6 +42,7 @@ navigationController.controller('navigationController', ['$scope', '$rootScope',
             }
             authenticationService.logOut();
             $location.path('/articles');
+            toaster.pop('success', "Login", "Successfully logged out.", 1500);
         };
         $scope.createAccount = function ($event) {
             $event.preventDefault();

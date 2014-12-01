@@ -25,11 +25,9 @@ userCreateController.controller('userCreateController', ['$scope', '$location', 
 
         var loginSuccess = function () {
             $location.path("/articles");
+            toaster.pop('success', "Login", "User " + data.user.userName + " logged in successfully.", 1500);
         };
 
-
-        var loginInternal = function logIn(username, password) {
-        };
 
         // used because the userUpdate.html is used twice for create and update
         $scope.usernameReadOnly = false;

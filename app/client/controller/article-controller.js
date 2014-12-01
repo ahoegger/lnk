@@ -21,8 +21,6 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
             handleUserChanged();
         });
 
-        var author = $scope.article._embedded.user;
-
         var handleUserChanged = function () {
             $scope.hasDelete = authenticationState.getUser() != undefined && $scope.article._links.self != undefined && $scope.article._embedded.user.id === authenticationState.getUser().id;
             $scope.hasSubmitComment = authenticationState.getUser() != undefined;

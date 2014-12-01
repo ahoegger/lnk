@@ -16,7 +16,7 @@ addArticleController.directive('imageonload',
     function () {
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 element.bind('load', function () {
                     scope.$apply(function () {
                         scope.urlIsImage = true;
@@ -83,7 +83,7 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
             return undefined;
         };
 
-        var onPostArticleSuccess = function (data) {
+        var onPostArticleSuccess = function () {
             console.log('successful posted article.');
             $location.path('/articles')
         };
@@ -139,7 +139,7 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
  * @memberOf angular_controller.AddArticleModule
  */
 addArticleController.filter('imageUrlFilter', function () {
-    return function (url, alternateUrl, isValidImage) {
+    return function (url, alternateUrl) {
         if (alternateUrl && alternateUrl.$viewValue) {
             return alternateUrl.$viewValue;
         } else {

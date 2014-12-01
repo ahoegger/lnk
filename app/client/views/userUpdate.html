@@ -1,4 +1,4 @@
-<div id="add" class="tab-pane">
+<div id="add" class="tab-pane" setfocus>
     <div class="row no-padding">
         <div class="col-xs-12">
             <form name="userform" class="form-horizontal" ng-submit="storeUser($event)" novalidate>
@@ -6,8 +6,8 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Username</label>
                     <div class="col-sm-10 no-padding-sm">
-                        <input name="username"  class="form-control full-width-sm" placeholder="Username"  autofocus ng-readonly="usernameReadOnly" tabindex="{{usernameReadOnly && -10 || undefined }}"
-                               ng-model="user.userName" username ng-required="true" >
+                        <input name="username"  class="form-control full-width-sm" placeholder="Username"  ng-readonly='{{usernameReadOnly}}' tabindex="{{usernameReadOnly && -10 || undefined }}"
+                               ng-model="user.userName" username ng-required="true" initialfocus >
 
                         <p ng-show="userform.username.$error.required && !userform.username.$pristine" class="help-block">
                             Username is required.</p>
@@ -19,8 +19,8 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Firstname</label>
                     <div class="col-sm-10 no-padding-sm">
-                        <input name="firstname"  class="form-control full-width-sm" placeholder="Firstname" autofocus
-                               ng-model="user.firstname" ng-required="true">
+                        <input name="firstname"  class="form-control full-width-sm" placeholder="Firstname"
+                               ng-model="user.firstname" ng-required="true" initialfocus>
 
                         <p ng-show="userform.firstname.$error.required && !userform.firstname.$pristine" class="help-block">
                             Firstname is required.</p>
