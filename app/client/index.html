@@ -32,7 +32,7 @@
 <toaster-container toaster-options="{'time-out': 5000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
 <div ng-include='"views/navigation.html"'></div>
 
-<div class="container-fluid content" ng-controller="navigationController">
+<div class="container-fluid content" ng-controller="controllerNavigation">
     <ul class="nav nav-tabs " id="main-navigation">
 
         <li ng-class="isActiveRoute('articles') ? 'active':'passive'" class="col-xs-6 no-padding text-center"><a href="#articles">Articles</a>
@@ -57,13 +57,12 @@
 <!--app files-->
 <script src="viewModel/app.js"></script>
 <script src="controller/login.js"></script>
-<script src="controller/articles-controller.js"></script>
-<script src="controller/article-controller.js"></script>
-<script src="controller/comment-controller.js"></script>
-<script src="controller/navigation-controller.js"></script>
-<script src="controller/addArticle-controller.js"></script>
-<script src="controller/userUpdate-controller.js"></script>
-<script src="controller/userCreate-controller.js"></script>
+<script src="controller/articleList.js"></script>
+<script src="controller/article.js"></script>
+<script src="controller/comment.js"></script>
+<script src="controller/navigation.js"></script>
+<script src="controller/articleAdd.js"></script>
+<script src="controller/user.js"></script>
 <script src="services/authentication-service.js"></script>
 <script src="services/tokenInterceptor.js"></script>
 <script src="services/article-service.js"></script>

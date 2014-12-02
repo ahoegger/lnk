@@ -42,7 +42,7 @@
         <p>No articles found!</p>
     </div>
     <!-- loop over articles -->
-    <div ng-repeat="article in articles | orderBy:'_embedded.votes.numberOfVotes':true" ng-controller="singleArticleController">
+    <div ng-repeat="article in articles | orderBy:'_embedded.votes.numberOfVotes':true" ng-controller="controllerArticle">
         <article class="row article-separator">
             <!-- Article begin -->
             <div class="col-xs-12 full-width-xs">
@@ -134,7 +134,7 @@
                         <!-- begin comments list section -->
                         <div ng-show="showComments" class="row">
                             <div class="column grid-12">
-                                <ul class="fa-ul comments-ul" ng-repeat="comment in article._embedded.comments track by comment.id"  ng-controller="singleCommentController">
+                                <ul class="fa-ul comments-ul" ng-repeat="comment in article._embedded.comments track by comment.id"  ng-controller="controllerComment">
                                     <!-- existing comments -->
                                     <li><i class="fa-li fa fa-comment-o icon-passive"></i>
 

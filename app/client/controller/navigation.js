@@ -1,19 +1,19 @@
 /**
  * Module for handling the navigation
- * @class angular_controller.NavigationModule
+ * @class angular_controller.moduleNavigation
  * @memberOf angular_controller
  * @author Andy Hoegger
  * @since 15.09.2014
  */
-var navigationController = angular.module('navigationController', ['service.authentication', 'service.user', 'toaster']);
+var moduleNavigation = angular.module('moduleNavigation', ['service.authentication', 'service.user', 'toaster']);
 
 /**
- * @name navigationController
+ * @name controllerNavigation
  * @description Controller for the navigation
  * @function
- * @memberOf angular_controller.NavigationModule
+ * @memberOf angular_controller.moduleNavigation
  */
-navigationController.controller('navigationController', ['$scope', '$rootScope', '$window', '$location', '$http', 'userService', 'authenticationService','authenticationState', 'toaster',
+moduleNavigation.controller('controllerNavigation', ['$scope', '$rootScope', '$window', '$location', '$http', 'userService', 'authenticationService','authenticationState', 'toaster',
     function ($scope, $rootScope, $window, $location, $http, userService, authenticationService,authenticationState,toaster) {
 
         $scope.$watch(authenticationState.getUser, function(){

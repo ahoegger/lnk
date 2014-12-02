@@ -1,19 +1,19 @@
 /**
  * Module for a collection of articles
- * @class angular_controller.ArticlesModule
+ * @class angular_module.moduleArticleList
  * @memberOf angular_controller
  * @author Andy Hoegger
  * @since 12.09.2014
  */
-var articlesController = angular.module('articlesController', ['service.article', 'service.behaviour']);
+var moduleArticleList = angular.module('moduleArticleList', ['service.article', 'service.behaviour']);
 
 /**
- * @name articleListController
+ * @name articleList
  * @description Controller for handling a collection of articles
  * @function
- * @memberOf angular_controller.ArticlesModule
+ * @memberOf angular_controller.moduleArticleList
  */
-articlesController.controller('articleListController', ['$scope', '$location', 'articleService', 'behaviour','toaster',
+moduleArticleList.controller('controllerArticleList', ['$scope', '$location', 'articleService', 'behaviour','toaster',
     function ($scope, $location, articleService, behaviour,toaster) {
         var errorLoadArticles = function (data, status) {
             toaster.pop('error', "Articles", data);
@@ -104,7 +104,7 @@ articlesController.controller('articleListController', ['$scope', '$location', '
  * @function
  * @memberOf angular_controller.ArticlesModule
  */
-articlesController.filter('dateFromNow', function () {
+moduleArticleList.filter('dateFromNow', function () {
     return function (input) {
         return moment(input).fromNow();
     };
@@ -117,7 +117,7 @@ articlesController.filter('dateFromNow', function () {
  * @memberOf angular_controller.ArticlesModule
  * @deprecated
  */
-articlesController.directive('voteUpLink', function () {
+moduleArticleList.directive('voteUpLink', function () {
     return {
         template: '<span ng-show="article._embedded.votes._links.voteUp.href">up</span><a ng-click="voteUp($event, $index, article._embedded.votes._links.voteUp.href)" class="vote icon-passive icon-activatable" href="#"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>'
     }

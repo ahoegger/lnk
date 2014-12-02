@@ -1,19 +1,19 @@
 /**
  * Module for single articles
- * @class angular_controller.ArticleModule
+ * @class angular_controller.moduleArticle
  * @memberOf angular_controller
  * @author Holger Heymanns
  * @since 17.11.2014
  */
-var singleArticleController = angular.module('singleArticleController', ['service.article', 'service.authentication', 'socket']);
+var moduleArticle = angular.module('moduleArticle', ['service.article', 'service.authentication', 'socket']);
 
 /**
- * @name singleArticleController
+ * @name controllerArticle
  * @description Controller for handling single article issues
  * @function
- * @memberOf angular_controller.ArticleModule
+ * @memberOf angular_controller.moduleArticle
  */
-singleArticleController.controller('singleArticleController', ['$scope', 'articleService', 'authenticationState', 'socket', 'toaster',
+moduleArticle.controller('controllerArticle', ['$scope', 'articleService', 'authenticationState', 'socket', 'toaster',
     function ($scope, articleService, authenticationState, socket, toaster) {
 
         // add watch to auth state userId to update visibility of delete.
@@ -169,7 +169,7 @@ singleArticleController.controller('singleArticleController', ['$scope', 'articl
  * @function
  * @memberOf angular_controller.ArticleModule
  */
-singleArticleController.directive('numberOfVotes', function () {
+moduleArticle.directive('numberOfVotes', function () {
     return {
         template: '<span ng-show="article.hasVoteUp == true" <a ng-click="voteUp2($event, article._embedded.votes._links.voteUp.href)" class="vote icon-passive icon-activatable" href="#"><i class="fa fa-arrow-circle-o-up fa-2x"></i></a>'
     }
@@ -181,7 +181,7 @@ singleArticleController.directive('numberOfVotes', function () {
  * @function
  * @memberOf angular_controller.ArticleModule
  */
-singleArticleController.directive('deleteArticle', function () {
+moduleArticle.directive('deleteArticle', function () {
     return {
         template: '<a role="button" ng-click="deleteArticle()"><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></a>'
     }

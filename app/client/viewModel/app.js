@@ -9,14 +9,13 @@
  */
 var lnkApp = angular.module('lnkApp', [
     'ngRoute'
-    , 'articlesController'
-    , 'singleArticleController'
-    , 'singleCommentController'
-    , 'addArticleController'
-    , 'loginController'
-    , 'navigationController'
-    , 'userUpdateController'
-    , 'userCreateController'
+    , 'moduleArticleList'
+    , 'moduleArticle'
+    , 'moduleComment'
+    , 'moduleArticleAdd'
+    , 'moduleLogin'
+    , 'moduleNavigation'
+    , 'moduleUser'
     , 'angular-momentjs'
     , 'service.tokenInterceptor'
     , 'service.user'
@@ -37,12 +36,12 @@ lnkApp.config(['$routeProvider',
         $routeProvider.
             when('/articles', {
                 templateUrl: 'views/article-list.html',
-                controller: 'articleListController',
+                controller: 'controllerArticleList',
                 access: { requiredLogin: false }
             }).
             when('/article/add', {
                 templateUrl: 'views/addArticle.html',
-                controller: 'addArticleController',
+                controller: 'controllerArticleAdd',
                 access: { requiredLogin: true }
 
             }).
@@ -53,17 +52,17 @@ lnkApp.config(['$routeProvider',
             }).
             when('/login', {
                 templateUrl: 'views/login.html',
-                controller: 'loginController',
+                controller: 'controllerLogin',
                 access: { requiredLogin: false }
             }).
             when('/user/create', {
                 templateUrl: 'views/userUpdate.html',
-                controller: 'userCreateController',
+                controller: 'controllerUserCreate',
                 access: { requiredLogin: false }
             }).
             when('/user:id', {
                 templateUrl: 'views/userUpdate.html',
-                controller: 'userUpdateController',
+                controller: 'controllerUserUpdate',
                 access: { requiredLogin: true }
             }).
             otherwise({

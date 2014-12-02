@@ -1,18 +1,18 @@
 /**
  * Controller for adding articles
- * @class angular_controller.AddArticleModule
+ * @class angular_controller.moduleArticleAdd
  * @memberOf angular_controller
  * @author Andy Hoegger
  * @since 16.09.2014
  */
-var addArticleController = angular.module('addArticleController', ['service.article', 'service.behaviour', 'service.authentication']);
+var moduleArticleAdd = angular.module('moduleArticleAdd', ['service.article', 'service.behaviour', 'service.authentication']);
 
 /**
  * @description Directive for handling image loading
  * @function imageonload
- * @memberOf angular_controller.AddArticleModule
+ * @memberOf angular_controller.moduleArticleAdd
  */
-addArticleController.directive('imageonload',
+moduleArticleAdd.directive('imageonload',
     function () {
         return {
             restrict: 'A',
@@ -32,12 +32,12 @@ addArticleController.directive('imageonload',
     });
 
 /**
- * @name addArticleController
+ * @name moduleArticleAdd
  * @description Controller for handling article additions
  * @function
  * @memberOf angular_controller.AddArticleModule
  */
-addArticleController.controller('addArticleController', ['$scope', '$location', 'articleService', 'behaviour', 'authenticationState','toaster',
+moduleArticleAdd.controller('controllerArticleAdd', ['$scope', '$location', 'articleService', 'behaviour', 'authenticationState','toaster',
 
     function ($scope, $location, articleService, behaviour, authenticationState, toaster) {
 
@@ -138,7 +138,7 @@ addArticleController.controller('addArticleController', ['$scope', '$location', 
  * @function imageUrlFilter
  * @memberOf angular_controller.AddArticleModule
  */
-addArticleController.filter('imageUrlFilter', function () {
+moduleArticleAdd.filter('imageUrlFilter', function () {
     return function (url, alternateUrl) {
         if (alternateUrl && alternateUrl.$viewValue) {
             return alternateUrl.$viewValue;

@@ -1,19 +1,19 @@
 /**
  * Module for handling Login stuff
- * @class angular_controller.LoginModule
+ * @class angular_controller.moduleLogin
  * @memberOf angular_controller
  * @author Andy Hoegger
  * @since 06.11.2014
  */
-var loginController = angular.module('loginController', [ 'service.authentication']);
+var moduleLogin = angular.module('moduleLogin', [ 'service.authentication']);
 
 /**
- * @name loginController
+ * @name controllerLogin
  * @description Controller for Login stuff
  * @function
- * @memberOf angular_controller.LoginModule
+ * @memberOf angular_controller.moduleLogin
  */
-loginController.controller('loginController', ['$scope', '$location', '$window', '$timeout', 'authenticationService', 'toaster',
+moduleLogin.controller('controllerLogin', ['$scope', '$location', '$window', '$timeout', 'authenticationService', 'toaster',
     function ($scope, $location, $window, $timeout, authenticationService, toaster) {
 
         var loginSuccess = function (data) {

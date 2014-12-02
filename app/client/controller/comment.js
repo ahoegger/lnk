@@ -1,19 +1,19 @@
 /**
  * Module for handling a comment
- * @class angular_controller.CommentModule
+ * @class angular_controller.moduleComment
  * @memberOf angular_controller
  * @author Holger Heymanns
  * @since 20.11.2014
  */
-var singleCommentController = angular.module('singleCommentController', ['service.article', 'service.user', 'service.authentication']);
+var moduleComment = angular.module('moduleComment', ['service.article', 'service.user', 'service.authentication']);
 
 /**
  * @name singleCommentController
  * @description Controller for a single comment
  * @function
- * @memberOf angular_controller.CommentModule
+ * @memberOf angular_controller.moduleComment
  */
-singleCommentController.controller('singleCommentController', ['$scope', 'articleService', 'userService', 'authenticationState','toaster',
+moduleComment.controller('controllerComment', ['$scope', 'articleService', 'userService', 'authenticationState','toaster',
     function ($scope, articleService, userService, authenticationState,toaster) {
 
 
@@ -54,7 +54,7 @@ singleCommentController.controller('singleCommentController', ['$scope', 'articl
  * @function
  * @memberOf angular_controller.CommentModule
  */
-singleCommentController.directive('deleteComment', function () {
+moduleComment.directive('deleteComment', function () {
     return {
         template: '<a ng-click="deleteComment()"><i class="fa fa-ban icon-passive"></i><span class="icon-spacer">Delete</span></a>'
     }
