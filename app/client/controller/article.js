@@ -125,8 +125,7 @@ moduleArticle.controller('controllerArticle', ['$scope', 'articleService', 'auth
         };
 
 
-        $scope.hasEdit = false; // TODO Implement editing of article
-//        $scope.hasDelete = $scope.user && $scope.article._links.self != undefined && $scope.article.submittedBy === $scope.user.userName;
+        $scope.hasEdit = false;
 
         $scope.hasCommentsLoaded = commentsLoaded;      // make state of loaded comments accessible
         $scope.loadingComments = false;

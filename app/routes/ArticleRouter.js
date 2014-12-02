@@ -41,8 +41,8 @@ router
     .delete('/article/:articleId/comment/:commentId', jwt({secret: app_constants.secret.secretToken}), articleRouterModule.deleteSingleArticleComment)
 
     // the following functions must still be implemented in this module
-    .put('/article/:articleId/comment/:commentId', jwt({secret: app_constants.secret.secretToken}), routerHelperModule.notYetImplementedHandler) // TODO Implement
-    .get('/article/:articleId/votes/:userId', jwt({secret: app_constants.secret.secretToken, credentialsRequired: false}), routerHelperModule.notYetImplementedHandler)  // TODO Implement
+    .put('/article/:articleId/comment/:commentId', jwt({secret: app_constants.secret.secretToken}), routerHelperModule.notYetImplementedHandler)
+    .get('/article/:articleId/votes/:userId', jwt({secret: app_constants.secret.secretToken, credentialsRequired: false}), routerHelperModule.notYetImplementedHandler)
     ;
 
 module.exports = function(socket) {

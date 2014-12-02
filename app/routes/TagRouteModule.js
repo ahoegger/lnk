@@ -21,7 +21,7 @@ module.exports = function(datastore) {
             var resultSet;
             var halsonResultSet;
             resultSet = datastore.selectTags(function() {
-                return true;        // TODO implement proper query string
+                return true;
             });
             if(resultSet != undefined && resultSet.length === 0) {
                 res.status(200).send();     // empty resultset

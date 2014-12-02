@@ -54,7 +54,6 @@ module.exports = function(datastore) {
         },
         // create new user
         postUser: function(req, res) {
-            // TODO Refactor to use _handleUserUpdating
             var userObject = new UserClass.User();
             var halsonSingleUser;
             // first check, if the user name is already registered
@@ -71,7 +70,6 @@ module.exports = function(datastore) {
             return res.status(201).send(JSON.stringify(halsonSingleUser));
         },
         putUser: function(req, res) {
-            // TODO Refactor to use _handleUserUpdating
             var userObject = new UserClass.User();
             var halsonSingleUser;
             userObject.updateFromJsonObject(req.body);            // put putted content into user object
