@@ -48,13 +48,37 @@ Every share can be commented of any user. Vote up the share you love to bring th
 ## Known limitations ##
 none
 
-## Used tools and frameworks ##
+## Technologie stack ##
+### Backend
+* [**nodejs**](http://www.nodejs.org/) runtime
+* [**expressjs**](http://expressjs.com/) server (including some modules) 
+* [**socket.io**](http://socket.io/) websocket server
+* persistence: own implementation with persistence on the file system (plain json style) 
+* security:
+    * [**express-jwt**](https://github.com/auth0/express-jwt) for json web token
+    * [**bcryptjs**](https://github.com/dcodeIO/bcrypt.js) for encrypting passwords
+* [**halson**](https://github.com/seznam/halson) hateoas
+* [**log4js**](https://github.com/nomiddlename/log4js-node) logging
+
+### Frontend
 - [**boostrap**](http://getbootstrap.com/ "http://getbootstrap.com/") for layout and parts of grid functionality
 - [**jQuery**](http://jquery.com "http://jquery.com/") for dom manipulations
 - [**toaster**](https://github.com/jirikavi/AngularJS-Toaster "https://github.com/jirikavi/AngularJS-Toaster") for notifications.
 - [**ngAnimate**](https://docs.angularjs.org/api/ngAnimate "https://docs.angularjs.org/api/ngAnimate") for animations.
 - [**font awesome**](http://fortawesome.github.io/Font-Awesome/ "http://fortawesome.github.io/Font-Awesome/") as icon font.
+- [**less**](http://lesscss.org/ "http://lesscss.org/") for styling.
 - and some others...
+
+### Tooling
+* [**npm**](https://www.npmjs.org/ "https://www.npmjs.org/") as taskrunner.
+* [**bower**](http://bower.io/ "http://bower.io/") dependency management
+* unit tests:
+    * [**mocha**](http://mochajs.org/ "http://mochajs.org/") testrunner
+    * [**chai**](http://chaijs.com/) with bdd style [expect](http://chaijs.com/api/bdd/) assertion library
+    * [**sinon**](http://sinonjs.org/) mocking / spies
+    * [**istanbul**](https://github.com/gotwarlost/istanbul) coverage reporting
+
+
 
 ## Application architecture and design
 The .lnk web application consists of two functional areas:
@@ -148,33 +172,6 @@ complete but should be viewed as a proof of concept (and well, ensure that the t
 
 To generate the documentation of the application, we used JSDoc which provides conventions to generate code documentation.  
 
-## Technology Stack
-### Backend
-* runtime: [nodejs](http://www.nodejs.org/)
-* server: [expressjs](http://expressjs.com/) (including some modules)
-* websocket server: [socket.io](http://socket.io/)
-* persistence: own implementation with persistence on the file system (plain json style) 
-* security:
-    * [express-jwt](https://github.com/auth0/express-jwt) for json web token
-    * [bcryptjs](https://github.com/dcodeIO/bcrypt.js) for encrypting passwords
-* hateoas: [halson](https://github.com/seznam/halson)
-* logging: [log4js](https://github.com/nomiddlename/log4js-node)
-
-### Frontend
-* databinding and routing: [angularjs](https://angularjs.org/)
-* layout: [bootstrap](http://getbootstrap.com/)
-* styling: css, based on [less](http://lesscss.org/)
-* icons: [fontawesome](https://fortawesome.github.io/Font-Awesome/)
-
-### Tooling
-* taskrunner: [npm](https://www.npmjs.org/)
-* dependency management: [bower](http://bower.io/)
-* 
-* unit tests:
-    * testrunner: [mocha](http://mochajs.org/)
-    * assertion library: [chai](http://chaijs.com/) with bdd style [expect](http://chaijs.com/api/bdd/)
-    * mocking / spies: [sinon](http://sinonjs.org/)
-    * coverage reporting: [istanbul](https://github.com/gotwarlost/istanbul)
 
 ## Feature Check
 ### Mandatory features
