@@ -14,10 +14,14 @@ The current state is deployed at https://frozen-inlet-2896.herokuapp.com/
  - `git checkout [branchName]` where branchname is milestone01 or master
 
 ### Install and run .lnk ###
- - `npm install`
+ 
  - `bower install`
- - `gulp`
- - `gulp watch` the server is up an running on localhost:9000. Consider the console output for the port number (usually 9000)
+ - `npm install`
+ - `node lnk-server.js` the server is up and running on localhost:3000
+ - Open a browser and connent to `http://localhost:3000`
+
+#### Troubleshooting
+Often the port used by .lnk is already in use.
 
 ## About .lnk ###
 **Love the things you find - share the things you love <3.**
