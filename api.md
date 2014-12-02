@@ -32,6 +32,9 @@ The bits and pieces are knit together in the app.js angular application file. us
 (views) the the ng-view part of the index.html and assign the basic controller. For single articles and the comments,
 sub controllers (see above) are applied inside the loop (article) or a section of the partial (comments).
 
+The comments of an article are realized as lazy loading. I.e. the user clicks on "Show comments" an just then the comments
+are being fetched from the backend.
+
 On the backend side like most web application, there are two functional distinct areas:
 * serving static files
 * serving data in a restful manner
@@ -89,35 +92,65 @@ To generate the documentation of the application, we used JSDoc which provides c
 
 ## Technology Stack
 ### Backend
-* runtime: nodejs
-* server: expressjs (including some modules)
-* websocket server: socket.io
+* runtime: [nodejs](http://www.nodejs.org/)
+* server: [expressjs](http://expressjs.com/) (including some modules)
+* websocket server: [socket.io](http://socket.io/)
 * persistence: own implementation with persistence on the file system (plain json style) 
 * security:
-    * express-jwt for json web token
-    * bcryptjs for encrypting passwords
-* hateoas: halson
-* logging: log4js
+    * [express-jwt](https://github.com/auth0/express-jwt) for json web token
+    * [bcryptjs](https://github.com/dcodeIO/bcrypt.js) for encrypting passwords
+* hateoas: [halson](https://github.com/seznam/halson)
+* logging: [log4js](https://github.com/nomiddlename/log4js-node)
 
 ### Frontend
-* databinding and routing: angular
-* layout: bootstrap
-* styling: css, based on less
-* icons: fontawesome
+* databinding and routing: [angularjs](https://angularjs.org/)
+* layout: [bootstrap](http://getbootstrap.com/)
+* styling: css, based on [less](http://lesscss.org/)
+* icons: [fontawesome](https://fortawesome.github.io/Font-Awesome/)
 
 ### Tooling
-* taskrunner: npm
-* dependency management: bower
+* taskrunner: [npm](https://www.npmjs.org/)
+* dependency management: [bower](http://bower.io/)
 * 
 * unit tests:
-    * testrunner: mocha
-    * assertion library: chai with bdd style "expect"
-    * mocking / spies: sinon
-    * coverage reporting: istanbul
-
-
+    * testrunner: [mocha](http://mochajs.org/)
+    * assertion library: [chai](http://chaijs.com/) with bdd style [expect](http://chaijs.com/api/bdd/)
+    * mocking / spies: [sinon](http://sinonjs.org/)
+    * coverage reporting: [istanbul](https://github.com/gotwarlost/istanbul)
 
 ## Feature Check
+### Mandatory features
+* Erfassen neuer Links: Implemented
+* Links kommentieren: Implemented
+* Neue Logins/ Accounts anlegen: Implemented
+* Login / Logout: Implemented (using json web token)
+* Neu nur wenn logged in: Implemented (authentication handling an the front end and backend)
+* Rating von Links: Implemented (vote up and down with +1 and -0)
+* Rating von Kommentaren: Not implemented
+* Eigenes Rating rückgängig machen: Implemented (vote up / down depending on login state and vote before; remove vote with "0")
+
+### Non functional requirements
+* Domain Objekte sauber in Klassen gekapselt: Implemented (various entities as classes)
+* Layer Architektur auf dem Client: Implemented (controllers and services with corresponding depencencies)
+* Fluides Design auf  Smart-Phone und Desktop: Implemented (layout changes on various break points, see the header bar as an example)
+* Alle Clients sind synchron: Partial implementation (as a proof of concept voting gets synchronized between all clients)  
+* Daten via Templates darstellen: Implemented (using angular data binding)
+* Einfaches Deployment und Starten: Implemented (clone from git, type "npm install", type "node lnk-server.js", open app in browser (localhost, port 3000) )
+* Mindestens 3 «sinnvolle» Unit Tests: Implemented (run the tests with "npm run mocha-test", check the coverage by typing "npm run coverage" and opening the file lnk/coverage/lcov-report/index.html)
+* Sauberer JavaScript Code / Struktur: Implemented (as to our judgement)
+* Sauberer CSS Code: Implemented (used less, as to our judgement)
+
+### Optional requirements
+* Löschen von eigenen Links: Implemented
+* Bearbeiten von eigenen Links: Not implemented in the front end, the backend api allows updating the article) 
+* Kommentieren  von Kommentaren: Not implemented
+* Bearbeiten des Accounts: Implemented
+* Dashboard für Account: Sort of implemented: Clicking on any user name will load that users articles.
+
+**Not all features could be implemented in the quality we feel is important for a production ready application. The project 
+demonstrates quite a long list of features, technologies and techniques. Some are final, some are proof of concept.
+But after all, we ar absolutely convinced, that the "package" of our .lnk app reflects very well the content of
+the CAS-FEE and the skills and know how we could learn.**
 
 ## Entities / documents / resource types ##
 ### The following entities are needed:
