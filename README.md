@@ -2,7 +2,7 @@
 Holger Heymanns, Andreas Hoegger
 
 The latest released of the front end only version is available under http://ahoegger.github.io/lnk/dist/.
-The current state is deployed at https://frozen-inlet-2896.herokuapp.com/
+The current state is deployed at [heroku](https://lnk-cas-fee.herokuapp.com) (Note: The heroku deployment does not support persistence on file systems with the free account, changes saved are lost, as soon as heroku stopy the dyno)
 
 Prezi presentation: [.lnk](https://prezi.com/ccxn2fh6jjbd/lnk/ "https://prezi.com/ccxn2fh6jjbd/lnk/").
 
@@ -35,17 +35,15 @@ Every share can be commented of any user. Vote up the share you love to bring th
   - The `create account` form requires a unique user name and will also ask you to do so in case you entered a username which is already in use. 
 - On the main screen use the tab "Articles" to search for articles. This functionallity is open to anybody so does not use any authentication. The text search retuns matches of title or description.
 - The secound tab `Add` is used to post new articles to .lnk. New articles can only be posted once you have successfully logged in. If you access the `Add` tab without a previous authenification you will be kindly asked to login. 
-- - To add a new article (i.e. to share a .lnk you love) do the following:
+- To add a new article (i.e. to share a .lnk you love) do the following:
     - go to the tab "Add"
-    - Fill in the fields (all fields are required)
-    - If .lnk URL is not a valid image URL, the additional field "alternate image URL" is being displayed and you may specify an URL pointing to an image (and have .lnk URL point to a webpage)
+    - fill in the fields
+    - If the main lnks does not point to an image, you can put a link to an image into the "image" field. 
     - With the ".lnk it" button, the new entry gets stored.
 - Every article can have several comments. The comments can be accessed through the `Show comments`link.
 - To write a new comment you have to be authorized. In all other cases you will not see the textfield to write comments.
 - Every `Tag` or `Author` is accessible and reduce the search result to articles of the accessed tag or username. The filter will be displayed under the search field and can be removed again by clicking the `cross` next to it.
 - Every article can be voted up or down. To use the vote functionallity you have to be logged in (authenificated). Eeach user can only vote once on an article. This is reflected in the UI and also checked on the backend.
-
-
 
 ## Known limitations ##
 none
