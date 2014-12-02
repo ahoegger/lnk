@@ -4,6 +4,8 @@ Holger Heymanns, Andreas Hoegger
 The latest released of the front end only version is available under http://ahoegger.github.io/lnk/dist/.
 The current state is deployed at https://frozen-inlet-2896.herokuapp.com/
 
+Prezi presentation: [.lnk](https://prezi.com/ccxn2fh6jjbd/lnk/ "https://prezi.com/ccxn2fh6jjbd/lnk/").
+
 ## Installation ##
 ### Prerequisits ###
 - Node.js (http://nodejs.org/) and node package manager (npm)
