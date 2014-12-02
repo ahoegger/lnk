@@ -131,7 +131,7 @@ To generate the documentation of the application, we used JSDoc which provides c
 
 ### Non functional requirements
 * Domain Objekte sauber in Klassen gekapselt: Implemented (various entities as classes)
-* Layer Architektur auf dem Client: Implemented (controllers and services with corresponding depencencies)
+* Layer Architektur auf dem Client: Implemented (controllers and services with corresponding dependencies)
 * Fluides Design auf  Smart-Phone und Desktop: Implemented (layout changes on various break points, see the header bar as an example)
 * Alle Clients sind synchron: Partial implementation (as a proof of concept voting gets synchronized between all clients)  
 * Daten via Templates darstellen: Implemented (using angular data binding)
@@ -246,5 +246,5 @@ Hint: Watch out singular and plural
     * [HHE OK] GET /api/user/:id/: Return des Users
     * [HHE OK] POST /api/users/ : Payload {Payload (application/json) { userName: ccc, name:, firstname;, password: xxx } return: 201, mit user class
     * [HHE OK] PUT /api/user/:id/: Update vom User, return neuer user
-    * [HHE OK] DELETE /api/user/:id/: Löschen vom User (setzt active = false); gibt nichts zurück
+    * [HHE OK] DELETE /api/user/:id/: Löschen vom User (setzt active = false); gibt nichts zurück (also 204)
     * [HHE OK] GET /api/users?username=xxx returns a list of matching user
