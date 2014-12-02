@@ -29,23 +29,29 @@ Often the port used by .lnk is already in use.
 Every share can be commented of any user. Vote up the share you love to bring them on a higher ranking for other users.
 
 ## Usage ##
-- On the main screen, use the tab "search" to search for articles in the "in memory database".
-- By default, there are three articles with dummy data and articles available.
-- The search is no real search functionality, but retrieves all articles, regardless of what was entered
-- To add a new article (i.e. to share a .lnk you love) do the following:
+- On the very right on the yellow navigation bar you have the two options to login or create a new user account.
+  - The `create account` form requires a unique user name and will also ask you to do so in case you entered a username which is already in use. 
+- On the main screen use the tab "Articles" to search for articles. This functionallity is open to anybody so does not use any authentication. The text search retuns matches of title or description.
+- The secound tab `Add` is used to post new articles to .lnk. New articles can only be posted once you have successfully logged in. If you access the `Add` tab without a previous authenification you will be kindly asked to login. 
+- - To add a new article (i.e. to share a .lnk you love) do the following:
     - go to the tab "Add"
     - Fill in the fields (all fields are required)
     - If .lnk URL is not a valid image URL, the additional field "alternate image URL" is being displayed and you may specify an URL pointing to an image (and have .lnk URL point to a webpage)
-    - With the ".lnk it" button, the new entry gets stored in the "in memoray database"; to see it, execute the search again
-- You can vote up or vote down the articles as you like; they are sorted instantly
-- You can show or hide comments and you can add comments as you like
-- You can expect even more love and share with the next milestone. Enjoy.
+    - With the ".lnk it" button, the new entry gets stored.
+- Every article can have several comments. The comments can be accessed through the `Show comments`link.
+- To write a new comment you have to be authorized. In all other cases you will not see the textfield to write comments.
+- Every `Tag` or `Author` is accessible and reduce the search result to articles of the accessed tag or username. The filter will be displayed under the search field and can be removed again by clicking the `cross` next to it.
+- Every article can be voted up or down. To use the vote functionallity you have to be logged in (authenificated). Eeach user can only vote once on an article. This is reflected in the UI and also checked on the backend.
+
+
 
 ## Known limitations ##
-- The links to the tags and users below the articles do not yet lead to other resources, as the backend is not yet available
-- New articles are "persisted" in the in memory database and availble for search. They are reset with each reload of the page
+none
 
 ## Used tools and frameworks ##
-- **boostrap** for layout and parts of grid functionality
-- **jQuery** for dom manipulation
-- **knockout.js** as MVVM data binding library
+- [**boostrap**](http://getbootstrap.com/ "http://getbootstrap.com/") for layout and parts of grid functionality
+- [**jQuery**](http://jquery.com "http://jquery.com/") for dom manipulations
+- [**toaster**](https://github.com/jirikavi/AngularJS-Toaster "https://github.com/jirikavi/AngularJS-Toaster") for notifications.
+- [**ngAnimate**](https://docs.angularjs.org/api/ngAnimate "https://docs.angularjs.org/api/ngAnimate") for animations.
+- [**font awesome**](http://fortawesome.github.io/Font-Awesome/ "http://fortawesome.github.io/Font-Awesome/") as icon font.
+- and some others...
