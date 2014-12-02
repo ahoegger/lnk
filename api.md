@@ -152,6 +152,8 @@ demonstrates quite a long list of features, technologies and techniques. Some ar
 But after all, we ar absolutely convinced, that the "package" of our .lnk app reflects very well the content of
 the CAS-FEE and the skills and know how we could learn.**
 
+See a small prezi presentation for [.lnk](https://prezi.com/ccxn2fh6jjbd/lnk/)
+
 ## Entities / documents / resource types ##
 ### The following entities are needed:
 * article: the article / link submitted, references user, votes, comments and tags
