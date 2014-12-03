@@ -12,6 +12,7 @@
 var express = require('express');
 var requestLogger = require('morgan');     // a requestLogger
 var http = require('http');
+var compression = require('compression');         // gzip compression
 var path = require('path');                       // path utilities
 var favicon = require('serve-favicon');           // fav-icon handling
 var lessMiddleware = require('less-middleware');  // less middleware, compiles the .less files into .css on the fly; gulp had done this before
@@ -45,6 +46,11 @@ var public_root_path = path.join(app_constants.appPath, 'client');
 var bower_root_path = path.join(app_constants.appPath, 'bower_components');
 var fonts_root_path = path.join(app_constants.appPath, 'bower_components/font-awesome/fonts');
 var api_base_uri = '/api';
+
+// gzip compression
+app.use(compression({
+    threshold: 512
+}));
 
 // Generic handling of request
 app.use(favicon(path.join(public_root_path, 'favicon.ico')));      // handle favicon requests in a special way
