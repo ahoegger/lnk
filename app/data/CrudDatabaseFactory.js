@@ -16,7 +16,7 @@ var fs = require('fs');
  * @param {String} idProperty Property-Name for the ID property
  * @param {String[]} notNullProperties Array of Strings containing the properties, that may not be null
  * @param {String[]} uniqueProperties Array of Strings containing the properties, that must be unique before inserting or updating
- * @param {Object} Options-Objcet with more configuration options
+ * @param {Object} options Options-Object with more configuration options
  * @constructor
  * @class
  */
