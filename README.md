@@ -12,7 +12,7 @@ Prezi presentation: [.lnk](https://prezi.com/ccxn2fh6jjbd/lnk/ "https://prezi.co
 ### Checkout from GIT ###
  - `git clone https://github.com/ahoegger/lnk.git`
  - move into the lnk directory `cd ./lnk`
- - `git checkout [branchName]` where the current stable branch is milestone02.
+ - `git checkout [branchName]` where the current stable branch is **milestone02**.
 
 ### Install and run .lnk ###
  
