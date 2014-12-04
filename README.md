@@ -1,7 +1,6 @@
 #lnk CAS FEE#
 Holger Heymanns, Andreas Hoegger
 
-The latest released of the front end only version is available under http://ahoegger.github.io/lnk/dist/.
 The current state is deployed at [heroku](https://lnk-cas-fee.herokuapp.com) (Note: The heroku deployment does not support persistence on file systems with the free account, changes saved are lost, as soon as heroku stopy the dyno)
 
 Prezi presentation: [.lnk](https://prezi.com/ccxn2fh6jjbd/lnk/ "https://prezi.com/ccxn2fh6jjbd/lnk/").
@@ -13,7 +12,7 @@ Prezi presentation: [.lnk](https://prezi.com/ccxn2fh6jjbd/lnk/ "https://prezi.co
 ### Checkout from GIT ###
  - `git clone https://github.com/ahoegger/lnk.git`
  - move into the lnk directory `cd ./lnk`
- - `git checkout [branchName]` where branchname is milestone01 or master
+ - `git checkout [branchName]` where the current stable branch is milestone02.
 
 ### Install and run .lnk ###
  
